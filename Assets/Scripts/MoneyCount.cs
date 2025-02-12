@@ -12,9 +12,13 @@ public class MoneyCount : MonoBehaviour {
     }
     public void endDay()
     {
-        //Rnage is set up like this due to it being minInclusive and maxExclusive, and we need to test that it's possible to see a trend upwards
-        money += Random.Range(-19, 21);
-        Debug.Log("PRESSED");
+        //Range is set up like this due to it being minInclusive and maxExclusive, and we need to test that it's possible to see a trend upwards
+        int itemsSold = 10;
+        int price = Random.Range(0, 10);
+        int upkeepCost = Random.Range(0, 40);
+        int change = (itemsSold * price) - upkeepCost;
+        money += change;
+        Debug.Log("Items Sold: " + itemsSold + ", at price " + price + ", Upkeep Costs: "  + upkeepCost + ". Net change: " + change);
         PlayerPrefs.SetInt("amount", money);
         PlayerPrefs.Save();
         text.text = money.ToString();
