@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MovementController : MonoBehaviour
 {
-    public static MovementController instance;
+    //public static MovementController instance;
 
     [SerializeField] Boolean debug;
 
@@ -22,6 +22,7 @@ public class MovementController : MonoBehaviour
         //TODO fix to include macro for playerheight
         upperStep.transform.position = new Vector3(playerModel.transform.position.x, upperStep.transform.position.y + stepHeight, playerModel.transform.position.z);
 
+        /*
         //Only ever should be one instance. Destroys prior instance if already made
         if (instance != null)
         {
@@ -34,6 +35,7 @@ public class MovementController : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
+        */
     }
 
     // Update is called once per frame
