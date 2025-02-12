@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "CIS4914 Financial Familiars.sln"
+    "dotnet.defaultSolution": "Financial-Familiars.sln"
 }
