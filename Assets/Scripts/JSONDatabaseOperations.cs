@@ -42,11 +42,13 @@ public class JSONDatabaseOperations : MonoBehaviour
 
     void Update()
     {
+        //When quiting from pause menu, call this function
         if (debug && Input.GetKey(KeyCode.K))
         {
             SaveData();
         }
 
+        //When click start on the title screen, call this function TODO
         if (debug && Input.GetKey(KeyCode.L))
         {
             LoadData();
