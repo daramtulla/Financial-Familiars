@@ -127,11 +127,24 @@ public class SuppliersMenu: MonoBehaviour
                 }
                 else if (store == "Store B")
                 {
-                    selectedItem.changeMarkup(rand.Next(10, 26));
+                    //like rolling 1d4
+                    int randomChance = rand.Next(1, 5);
+                    if (randomChance == 1)
+                    {
+                        selectedItem.changeMarkup(-10);
+                    } else if (randomChance == 2)
+                    {
+                        selectedItem.changeMarkup(5);
+                    } else if (randomChance == 3)
+                    {
+                        selectedItem.changeMarkup(20);
+                    } else{
+                        selectedItem.changeMarkup(60);
+                    }
                 }
                 else if (store == "Store C")
                 {
-                    selectedItem.changeMarkup(rand.Next(50, 80));
+                    selectedItem.changeMarkup(rand.Next(0, 100));
                 }
 
                 //put on list
