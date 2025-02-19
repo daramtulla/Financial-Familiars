@@ -1,8 +1,8 @@
 ID,Name,Quantity,BaseCost,Markup
-1,Clear Crystal Orb,10,20,25
-2,Walnut Wand,0,10,25
-3,Vial of Acid,100,25,25
-4,Garnet Gemstone,0,100,25
+1,Clear Crystal Orb,30,20,25
+2,Walnut Wand,10,10,25
+3,Vial of Acid,110,25,25
+4,Garnet Gemstone,10,100,25
 5,Amethyst Gemstone,0,100,25
 6,Aquamarine Gemstone,0,500,25
 7,Diamond Gemstone,0,5000,25
