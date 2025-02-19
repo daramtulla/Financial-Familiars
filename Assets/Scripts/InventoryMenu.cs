@@ -16,7 +16,8 @@ public class InventoryMenu : MonoBehaviour
     void Start()
     {
         inventoryPanel.SetActive(false);
-        AddTestItems();
+        //AddTestItems();
+        LoadInventoryFromCSV();
         UpdateInventoryUI();
     }
 
@@ -27,6 +28,11 @@ public class InventoryMenu : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.I)){
             ToggleMenu();
         }
+    }
+
+    private void LoadInventoryFromCSV()
+    {
+        inventory = CSVLoader.LoadItemsFromCSV("InventoryItems.csv");
     }
 
     public void ToggleMenu(){
