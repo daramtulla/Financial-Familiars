@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.IO;
 public class SuppliersMenu: MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -70,8 +71,27 @@ public class SuppliersMenu: MonoBehaviour
 
     private void BuyItem(InventoryItem item, int quantity)
     {
+        item.increaseQuantity(quantity);
         Debug.Log($"Bought {quantity} of: {item.itemName}");
+
+        SaveInventoryToCSV();
+
     }
 
+    private void SaveInventoryToCSV()
+    {
+        string filePath = Path.Combine(Application.streamingAssetsPath, "InventoryItems.csv");
+        List<string> lines = new List<string>();
+
+        lines.Add("ID,Name,Quantity,BaseCost,Markup");
+
+        foreach (InventoryItem item in supplierItems)
+        {
+            lines.Add($"{item.idNumber},{item.itemName},{item.quantity},{item.baseCost},{item.markup}");
+        }
+        File.WriteAllLines(filePath, lines);
+
+        Debug.Log($"Inventory saved to CSV: {filePath}");
+    }
 
 }

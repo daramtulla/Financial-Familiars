@@ -20,10 +20,11 @@ public class CSVLoader: MonoBehaviour
 
                 int id = int.Parse(values[0]);
                 string name = values[1];
-                float baseCost = float.Parse(values[2]);
-                float markup = float.Parse(values[3]);
+                int quantity = int.Parse(values[2]);
+                float baseCost = float.Parse(values[3]);
+                float markup = float.Parse(values[4]);
 
-                InventoryItem newItem = new InventoryItem(id, name, 10, baseCost, markup);
+                InventoryItem newItem = new InventoryItem(id, name, quantity, baseCost, markup);
                 items.Add(newItem);
             }
         }

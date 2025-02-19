@@ -23,4 +23,8 @@ public class InventoryItem
         baseCost = cost;
         markup = markupPercentage;
     }
+
+    public void increaseQuantity(int added){
+        quantity = quantity + added;
+    }
 }
