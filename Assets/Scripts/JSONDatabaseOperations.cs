@@ -42,7 +42,7 @@ public class JSONDatabaseOperations : MonoBehaviour
 
     void Update()
     {
-        //When quiting from pause menu, call this function
+        //When quiting from pause menu, call this function TODO
         if (debug && Input.GetKey(KeyCode.K))
         {
             SaveData();
@@ -54,9 +54,6 @@ public class JSONDatabaseOperations : MonoBehaviour
             LoadData();
         }
     }
-
-
-
 }
 
 [System.Serializable]
