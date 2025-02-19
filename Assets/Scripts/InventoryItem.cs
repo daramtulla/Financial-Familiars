@@ -12,8 +12,10 @@ public class InventoryItem
     public float baseCost;
     public float markup;
 
-    public float SellingPrice => baseCost + (baseCost * markup / 100f);
-    public float Profit => SellingPrice - baseCost;
+    public float SellingPrice;
+    public float Profit;
+
+    public string storeName = "unknown";
 
     public InventoryItem(int id, string name, int qty, float cost, float markupPercentage)
     {
@@ -22,9 +24,22 @@ public class InventoryItem
         quantity = qty;
         baseCost = cost;
         markup = markupPercentage;
+        SellingPrice = cost + (cost * markupPercentage / 100f);
+        Profit = (cost * markupPercentage / 100f);
     }
 
     public void increaseQuantity(int added){
         quantity = quantity + added;
+    }
+
+    public void changeStore(string store){
+        storeName = store;
+    }
+
+    public void changeMarkup(int percent){
+        markup = percent;
+        SellingPrice = baseCost * (1 + percent / 100f);
+
+        Debug.Log($"{itemName} now has a {markup}% markup, selling for ${SellingPrice.ToString("0.00")}");
     }
 }

@@ -29,7 +29,9 @@ public class SuppliersMenu: MonoBehaviour
 
     private void LoadSuppliersFromCSV()
     {
-        supplierItems = CSVLoader.LoadItemsFromCSV("InventoryItems.csv");
+        List<InventoryItem> allItems = CSVLoader.LoadItemsFromCSV("InventoryItems.csv");
+        supplierItems = Filter(allItems);
+
     }
 
     public void ToggleMenu(){
@@ -52,14 +54,16 @@ public class SuppliersMenu: MonoBehaviour
             Destroy(child.gameObject);
         }
 
+        List<InventoryItem> filteredItems = Filter(supplierItems);
+
         foreach (InventoryItem item in supplierItems)
         {
             GameObject newItem = Instantiate(supplierItemPrefab, suppliersContent);
 
             TextMeshProUGUI[] texts = newItem.GetComponentsInChildren<TextMeshProUGUI>();
-            texts[0].text = "Store A";
+            texts[0].text = item.storeName;
             texts[1].text = item.itemName;
-            texts[2].text = "$" + (item.baseCost).ToString("0.00");
+            texts[2].text = "$" + (item.SellingPrice).ToString("0.00");
 
             Button buy10Button = newItem.transform.Find("Buy10Button").GetComponent<Button>();
             Button buy100Button = newItem.transform.Find("Buy100Button").GetComponent<Button>();
@@ -92,6 +96,52 @@ public class SuppliersMenu: MonoBehaviour
         File.WriteAllLines(filePath, lines);
 
         Debug.Log($"Inventory saved to CSV: {filePath}");
+    }
+
+    //Who is selling what for what?
+    private List<InventoryItem> Filter(List<InventoryItem> items)
+    {
+        List<InventoryItem> filteredItems = new List<InventoryItem>();
+        System.Random rand = new System.Random();
+
+        
+        //exactly 3 stores
+        string[] stores = { "Store A", "Store B", "Store C" };
+
+        foreach (string store in stores)
+        {
+
+            //1-3 items per store
+            int loopCount = rand.Next(1, 4);
+            for (int i = 0; i < loopCount; i++){
+                int randomIndex = rand.Next(0, items.Count);
+                InventoryItem selectedItem = items[randomIndex];
+
+                //label store
+                selectedItem.changeStore(store);
+
+                //Store-Specific Markup
+                if (store == "Store A")
+                {
+                    selectedItem.changeMarkup(rand.Next(0, 16));
+                }
+                else if (store == "Store B")
+                {
+                    selectedItem.changeMarkup(rand.Next(10, 26));
+                }
+                else if (store == "Store C")
+                {
+                    selectedItem.changeMarkup(rand.Next(50, 80));
+                }
+
+                //put on list
+                filteredItems.Add(selectedItem);
+            }
+
+        }
+
+        Debug.Log($"Filtered {items.Count} items down to {filteredItems.Count} items.");
+        return filteredItems;
     }
 
 }
