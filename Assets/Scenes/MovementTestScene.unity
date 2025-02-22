@@ -8534,6 +8534,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSource: {fileID: 1501426400}
   interactRayRange: 2
+  playerModel: {fileID: 939459743}
 --- !u!1 &1182680518
 GameObject:
   m_ObjectHideFlags: 0
