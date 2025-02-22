@@ -15,11 +15,11 @@ public class MovementController : MonoBehaviour
     private Vector3 input;
     [SerializeField] GameObject upperStep;
     [SerializeField] GameObject lowerStep;
+    public Vector3 stepSpeed;
     public float stepHeight;
 
     void Awake()
     {
-        //TODO fix to include macro for playerheight
         upperStep.transform.position = new Vector3(playerModel.transform.position.x, upperStep.transform.position.y + stepHeight, playerModel.transform.position.z);
 
         /*
@@ -54,14 +54,16 @@ public class MovementController : MonoBehaviour
 
     void isClimbable()
     {
-        //May need to adjust raycast distance depending on player model dimensions. TODO add radius of model automatically
-        if (Physics.Raycast(lowerStep.transform.position, transform.TransformDirection(Vector3.forward), .6f))
+        //May need to adjust raycast distance depending on player model dimensions TODO
+
+        //Figure out which direction the player is moving and trigger the raycast in that direction
+        if (Physics.Raycast(lowerStep.transform.position, transform.TransformDirection(Vector3.forward), .6f) && Input.GetKey(KeyCode.W))
         {
             if (debug) print("LowerHit");
-            if (!Physics.Raycast(upperStep.transform.position, transform.TransformDirection(Vector3.forward), .7f) && isMoving())
+            if (!Physics.Raycast(upperStep.transform.position, transform.TransformDirection(Vector3.forward), .7f))
             {
                 if (debug) print("UpperMiss");
-                playerModel.linearVelocity = new Vector3(0f, 5f, 0f);
+                playerModel.linearVelocity = stepSpeed;
             }
             else
             {
@@ -69,13 +71,13 @@ public class MovementController : MonoBehaviour
             }
         }
 
-        if (Physics.Raycast(lowerStep.transform.position, transform.TransformDirection(Vector3.back), .6f))
+        if (Physics.Raycast(lowerStep.transform.position, transform.TransformDirection(Vector3.back), .6f) && Input.GetKey(KeyCode.S))
         {
             if (debug) print("LowerHit");
-            if (!Physics.Raycast(upperStep.transform.position, transform.TransformDirection(Vector3.back), .7f) && isMoving())
+            if (!Physics.Raycast(upperStep.transform.position, transform.TransformDirection(Vector3.back), .7f))
             {
                 if (debug) print("UpperMiss");
-                playerModel.linearVelocity = new Vector3(0f, 5f, 0f);
+                playerModel.linearVelocity = stepSpeed;
             }
             else
             {
@@ -83,13 +85,13 @@ public class MovementController : MonoBehaviour
             }
         }
 
-        if (Physics.Raycast(lowerStep.transform.position, transform.TransformDirection(Vector3.left), .6f))
+        if (Physics.Raycast(lowerStep.transform.position, transform.TransformDirection(Vector3.left), .6f) && Input.GetKey(KeyCode.A))
         {
             if (debug) print("LowerHit");
-            if (!Physics.Raycast(upperStep.transform.position, transform.TransformDirection(Vector3.left), .7f) && isMoving())
+            if (!Physics.Raycast(upperStep.transform.position, transform.TransformDirection(Vector3.left), .7f))
             {
                 if (debug) print("UpperMiss");
-                playerModel.linearVelocity = new Vector3(0f, 5f, 0f);
+                playerModel.linearVelocity = stepSpeed;
             }
             else
             {
@@ -97,13 +99,13 @@ public class MovementController : MonoBehaviour
             }
         }
 
-        if (Physics.Raycast(lowerStep.transform.position, transform.TransformDirection(Vector3.right), .6f))
+        if (Physics.Raycast(lowerStep.transform.position, transform.TransformDirection(Vector3.right), .6f) && Input.GetKey(KeyCode.D))
         {
             if (debug) print("LowerHit");
-            if (!Physics.Raycast(upperStep.transform.position, transform.TransformDirection(Vector3.right), .7f) && isMoving())
+            if (!Physics.Raycast(upperStep.transform.position, transform.TransformDirection(Vector3.right), .7f))
             {
                 if (debug) print("UpperMiss");
-                playerModel.linearVelocity = new Vector3(0f, 5f, 0f);
+                playerModel.linearVelocity = stepSpeed;
             }
             else
             {
@@ -111,19 +113,4 @@ public class MovementController : MonoBehaviour
             }
         }
     }
-
-    Boolean isMoving()
-    {
-        if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D))
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
-
-
-
 }

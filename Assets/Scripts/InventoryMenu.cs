@@ -12,6 +12,9 @@ public class InventoryMenu : MonoBehaviour
 
     //all the stock
     private List<InventoryItem> inventory = new List<InventoryItem>();
+
+    //For selling items
+    private CustomerManager customerManager;
         
     void Start()
     {
@@ -19,6 +22,7 @@ public class InventoryMenu : MonoBehaviour
         //AddTestItems();
         LoadInventoryFromCSV();
         UpdateInventoryUI();
+        customerManager = new CustomerManager(inventory);
     }
 
     // Update is called once per frame
@@ -52,9 +56,10 @@ public class InventoryMenu : MonoBehaviour
 
     private void AddTestItems()
     {
-        inventory.Add(new InventoryItem(1, "Clear Crystal Orb", 10, 20.00f, 50));
-        inventory.Add(new InventoryItem(2, "Walnut Wand", 100, 10.00f, 25));
-        inventory.Add(new InventoryItem(3, "Vial of Acid", 1, 25.00f, 100));
+        inventory.Add(new InventoryItem(1, "Clear Crystal Orb", 10, 20.00f, 50, 3.0f, -5.0f));
+        inventory.Add(new InventoryItem(2, "Walnut Wand", 100, 10.00f, 10, 2.0f, 5.0f));
+        inventory.Add(new InventoryItem(3, "Vial of Acid", 1, 25.00f, 100, 1.2f, -2.0f));
+        inventory.Add(new InventoryItem(4, "Duplicating Rings", 1000, 10.00f, 0, 0.5f, 100.0f));
     }
 
     private void UpdateInventoryUI()
@@ -85,6 +90,16 @@ public class InventoryMenu : MonoBehaviour
         }
     }
 
+    //test function
+    public void simulateSales()
+    {
+        //don't need to see the money made, but good for debugging
+        customerManager.findInformation();
+        float moneyMade = customerManager.sellItems();
+
+        UpdateInventoryUI();
+    }
+
     public void ReloadInventory()
     {
         Debug.Log("Reloading Inventory...");
@@ -101,6 +116,4 @@ public class InventoryMenu : MonoBehaviour
 
         Debug.Log("Inventory Reloaded and UI Updated.");
     }
-
-
 }
