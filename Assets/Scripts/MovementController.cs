@@ -12,6 +12,7 @@ public class MovementController : MonoBehaviour
     //For vertical and horizontal movement
     public Rigidbody playerModel;
     public float movementSpeed;
+    public float rotationSpeed;
     private Vector3 input;
     [SerializeField] GameObject upperStep;
     [SerializeField] GameObject lowerStep;
@@ -50,6 +51,16 @@ public class MovementController : MonoBehaviour
         playerModel.linearVelocity = new Vector3(input.x * movementSpeed, playerModel.linearVelocity.y, input.z * movementSpeed);
 
         isClimbable();
+
+        moveDirection();
+    }
+
+    void moveDirection()
+    {
+        if (playerModel.linearVelocity != Vector3.zero)
+        {
+            playerModel.transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(input, Vector3.up), rotationSpeed);
+        }
     }
 
     void isClimbable()

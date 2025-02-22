@@ -16,9 +16,12 @@ public class InteractionManager : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.F))
         {
-            if (Physics.Raycast(interactSource.transform.position, transform.TransformDirection(Vector3.forward), out RaycastHit rayInfoF, interactRayRange))
+            if (Physics.Raycast(interactSource.transform.position,
+            transform.TransformDirection(Vector3.forward),
+            out RaycastHit rayInfoF, interactRayRange))
             {
-                if (rayInfoF.collider.gameObject.TryGetComponent(out Interact interactable))
+                if (rayInfoF.collider.gameObject.
+                TryGetComponent(out Interact interactable))
                 {
                     if (rayInfoF.collider.gameObject.layer == 3)
                     {
