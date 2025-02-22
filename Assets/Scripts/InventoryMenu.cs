@@ -19,7 +19,8 @@ public class InventoryMenu : MonoBehaviour
     void Start()
     {
         inventoryPanel.SetActive(false);
-        AddTestItems();
+        //AddTestItems();
+        LoadInventoryFromCSV();
         UpdateInventoryUI();
         customerManager = new CustomerManager(inventory);
     }
@@ -31,6 +32,13 @@ public class InventoryMenu : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.I)){
             ToggleMenu();
         }
+    }
+
+    private void LoadInventoryFromCSV()
+    {
+        List<InventoryItem> allItems = CSVLoader.LoadItemsFromCSV("InventoryItems.csv");
+        inventory = allItems.FindAll(item => item.quantity > 0);
+
     }
 
     public void ToggleMenu(){
@@ -62,8 +70,11 @@ public class InventoryMenu : MonoBehaviour
             Destroy(child.gameObject);
         }
 
+        //Only stuff in stock
+        List<InventoryItem> inStockItems = inventory.FindAll(item => item.quantity > 0);
+
         // Populate the inventory UI
-        foreach (InventoryItem item in inventory)
+        foreach (InventoryItem item in inStockItems)
         {
             GameObject newItem = Instantiate(inventoryItemPrefab, inventoryContent);
             
@@ -87,5 +98,22 @@ public class InventoryMenu : MonoBehaviour
         float moneyMade = customerManager.sellItems();
 
         UpdateInventoryUI();
+    }
+
+    public void ReloadInventory()
+    {
+        Debug.Log("Reloading Inventory...");
+        inventory.Clear();
+
+        inventory = CSVLoader.LoadItemsFromCSV("InventoryItems.csv");
+
+        UpdateInventoryUI();
+
+        Canvas.ForceUpdateCanvases();
+        inventoryPanel.SetActive(false);
+        inventoryPanel.SetActive(true);
+        Canvas.ForceUpdateCanvases();
+
+        Debug.Log("Inventory Reloaded and UI Updated.");
     }
 }

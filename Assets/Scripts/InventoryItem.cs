@@ -15,22 +15,43 @@ public class InventoryItem
     public float demandCurveSlope;
     public float demandCurveIntercept;
 
-    public float SellingPrice => baseCost + (baseCost * markup / 100f);
-    public float Profit => SellingPrice - baseCost;
+    public float SellingPrice;
+    public float Profit;
 
-    public InventoryItem(int id, string name, int qty, float cost, float markupPercentage,  float demandCurveSlope, float demandCurveIntercept)
+    public string storeName = "unknown";
+
+    public InventoryItem(int id, string name, int qty, float cost, float markupPercentage,  float slope, float intercept)
     {
         idNumber = id;
         itemName = name;
         quantity = qty;
         baseCost = cost;
         markup = markupPercentage;
-        this.demandCurveSlope = demandCurveSlope;
-        this.demandCurveIntercept = demandCurveIntercept;
+        SellingPrice = cost + (cost * markupPercentage / 100f);
+        Profit = (cost * markupPercentage / 100f);
+
+        demandCurveSlope = slope;
+        demandCurveIntercept = intercept;
     }
 
     public int getSupply()
     {
         return quantity;
+
+    }
+
+    public void increaseQuantity(int added){
+        quantity = quantity + added;
+    }
+
+    public void changeStore(string store){
+        storeName = store;
+    }
+
+    public void changeMarkup(int percent){
+        markup = percent;
+        SellingPrice = baseCost * (1 + percent / 100f);
+
+        Debug.Log($"{itemName} now has a {markup}% markup, selling for ${SellingPrice.ToString("0.00")}");
     }
 }
