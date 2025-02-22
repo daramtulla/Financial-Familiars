@@ -87,11 +87,11 @@ public class SuppliersMenu: MonoBehaviour
         string filePath = Path.Combine(Application.streamingAssetsPath, "InventoryItems.csv");
         List<string> lines = new List<string>();
 
-        lines.Add("ID,Name,Quantity,BaseCost,Markup");
+        lines.Add("ID,Name,Quantity,BaseCost,Markup,Slope,Intercept");
 
         foreach (InventoryItem item in supplierItems)
         {
-            lines.Add($"{item.idNumber},{item.itemName},{item.quantity},{item.baseCost},{item.markup}");
+            lines.Add($"{item.idNumber},{item.itemName},{item.quantity},{item.baseCost},{item.markup},{item.demandCurveSlope},{item.demandCurveSlope}");
         }
         File.WriteAllLines(filePath, lines);
 

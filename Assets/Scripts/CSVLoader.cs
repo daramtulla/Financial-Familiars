@@ -23,8 +23,11 @@ public class CSVLoader: MonoBehaviour
                 int quantity = int.Parse(values[2]);
                 float baseCost = float.Parse(values[3]);
                 float markup = float.Parse(values[4]);
+                float demandSlope = float.Parse(values[5]);
+                float demandIntercept = float.Parse(values[6]);
 
-                InventoryItem newItem = new InventoryItem(id, name, quantity, baseCost, markup);
+                //InventoryItem newItem = new InventoryItem(id, name, quantity, baseCost, markup);
+                InventoryItem newItem = new InventoryItem(id, name, quantity, baseCost, markup, demandSlope, demandIntercept);
                 items.Add(newItem);
             }
         }

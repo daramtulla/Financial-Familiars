@@ -20,17 +20,18 @@ public class InventoryItem
 
     public string storeName = "unknown";
 
-    public InventoryItem(int id, string name, int qty, float cost, float markupPercentage,  float demandCurveSlope, float demandCurveIntercept)
+    public InventoryItem(int id, string name, int qty, float cost, float markupPercentage,  float slope, float intercept)
     {
         idNumber = id;
         itemName = name;
         quantity = qty;
         baseCost = cost;
         markup = markupPercentage;
-        this.demandCurveSlope = demandCurveSlope;
-        this.demandCurveIntercept = demandCurveIntercept;
         SellingPrice = cost + (cost * markupPercentage / 100f);
         Profit = (cost * markupPercentage / 100f);
+
+        demandCurveSlope = slope;
+        demandCurveIntercept = intercept;
     }
 
     public int getSupply()
