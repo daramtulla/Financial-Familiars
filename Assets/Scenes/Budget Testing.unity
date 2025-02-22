@@ -8484,13 +8484,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1897191970}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eae65fbda64606c41b5205fc0873ac04, type: 3}
+  m_Script: {fileID: 11500000, guid: 15b99af1b750f3943adbc6fb168cfa79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryPanel: {fileID: 727610548}
   inventoryContent: {fileID: 2109320666}
   inventoryItemPrefab: {fileID: 7625317842828083701, guid: 301cd632052abca42877db1d3513415e, type: 3}
-  inventory: []
 --- !u!4 &1897191972
 Transform:
   m_ObjectHideFlags: 0
