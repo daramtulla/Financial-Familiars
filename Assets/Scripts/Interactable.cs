@@ -7,5 +7,8 @@ public class Interactable : MonoBehaviour, Interact
         Debug.Log("Interacting");
 
         //Insert functionality here
+
     }
+
+
 }

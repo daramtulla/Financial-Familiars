@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class MovementController : MonoBehaviour
 {
-    //public static MovementController instance;
-
     [SerializeField] Boolean debug;
 
     //For vertical and horizontal movement
@@ -17,10 +15,13 @@ public class MovementController : MonoBehaviour
     [SerializeField] GameObject lowerStep;
     public Vector3 stepSpeed;
     public float stepHeight;
+    public static Boolean interacting;
 
     void Awake()
     {
         upperStep.transform.position = new Vector3(playerModel.transform.position.x, upperStep.transform.position.y + stepHeight, playerModel.transform.position.z);
+
+        interacting = false;
 
         /*
         //Only ever should be one instance. Destroys prior instance if already made
@@ -38,18 +39,23 @@ public class MovementController : MonoBehaviour
         */
     }
 
+
+
     // Update is called once per frame
     void Update()
     {
-        input.x = Input.GetAxis("Horizontal");
-        input.z = Input.GetAxis("Vertical");
+        if (!interacting)
+        {
+            input.x = Input.GetAxis("Horizontal");
+            input.z = Input.GetAxis("Vertical");
 
-        //Needed so diagonal movement isn't faster than horizontal or vertical movement
-        input.Normalize();
+            //Needed so diagonal movement isn't faster than horizontal or vertical movement
+            input.Normalize();
 
-        playerModel.linearVelocity = new Vector3(input.x * movementSpeed, playerModel.linearVelocity.y, input.z * movementSpeed);
+            playerModel.linearVelocity = new Vector3(input.x * movementSpeed, playerModel.linearVelocity.y, input.z * movementSpeed);
 
-        isClimbable();
+            isClimbable();
+        }
     }
 
     void isClimbable()
