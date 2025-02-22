@@ -8490,6 +8490,7 @@ MonoBehaviour:
   inventoryPanel: {fileID: 727610548}
   inventoryContent: {fileID: 2109320666}
   inventoryItemPrefab: {fileID: 7625317842828083701, guid: 301cd632052abca42877db1d3513415e, type: 3}
+  inventory: []
 --- !u!4 &1897191972
 Transform:
   m_ObjectHideFlags: 0
