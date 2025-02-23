@@ -53,13 +53,23 @@ public class MovementController : MonoBehaviour
         isClimbable();
 
         moveDirection();
+
+        stopRotation();
     }
 
     void moveDirection()
     {
-        if (playerModel.linearVelocity != Vector3.zero)
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
             playerModel.transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(input, Vector3.up), rotationSpeed);
+        }
+    }
+
+    void stopRotation()
+    {
+        if (!Input.GetKey(KeyCode.W) || !Input.GetKey(KeyCode.A) || !Input.GetKey(KeyCode.S) || !Input.GetKey(KeyCode.D))
+        {
+            playerModel.angularVelocity = Vector3.zero;
         }
     }
 
