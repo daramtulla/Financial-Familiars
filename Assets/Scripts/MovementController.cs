@@ -11,6 +11,7 @@ public class MovementController : MonoBehaviour
 
     //For vertical and horizontal movement
     public Rigidbody playerModel;
+    public Animator playerAnimator;
     public float movementSpeed;
     public float rotationSpeed;
     private Vector3 input;
@@ -49,6 +50,7 @@ public class MovementController : MonoBehaviour
         input.Normalize();
 
         playerModel.linearVelocity = new Vector3(input.x * movementSpeed, playerModel.linearVelocity.y, input.z * movementSpeed);
+        playerAnimator.SetFloat("Speed_f", Math.Abs((input.x * movementSpeed)) + Math.Abs((input.z * movementSpeed)));
 
         isClimbable();
 
