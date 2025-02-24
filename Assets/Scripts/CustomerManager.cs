@@ -48,5 +48,4 @@ public class CustomerManager : MonoBehaviour
         }
         return moneyMade;
     }
-    
 }

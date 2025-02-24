@@ -116,4 +116,24 @@ public class InventoryMenu : MonoBehaviour
 
         Debug.Log("Inventory Reloaded and UI Updated.");
     }
+
+    int findDemand(float demandSlope, float demandIntercept, float sellingPrice)
+    {
+        //basic demand equation for now
+        int numberSold = Mathf.FloorToInt((demandSlope * sellingPrice) + demandIntercept);
+        return Mathf.Max(0, numberSold);
+    }
+
+    public float sellItems()
+    {
+        float moneyMade = 0;
+        foreach (InventoryItem item in inventory)
+        {
+            int numberSold = Mathf.Min(findDemand(item.demandCurveSlope, item.demandCurveIntercept, item.SellingPrice), item.quantity);
+            item.quantity -= numberSold;
+            moneyMade += numberSold * item.SellingPrice;
+            Debug.Log($"Just sold {numberSold} of {item.itemName} at cost ${item.SellingPrice}");
+        }
+        return moneyMade;
+    }
 }

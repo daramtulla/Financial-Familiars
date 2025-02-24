@@ -1,7 +1,4 @@
 ID,Name,Quantity,BaseCost,Markup,Slope,Intercept
-12,Saphire Gemstone,10,1000,83,3,3
-17,Parchment Sheet,110,0.5,4,1.25,1.25
-8,Emerald Gemstone,0,1000,53,2,2
-12,Saphire Gemstone,10,1000,83,3,3
-8,Emerald Gemstone,0,1000,53,2,2
-12,Saphire Gemstone,10,1000,83,3,3
+12,Sapphire Gemstone,30,1000,83,-0.001,10
+17,Parchment Sheet,110,0.5,4,-0.5,50
+8,Emerald Gemstone,2,1000,53,-0.001,1
