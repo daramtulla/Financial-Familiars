@@ -78,6 +78,8 @@ public class MovementController : MonoBehaviour
         if (!Input.GetKey(KeyCode.W) || !Input.GetKey(KeyCode.A) || !Input.GetKey(KeyCode.S) || !Input.GetKey(KeyCode.D))
         {
             playerModel.angularVelocity = Vector3.zero;
+
+            isClimbable();
         }
     }
 
