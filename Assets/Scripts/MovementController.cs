@@ -9,7 +9,9 @@ public class MovementController : MonoBehaviour
 
     //For vertical and horizontal movement
     public Rigidbody playerModel;
+    public Animator playerAnimator;
     public float movementSpeed;
+    public float rotationSpeed;
     private Vector3 input;
     [SerializeField] GameObject upperStep;
     [SerializeField] GameObject lowerStep;
@@ -53,6 +55,29 @@ public class MovementController : MonoBehaviour
             input.Normalize();
 
             playerModel.linearVelocity = new Vector3(input.x * movementSpeed, playerModel.linearVelocity.y, input.z * movementSpeed);
+            playerAnimator.SetFloat("Speed_f", Math.Abs((input.x * movementSpeed)) + Math.Abs((input.z * movementSpeed)));
+
+            isClimbable();
+
+            moveDirection();
+
+            stopRotation();
+        }
+    }
+
+    void moveDirection()
+    {
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        {
+            playerModel.transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(input, Vector3.up), rotationSpeed);
+        }
+    }
+
+    void stopRotation()
+    {
+        if (!Input.GetKey(KeyCode.W) || !Input.GetKey(KeyCode.A) || !Input.GetKey(KeyCode.S) || !Input.GetKey(KeyCode.D))
+        {
+            playerModel.angularVelocity = Vector3.zero;
 
             isClimbable();
         }
