@@ -21,7 +21,6 @@ public class CameraManager : MonoBehaviour
 
     void Awake()
     {
-        followDistance = new Vector3(camX, camY, camZ);
         mainCam.transform.position = new Vector3(camX, camY, camZ);
         mainCam.transform.rotation = Quaternion.Euler(60, 0, 0);
 
@@ -52,5 +51,19 @@ public class CameraManager : MonoBehaviour
             Vector3 camPos = playerModel.transform.position + followDistance;
             mainCam.transform.position = Vector3.SmoothDamp(mainCam.transform.position, camPos, ref currentVelocity, followSpeed);
         }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            if (followMode)
+            {
+                mainCam.transform.position = new Vector3(camX, camY, camZ);
+                followMode = !followMode;
+            }
+            else
+            {
+                followMode = !followMode;
+            }
+        }
+
     }
 }
