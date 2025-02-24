@@ -10335,17 +10335,14 @@ RectTransform:
   m_GameObject: {fileID: 426942602}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1520427686}
   - {fileID: 306669059}
-  - {fileID: 392891877}
   - {fileID: 1564447982}
   - {fileID: 1750974124}
   - {fileID: 120999776}
-  - {fileID: 867656031}
-  - {fileID: 1529707017}
   m_Father: {fileID: 398869652}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -11151,7 +11148,7 @@ MonoBehaviour:
       - m_Target: {fileID: 449181599}
         m_TargetAssemblyTypeName: ShowMenu, Assembly-CSharp
         m_MethodName: ShowElement
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -11163,7 +11160,7 @@ MonoBehaviour:
       - m_Target: {fileID: 449181598}
         m_TargetAssemblyTypeName: ShowMenu, Assembly-CSharp
         m_MethodName: ShowElement
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -15422,6 +15419,7 @@ GameObject:
   - component: {fileID: 655041609}
   - component: {fileID: 655041608}
   - component: {fileID: 655041607}
+  - component: {fileID: 655041610}
   m_Layer: 0
   m_Name: StartButton_button
   m_TagString: Untagged
@@ -15492,16 +15490,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1985641231}
-        m_TargetAssemblyTypeName: SceneManagerInstance, Assembly-CSharp
-        m_MethodName: ExampleOnClickSceneChange
-        m_Mode: 1
+      - m_Target: {fileID: 655041610}
+        m_TargetAssemblyTypeName: ChangeSceneButton, Assembly-CSharp
+        m_MethodName: changeScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: MovementTestScene
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &655041608
@@ -15549,6 +15547,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &656019078
 GameObject:
+--- !u!114 &655041610
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -15645,6 +15645,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 434642, guid: 3a05b8da5e8dfb546bf27a476d4fc9db, type: 3}
   m_PrefabInstance: {fileID: 95903194}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655041605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87364a641cfdce342afd9e86ba9c2fbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &672250000
 GameObject:
   m_ObjectHideFlags: 0
@@ -42459,7 +42465,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1949521905}
         m_TargetAssemblyTypeName: ShowMenu, Assembly-CSharp
         m_MethodName: ShowElement
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -42471,7 +42477,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1949521904}
         m_TargetAssemblyTypeName: ShowMenu, Assembly-CSharp
         m_MethodName: ShowElement
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -45511,7 +45517,7 @@ RectTransform:
   m_GameObject: {fileID: 2103467261}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1477487192}
