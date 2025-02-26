@@ -12148,6 +12148,7 @@ GameObject:
   - component: {fileID: 939459743}
   - component: {fileID: 939459748}
   - component: {fileID: 939459749}
+  - component: {fileID: 939459750}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Player
@@ -12312,6 +12313,24 @@ MonoBehaviour:
   interactSource: {fileID: 1501426400}
   interactRayRange: 2
   playerModel: {fileID: 939459743}
+--- !u!114 &939459750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939459742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b796433e153764b4c9a70c619be2db31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
+  currentPlayer:
+    moveSpeedModifier: 0
+    currentMoney: 0
+    merch: []
+    currentLoanAmount: 0
 --- !u!1 &941078930
 GameObject:
   m_ObjectHideFlags: 0
@@ -19899,6 +19918,7 @@ MonoBehaviour:
   currentPlayer:
     moveSpeedModifier: 5
     currentMoney: 77
+    merch: []
     currentLoanAmount: 0
 --- !u!4 &1712586360
 Transform:

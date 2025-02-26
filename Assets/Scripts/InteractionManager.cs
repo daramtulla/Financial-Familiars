@@ -20,7 +20,7 @@ public class InteractionManager : MonoBehaviour
     {
         switchInteractState();
 
-        if (Input.GetKey(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             if (Physics.Raycast(interactSource.transform.position,
             transform.TransformDirection(Vector3.forward),
@@ -74,7 +74,7 @@ public class InteractionManager : MonoBehaviour
 
     public void switchInteractState()
     {
-        if (Input.GetKey(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             IsInteracting(!GetInteractState());
             ZeroPlayerVelocity(playerModel);
