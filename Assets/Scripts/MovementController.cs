@@ -5,22 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class MovementController : MonoBehaviour
 {
-    //public static MovementController instance;
-
     [SerializeField] Boolean debug;
 
     //For vertical and horizontal movement
     public Rigidbody playerModel;
+    public Animator playerAnimator;
     public float movementSpeed;
+    public float rotationSpeed;
     private Vector3 input;
     [SerializeField] GameObject upperStep;
     [SerializeField] GameObject lowerStep;
     public Vector3 stepSpeed;
     public float stepHeight;
+    public static Boolean interacting;
 
     void Awake()
     {
         upperStep.transform.position = new Vector3(playerModel.transform.position.x, upperStep.transform.position.y + stepHeight, playerModel.transform.position.z);
+
+        interacting = false;
 
         /*
         //Only ever should be one instance. Destroys prior instance if already made
@@ -38,18 +41,46 @@ public class MovementController : MonoBehaviour
         */
     }
 
+
+
     // Update is called once per frame
     void Update()
     {
-        input.x = Input.GetAxis("Horizontal");
-        input.z = Input.GetAxis("Vertical");
+        if (!interacting)
+        {
+            input.x = Input.GetAxis("Horizontal");
+            input.z = Input.GetAxis("Vertical");
 
-        //Needed so diagonal movement isn't faster than horizontal or vertical movement
-        input.Normalize();
+            //Needed so diagonal movement isn't faster than horizontal or vertical movement
+            input.Normalize();
 
-        playerModel.linearVelocity = new Vector3(input.x * movementSpeed, playerModel.linearVelocity.y, input.z * movementSpeed);
+            playerModel.linearVelocity = new Vector3(input.x * movementSpeed, playerModel.linearVelocity.y, input.z * movementSpeed);
+            playerAnimator.SetFloat("Speed_f", Math.Abs((input.x * movementSpeed)) + Math.Abs((input.z * movementSpeed)));
 
-        isClimbable();
+            isClimbable();
+
+            moveDirection();
+
+            stopRotation();
+        }
+    }
+
+    void moveDirection()
+    {
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        {
+            playerModel.transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(input, Vector3.up), rotationSpeed);
+        }
+    }
+
+    void stopRotation()
+    {
+        if (!Input.GetKey(KeyCode.W) || !Input.GetKey(KeyCode.A) || !Input.GetKey(KeyCode.S) || !Input.GetKey(KeyCode.D))
+        {
+            playerModel.angularVelocity = Vector3.zero;
+
+            isClimbable();
+        }
     }
 
     void isClimbable()

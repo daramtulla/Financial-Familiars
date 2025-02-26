@@ -4,8 +4,10 @@ public class ShowMenu : MonoBehaviour
 {
     public GameObject element;
 
-    public void ShowElement()
+    public void ShowElement(bool unPause)
     {
+        if(unPause)
+            Time.timeScale = 1.0f;
         element.SetActive(!element.activeSelf);
     }
 }
