@@ -1,21 +1,21 @@
 ID,Name,Quantity,BaseCost,Markup,Slope,Intercept
-1,Clear Crystal Orb,30,20,25,0.25,1
-2,Walnut Wand,10,10,25,0.5,2
-3,Vial of Acid,110,25,25,0.75,3
-4,Garnet Gemstone,10,100,25,1,4
-5,Amethyst Gemstone,0,100,25,1.25,5
-6,Aquamarine Gemstone,0,500,25,1.5,6
-7,Diamond Gemstone,0,5000,25,1.75,7
-8,Emerald Gemstone,0,1000,25,2,8
-9,Pearl Gemstone,0,100,25,2.25,9
-10,Ruby Gemstone,0,5000,25,2.5,1
-11,Peridot Gemstone,0,500,25,2.75,2
-12,Saphire Gemstone,0,1000,25,3,3
-13,Opal Gemstone,0,1000,25,3.25,4
-14,Topaz Gemstone,0,500,25,3.5,5
-15,Citrine Gemstone,0,50,25,3.75,6
-16,Spell Ink,0,10,25,1,7
-17,Parchment Sheet,0,0.5,25,1.25,8
-18,Abacus,0,2,25,1.5,9
-19,Yew Wand,0,10,25,0.25,1
-20,Hourglass,0,25,25,0.1,2
+1,Clear Crystal Orb,30,20,25,-0.4,50
+2,Walnut Wand,10,10,25,-0.8,70
+3,Vial of Acid,110,25,25,-0.32,45
+4,Garnet Gemstone,10,100,25,-0.144,20
+5,Amethyst Gemstone,0,100,25,-0.144,20
+6,Aquamarine Gemstone,0,500,25,-0.0072,5
+7,Diamond Gemstone,0,5000,25,-0.000144,1
+8,Emerald Gemstone,0,1000,25,-0.0012,2
+9,Pearl Gemstone,0,100,25,-0.096,15
+10,Ruby Gemstone,0,5000,25,-0.000144,1
+11,Peridot Gemstone,0,500,25,-0.0032,3
+12,Saphire Gemstone,0,1000,25,-0.0012,2
+13,Opal Gemstone,0,1000,25,-0.0012,2
+14,Topaz Gemstone,0,500,25,-0.0032,3
+15,Citrine Gemstone,0,50,25,-0.16,35
+16,Spell Ink,0,10,25,-0.8,60
+17,Parchment Sheet,0,0.5,25,-8,205
+18,Abacus,0,2,25,-2,105
+19,Yew Wand,0,10,25,-0.8,65
+20,Hourglass,0,25,25,-0.32,40

@@ -12896,6 +12896,7 @@ MonoBehaviour:
   suppliersPanel: {fileID: 1628580081}
   suppliersContent: {fileID: 257959483}
   supplierItemPrefab: {fileID: 1434380308043196210, guid: c460d67e02cc08b47bfbc90dffeae20e, type: 3}
+  inventoryMenu: {fileID: 0}
 --- !u!4 &966684112
 Transform:
   m_ObjectHideFlags: 0

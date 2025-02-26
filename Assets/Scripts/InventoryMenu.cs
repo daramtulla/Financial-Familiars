@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using System.IO;
 public class InventoryMenu : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -36,7 +37,7 @@ public class InventoryMenu : MonoBehaviour
 
     private void LoadInventoryFromCSV()
     {
-        List<InventoryItem> allItems = CSVLoader.LoadItemsFromCSV("InventoryItems.csv");
+        List<InventoryItem> allItems = CSVLoader.LoadItemsFromCSV("PlayerInventory.csv");
         inventory = allItems.FindAll(item => item.quantity > 0);
 
     }
@@ -62,7 +63,7 @@ public class InventoryMenu : MonoBehaviour
         inventory.Add(new InventoryItem(4, "Duplicating Rings", 1000, 10.00f, 0, 0.5f, 100.0f));
     }
 
-    private void UpdateInventoryUI()
+    public void UpdateInventoryUI()
     {
         // Clear existing UI items
         foreach (Transform child in inventoryContent)
@@ -99,13 +100,55 @@ public class InventoryMenu : MonoBehaviour
 
         UpdateInventoryUI();
     }
+    public void BuyItem(InventoryItem item, int quantity)
+    {
+        //Check if item exists
+        InventoryItem existingItem = inventory.Find(i => i.idNumber == item.idNumber);
+
+        //if so
+        if (existingItem != null)
+        {
+            Debug.Log($"Just bought existing item {item.itemName}");
+            existingItem.quantity += quantity;
+        }
+        else
+        {
+            Debug.Log($"Just bought new item {item.itemName}");
+            InventoryItem newItem = new InventoryItem(item.idNumber, item.itemName, quantity, item.baseCost, item.markup, item.demandCurveSlope, item.demandCurveIntercept);
+            inventory.Add(newItem);
+        }
+        Debug.Log($"Bought {quantity} of: {item.itemName}");
+        SaveInventoryToCSV();
+        UpdateInventoryUI();
+    }
+    public void SaveInventoryToCSV()
+    {
+        //find the player inventory
+        string filePath = Path.Combine(Application.streamingAssetsPath, "PlayerInventory.csv");
+        List<string> lines = new List<string>();
+        //add header
+        lines.Add("ID,Name,Quantity,BaseCost,Markup,Slope,Intercept");
+
+        //get player inventory, add it to CSV
+        foreach (InventoryItem item in inventory)
+        {
+            Debug.Log($"Just added {item.idNumber},{item.itemName},{item.quantity},{item.baseCost},{item.markup},{item.demandCurveSlope},{item.demandCurveIntercept}");
+            lines.Add($"{item.idNumber},{item.itemName},{item.quantity},{item.baseCost},{item.markup},{item.demandCurveSlope},{item.demandCurveIntercept}");
+        }
+        //Clear inventory csv
+        File.WriteAllText(filePath, string.Empty);
+        //rewrite it
+        File.WriteAllLines(filePath, lines);
+
+        Debug.Log($"Inventory saved to CSV: {filePath}");
+    }
 
     public void ReloadInventory()
     {
         Debug.Log("Reloading Inventory...");
         inventory.Clear();
 
-        inventory = CSVLoader.LoadItemsFromCSV("InventoryItems.csv");
+        inventory = CSVLoader.LoadItemsFromCSV("PlayerInventory.csv");
 
         UpdateInventoryUI();
 
@@ -115,5 +158,24 @@ public class InventoryMenu : MonoBehaviour
         Canvas.ForceUpdateCanvases();
 
         Debug.Log("Inventory Reloaded and UI Updated.");
+    }
+    int findDemand(float demandSlope, float demandIntercept, float sellingPrice)
+    {
+        //basic demand equation for now
+        int numberSold = Mathf.FloorToInt((demandSlope * sellingPrice) + demandIntercept);
+        return Mathf.Max(0, numberSold);
+    }
+
+    public float sellItems()
+    {
+        float moneyMade = 0;
+        foreach (InventoryItem item in inventory)
+        {
+            int numberSold = Mathf.Min(findDemand(item.demandCurveSlope, item.demandCurveIntercept, item.SellingPrice), item.quantity);
+            item.quantity -= numberSold;
+            moneyMade += numberSold * item.SellingPrice;
+            Debug.Log($"Just sold {numberSold} of {item.itemName} at cost ${item.SellingPrice}");
+        }
+        return moneyMade;
     }
 }
