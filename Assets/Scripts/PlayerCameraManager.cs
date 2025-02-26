@@ -5,7 +5,7 @@ public class CameraManager : MonoBehaviour
 {
     //public static CameraManager instance;
 
-    public Boolean followMode;
+    private Boolean followMode;
 
     //Fixed Cam. Inludes position for every scene. Rotation is always looking 60 degrees down
     [SerializeField] GameObject mainCam;
@@ -23,6 +23,7 @@ public class CameraManager : MonoBehaviour
     {
         mainCam.transform.position = new Vector3(camX, camY, camZ);
         mainCam.transform.rotation = Quaternion.Euler(60, 0, 0);
+        followMode = false;
 
         /*
 

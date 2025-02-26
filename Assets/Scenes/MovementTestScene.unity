@@ -17594,13 +17594,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36601f6becf291e4596bb84eb1d3f5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followMode: 1
   mainCam: {fileID: 1697185007}
   camX: 0
-  camY: 0
-  camZ: 0
+  camY: 10
+  camZ: -8
   followDistance: {x: 0, y: 10, z: -8}
-  followSpeed: 0.2
+  followSpeed: 0
   playerModel: {fileID: 939459742}
 --- !u!4 &1397963875
 Transform:
