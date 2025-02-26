@@ -12,6 +12,8 @@ public class SuppliersMenu: MonoBehaviour
 
     private List<InventoryItem> supplierItems = new List<InventoryItem>();
 
+    public InventoryMenu inventoryMenu;
+
     void Start()
     {
         suppliersPanel.SetActive(false);
@@ -29,7 +31,7 @@ public class SuppliersMenu: MonoBehaviour
 
     private void LoadSuppliersFromCSV()
     {
-        List<InventoryItem> allItems = CSVLoader.LoadItemsFromCSV("InventoryItems.csv");
+        List<InventoryItem> allItems = CSVLoader.LoadItemsFromCSV("SupplierInventory.csv");
         supplierItems = Filter(allItems);
 
     }
@@ -44,7 +46,7 @@ public class SuppliersMenu: MonoBehaviour
 
     public void CloseMenu(){
         suppliersPanel.SetActive(false);
-
+        inventoryMenu.SaveInventoryToCSV();
     }
 
     private void UpdateSuppliersUI()
@@ -75,11 +77,8 @@ public class SuppliersMenu: MonoBehaviour
 
     private void BuyItem(InventoryItem item, int quantity)
     {
-        item.increaseQuantity(quantity);
-        Debug.Log($"Bought {quantity} of: {item.itemName}");
-
-        SaveInventoryToCSV();
-
+        //TODO: Add logic for money needed
+        inventoryMenu.BuyItem(item, quantity);
     }
 
     private void SaveInventoryToCSV()

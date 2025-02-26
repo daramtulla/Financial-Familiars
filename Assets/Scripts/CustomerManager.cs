@@ -18,6 +18,7 @@ public class CustomerManager : MonoBehaviour
         InventoryItems = inventoryItems;
     }
 
+    //Debugging Function
     public void findInformation()
     {
         foreach(InventoryItem item in InventoryItems)

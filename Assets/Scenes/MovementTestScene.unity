@@ -158,7 +158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000030517585}
+  m_AnchoredPosition: {x: 0, y: -0.000061035156}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2267310
@@ -12148,6 +12148,7 @@ GameObject:
   - component: {fileID: 939459743}
   - component: {fileID: 939459748}
   - component: {fileID: 939459749}
+  - component: {fileID: 939459750}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Player
@@ -12290,7 +12291,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 1
   playerModel: {fileID: 939459743}
+  playerAnimator: {fileID: 5866666021909216657, guid: 1841c298173cdad4db8df8602c8f1c8d, type: 3}
   movementSpeed: 5
+  rotationSpeed: 0
   upperStep: {fileID: 1604627735}
   lowerStep: {fileID: 1182680518}
   stepSpeed: {x: 0, y: 3, z: 0}
@@ -12310,6 +12313,24 @@ MonoBehaviour:
   interactSource: {fileID: 1501426400}
   interactRayRange: 2
   playerModel: {fileID: 939459743}
+--- !u!114 &939459750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939459742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b796433e153764b4c9a70c619be2db31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
+  currentPlayer:
+    moveSpeedModifier: 0
+    currentMoney: 0
+    merch: []
+    currentLoanAmount: 0
 --- !u!1 &941078930
 GameObject:
   m_ObjectHideFlags: 0
@@ -12875,6 +12896,7 @@ MonoBehaviour:
   suppliersPanel: {fileID: 1628580081}
   suppliersContent: {fileID: 257959483}
   supplierItemPrefab: {fileID: 1434380308043196210, guid: c460d67e02cc08b47bfbc90dffeae20e, type: 3}
+  inventoryMenu: {fileID: 0}
 --- !u!4 &966684112
 Transform:
   m_ObjectHideFlags: 0
@@ -17502,7 +17524,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000030517585}
+  m_AnchoredPosition: {x: 0, y: -0.000061035156}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1394248620
@@ -17572,13 +17594,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36601f6becf291e4596bb84eb1d3f5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followMode: 1
   mainCam: {fileID: 1697185007}
   camX: 0
   camY: 10
   camZ: -8
-  followDistance: {x: 0, y: 10, z: -15}
-  followSpeed: 0.2
+  followDistance: {x: 0, y: 10, z: -8}
+  followSpeed: 0
   playerModel: {fileID: 939459742}
 --- !u!4 &1397963875
 Transform:
@@ -18977,7 +18998,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000030517585}
+  m_AnchoredPosition: {x: 0, y: -0.000061035156}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1628580083
@@ -19897,6 +19918,7 @@ MonoBehaviour:
   currentPlayer:
     moveSpeedModifier: 5
     currentMoney: 77
+    merch: []
     currentLoanAmount: 0
 --- !u!4 &1712586360
 Transform:

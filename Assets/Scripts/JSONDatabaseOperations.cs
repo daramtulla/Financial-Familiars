@@ -15,6 +15,9 @@ public class JSONDatabaseOperations : MonoBehaviour
     {
         currentPlayer = new Player();
         filePath = Application.persistentDataPath + "/JSONDatabase.json";
+
+        //TEST REMOVE WHEN DONE
+        //currentPlayer.merch.Add(new Merchandise(1, "hi", 1, 1.1, 1.1, 1.1, 1.1));
     }
 
     private void SaveData()
@@ -70,10 +73,23 @@ public class Player
     //Implement skills TODO
 }
 
+[System.Serializable]
 public class Merchandise
 {
     //Example values. TODO create all items in the game
-    public decimal value;
+    public int id;
     public string name;
-    public string description;
+    public int quantity;
+    public float cost;
+    public float markupPercentage;
+    public float slope;
+    public float intercept;
+
+    /*
+        public Merchandise(int id, string name, int quantity, float cost, float markupPercentage, float slope, float intercept)
+        {
+            this.id = id;
+
+        }
+    */
 }
