@@ -17596,9 +17596,9 @@ MonoBehaviour:
   followMode: 1
   mainCam: {fileID: 1697185007}
   camX: 0
-  camY: 10
-  camZ: -8
-  followDistance: {x: 0, y: 10, z: -15}
+  camY: 0
+  camZ: 0
+  followDistance: {x: 0, y: 10, z: -8}
   followSpeed: 0.2
   playerModel: {fileID: 939459742}
 --- !u!4 &1397963875
