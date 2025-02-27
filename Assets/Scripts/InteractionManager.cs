@@ -15,11 +15,10 @@ public class InteractionManager : MonoBehaviour
     [SerializeField] float interactRayRange;
 
     public Rigidbody playerModel;
+    public Animator playerAnimator;
 
     void Update()
     {
-        switchInteractState();
-
         if (Input.GetKeyDown(KeyCode.F))
         {
             if (Physics.Raycast(interactSource.transform.position,
@@ -31,6 +30,7 @@ public class InteractionManager : MonoBehaviour
                 {
                     if (rayInfoF.collider.gameObject.layer == 3)
                     {
+                        switchInteractState();
                         interactable.Interact();
                     }
                 }
@@ -42,6 +42,7 @@ public class InteractionManager : MonoBehaviour
                 {
                     if (rayInfoB.collider.gameObject.layer == 3)
                     {
+                        switchInteractState();
                         interactable.Interact();
                     }
                 }
@@ -53,6 +54,7 @@ public class InteractionManager : MonoBehaviour
                 {
                     if (rayInfoL.collider.gameObject.layer == 3)
                     {
+                        switchInteractState();
                         interactable.Interact();
                     }
                 }
@@ -74,11 +76,9 @@ public class InteractionManager : MonoBehaviour
 
     public void switchInteractState()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            IsInteracting(!GetInteractState());
-            ZeroPlayerVelocity(playerModel);
-        }
+        IsInteracting(!GetInteractState());
+        ZeroPlayerVelocity(playerModel);
+        ZeroPlayerRotation(playerModel);
     }
 
     public static void IsInteracting(Boolean state)
@@ -94,8 +94,15 @@ public class InteractionManager : MonoBehaviour
     public void ZeroPlayerVelocity(Rigidbody playerModel)
     {
         playerModel.linearVelocity = Vector3.zero;
+
+        //To stop the player walking animation
+        playerAnimator.SetFloat("Speed_f", 0);
     }
 
+    public void ZeroPlayerRotation(Rigidbody playerModel)
+    {
+        playerModel.constraints = RigidbodyConstraints.FreezeRotation;
+    }
 }
 
 
