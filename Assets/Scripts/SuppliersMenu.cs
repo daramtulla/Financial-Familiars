@@ -13,6 +13,7 @@ public class SuppliersMenu: MonoBehaviour
     private List<InventoryItem> supplierItems = new List<InventoryItem>();
 
     public InventoryMenu inventoryMenu;
+    [SerializeField] InteractionManager interactionManager;
 
     void Start()
     {
@@ -45,6 +46,14 @@ public class SuppliersMenu: MonoBehaviour
     }
 
     public void CloseMenu(){
+        Debug.Log("Test Menu Close");
+        //The if statement prevents you from being frozen when you press P to open the suppliers menu
+        //and then you press the close button.
+        if(InteractionManager.GetInteractState() == true)
+        {
+            Debug.Log("GetInteractState() is true");
+            interactionManager.switchInteractState();
+        }
         suppliersPanel.SetActive(false);
         inventoryMenu.SaveInventoryToCSV();
     }

@@ -66,6 +66,7 @@ public class InteractionManager : MonoBehaviour
                 {
                     if (rayInfoR.collider.gameObject.layer == 3)
                     {
+                        switchInteractState();
                         interactable.Interact();
                     }
                 }
