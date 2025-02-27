@@ -23,6 +23,7 @@ public class MovementController : MonoBehaviour
     void Awake()
     {
         transform.position = startingPosition.transform.position;
+        transform.rotation = startingPosition.transform.rotation;
         upperStep.transform.position = new Vector3(playerModel.transform.position.x, upperStep.transform.position.y + stepHeight, playerModel.transform.position.z);
 
         interacting = false;
@@ -51,6 +52,7 @@ public class MovementController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             transform.position = startingPosition.transform.position;
+            transform.rotation = startingPosition.transform.rotation;
         }
             if (!interacting)
         {

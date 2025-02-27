@@ -35,7 +35,7 @@ public class InteractionManager : MonoBehaviour
                     }
                 }
             }
-
+            /*Commented out because 2 menus can open at once on an interaction.
             if (Physics.Raycast(interactSource.transform.position, transform.TransformDirection(Vector3.back), out RaycastHit rayInfoB, interactRayRange))
             {
                 if (rayInfoB.collider.gameObject.TryGetComponent(out Interact interactable))
@@ -47,6 +47,7 @@ public class InteractionManager : MonoBehaviour
                     }
                 }
             }
+            */
 
             if (Physics.Raycast(interactSource.transform.position, transform.TransformDirection(Vector3.left), out RaycastHit rayInfoL, interactRayRange))
             {
