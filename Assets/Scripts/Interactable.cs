@@ -4,6 +4,7 @@ public class Interactable : MonoBehaviour, Interact
 {
     [SerializeField] GameObject menuToOpenOrClose;
     [SerializeField] SuppliersMenu suppliersMenu;
+    [SerializeField] BudgetMenu budgetMenu;
     public void Interact()
     {
         Debug.Log("Interacting");
@@ -18,6 +19,11 @@ public class Interactable : MonoBehaviour, Interact
                 Debug.Log("Closed Suppliers Menu");
                 suppliersMenu.CloseMenu();
             }
+            else if (menuToOpenOrClose.name == "Budget Panel")
+            {
+                Debug.Log("Close Budget Menu");
+                budgetMenu.CloseMenu();
+            }
             else
             {
                 //Close the menu
@@ -31,6 +37,11 @@ public class Interactable : MonoBehaviour, Interact
             {
                 Debug.Log("Open Suppliers Menu");
                 suppliersMenu.ToggleMenu();
+            }
+            else if (menuToOpenOrClose.name == "Budget Panel")
+            {
+                Debug.Log("Open Budget Menu");
+                budgetMenu.ToggleBudgetMenu();
             }
             else
             {
