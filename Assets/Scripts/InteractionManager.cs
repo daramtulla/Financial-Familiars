@@ -49,6 +49,7 @@ public class InteractionManager : MonoBehaviour
             }
             */
 
+            /* Commented out because of the issue of the front raycast and one of the side raycasts hitting the same object.
             if (Physics.Raycast(interactSource.transform.position, transform.TransformDirection(Vector3.left), out RaycastHit rayInfoL, interactRayRange))
             {
                 if (rayInfoL.collider.gameObject.TryGetComponent(out Interact interactable))
@@ -72,6 +73,7 @@ public class InteractionManager : MonoBehaviour
                     }
                 }
             }
+            */
 
         }
     }
