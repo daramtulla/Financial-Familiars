@@ -18,9 +18,12 @@ public class MovementController : MonoBehaviour
     public Vector3 stepSpeed;
     public float stepHeight;
     public static Boolean interacting;
+    [SerializeField] GameObject startingPosition;
 
     void Awake()
     {
+        transform.position = startingPosition.transform.position;
+        transform.rotation = startingPosition.transform.rotation;
         upperStep.transform.position = new Vector3(playerModel.transform.position.x, upperStep.transform.position.y + stepHeight, playerModel.transform.position.z);
 
         interacting = false;
@@ -46,7 +49,12 @@ public class MovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!interacting)
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            transform.position = startingPosition.transform.position;
+            transform.rotation = startingPosition.transform.rotation;
+        }
+            if (!interacting)
         {
             input.x = Input.GetAxis("Horizontal");
             input.z = Input.GetAxis("Vertical");

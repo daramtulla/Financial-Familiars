@@ -1,7 +1,3 @@
 ID,Name,Quantity,BaseCost,Markup,Slope,Intercept
-5,Amethyst Gemstone,0,100,11,-0.144,20
 6,Aquamarine Gemstone,20,500,58,-0.0072,5
-4,Garnet Gemstone,0,100,13,-0.144,20
 7,Diamond Gemstone,110,5000,84,-0.000144,1
-1,Clear Crystal Orb,100,20,0,-0.4,50
-3,Vial of Acid,0,25,13,-0.32,45
