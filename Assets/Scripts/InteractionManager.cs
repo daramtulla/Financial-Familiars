@@ -17,8 +17,29 @@ public class InteractionManager : MonoBehaviour
     public Rigidbody playerModel;
     public Animator playerAnimator;
 
+    [SerializeField] GameObject redArrow;
+
     void Update()
     {
+        if (Physics.Raycast(interactSource.transform.position,
+           transform.TransformDirection(Vector3.forward),
+           out RaycastHit rayInfoF2, interactRayRange))
+        {
+            if (rayInfoF2.collider.gameObject.
+            TryGetComponent(out Transform interactableTransform))
+            {
+                if (rayInfoF2.collider.gameObject.layer == 3)
+                {
+                    redArrow.SetActive(true);
+                    redArrow.transform.position = new Vector3(interactableTransform.transform.position.x, interactableTransform.transform.position.y + 3, interactableTransform.transform.position.z);
+                }
+            }
+        }
+        else
+        {
+            redArrow.SetActive(false);
+        }
+
         if (Input.GetKeyDown(KeyCode.F))
         {
             if (Physics.Raycast(interactSource.transform.position,
