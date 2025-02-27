@@ -18,10 +18,11 @@ public class MovementController : MonoBehaviour
     public Vector3 stepSpeed;
     public float stepHeight;
     public static Boolean interacting;
-    [SerializeField] GameObject startingPosiiton;
+    [SerializeField] GameObject startingPosition;
 
     void Awake()
     {
+        transform.position = startingPosition.transform.position;
         upperStep.transform.position = new Vector3(playerModel.transform.position.x, upperStep.transform.position.y + stepHeight, playerModel.transform.position.z);
 
         interacting = false;
@@ -49,7 +50,7 @@ public class MovementController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            transform.position = startingPosiiton.transform.position;
+            transform.position = startingPosition.transform.position;
         }
             if (!interacting)
         {
