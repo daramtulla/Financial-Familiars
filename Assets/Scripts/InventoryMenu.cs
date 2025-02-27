@@ -6,6 +6,7 @@ public class InventoryMenu : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public GameObject inventoryPanel;
+    [SerializeField] InteractionManager interactionManager;
 
     //cmon scrollbar!
     public Transform inventoryContent;
@@ -51,8 +52,17 @@ public class InventoryMenu : MonoBehaviour
     }
 
     public void CloseMenu(){
+        Debug.Log("Test Inventory Menu Close");
+        //The if statement prevents you from being frozen when you press I to open the inventory menu
+        //and then press the close button.
+        //Also prevents "switchInteractState()" from being called twice when F is pressed
+        //(once in the Update() function of InteractionManager.cs and the other time here).
+        if (InteractionManager.GetInteractState() == true)
+        {
+            Debug.Log("(InventoryMenu): GetInteractState() is true");
+            interactionManager.switchInteractState();
+        }
         inventoryPanel.SetActive(false);
-
     }
 
     private void AddTestItems()

@@ -48,7 +48,7 @@ public class SuppliersMenu: MonoBehaviour
     public void CloseMenu(){
         Debug.Log("Test Suppliers Menu Close");
         //The if statement prevents you from being frozen when you press P to open the suppliers menu
-        //and then you press the close button.
+        //and then press the close button.
         //Also prevents "switchInteractState()" from being called twice when F is pressed
         //(once in the Update() function of InteractionManager.cs and the other time here).
         if (InteractionManager.GetInteractState() == true)
