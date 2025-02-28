@@ -3,13 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagerInstance : MonoBehaviour
 {
-
     /*
         IMPORTANT: Add scenes into build settings
     */
     public static SceneManagerInstance instance;
 
-    public Collider trigger;
+    //public Collider trigger;
 
     void Awake()
     {
@@ -31,6 +30,13 @@ public class SceneManagerInstance : MonoBehaviour
     public void ExampleOnClickSceneChange()
     {
         SceneManager.LoadScene("MovementTestScene");
+        return;
+    }
+
+    public void SceneChangeStore()
+    {
+        SceneManager.LoadScene("Store");
+        return;
     }
 
     //TODO
