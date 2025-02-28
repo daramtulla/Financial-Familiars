@@ -9162,7 +9162,7 @@ RectTransform:
   m_Children:
   - {fileID: 313079469}
   - {fileID: 688963371}
-  m_Father: {fileID: 426942603}
+  m_Father: {fileID: 2122915318}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -9250,7 +9250,6 @@ GameObject:
   - component: {fileID: 398869655}
   - component: {fileID: 398869654}
   - component: {fileID: 398869653}
-  - component: {fileID: 398869656}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -9342,23 +9341,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &398869656
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 398869651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!4 &399590418 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8c4a891a110372140badc590e2126dbf, type: 3}
@@ -10364,7 +10346,6 @@ RectTransform:
   - {fileID: 392891877}
   - {fileID: 867656031}
   - {fileID: 1529707017}
-  - {fileID: 2122915318}
   m_Father: {fileID: 398869652}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -11242,7 +11223,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   element: {fileID: 426942602}
-  interactionManager: {fileID: 0}
 --- !u!114 &449181599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11256,7 +11236,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   element: {fileID: 2103467261}
-  interactionManager: {fileID: 0}
 --- !u!1001 &451571009
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15443,6 +15422,7 @@ GameObject:
   - component: {fileID: 655041609}
   - component: {fileID: 655041608}
   - component: {fileID: 655041607}
+  - component: {fileID: 655041610}
   m_Layer: 0
   m_Name: StartButton_button
   m_TagString: Untagged
@@ -15513,18 +15493,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: f449f2b6d9c049a47b9a6f79d8dcd38f, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 655041610}
+        m_TargetAssemblyTypeName: ChangeSceneButton, Assembly-CSharp
+        m_MethodName: changeScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Store
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
 --- !u!114 &655041608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15563,6 +15543,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 655041605}
   m_CullTransparentMesh: 1
+--- !u!114 &655041610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655041605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: Shelf_Row
+  m_EditorClassIdentifier: 
 --- !u!4 &655495594 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 75daebd4b49a41b40b490c4de551cfba, type: 3}
@@ -16056,57 +16048,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c4a891a110372140badc590e2126dbf, type: 3}
---- !u!1 &687187808
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 687187810}
-  - component: {fileID: 687187809}
-  m_Layer: 0
-  m_Name: Database
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &687187809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 687187808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b796433e153764b4c9a70c619be2db31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debug: 0
-  currentPlayer:
-    moveSpeedModifier: 0
-    currentMoney: 0
-    volume: 0
-    merch: []
-    currentLoanAmount: 0
---- !u!4 &687187810
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 687187808}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.323118, y: -1.6151297, z: 1.1577185}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &687795695 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5320409ef5c06214084a33adbbfbc7a5, type: 3}
@@ -19039,7 +18980,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 426942603}
+  m_Father: {fileID: 2122915318}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -29742,7 +29683,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mixer: {fileID: 24100000, guid: df06c1405e92e5f428d6d36318dc1e0a, type: 2}
-  db: {fileID: 687187809}
 --- !u!4 &1361701459
 Transform:
   m_ObjectHideFlags: 0
@@ -34084,7 +34024,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 426942603}
+  m_Father: {fileID: 2122915318}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -34695,7 +34635,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   volumeSlider: {fileID: 1549644272}
   valueText: {fileID: 1861196951}
-  db: {fileID: 687187809}
 --- !u!114 &1549644272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42473,7 +42412,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   element: {fileID: 426942602}
-  interactionManager: {fileID: 0}
 --- !u!114 &1949521905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42487,7 +42425,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   element: {fileID: 2103467261}
-  interactionManager: {fileID: 0}
 --- !u!114 &1949521906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43476,6 +43413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f449f2b6d9c049a47b9a6f79d8dcd38f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trigger: {fileID: 0}
 --- !u!4 &1985641232
 Transform:
   m_ObjectHideFlags: 0
@@ -45987,7 +45925,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 392891877}
+  - {fileID: 867656031}
+  - {fileID: 1529707017}
   m_Father: {fileID: 426942603}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -46519,4 +46460,3 @@ SceneRoots:
   - {fileID: 1361701459}
   - {fileID: 1872715360}
   - {fileID: 2103919399}
-  - {fileID: 687187810}
