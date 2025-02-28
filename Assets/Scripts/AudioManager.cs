@@ -5,6 +5,7 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance; // Singleton to ensure one instance exists
     public AudioMixer mixer;
+    public JSONDatabaseOperations db;
 
     private void Awake()
     {
@@ -25,7 +26,9 @@ public class AudioManager : MonoBehaviour
 
     public void LoadVolume()
     {
-        float value = PlayerPrefs.GetFloat("Volume", 0.5f);
+        //float value = PlayerPrefs.GetFloat("Volume", 0.5f);
+        float value = db.LoadMainMenuData();
+
         ApplyVolume(value);
     }
 
@@ -43,8 +46,10 @@ public class AudioManager : MonoBehaviour
 
     public void SaveVolume(float value)
     {
-        PlayerPrefs.SetFloat("Volume", value);
-        PlayerPrefs.Save();
+        //PlayerPrefs.SetFloat("Volume", value);
+        //PlayerPrefs.Save();
+
+        db.SaveMainMenuData(value);
         ApplyVolume(value);
     }
 }

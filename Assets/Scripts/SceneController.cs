@@ -33,7 +33,6 @@ public class SceneManagerInstance : MonoBehaviour
         SceneManager.LoadScene("MovementTestScene");
     }
 
-
     //TODO
     /*
     void Update()

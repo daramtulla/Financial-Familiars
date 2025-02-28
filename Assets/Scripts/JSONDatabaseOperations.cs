@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEditor;
+using UnityEditor.Overlays;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class JSONDatabaseOperations : MonoBehaviour
 {
@@ -11,8 +13,22 @@ public class JSONDatabaseOperations : MonoBehaviour
     [SerializeField] Boolean debug;
     public Player currentPlayer;
 
+    public static JSONDatabaseOperations Instance; // Singleton to ensure one instance exists
+
     void Awake()
     {
+        // Singleton to share across scenes
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         currentPlayer = new Player();
         filePath = Application.persistentDataPath + "/JSONDatabase.json";
 
@@ -29,9 +45,11 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.merch.Add(new Merchandise(10, "All-Seeing Crystal Ball", 0, 200, 0, .10f, 4, 1));
         currentPlayer.merch.Add(new Merchandise(11, "Wand Core Cluster", 0, 200, 0, .10f, 4, 2));
         currentPlayer.merch.Add(new Merchandise(12, "Pulsating Dragon Heart", 0, 200, 0, .10f, 4, 3));
+
+        LoadData();
     }
 
-    private void SaveData()
+    public void SaveData()
     {
         string JSONString = JsonUtility.ToJson(currentPlayer);
         System.IO.File.WriteAllText(filePath, JSONString);
@@ -42,7 +60,7 @@ public class JSONDatabaseOperations : MonoBehaviour
         }
     }
 
-    private void LoadData()
+    public void LoadData()
     {
         string JSONString = System.IO.File.ReadAllText(filePath);
         currentPlayer = JsonUtility.FromJson<Player>(JSONString);
@@ -53,6 +71,18 @@ public class JSONDatabaseOperations : MonoBehaviour
         }
     }
 
+    public float LoadMainMenuData()
+    {
+        LoadData();
+        return currentPlayer.volume;
+    }
+
+    public void SaveMainMenuData(float newVolume)
+    {
+        currentPlayer.volume = newVolume;
+        SaveData();
+        return;
+    }
 
     void Update()
     {
@@ -76,6 +106,7 @@ public class Player
 {
     public float moveSpeedModifier;
     public int currentMoney;
+    public float volume;
 
     public List<Merchandise> merch = new List<Merchandise>();
     public int currentLoanAmount;

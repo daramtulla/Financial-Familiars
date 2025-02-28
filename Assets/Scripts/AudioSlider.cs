@@ -1,3 +1,4 @@
+using System.Data.Common;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -7,6 +8,7 @@ public class AudioSlider : MonoBehaviour
 {
     public Slider volumeSlider;
     public Text valueText;
+    public JSONDatabaseOperations db;
 
     private void Start()
     {
@@ -20,7 +22,7 @@ public class AudioSlider : MonoBehaviour
 
     private void UpdateSlider()
     {
-        float value = PlayerPrefs.GetFloat("Volume", 1f);
+        float value = db.currentPlayer.volume;
         volumeSlider.value = value;
         UpdateVolumeText(value);
     }
