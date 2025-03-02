@@ -13,26 +13,12 @@ public class JSONDatabaseOperations : MonoBehaviour
     [SerializeField] Boolean debug;
     public Player currentPlayer;
 
-    public static JSONDatabaseOperations Instance; // Singleton to ensure one instance exists
-
     void Awake()
     {
-        // Singleton to share across scenes
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         currentPlayer = new Player();
         filePath = Application.persistentDataPath + "/JSONDatabase.json";
 
-        //Preintailize items in list to 0 inventory and markup. Change on load.
+        //Set intial values
         currentPlayer.merch.Add(new Merchandise(1, "Crimson Restoration Potion", 0, 10, 0, .2f, 1, 1));
         currentPlayer.merch.Add(new Merchandise(2, "Bubbling Polymorph Flask", 0, 25, 0, .2f, 1, 2));
         currentPlayer.merch.Add(new Merchandise(3, "Draught of Living Death", 0, 65, 0, .2f, 1, 3));
@@ -43,14 +29,30 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.merch.Add(new Merchandise(8, "Lich King Grimoire", 0, 320, 0, .10f, 3, 2));
         currentPlayer.merch.Add(new Merchandise(9, "Featherlight Warhammer", 0, 700, 0, .10f, 3, 3));
         currentPlayer.merch.Add(new Merchandise(10, "All-Seeing Crystal Ball", 0, 200, 0, .10f, 4, 1));
-        currentPlayer.merch.Add(new Merchandise(11, "Wand Core Cluster", 0, 200, 0, .10f, 4, 2));
-        currentPlayer.merch.Add(new Merchandise(12, "Pulsating Dragon Heart", 0, 200, 0, .10f, 4, 3));
+        currentPlayer.merch.Add(new Merchandise(11, "Wand Core Cluster", 0, 450, 0, .10f, 4, 2));
+        currentPlayer.merch.Add(new Merchandise(12, "Pulsating Dragon Heart", 0, 1000, 0, .10f, 4, 3));
+
+        currentPlayer.suppliers.Add(new Supplier(1, "Arcane Emporium", 0, 0, 0, 0));
+        currentPlayer.suppliers.Add(new Supplier(2, "Mystic Merchants", 0, 0, 0, 0));
+        currentPlayer.suppliers.Add(new Supplier(3, "Wand & Whimsy", 0, 0, 0, 0));
+        currentPlayer.suppliers.Add(new Supplier(4, "Phoenix Feather Trading", 0, 0, 0, 0));
+        currentPlayer.suppliers.Add(new Supplier(5, "Twilight Trinkets", 0, 0, 0, 0));
+        currentPlayer.suppliers.Add(new Supplier(6, "Spellbound Supplies", 0, 0, 0, 0));
+        currentPlayer.suppliers.Add(new Supplier(7, "Sigil & Sorcery", 0, 0, 0, 0));
+
+
+        currentPlayer.moveSpeedModifier = 1;
+        currentPlayer.currentMoney = 1000f;
+        currentPlayer.volume = .5f;
+        currentPlayer.dayCount = 1;
+        currentPlayer.dailySales = 0;
 
         LoadData();
     }
 
     public void SaveData()
     {
+        filePath = Application.persistentDataPath + "/JSONDatabase.json";
         string JSONString = JsonUtility.ToJson(currentPlayer);
         System.IO.File.WriteAllText(filePath, JSONString);
 
@@ -62,6 +64,7 @@ public class JSONDatabaseOperations : MonoBehaviour
 
     public void LoadData()
     {
+        filePath = Application.persistentDataPath + "/JSONDatabase.json";
         string JSONString = System.IO.File.ReadAllText(filePath);
         currentPlayer = JsonUtility.FromJson<Player>(JSONString);
 
@@ -69,12 +72,6 @@ public class JSONDatabaseOperations : MonoBehaviour
         {
             Debug.Log("Data Loaded");
         }
-    }
-
-    public float LoadMainMenuData()
-    {
-        LoadData();
-        return currentPlayer.volume;
     }
 
     public void SaveMainMenuData(float newVolume)
@@ -99,16 +96,25 @@ public class JSONDatabaseOperations : MonoBehaviour
             LoadData();
         }
     }
+
+    public void UpdateDailySales(float sales)
+    {
+        currentPlayer.dailySales = sales;
+    }
 }
 
 [System.Serializable]
 public class Player
 {
     public float moveSpeedModifier;
-    public int currentMoney;
+    public float currentMoney;
     public float volume;
 
+    public int dayCount;
+    public float dailySales;
+
     public List<Merchandise> merch = new List<Merchandise>();
+    public List<Supplier> suppliers = new List<Supplier>();
     public int currentLoanAmount;
     public void changeQuantity(int id, int change)
     {
@@ -180,5 +186,27 @@ public class Merchandise
         this.customerMod = customerMod;
         this.group = group;
         this.tier = tier;
+    }
+}
+
+[System.Serializable]
+public class Supplier
+{
+    public int id;
+    public string name;
+    public int stock1;
+    public float cost1;
+
+    public int stock2;
+    public float cost2;
+
+    public Supplier(int id, string name, int stock1, int cost1, int stock2, int cost2)
+    {
+        this.id = id;
+        this.name = name;
+        this.stock1 = stock1;
+        this.cost1 = cost1;
+        this.stock2 = stock2;
+        this.cost2 = cost2;
     }
 }

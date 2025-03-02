@@ -9,6 +9,7 @@ public class AudioSlider : MonoBehaviour
     public Slider volumeSlider;
     public Text valueText;
     public JSONDatabaseOperations db;
+    public AudioManager am;
 
     private void Start()
     {
@@ -30,7 +31,7 @@ public class AudioSlider : MonoBehaviour
     public void OnChangeSlider(float value)
     {
         UpdateVolumeText(value);
-        AudioManager.Instance.SaveVolume(value); // Save and apply volume globally
+        am.SaveVolume(value); // Save and apply volume globally
     }
 
     private void UpdateVolumeText(float value)

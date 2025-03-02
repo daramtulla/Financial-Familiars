@@ -27,21 +27,6 @@ public class MovementController : MonoBehaviour
         upperStep.transform.position = new Vector3(playerModel.transform.position.x, upperStep.transform.position.y + stepHeight, playerModel.transform.position.z);
 
         interacting = false;
-
-        /*
-        //Only ever should be one instance. Destroys prior instance if already made
-        if (instance != null)
-        {
-            Destroy(gameObject);
-        }
-
-        //Create new instance
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        */
     }
 
 
@@ -54,7 +39,7 @@ public class MovementController : MonoBehaviour
             transform.position = startingPosition.transform.position;
             transform.rotation = startingPosition.transform.rotation;
         }
-            if (!interacting)
+        if (!interacting)
         {
             input.x = Input.GetAxis("Horizontal");
             input.z = Input.GetAxis("Vertical");

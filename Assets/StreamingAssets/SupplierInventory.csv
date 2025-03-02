@@ -1,8 +1,0 @@
-ID,Name,Quantity,BaseCost,Markup,Slope,Intercept
-1,Clear Crystal Orb,30,20,25,-0.4,50
-2,Walnut Wand,10,10,25,-0.8,70
-3,Vial of Acid,110,25,25,-0.32,45
-4,Garnet Gemstone,10,100,25,-0.144,20
-5,Amethyst Gemstone,0,100,25,-0.144,20
-6,Aquamarine Gemstone,0,500,25,-0.0072,5
-7,Diamond Gemstone,0,5000,25,-0.000144,1
