@@ -56,45 +56,6 @@ public class InteractionManager : MonoBehaviour
                     }
                 }
             }
-            /*Commented out because 2 menus can open at once on an interaction.
-            if (Physics.Raycast(interactSource.transform.position, transform.TransformDirection(Vector3.back), out RaycastHit rayInfoB, interactRayRange))
-            {
-                if (rayInfoB.collider.gameObject.TryGetComponent(out Interact interactable))
-                {
-                    if (rayInfoB.collider.gameObject.layer == 3)
-                    {
-                        switchInteractState();
-                        interactable.Interact();
-                    }
-                }
-            }
-            */
-
-            /* Commented out because of the issue of the front raycast and one of the side raycasts hitting the same object.
-            if (Physics.Raycast(interactSource.transform.position, transform.TransformDirection(Vector3.left), out RaycastHit rayInfoL, interactRayRange))
-            {
-                if (rayInfoL.collider.gameObject.TryGetComponent(out Interact interactable))
-                {
-                    if (rayInfoL.collider.gameObject.layer == 3)
-                    {
-                        switchInteractState();
-                        interactable.Interact();
-                    }
-                }
-            }
-
-            if (Physics.Raycast(interactSource.transform.position, transform.TransformDirection(Vector3.right), out RaycastHit rayInfoR, interactRayRange))
-            {
-                if (rayInfoR.collider.gameObject.TryGetComponent(out Interact interactable))
-                {
-                    if (rayInfoR.collider.gameObject.layer == 3)
-                    {
-                        switchInteractState();
-                        interactable.Interact();
-                    }
-                }
-            }
-            */
 
         }
     }
