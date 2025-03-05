@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class CustomerManager : MonoBehaviour
 {
+    /*
     public List<InventoryItem> InventoryItems;
 
     public void Initialize(List<InventoryItem> playerItems)
@@ -18,6 +19,7 @@ public class CustomerManager : MonoBehaviour
         InventoryItems = inventoryItems;
     }
 
+    //Debugging Function
     public void findInformation()
     {
         foreach(InventoryItem item in InventoryItems)
@@ -48,5 +50,6 @@ public class CustomerManager : MonoBehaviour
         }
         return moneyMade;
     }
-    
+    */
+
 }

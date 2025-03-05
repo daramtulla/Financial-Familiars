@@ -18,27 +18,15 @@ public class MovementController : MonoBehaviour
     public Vector3 stepSpeed;
     public float stepHeight;
     public static Boolean interacting;
+    [SerializeField] GameObject startingPosition;
 
     void Awake()
     {
+        transform.position = startingPosition.transform.position;
+        transform.rotation = startingPosition.transform.rotation;
         upperStep.transform.position = new Vector3(playerModel.transform.position.x, upperStep.transform.position.y + stepHeight, playerModel.transform.position.z);
 
         interacting = false;
-
-        /*
-        //Only ever should be one instance. Destroys prior instance if already made
-        if (instance != null)
-        {
-            Destroy(gameObject);
-        }
-
-        //Create new instance
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        */
     }
 
 
@@ -46,6 +34,11 @@ public class MovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            transform.position = startingPosition.transform.position;
+            transform.rotation = startingPosition.transform.rotation;
+        }
         if (!interacting)
         {
             input.x = Input.GetAxis("Horizontal");

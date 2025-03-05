@@ -1,3 +1,4 @@
+using System.Data.Common;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -7,6 +8,8 @@ public class AudioSlider : MonoBehaviour
 {
     public Slider volumeSlider;
     public Text valueText;
+    public JSONDatabaseOperations db;
+    public AudioManager am;
 
     private void Start()
     {
@@ -20,7 +23,7 @@ public class AudioSlider : MonoBehaviour
 
     private void UpdateSlider()
     {
-        float value = PlayerPrefs.GetFloat("Volume", 1f);
+        float value = db.currentPlayer.volume;
         volumeSlider.value = value;
         UpdateVolumeText(value);
     }
@@ -28,7 +31,7 @@ public class AudioSlider : MonoBehaviour
     public void OnChangeSlider(float value)
     {
         UpdateVolumeText(value);
-        AudioManager.Instance.SaveVolume(value); // Save and apply volume globally
+        am.SaveVolume(value); // Save and apply volume globally
     }
 
     private void UpdateVolumeText(float value)

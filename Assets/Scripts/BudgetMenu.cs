@@ -1,91 +1,107 @@
 using UnityEngine;
+
 using TMPro;
+
 
 public class BudgetMenu : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public GameObject budgetPanel;
+    [SerializeField] InteractionManager interactionManager;
 
     //spreadsheet variables
     //earned income
-     private float sales = 0;
-     public TextMeshProUGUI salesText;
-     private float subscriptions = 0;
-     public TextMeshProUGUI subsText;
-     private float adRevenue = 0;
-     public TextMeshProUGUI adrevText;
-     private float serviceFees = 0;
-     public TextMeshProUGUI servfeeText;
-     //fixed costs
-     private float rent = 0;
-     public TextMeshProUGUI rentText;
-     private float insurance = 0;
-     public TextMeshProUGUI insuranceText;
-     private float utilities = 0;
-     public TextMeshProUGUI utilitiesText;
-     private float taxes = 0;
-     public TextMeshProUGUI taxesText;
-     //variable costs
-     private float inventory = 0;
-     public TextMeshProUGUI inventoryText;
-     private float wages = 0;
-     public TextMeshProUGUI wagesText;
-     private float marketing = 0;
-     public TextMeshProUGUI marketingText;
-     private float repairsMaint = 0;
-     public TextMeshProUGUI repairsMaintText;
-     private float otherVC = 0;
-     public TextMeshProUGUI otherVCText;
-     //Loan Payments
-     private float startupLoan = 0;
-     public TextMeshProUGUI startupLoanText;
-     private float loanA = 0;
-     public TextMeshProUGUI loanAText;
-     private float loanB = 0;
-     public TextMeshProUGUI loanBText;
-     private float loanC = 0;
-     public TextMeshProUGUI loanCText;
-     //totals
-     private float incomeTtl = 0;
-     public TextMeshProUGUI incmTtlText;
-     private float expenseTtl = 0;
-     public TextMeshProUGUI expenseTtlText;
-     private float netProfit = 0;
-     public TextMeshProUGUI netProfitText;
-     private float savings = 0;
-     public TextMeshProUGUI savingsText;
-     private float cashOnHand = 0;
-     public TextMeshProUGUI cohText;
+    private float sales = 0;
+    public TextMeshProUGUI salesText;
+    private float subscriptions = 0;
+    public TextMeshProUGUI subsText;
+    private float adRevenue = 0;
+    public TextMeshProUGUI adrevText;
+    private float serviceFees = 0;
+    public TextMeshProUGUI servfeeText;
+    //fixed costs
+    private float rent = 0;
+    public TextMeshProUGUI rentText;
+    private float insurance = 0;
+    public TextMeshProUGUI insuranceText;
+    private float utilities = 0;
+    public TextMeshProUGUI utilitiesText;
+    private float taxes = 0;
+    public TextMeshProUGUI taxesText;
+    //variable costs
+    private float inventory = 0;
+    public TextMeshProUGUI inventoryText;
+    private float wages = 0;
+    public TextMeshProUGUI wagesText;
+    private float marketing = 0;
+    public TextMeshProUGUI marketingText;
+    private float repairsMaint = 0;
+    public TextMeshProUGUI repairsMaintText;
+    private float otherVC = 0;
+    public TextMeshProUGUI otherVCText;
+    //Loan Payments
+    private float startupLoan = 0;
+    public TextMeshProUGUI startupLoanText;
+    private float loanA = 0;
+    public TextMeshProUGUI loanAText;
+    private float loanB = 0;
+    public TextMeshProUGUI loanBText;
+    private float loanC = 0;
+    public TextMeshProUGUI loanCText;
+    //totals
+    private float incomeTtl = 0;
+    public TextMeshProUGUI incmTtlText;
+    private float expenseTtl = 0;
+    public TextMeshProUGUI expenseTtlText;
+    private float netProfit = 0;
+    public TextMeshProUGUI netProfitText;
+    private float savings = 0;
+    public TextMeshProUGUI savingsText;
+    private float cashOnHand = 0;
+    public TextMeshProUGUI cohText;
 
 
     void Start()
     {
         budgetPanel.SetActive(false);
         UpdateBudgetUI();
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
         //press B to open budget
-        if(Input.GetKeyDown(KeyCode.B)){
+        if (Input.GetKeyDown(KeyCode.B))
+        {
             ToggleBudgetMenu();
         }
-        
+
     }
 
-    public void ToggleBudgetMenu(){
+    public void ToggleBudgetMenu()
+    {
         UpdateBudgetUI();
         budgetPanel.SetActive(!budgetPanel.activeSelf);
     }
 
-    public void CloseMenu(){
+    public void CloseMenu()
+    {
+        Debug.Log("Test Budget Menu Close");
+        //The if statement prevents you from being frozen when you press B to open the budget menu
+        //and then press the close button.
+        //Also prevents "switchInteractState()" from being called twice when F is pressed
+        //(once in the Update() function of InteractionManager.cs and the other time here).
+        if (InteractionManager.GetInteractState() == true)
+        {
+            Debug.Log("(BudgetMenu): GetInteractState() is true");
+            interactionManager.switchInteractState();
+        }
         budgetPanel.SetActive(false);
-
     }
 
-    private void UpdateBudgetUI(){
+    private void UpdateBudgetUI()
+    {
         //latest values please
         salesText.text = "$" + sales.ToString("0.00");
         subsText.text = "$" + subscriptions.ToString("0.00");
