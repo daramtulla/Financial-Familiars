@@ -23,12 +23,19 @@ public class SuppliersMenu : MonoBehaviour
     void Awake()
     {
         rnd = new RandomGenNum();
+
+        day = -1;
     }
 
     void Start()
     {
         suppliersPanel.SetActive(false);
-        UpdateSuppliersUI();
+
+        if (db.currentPlayer.dayCount != day)
+        {
+            generateStock();
+            day++;
+        }
     }
 
     void Update()
@@ -38,22 +45,7 @@ public class SuppliersMenu : MonoBehaviour
         {
             ToggleMenu();
         }
-
-        if (db.currentPlayer.dayCount != day)
-        {
-            generateStock();
-            day++;
-        }
     }
-
-    /*
-    private void LoadSuppliersFromCSV()
-    {
-        List<Supplier> allSuppliers = db.currentPlayer.suppliers;
-        supplierItems = Filter(allItems);
-
-    }
-    */
 
     public void ToggleMenu()
     {

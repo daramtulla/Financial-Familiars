@@ -29723,8 +29723,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mixer: {fileID: 24100000, guid: df06c1405e92e5f428d6d36318dc1e0a, type: 2}
-  Instance: {fileID: 1361701458}
   db: {fileID: 1481270403}
+  am: {fileID: 1361701458}
 --- !u!4 &1361701459
 Transform:
   m_ObjectHideFlags: 0
@@ -32829,7 +32829,6 @@ MonoBehaviour:
     merch: []
     suppliers: []
     currentLoanAmount: 0
-  newGame: 0
 --- !u!4 &1481270404
 Transform:
   m_ObjectHideFlags: 0
@@ -43514,7 +43513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f449f2b6d9c049a47b9a6f79d8dcd38f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trigger: {fileID: 0}
+  am: {fileID: 1361701458}
   db: {fileID: 1481270403}
 --- !u!4 &1985641232
 Transform:

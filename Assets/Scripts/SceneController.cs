@@ -1,16 +1,17 @@
+using UnityEditor.Overlays;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-
+    public AudioManager am;
     /*
         IMPORTANT: Add scenes into build settings
     */
     public JSONDatabaseOperations db;
-    private void OnSceneLoad(Scene scene, LoadSceneMode mode)
+    public void OnSceneLoad(Scene scene, LoadSceneMode mode)
     {
-        db.LoadData();
+        db.SaveData();
     }
 
     //Example OnClick Scene Change. Copy, rename and replace scene name to use 
@@ -21,11 +22,14 @@ public class SceneController : MonoBehaviour
 
     public void OnClickSceneChangeStore()
     {
+        db.SaveData();
         SceneManager.LoadScene("Store");
     }
 
     public void OnClickSceneChangeTitle()
     {
+        Time.timeScale = 1.0f;
+        db.SaveData();
         SceneManager.LoadScene("TitleScreen");
     }
 }
