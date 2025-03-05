@@ -28,6 +28,7 @@ public class SceneController : MonoBehaviour
 
     public void OnClickSceneChangeTitle()
     {
+        Time.timeScale = 1.0f;
         db.SaveData();
         SceneManager.LoadScene("TitleScreen");
     }
