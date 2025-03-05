@@ -102,6 +102,8 @@ public class LoansMenu : MonoBehaviour
     [SerializeField] GameObject currentamount;
     [SerializeField] GameObject currentinterest;
 
+    [SerializeField] InteractionManager interactionManager;
+
     private int currentindex=0;
 
     Color ogcolor = new Color(53, 41, 42, 255);
@@ -200,10 +202,20 @@ public class LoansMenu : MonoBehaviour
         moneyspent+= init-theloans[currentindex].amount;
         RemoveFromSave();
     }
-    void CloseThis(){
+    public void CloseThis(){
+        Debug.Log("Test Loan Menu Close");
+        //The if statement prevents you from being frozen when you press F to interact
+        //and then press the close button.
+        //Also prevents "switchInteractState()" from being called twice when F is pressed
+        //(once in the Update() function of InteractionManager.cs and the other time here).
+        if (InteractionManager.GetInteractState() == true)
+        {
+            Debug.Log("(LoansMenu): GetInteractState() is true");
+            interactionManager.switchInteractState();
+        }
         loansmenu.SetActive(false);
     }
-    void OpenThis(){
+    public void OpenThis(){
         loansmenu.SetActive(true);
     }
     void Increaser(){
