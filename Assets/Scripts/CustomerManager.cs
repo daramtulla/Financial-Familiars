@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class CustomerManager : MonoBehaviour
 {
+    /*
     public List<InventoryItem> InventoryItems;
 
     public void Initialize(List<InventoryItem> playerItems)
@@ -49,5 +50,6 @@ public class CustomerManager : MonoBehaviour
         }
         return moneyMade;
     }
-    
+    */
+
 }

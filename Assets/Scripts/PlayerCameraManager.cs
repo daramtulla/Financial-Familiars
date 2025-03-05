@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-    //public static CameraManager instance;
 
     private Boolean followMode;
 
@@ -24,22 +23,6 @@ public class CameraManager : MonoBehaviour
         mainCam.transform.position = new Vector3(camX, camY, camZ);
         mainCam.transform.rotation = Quaternion.Euler(60, 0, 0);
         followMode = false;
-
-        /*
-
-        //Only ever should be one instance. Destroys prior instance if already made
-        if (instance != null)
-        {
-            Destroy(gameObject);
-        }
-
-        //Create new instance
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        */
     }
 
     //TODO Implement zoom in feature when interacting with objects

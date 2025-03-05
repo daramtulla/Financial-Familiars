@@ -2,8 +2,9 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
 
-public class CSVLoader: MonoBehaviour
+public class CSVLoader : MonoBehaviour
 {
+    /*
     public static List<InventoryItem> LoadItemsFromCSV(string fileName)
     {
         List<InventoryItem> items = new List<InventoryItem>();
@@ -27,8 +28,8 @@ public class CSVLoader: MonoBehaviour
                 float demandIntercept = float.Parse(values[6]);
 
                 //InventoryItem newItem = new InventoryItem(id, name, quantity, baseCost, markup);
-                InventoryItem newItem = new InventoryItem(id, name, quantity, baseCost, markup, demandSlope, demandIntercept);
-                items.Add(newItem);
+                //InventoryItem newItem = new InventoryItem(id, name, quantity, baseCost, markup, demandSlope, demandIntercept);
+                //items.Add(newItem);
             }
         }
         else
@@ -38,6 +39,7 @@ public class CSVLoader: MonoBehaviour
 
         return items;
     }
+    */
 
     public static List<Term> LoadTermsFromCSV(string fileName)
     {

@@ -1,12 +1,13 @@
+using System.Data.Common;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public InventoryMenu inventoryMenu;
     public BudgetMenu budgetMenu;
     public SuppliersMenu suppliersMenu;
     public PlayerManager playerManager;
+    public JSONDatabaseOperations db;
 
     //End of Day Visuals
     public GameObject endScreen;
@@ -20,20 +21,16 @@ public class GameManager : MonoBehaviour
     //Pause Menu Logic
     public GameObject pauseMenu;
 
-    public void Start()
-    {
-    }
-
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             pauseGame();
         }
     }
     public void pauseGame()
     {
-        if(pauseMenu.activeSelf)
+        if (pauseMenu.activeSelf)
         {
             Time.timeScale = 1.0f;
             pauseMenu.SetActive(false);
@@ -50,11 +47,11 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0.0f;
 
         //Sell Items
-        float moneyMadeAmount = inventoryMenu.sellItems();
+        float moneyMadeAmount = db.currentPlayer.dailySales;
 
         //Display End of Day
         endScreen.SetActive(true);
-        endDayTitle.text = "Day " + playerManager.getDay().ToString() + " Results";
+        endDayTitle.text = "Day " + db.currentPlayer.dayCount + " Results";
 
         //Money Made
         formatText(moneyMade, moneyMadeAmount);
@@ -84,12 +81,12 @@ public class GameManager : MonoBehaviour
     }
     public void formatText(Text textObject, float amount)
     {
-        if(amount > 0)
+        if (amount > 0)
         {
             textObject.text = "$" + amount.ToString();
             textObject.color = Color.green;
         }
-        else if(amount < 0)
+        else if (amount < 0)
         {
             textObject.text = "-$" + (-amount).ToString();
             textObject.color = Color.red;
@@ -99,10 +96,5 @@ public class GameManager : MonoBehaviour
             textObject.text = "$" + amount.ToString();
             textObject.color = Color.gray;
         }
-    }
-
-    public void nextDay()
-    {
-
     }
 }

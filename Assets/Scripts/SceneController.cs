@@ -1,30 +1,17 @@
+using UnityEditor.Overlays;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneManagerInstance : MonoBehaviour
+public class SceneController : MonoBehaviour
 {
-
+    public AudioManager am;
     /*
         IMPORTANT: Add scenes into build settings
     */
-    public static SceneManagerInstance instance;
-
-    public Collider trigger;
-
-    void Awake()
+    public JSONDatabaseOperations db;
+    public void OnSceneLoad(Scene scene, LoadSceneMode mode)
     {
-        //Only ever should be one instance. Destroys prior instance if already made
-        if (instance != null)
-        {
-            Destroy(gameObject);
-        }
-
-        //Create new instance
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
+        db.SaveData();
     }
 
     //Example OnClick Scene Change. Copy, rename and replace scene name to use 
@@ -33,22 +20,16 @@ public class SceneManagerInstance : MonoBehaviour
         SceneManager.LoadScene("MovementTestScene");
     }
 
-
-    //TODO
-    /*
-    void Update()
+    public void OnClickSceneChangeStore()
     {
-        ExampleTriggerSceneChange(trigger);
+        db.SaveData();
+        SceneManager.LoadScene("Store");
     }
 
-    //Example OnTrigger Scene Change. Copy, rename and replace scene name to use 
-    public void ExampleTriggerSceneChange(Collider col)
+    public void OnClickSceneChangeTitle()
     {
-        if (col.))
-        {
-            Debug.Log("Activated");
-            SceneManager.LoadScene("TitleScreen");
-        }
+        Time.timeScale = 1.0f;
+        db.SaveData();
+        SceneManager.LoadScene("TitleScreen");
     }
-    */
 }

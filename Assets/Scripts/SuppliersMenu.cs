@@ -3,41 +3,52 @@ using TMPro;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using System.IO;
-public class SuppliersMenu: MonoBehaviour
+using System.Security.Cryptography;
+using UnityEditor.Overlays;
+
+public class SuppliersMenu : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public GameObject suppliersPanel;
     public Transform suppliersContent;
     public GameObject supplierItemPrefab;
 
-    private List<InventoryItem> supplierItems = new List<InventoryItem>();
+    public JSONDatabaseOperations db;
 
-    public InventoryMenu inventoryMenu;
+    private int day;
+
+    private RandomGenNum rnd;
     [SerializeField] InteractionManager interactionManager;
+
+    void Awake()
+    {
+        rnd = new RandomGenNum();
+
+        day = -1;
+    }
 
     void Start()
     {
         suppliersPanel.SetActive(false);
-        LoadSuppliersFromCSV();
-        UpdateSuppliersUI();
+
+        if (db.currentPlayer.dayCount != day)
+        {
+            generateStock();
+            day++;
+        }
     }
 
     void Update()
     {
         //press P to open purchasing of goods
-        if(Input.GetKeyDown(KeyCode.P)){
+        if (Input.GetKeyDown(KeyCode.P))
+        {
             ToggleMenu();
         }
     }
 
-    private void LoadSuppliersFromCSV()
+    public void ToggleMenu()
     {
-        List<InventoryItem> allItems = CSVLoader.LoadItemsFromCSV("SupplierInventory.csv");
-        supplierItems = Filter(allItems);
-
-    }
-
-    public void ToggleMenu(){
         suppliersPanel.SetActive(!suppliersPanel.activeSelf);
         if (suppliersPanel.activeSelf)
         {
@@ -45,7 +56,8 @@ public class SuppliersMenu: MonoBehaviour
         }
     }
 
-    public void CloseMenu(){
+    public void CloseMenu()
+    {
         Debug.Log("Test Suppliers Menu Close");
         //The if statement prevents you from being frozen when you press P to open the suppliers menu
         //and then press the close button.
@@ -57,114 +69,91 @@ public class SuppliersMenu: MonoBehaviour
             interactionManager.switchInteractState();
         }
         suppliersPanel.SetActive(false);
-        inventoryMenu.SaveInventoryToCSV();
     }
 
-    private void UpdateSuppliersUI()
+    public void generateStock()
     {
+        for (int i = 1; i < 8; i++)
+        {
+            int id1 = rnd.GetRandomMerchId();
+
+            int id2 = rnd.GetRandomMerchId();
+
+            while (id1 == id2)
+            {
+                id2 = rnd.GetRandomMerchId();
+            }
+
+            db.currentPlayer.suppliers[i - 1].stock1 = id1;
+            db.currentPlayer.suppliers[i - 1].stock2 = id2;
+
+            db.currentPlayer.suppliers[i - 1].cost1 = generateCost(id1, i);
+            db.currentPlayer.suppliers[i - 1].cost2 = generateCost(id2, i);
+        }
+    }
+
+    public float generateCost(int merchId, int storeID)
+    {
+        float bCost = db.currentPlayer.merch[merchId - 1].baseCost;
+        bCost *= .9f;
+
+        if ((storeID == 1 && (merchId == 1 || merchId == 2 || merchId == 3))
+        || (storeID == 2 && (merchId == 4 || merchId == 4 || merchId == 6))
+        || (storeID == 3 && (merchId == 7 || merchId == 8 || merchId == 8))
+        || (storeID == 4 && (merchId == 10 || merchId == 11 || merchId == 12))
+        || (storeID == 5 && (merchId == 1 || merchId == 4 || merchId == 7 || merchId == 10))
+        || (storeID == 6 && (merchId == 2 || merchId == 5 || merchId == 8 || merchId == 11))
+        || (storeID == 7 && (merchId == 3 || merchId == 6 || merchId == 9 || merchId == 12)))
+        {
+            bCost *= .8f;
+        }
+
+        Debug.Log(bCost.ToString());
+
+        return bCost;
+    }
+
+    public void UpdateSuppliersUI()
+    {
+        //Destroys prior entries in suppliers list
         foreach (Transform child in suppliersContent)
         {
             Destroy(child.gameObject);
         }
 
-        List<InventoryItem> filteredItems = Filter(supplierItems);
-
-        foreach (InventoryItem item in supplierItems)
+        foreach (Supplier supplier in db.currentPlayer.suppliers)
         {
             GameObject newItem = Instantiate(supplierItemPrefab, suppliersContent);
 
             TextMeshProUGUI[] texts = newItem.GetComponentsInChildren<TextMeshProUGUI>();
-            texts[0].text = item.storeName;
-            texts[1].text = item.itemName;
-            texts[2].text = "$" + (item.SellingPrice).ToString("0.00");
+            texts[0].text = supplier.name;
+            texts[1].text = db.currentPlayer.merch[supplier.stock1 - 1].name;
+            texts[2].text = "$" + supplier.cost1.ToString();
+            texts[3].text = db.currentPlayer.merch[supplier.stock2 - 1].name;
+            texts[4].text = "$" + supplier.cost2.ToString();
 
-            Button buy10Button = newItem.transform.Find("Buy10Button").GetComponent<Button>();
-            Button buy100Button = newItem.transform.Find("Buy100Button").GetComponent<Button>();
+            Button buy1Button1 = newItem.transform.Find("Buy1Button1").GetComponent<Button>();
+            Button buy10Button1 = newItem.transform.Find("Buy10Button1").GetComponent<Button>();
 
-            buy10Button.onClick.AddListener(() => BuyItem(item, 10));
-            buy100Button.onClick.AddListener(() => BuyItem(item, 100));
+            buy1Button1.onClick.AddListener(() => BuyItem(supplier.cost1, 1, supplier.stock1));
+            buy10Button1.onClick.AddListener(() => BuyItem(supplier.cost1, 10, supplier.stock1));
+
+            Button buy1Button2 = newItem.transform.Find("Buy1Button2").GetComponent<Button>();
+            Button buy10Button2 = newItem.transform.Find("Buy10Button2").GetComponent<Button>();
+
+            buy1Button2.onClick.AddListener(() => BuyItem(supplier.cost2, 1, supplier.stock2));
+            buy10Button2.onClick.AddListener(() => BuyItem(supplier.cost2, 10, supplier.stock2));
         }
     }
 
-    private void BuyItem(InventoryItem item, int quantity)
+    private void BuyItem(float cost, int bought, int id)
     {
-        //TODO: Add logic for money needed
-        inventoryMenu.BuyItem(item, quantity);
-    }
+        float total = cost * bought;
 
-    private void SaveInventoryToCSV()
-    {
-        string filePath = Path.Combine(Application.streamingAssetsPath, "InventoryItems.csv");
-        List<string> lines = new List<string>();
-
-        lines.Add("ID,Name,Quantity,BaseCost,Markup,Slope,Intercept");
-
-        foreach (InventoryItem item in supplierItems)
+        if (db.currentPlayer.currentMoney > total)
         {
-            lines.Add($"{item.idNumber},{item.itemName},{item.quantity},{item.baseCost},{item.markup},{item.demandCurveSlope},{item.demandCurveSlope}");
+            db.currentPlayer.currentMoney -= total;
+            db.currentPlayer.merch[id - 1].quantity += bought;
         }
-        File.WriteAllLines(filePath, lines);
-
-        Debug.Log($"Inventory saved to CSV: {filePath}");
     }
-
-    //Who is selling what for what?
-    private List<InventoryItem> Filter(List<InventoryItem> items)
-    {
-        List<InventoryItem> filteredItems = new List<InventoryItem>();
-        System.Random rand = new System.Random();
-
-        
-        //exactly 3 stores
-        string[] stores = { "Store A", "Store B", "Store C" };
-
-        foreach (string store in stores)
-        {
-
-            //1-3 items per store
-            int loopCount = rand.Next(1, 4);
-            for (int i = 0; i < loopCount; i++){
-                int randomIndex = rand.Next(0, items.Count);
-                InventoryItem selectedItem = items[randomIndex];
-
-                //label store
-                selectedItem.changeStore(store);
-
-                //Store-Specific Markup
-                if (store == "Store A")
-                {
-                    selectedItem.changeMarkup(rand.Next(0, 16));
-                }
-                else if (store == "Store B")
-                {
-                    //like rolling 1d4
-                    int randomChance = rand.Next(1, 5);
-                    if (randomChance == 1)
-                    {
-                        selectedItem.changeMarkup(-10);
-                    } else if (randomChance == 2)
-                    {
-                        selectedItem.changeMarkup(5);
-                    } else if (randomChance == 3)
-                    {
-                        selectedItem.changeMarkup(20);
-                    } else{
-                        selectedItem.changeMarkup(60);
-                    }
-                }
-                else if (store == "Store C")
-                {
-                    selectedItem.changeMarkup(rand.Next(0, 100));
-                }
-
-                //put on list
-                filteredItems.Add(selectedItem);
-            }
-
-        }
-
-        Debug.Log($"Filtered {items.Count} items down to {filteredItems.Count} items.");
-        return filteredItems;
-    }
-
 }

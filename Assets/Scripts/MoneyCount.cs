@@ -1,13 +1,21 @@
 using UnityEngine;
 using UnityEngine.UI;
-public class MoneyCount : MonoBehaviour {
+public class MoneyCount : MonoBehaviour
+{
 
-    int money;
+    float money;
     public Text text;
+    public JSONDatabaseOperations db;
 
     void Start()
     {
-        money = PlayerPrefs.GetInt("amount");
+        money = db.currentPlayer.currentMoney;
+        text.text = money.ToString();
+    }
+
+    void Update()
+    {
+        money = db.currentPlayer.currentMoney;
         text.text = money.ToString();
     }
     public void endDay()
@@ -18,9 +26,8 @@ public class MoneyCount : MonoBehaviour {
         int upkeepCost = Random.Range(0, 40);
         int change = (itemsSold * price) - upkeepCost;
         money += change;
-        Debug.Log("Items Sold: " + itemsSold + ", at price " + price + ", Upkeep Costs: "  + upkeepCost + ". Net change: " + change);
-        PlayerPrefs.SetInt("amount", money);
-        PlayerPrefs.Save();
+        Debug.Log("Items Sold: " + itemsSold + ", at price " + price + ", Upkeep Costs: " + upkeepCost + ". Net change: " + change);
+        db.currentPlayer.currentMoney = money;
         text.text = money.ToString();
     }
 }
