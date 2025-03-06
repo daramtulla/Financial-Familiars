@@ -7,8 +7,9 @@ public class AudioManager : MonoBehaviour
 {
     public AudioMixer mixer;
     public JSONDatabaseOperations db;
+    public AudioManager am;
 
-    private void Awake()
+    private void Start()
     {
         LoadVolume();
     }

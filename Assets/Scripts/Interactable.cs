@@ -8,6 +8,7 @@ public class Interactable : MonoBehaviour, Interact
     [SerializeField] InventoryMenu inventoryMenu;
     [SerializeField] GameManager gameManager;
     [SerializeField] ShowMenu showMenu;
+    [SerializeField] LoansMenu loansMenu;
 
     public void Interact()
     {
@@ -38,6 +39,11 @@ public class Interactable : MonoBehaviour, Interact
                 Debug.Log("Close End Day Screen");
                 showMenu.ShowElement(true); //I'm assuming true for ShowElement means "yes" to unpause
             }
+            else if (menuToOpenOrClose.name == "Loans Menu")
+            {
+                Debug.Log("Close Loans Menu");
+                loansMenu.CloseThis();
+            }
             else
             {
                 //Close the menu
@@ -66,6 +72,11 @@ public class Interactable : MonoBehaviour, Interact
             {
                 Debug.Log("Open End Day Screen");
                 gameManager.endDay();
+            }
+            else if (menuToOpenOrClose.name == "Loans Menu")
+            {
+                Debug.Log("Open Loans Menu");
+                loansMenu.OpenThis();
             }
             else
             {
