@@ -59,8 +59,6 @@ public class JSONDatabaseOperations : MonoBehaviour
         LoadData();
     }
 
-
-
     public void SaveData()
     {
         filePath = Application.persistentDataPath + "/JSONDatabase.json";
@@ -87,23 +85,16 @@ public class JSONDatabaseOperations : MonoBehaviour
 
     void Update()
     {
-        //For debugging
-        //When quiting from pause menu, call this function TODO
-        if (debug && Input.GetKey(KeyCode.K))
+        //Hotkeys for saving and loading
+        if (Input.GetKey(KeyCode.K))
         {
             SaveData();
         }
 
-        //When click start on the title screen, call this function TODO
-        if (debug && Input.GetKey(KeyCode.L))
+        if (Input.GetKey(KeyCode.L))
         {
             LoadData();
         }
-    }
-
-    public void UpdateDailySales(float sales)
-    {
-        currentPlayer.dailySales = sales;
     }
 }
 
@@ -145,8 +136,9 @@ public class Player
         return;
     }
 
-    public void changeMarkup(int id, float newMarkup)
+    public void ChangeMarkup(int id, float newMarkup)
     {
+        //TODO Add feedback for player
         if (id < 1 || id > 13)
         {
             Debug.Log("Invalid ItemId");
@@ -155,7 +147,7 @@ public class Player
         else
         {
             //limiting markup limits
-            if ((newMarkup > .5f || newMarkup < -.5f))
+            if (newMarkup > .5f || newMarkup < -.5f)
             {
                 Debug.Log("Invalid ItemId");
                 return;
@@ -165,6 +157,11 @@ public class Player
                 merch[id].markupPercentage = newMarkup;
             }
         }
+    }
+
+    public void UpdateDailySales(float sales)
+    {
+        dailySales = sales;
     }
 
     public void ResetInventory()
@@ -189,7 +186,6 @@ public class Player
 [System.Serializable]
 public class Merchandise
 {
-    //Example values. TODO create all items in the game
     public int id;
     public string name;
     public int quantity;
