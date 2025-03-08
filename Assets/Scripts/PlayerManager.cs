@@ -1,10 +1,10 @@
+using System;
 using System.Data.Common;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
-    float money;
     public Text moneyCount;
 
     public JSONDatabaseOperations db;
@@ -13,7 +13,7 @@ public class PlayerManager : MonoBehaviour
     public Text dayCount;
     void Start()
     {
-        money = db.currentPlayer.currentMoney;
+        float money = db.currentPlayer.currentMoney;
         moneyCount.text = "$" + money.ToString("0.##");
         if (money > 0)
         {
@@ -41,7 +41,7 @@ public class PlayerManager : MonoBehaviour
         dayCount.text = "Day " + day.ToString();
 
         //Money Logic
-        money += moneyMade;
+        float money = moneyMade + db.currentPlayer.currentMoney;
         db.currentPlayer.currentMoney = money;
 
         moneyCount.text = "$" + money.ToString("0.##");
@@ -60,14 +60,19 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public void resetData()
+    public void ResetData()
     {
-        moneyCount.text = "$0000";
+        //Intiale starting money is 1000 so player can purchase goods
+        db.currentPlayer.currentMoney = 1000;
+        float money = db.currentPlayer.currentMoney;
+        moneyCount.text = Math.Round(money, 2).ToString();
+
         moneyCount.color = new Color(1.0f, 0.5f, 0);
+        db.currentPlayer.dayCount = 1;
         dayCount.text = "Day 1";
-        money = 0;
         day = 1;
-        db.currentPlayer.currentMoney = money;
-        day = db.currentPlayer.dayCount;
+
+        //Clear inventory
+        db.currentPlayer.ResetInventory();
     }
 }

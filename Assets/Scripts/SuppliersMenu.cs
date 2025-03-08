@@ -24,7 +24,7 @@ public class SuppliersMenu : MonoBehaviour
     {
         rnd = new RandomGenNum();
 
-        day = -1;
+        day = 1;
     }
 
     void Start()

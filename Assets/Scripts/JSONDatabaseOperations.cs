@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.IO;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
@@ -57,6 +58,8 @@ public class JSONDatabaseOperations : MonoBehaviour
 
         LoadData();
     }
+
+
 
     public void SaveData()
     {
@@ -119,7 +122,7 @@ public class Player
     public List<Merchandise> merch = new List<Merchandise>();
     public List<Supplier> suppliers = new List<Supplier>();
     public int currentLoanAmount;
-    public void changeQuantity(int id, int change)
+    public void ChangeQuantity(int id, int change)
     {
         if (id < 1 || id > 13)
         {
@@ -162,6 +165,24 @@ public class Player
                 merch[id].markupPercentage = newMarkup;
             }
         }
+    }
+
+    public void ResetInventory()
+    {
+        merch.Clear();
+
+        merch.Add(new Merchandise(1, "Crimson Restoration Potion", 0, 10, 0, .2f, 1, 1));
+        merch.Add(new Merchandise(2, "Bubbling Polymorph Flask", 0, 25, 0, .2f, 1, 2));
+        merch.Add(new Merchandise(3, "Draught of Living Death", 0, 65, 0, .2f, 1, 3));
+        merch.Add(new Merchandise(4, "Emerald Ring of Minor Protection", 0, 30, 0, .15f, 2, 1));
+        merch.Add(new Merchandise(5, "Necklace of Fire Resistance", 0, 70, 0, .15f, 2, 2));
+        merch.Add(new Merchandise(6, "Pocket Dimension Bag", 0, 220, 0, .15f, 2, 3));
+        merch.Add(new Merchandise(7, "Never-Dull Gold Dagger", 0, 150, 0, .10f, 3, 1));
+        merch.Add(new Merchandise(8, "Lich King Grimoire", 0, 320, 0, .10f, 3, 2));
+        merch.Add(new Merchandise(9, "Featherlight Warhammer", 0, 700, 0, .10f, 3, 3));
+        merch.Add(new Merchandise(10, "All-Seeing Crystal Ball", 0, 200, 0, .10f, 4, 1));
+        merch.Add(new Merchandise(11, "Wand Core Cluster", 0, 450, 0, .10f, 4, 2));
+        merch.Add(new Merchandise(12, "Pulsating Dragon Heart", 0, 1000, 0, .10f, 4, 3));
     }
 }
 
