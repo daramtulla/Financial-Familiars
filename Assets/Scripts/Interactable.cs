@@ -78,14 +78,19 @@ public class Interactable : MonoBehaviour, Interact
                 Debug.Log("Open Loans Menu");
                 loansMenu.OpenThis();
             }
+            else if (menuToOpenOrClose.name == "HiringUI")
+            {
+                menuToOpenOrClose.SetActive(true);
+            }
+            else if (menuToOpenOrClose.name == "UpgradeUI")
+            {
+                menuToOpenOrClose.SetActive(true);
+            }
             else
             {
                 //Open the menu
                 menuToOpenOrClose.SetActive(true);
             }
         }
-
     }
-
-
 }
