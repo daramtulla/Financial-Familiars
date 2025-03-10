@@ -49,9 +49,10 @@ public class JSONDatabaseOperations : MonoBehaviour
             currentPlayer.moveSpeedModifier = 1;
             currentPlayer.currentMoney = 1000f;
             currentPlayer.volume = .5f;
-            currentPlayer.dayCount = 1;
+            currentPlayer.ResetDay();
             currentPlayer.dailySales = 0;
             currentPlayer.newPlayer = new IntegerField(1);
+            currentPlayer.active = new int[12];
 
             SaveData();
         }
@@ -105,8 +106,11 @@ public class Player
     public float currentMoney;
     public float volume;
 
-    public int dayCount;
+    //Day is private as increasing day needs to generate new supplier stock and reset daily sales
+    [SerializeField] int dayCount;
     public float dailySales;
+
+    public int[] active;
 
     public System.Object newPlayer;
 
@@ -122,9 +126,9 @@ public class Player
         }
         else
         {
-            if (merch[id].quantity + change > -1)
+            if (merch[id - 1].quantity + change > -1)
             {
-                merch[id].quantity += change;
+                merch[id - 1].quantity += change;
             }
             else
             {
@@ -158,12 +162,6 @@ public class Player
             }
         }
     }
-
-    public void UpdateDailySales(float sales)
-    {
-        dailySales = sales;
-    }
-
     public void ResetInventory()
     {
         merch.Clear();
@@ -180,6 +178,23 @@ public class Player
         merch.Add(new Merchandise(10, "All-Seeing Crystal Ball", 0, 200, 0, .10f, 4, 1));
         merch.Add(new Merchandise(11, "Wand Core Cluster", 0, 450, 0, .10f, 4, 2));
         merch.Add(new Merchandise(12, "Pulsating Dragon Heart", 0, 1000, 0, .10f, 4, 3));
+    }
+
+    public void IncrDay()
+    {
+        dayCount++;
+        //Daily sales already added to money total
+        dailySales = 0;
+    }
+
+    public int GetDay()
+    {
+        return dayCount;
+    }
+
+    public void ResetDay()
+    {
+        dayCount = 1;
     }
 }
 

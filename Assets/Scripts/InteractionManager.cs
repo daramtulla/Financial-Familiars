@@ -2,9 +2,14 @@ using Unity.VisualScripting;
 using UnityEngine;
 using System;
 
-interface Interact
+interface InteractMenu
 {
-    public void Interact();
+    public void InteractMenu();
+}
+
+interface InteractDisplay
+{
+    public void InteractDisplay();
 }
 
 public class InteractionManager : MonoBehaviour
@@ -47,12 +52,22 @@ public class InteractionManager : MonoBehaviour
             out RaycastHit rayInfoF, interactRayRange))
             {
                 if (rayInfoF.collider.gameObject.
-                TryGetComponent(out Interact interactable))
+                TryGetComponent(out InteractMenu interactableM))
                 {
                     if (rayInfoF.collider.gameObject.layer == 3)
                     {
-                        switchInteractState();
-                        interactable.Interact();
+                        SwitchInteractState();
+                        interactableM.InteractMenu();
+                    }
+                }
+
+                if (rayInfoF.collider.gameObject.
+                TryGetComponent(out InteractDisplay interactableD))
+                {
+                    if (rayInfoF.collider.gameObject.layer == 6)
+                    {
+                        //Do not want to freeze movement when stocking displays so do not change interact state
+                        interactableD.InteractDisplay();
                     }
                 }
             }
@@ -60,7 +75,7 @@ public class InteractionManager : MonoBehaviour
         }
     }
 
-    public void switchInteractState()
+    public void SwitchInteractState()
     {
         IsInteracting(!GetInteractState());
         ZeroPlayerVelocity(playerModel);

@@ -24,18 +24,12 @@ public class SuppliersMenu : MonoBehaviour
     {
         rnd = new RandomGenNum();
 
-        day = 1;
+        day = db.currentPlayer.GetDay();
     }
 
     void Start()
     {
         suppliersPanel.SetActive(false);
-
-        if (db.currentPlayer.dayCount != day)
-        {
-            generateStock();
-            day++;
-        }
     }
 
     void Update()
@@ -44,6 +38,13 @@ public class SuppliersMenu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             ToggleMenu();
+        }
+
+        //Generate new stock on day increase
+        if (db.currentPlayer.GetDay() == day)
+        {
+            generateStock();
+            day++;
         }
     }
 
@@ -66,7 +67,7 @@ public class SuppliersMenu : MonoBehaviour
         if (InteractionManager.GetInteractState() == true)
         {
             Debug.Log("(SuppliersMenu): GetInteractState() is true");
-            interactionManager.switchInteractState();
+            interactionManager.SwitchInteractState();
         }
         suppliersPanel.SetActive(false);
     }
@@ -95,7 +96,9 @@ public class SuppliersMenu : MonoBehaviour
     public float generateCost(int merchId, int storeID)
     {
         float bCost = db.currentPlayer.merch[merchId - 1].baseCost;
-        bCost *= .9f;
+
+        //Randomly generate sale price modifer
+        bCost *= (float)(rnd.SalePriceModifier() / 10);
 
         if ((storeID == 1 && (merchId == 1 || merchId == 2 || merchId == 3))
         || (storeID == 2 && (merchId == 4 || merchId == 4 || merchId == 6))

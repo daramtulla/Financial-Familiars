@@ -95,7 +95,7 @@ public class BudgetMenu : MonoBehaviour
         if (InteractionManager.GetInteractState() == true)
         {
             Debug.Log("(BudgetMenu): GetInteractState() is true");
-            interactionManager.switchInteractState();
+            interactionManager.SwitchInteractState();
         }
         budgetPanel.SetActive(false);
     }

@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
 
         //Display End of Day
         endScreen.SetActive(true);
-        endDayTitle.text = "Day " + db.currentPlayer.dayCount + " Results";
+        endDayTitle.text = "Day " + db.currentPlayer.GetDay() + " Results";
 
         //Money Made
         formatText(moneyMade, moneyMadeAmount);

@@ -29,7 +29,7 @@ public class PlayerManager : MonoBehaviour
             moneyCount.color = new Color(1.0f, 0.5f, 0);
         }
 
-        day = db.currentPlayer.dayCount;
+        day = db.currentPlayer.GetDay();
         dayCount.text = "Day " + day.ToString();
 
     }
@@ -37,7 +37,7 @@ public class PlayerManager : MonoBehaviour
     {
         //Increment day
         day += 1;
-        db.currentPlayer.dayCount = day;
+        db.currentPlayer.IncrDay();
         dayCount.text = "Day " + day.ToString();
 
         //Money Logic
@@ -68,7 +68,7 @@ public class PlayerManager : MonoBehaviour
         moneyCount.text = Math.Round(money, 2).ToString();
 
         moneyCount.color = new Color(1.0f, 0.5f, 0);
-        db.currentPlayer.dayCount = 1;
+        db.currentPlayer.ResetDay();
         dayCount.text = "Day 1";
         day = 1;
 

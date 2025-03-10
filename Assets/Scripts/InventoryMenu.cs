@@ -55,7 +55,7 @@ public class InventoryMenu : MonoBehaviour
         if (InteractionManager.GetInteractState() == true)
         {
             Debug.Log("(InventoryMenu): GetInteractState() is true");
-            interactionManager.switchInteractState();
+            interactionManager.SwitchInteractState();
         }
         inventoryPanel.SetActive(false);
     }
@@ -111,7 +111,7 @@ public class InventoryMenu : MonoBehaviour
             float sales = merch.baseCost * merch.markupPercentage * (100 - (100 * merch.customerMod * degrees));
 
             db.currentPlayer.currentMoney += sales;
-            db.UpdateDailySales(sales);
+            db.currentPlayer.dailySales += sales;
         }
     }
 }
