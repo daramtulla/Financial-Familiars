@@ -45,8 +45,21 @@ public class JSONDatabaseOperations : MonoBehaviour
             currentPlayer.suppliers.Add(new Supplier(6, "Spellbound Supplies", 0, 0, 0, 0));
             currentPlayer.suppliers.Add(new Supplier(7, "Sigil & Sorcery", 0, 0, 0, 0));
 
-            currentPlayer.unemployedEmployees.Add(new Employee(0, "Alex Carter", "Marketer", 100, "Analytic, dedicated", "Increases demand for all potions", "Marketing degree and 5+ years experience", "Employees/Marketer_Alex.png"));
-            currentPlayer.unemployedEmployees.Add(new Employee(1, "Riley Shaw", "Technician", 200, "Detail-oriented, problem solver", "Upgrades cost less", "Engineering Background and specialized in automation", "Employees/Technician_Riley.png"));
+
+            //TODO: Tweak daily wages
+            currentPlayer.unemployedEmployees.Add(new Employee(0, "Fizzwick Flash", "Marketer", 80, "Fast-talking, dramatic, obsessed with catchy slogans.", "Increases demand for all items.", "Self-Employed for 10 years, made a steady living for themselves, in the Merchant’s Guild", "Employees/Fizzwick.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(1, "Briza Coppercrank", "Technician", 90, "Meticulous, resourceful, loves tinkering with everything.", "Reduces the cost of all upgrades.", "Former airship mechanic, certified in arcane engineering, once rebuilt a golem using only scrap parts.", "Employees/Briza.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(2, "Grumlek Stonesnout", "Supplier", 85, "Gruff, well-connected, always knows a guy who knows a guy.", "Reduces the cost of buying items by negotiating better deals.", "Former caravan trader, has contacts in every market.", "Employees/Grumlek.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(3, "Velora Swiftwhisper", "Rent Negotiator", 95, "Charming, silver-tongued, can talk anyone into a better deal.", "Reduces the cost of rent.", "Former noble house emissary, expert in contracts, once convinced an ogre to pay her for toll fees.", "Employees/Velora.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(4, "Quillbert Ledgersnout", "Taxman", 100, "Nerdy, precise, loves finding loopholes.", "Reduces the cost of taxes.", "Former royal accountant, memorized entire tax laws, once deducted a wizard’s beard as a business expense.", "Employees/Quillbert.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(5, "Marlo Wickert", "Business Contact", 95, "Well-dressed, well-mannered, and always knows the right people.", "Adds more items to the shipping cauldron.", "Former trade broker, once arranged a deal between rival witch covens.", "Employees/Marlo.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(6, "Evalis Keeneye", "Appraiser", 90, "Sharp-eyed, analytical, and detail-oriented.", "Reveals the optimal prices for items to maximize profits.", "Former auction house expert and trained in magical artifact valuation.", "Employees/Evalis.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(7, "Talia Greenbloom", "Loan Assistant", 85, "Friendly, organized, and always ready to help.", "Lowers interest rates on loans.", "Former banker, has saved people 1,000,000 gold over his life.", "Employees/Talia.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(8, "Zara Flaskbrew", "Alchemist", 110, "Curious, experimental, and always smells like chemicals.", "Greatly increases demand for potions.", "Self-employed for 100 years, master of alchemical mixtures.", "Employees/Zara.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(9, "Jaxson Goldleaf", "Designer", 100, "Charming, stylish, perfectionist.", "Greatly increases demand for accessories.", "Former fashion designer for high society, known for turning simple items into coveted pieces.", "Employees/Jaxson.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(10, "Grunkar Ironfist", "Blacksmith", 120, "Strong, no-nonsense, reclusive.", "Greatly increases demand for weapons.", "A seasoned blacksmith with a reputation for crafting legendary weapons.", "Employees/Grunkar.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(11, "Selene Starwhisper", "Grand Enchanter", 150, "Mysterious, graceful, always floating.", "Greatly increases demand for special items.", "A powerful enchanter who once created an invisibility cloak.", "Employees/Selene.png"));
+
 
             currentPlayer.moveSpeedModifier = 1;
             currentPlayer.currentMoney = 1000f;
