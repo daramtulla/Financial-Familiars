@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviour
@@ -18,6 +19,8 @@ public class CameraManager : MonoBehaviour
     public GameObject playerModel;
     private Vector3 currentVelocity = Vector3.zero;
 
+    [SerializeField] TMP_InputField textInputField;
+
     void Awake()
     {
         mainCam.transform.position = new Vector3(camX, camY, camZ);
@@ -36,7 +39,7 @@ public class CameraManager : MonoBehaviour
             mainCam.transform.position = Vector3.SmoothDamp(mainCam.transform.position, camPos, ref currentVelocity, followSpeed);
         }
 
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C) && !textInputField.isFocused)
         {
             if (followMode)
             {
