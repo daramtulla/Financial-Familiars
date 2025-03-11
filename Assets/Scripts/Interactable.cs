@@ -9,6 +9,7 @@ public class Interactable : MonoBehaviour, Interact
     [SerializeField] GameManager gameManager;
     [SerializeField] ShowMenu showMenu;
     [SerializeField] LoansMenu loansMenu;
+    [SerializeField] EmployeeManager employeeManager;
 
     public void Interact()
     {
@@ -43,6 +44,16 @@ public class Interactable : MonoBehaviour, Interact
             {
                 Debug.Log("Close Loans Menu");
                 loansMenu.CloseThis();
+            }
+            else if (menuToOpenOrClose.name == "HiringUI")
+            {
+                //todo
+                employeeManager.ToggleMenu();
+            }
+            else if (menuToOpenOrClose.name == "UpgradeUI")
+            {
+                //todo
+                menuToOpenOrClose.SetActive(true);
             }
             else
             {
@@ -80,10 +91,12 @@ public class Interactable : MonoBehaviour, Interact
             }
             else if (menuToOpenOrClose.name == "HiringUI")
             {
-                menuToOpenOrClose.SetActive(true);
+                //todo
+                employeeManager.ToggleMenu();
             }
             else if (menuToOpenOrClose.name == "UpgradeUI")
             {
+                //todo
                 menuToOpenOrClose.SetActive(true);
             }
             else

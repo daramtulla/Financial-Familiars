@@ -45,6 +45,9 @@ public class JSONDatabaseOperations : MonoBehaviour
             currentPlayer.suppliers.Add(new Supplier(6, "Spellbound Supplies", 0, 0, 0, 0));
             currentPlayer.suppliers.Add(new Supplier(7, "Sigil & Sorcery", 0, 0, 0, 0));
 
+            currentPlayer.unemployedEmployees.Add(new Employee(0, "Alex Carter", "Marketer", 100, "Analytic, dedicated", "Increases demand for all potions", "Marketing degree and 5+ years experience", "Employees/Marketer_Alex.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(1, "Riley Shaw", "Technician", 200, "Detail-oriented, problem solver", "Upgrades cost less", "Engineering Background and specialized in automation", "Employees/Technician_Riley.png"));
+
             currentPlayer.moveSpeedModifier = 1;
             currentPlayer.currentMoney = 1000f;
             currentPlayer.volume = .5f;
@@ -61,7 +64,7 @@ public class JSONDatabaseOperations : MonoBehaviour
     public void SaveData()
     {
         filePath = Application.persistentDataPath + "/JSONDatabase.json";
-        string JSONString = JsonUtility.ToJson(currentPlayer);
+        string JSONString = JsonUtility.ToJson(currentPlayer, true);
         System.IO.File.WriteAllText(filePath, JSONString);
 
         if (debug)
@@ -118,6 +121,8 @@ public class Player
 
     public List<Merchandise> merch = new List<Merchandise>();
     public List<Supplier> suppliers = new List<Supplier>();
+    public List<Employee> unemployedEmployees = new List<Employee>();
+
     public int currentLoanAmount;
     public void changeQuantity(int id, int change)
     {
@@ -211,5 +216,30 @@ public class Supplier
         this.cost1 = cost1;
         this.stock2 = stock2;
         this.cost2 = cost2;
+    }
+}
+[System.Serializable]
+public class Employee
+{
+    public int id;
+    public string name;
+    public string position;
+    public int salary;
+    public string personality;
+    public string benefits;
+    public string qualifications;
+    public string imageSource;
+
+
+    public Employee(int id, string name, string position, int salary, string personality, string benefits, string qualifications, string imageSource)
+    {
+        this.id = id;
+        this.name = name;
+        this.position = position;
+        this.salary = salary;
+        this.personality = personality;
+        this.benefits = benefits;
+        this.qualifications = qualifications;
+        this.imageSource = imageSource;
     }
 }
