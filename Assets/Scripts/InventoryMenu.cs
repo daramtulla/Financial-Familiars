@@ -3,6 +3,7 @@ using TMPro;
 using System.Collections.Generic;
 using System.IO;
 using System.Data.Common;
+using System.Linq;
 public class InventoryMenu : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -83,7 +84,7 @@ public class InventoryMenu : MonoBehaviour
             TextMeshProUGUI[] texts = newItem.GetComponentsInChildren<TextMeshProUGUI>();
             texts[0].text = item.name;
             texts[1].text = item.quantity.ToString();
-            texts[2].text = "$" + item.baseCost.ToString();
+            texts[2].text = "$" + item.baseCost.ToString("N2");
             texts[3].text = item.markupPercentage.ToString() + "%";
             texts[4].text = item.group.ToString();
             texts[5].text = item.tier.ToString();
@@ -103,12 +104,79 @@ public class InventoryMenu : MonoBehaviour
         Debug.Log("Inventory Reloaded and UI Updated.");
     }
 
+    //TODO: MAKE SURE THIS IS WORKING RIGHT
+    //BUT IT HAS NO REFERENCE TO THE INVENTORY ITSELF, IT DOESN"T REMOVE
+
+    //WE NEED THIS TO WORK
     public void SellItems()
     {
         foreach (Merchandise merch in db.currentPlayer.merch)
         {
             float degrees = merch.markupPercentage / merch.customerMod;
 
+            switch (merch.group)
+            {
+                //Potions
+                case 1:
+                    if(db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 2))
+                    {
+                        degrees *= 0.9f;
+                    }
+                    if (db.currentPlayer.employees.Any(employee => employee.id == 8))
+                    {
+                        degrees *= 0.85f;
+                    }
+                    break;
+                //accessories
+                case 2:
+                    if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 3))
+                    {
+                        degrees *= 0.9f;
+                    }
+                    if (db.currentPlayer.employees.Any(employee => employee.id == 9))
+                    {
+                        degrees *= 0.85f;
+                    }
+                    break;
+                case 3:
+                    if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 4))
+                    {
+                        degrees *= 0.9f;
+                    }
+                    if (db.currentPlayer.employees.Any(employee => employee.id == 10))
+                    {
+                        degrees *= 0.85f;
+                    }
+                    break;
+                case 4:
+                    if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 5))
+                    {
+                        degrees *= 0.9f;
+                    }
+                    if (db.currentPlayer.employees.Any(employee => employee.id == 11))
+                    {
+                        degrees *= 0.85f;
+                    }
+                    break;
+                default:
+                    Debug.Log("Item does not belong to a group");
+                    break;
+            }
+            //general upgrades
+            if(db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 1))
+            {
+                degrees *= 0.95f;
+            }
+            if (db.currentPlayer.employees.Any(employee => employee.id == 0))
+            {
+                degrees *= 0.95f;
+            }
+            //TODO: ADD UPGRADE 11, but this might require a rework of this system
+
+            if(db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 12 && merch.baseCost >= 450))
+            {
+                degrees *= 0.9f;
+            }
             //100 is a place holder value for now
             float sales = merch.baseCost * merch.markupPercentage * (100 - (100 * merch.customerMod * degrees));
 

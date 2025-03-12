@@ -14,14 +14,14 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         money = db.currentPlayer.currentMoney;
-        moneyCount.text = "$" + money.ToString("0.##");
+        moneyCount.text = "$" + money.ToString("N2");
         if (money > 0)
         {
             moneyCount.color = new Color(1.0f, 0.5f, 0);
         }
         else if (money < 0)
         {
-            moneyCount.text = "-$" + (-money).ToString();
+            moneyCount.text = "-$" + (-money).ToString("N2");
             moneyCount.color = Color.red;
         }
         else
@@ -44,14 +44,14 @@ public class PlayerManager : MonoBehaviour
         money += moneyMade;
         db.currentPlayer.currentMoney = money;
 
-        moneyCount.text = "$" + money.ToString("0.##");
+        moneyCount.text = "$" + money.ToString("N2");
         if (money > 0)
         {
             moneyCount.color = new Color(1.0f, 0.5f, 0);
         }
         else if (money < 0)
         {
-            moneyCount.text = "-$" + (-money).ToString();
+            moneyCount.text = "-$" + (-money).ToString("N2");
             moneyCount.color = Color.red;
         }
         else
@@ -60,14 +60,16 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    
     public void resetData()
     {
-        moneyCount.text = "$0000";
+        PlayerPrefs.DeleteAll();
         moneyCount.color = new Color(1.0f, 0.5f, 0);
         dayCount.text = "Day 1";
-        money = 0;
+        money = 1000;
         day = 1;
         db.currentPlayer.currentMoney = money;
-        day = db.currentPlayer.dayCount;
+        db.currentPlayer.dayCount = day;
+        moneyCount.text = db.currentPlayer.currentMoney.ToString("N2");
     }
 }
