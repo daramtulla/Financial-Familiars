@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Interactable : MonoBehaviour, InteractMenu
 {
@@ -140,7 +141,7 @@ public class Interactable : MonoBehaviour, InteractMenu
         PlayerPrefs.Save();
 
         InteractionManager im = (InteractionManager)FindFirstObjectByType(typeof(InteractionManager));
-        im.switchInteractState();
+        im.SwitchInteractState();
 
         tutorialPopup.SetActive(false);
     }

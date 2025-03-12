@@ -74,7 +74,7 @@ public class PlayerManager : MonoBehaviour
         money = 1000;
         day = 1;
         db.currentPlayer.currentMoney = money;
-        db.currentPlayer.dayCount = day;
+        //db.currentPlayer.dayCount = day;
         moneyCount.text = db.currentPlayer.currentMoney.ToString("N2");
         
         //Clear inventory

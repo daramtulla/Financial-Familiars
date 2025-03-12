@@ -174,14 +174,14 @@ public class Player
     public List<Merchandise> merch = new List<Merchandise>();
     public List<Supplier> suppliers = new List<Supplier>();
     public float totalSales;
-    public void ChangeQuantity(int id, int change)
+    //public void ChangeQuantity(int id, int change)
     public List<Employee> unemployedEmployees = new List<Employee>();
     public List<Employee> employees = new List<Employee>();
     public List<Upgrade> unpurchasedUpgrades = new List<Upgrade>();
     public List<Upgrade> upgrades = new List<Upgrade>();
 
     public int currentLoanAmount;
-    public void changeQuantity(int id, int change)
+    public void ChangeQuantity(int id, int change)
     {
         if (id < 1 || id > 13)
         {
@@ -373,6 +373,8 @@ public class Loans
         this.interest = interest;
     }
 
+}
+
 
 [System.Serializable]
 public class Employee
@@ -400,19 +402,20 @@ public class Employee
     }
 }
 
-[System.Serializable]
-public class Upgrade
-{
-    public int id;
-    public string Name;
-    public int Cost;
-    public string Description;
-
-    public Upgrade(int this_id, string name, int cost, string description)
+    [System.Serializable]
+    public class Upgrade
     {
-        id = this_id;
-        Name = name;
-        Cost = cost;
-        Description = description;
+        public int id;
+        public string Name;
+        public int Cost;
+        public string Description;
+
+        public Upgrade(int this_id, string name, int cost, string description)
+        {
+            id = this_id;
+            Name = name;
+            Cost = cost;
+            Description = description;
+        }
     }
-}
+
