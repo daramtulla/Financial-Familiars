@@ -1,11 +1,15 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using System;
-using TMPro;
 
-interface Interact
+interface InteractMenu
 {
-    public void Interact();
+    public void InteractMenu();
+}
+
+interface InteractDisplay
+{
+    public void InteractDisplay();
 }
 
 public class InteractionManager : MonoBehaviour
@@ -19,9 +23,6 @@ public class InteractionManager : MonoBehaviour
     public Animator playerAnimator;
 
     [SerializeField] GameObject redArrow;
-    [SerializeField] GameObject interactableNameText;
-
-    [SerializeField] TMP_InputField textInputField;
 
     void Update()
     {
@@ -34,8 +35,6 @@ public class InteractionManager : MonoBehaviour
             {
                 if (rayInfoF2.collider.gameObject.layer == 3)
                 {
-                    rayInfoF2.collider.gameObject.GetComponent<Interactable>().interactableNameText.text = rayInfoF2.collider.gameObject.GetComponent<Interactable>().interactableNameTextString;
-                    interactableNameText.SetActive(true);
                     redArrow.SetActive(true);
                     redArrow.transform.position = new Vector3(interactableTransform.transform.position.x, interactableTransform.transform.position.y + 3, interactableTransform.transform.position.z);
                 }
@@ -43,23 +42,32 @@ public class InteractionManager : MonoBehaviour
         }
         else
         {
-            interactableNameText.SetActive(false);
             redArrow.SetActive(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.F) && !textInputField.isFocused)
+        if (Input.GetKeyDown(KeyCode.F))
         {
             if (Physics.Raycast(interactSource.transform.position,
             transform.TransformDirection(Vector3.forward),
             out RaycastHit rayInfoF, interactRayRange))
             {
                 if (rayInfoF.collider.gameObject.
-                TryGetComponent(out Interact interactable))
+                TryGetComponent(out InteractMenu interactableM))
                 {
                     if (rayInfoF.collider.gameObject.layer == 3)
                     {
-                        switchInteractState();
-                        interactable.Interact();
+                        SwitchInteractState();
+                        interactableM.InteractMenu();
+                    }
+                }
+
+                if (rayInfoF.collider.gameObject.
+                TryGetComponent(out InteractDisplay interactableD))
+                {
+                    if (rayInfoF.collider.gameObject.layer == 6)
+                    {
+                        //Do not want to freeze movement when stocking displays so do not change interact state
+                        interactableD.InteractDisplay();
                     }
                 }
             }
@@ -67,7 +75,7 @@ public class InteractionManager : MonoBehaviour
         }
     }
 
-    public void switchInteractState()
+    public void SwitchInteractState()
     {
         IsInteracting(!GetInteractState());
         ZeroPlayerVelocity(playerModel);

@@ -39,7 +39,7 @@ public class UpgradeManager : MonoBehaviour
         if(InteractionManager.GetInteractState() == true)
         {
             Debug.Log("(UpgradeManager): GetInteractState() is true");
-            interactionManager.switchInteractState();
+            interactionManager.SwitchInteractState();
         }
         upgradeUI.SetActive(false);
     }

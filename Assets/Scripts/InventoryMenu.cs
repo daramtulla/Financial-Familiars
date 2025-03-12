@@ -19,8 +19,6 @@ public class InventoryMenu : MonoBehaviour
 
     public JSONDatabaseOperations db;
 
-    [SerializeField] TMP_InputField textInputField;
-
     void Start()
     {
         inventoryPanel.SetActive(false);
@@ -33,7 +31,7 @@ public class InventoryMenu : MonoBehaviour
     void Update()
     {
         //press I to open inventory
-        if (Input.GetKeyDown(KeyCode.I) && !textInputField.isFocused)
+        if (Input.GetKeyDown(KeyCode.I))
         {
             ToggleMenu();
         }
@@ -58,7 +56,7 @@ public class InventoryMenu : MonoBehaviour
         if (InteractionManager.GetInteractState() == true)
         {
             Debug.Log("(InventoryMenu): GetInteractState() is true");
-            interactionManager.switchInteractState();
+            interactionManager.SwitchInteractState();
         }
         inventoryPanel.SetActive(false);
     }
@@ -181,7 +179,7 @@ public class InventoryMenu : MonoBehaviour
             float sales = merch.baseCost * merch.markupPercentage * (100 - (100 * merch.customerMod * degrees));
 
             db.currentPlayer.currentMoney += sales;
-            db.UpdateDailySales(sales);
+            db.currentPlayer.dailySales += sales;
         }
     }
 }

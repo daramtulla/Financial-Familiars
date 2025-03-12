@@ -1,5 +1,4 @@
 using System;
-using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -21,8 +20,6 @@ public class MovementController : MonoBehaviour
     public static Boolean interacting;
     [SerializeField] GameObject startingPosition;
 
-    [SerializeField] TMP_InputField textInputField;
-
     void Awake()
     {
         transform.position = startingPosition.transform.position;
@@ -37,7 +34,7 @@ public class MovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R) && !textInputField.isFocused)
+        if (Input.GetKeyDown(KeyCode.R))
         {
             transform.position = startingPosition.transform.position;
             transform.rotation = startingPosition.transform.rotation;

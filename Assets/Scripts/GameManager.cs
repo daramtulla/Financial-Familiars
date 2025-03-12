@@ -28,10 +28,10 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            pauseGame();
+            PauseGame();
         }
     }
-    public void pauseGame()
+    public void PauseGame()
     {
         if (pauseMenu.activeSelf)
         {
@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
 
         //Display End of Day
         endScreen.SetActive(true);
-        endDayTitle.text = "Day " + db.currentPlayer.dayCount + " Results";
+        endDayTitle.text = "Day " + db.currentPlayer.GetDay() + " Results";
 
         
 
@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
 
         //TODO: Split money between savings and spending
         //For now: Send all money to one account
-        playerManager.updatePlayerStats(netProfitAmount);
+        playerManager.UpdatePlayerStats(netProfitAmount);
     }
     public void formatText(Text textObject, float amount)
     {
