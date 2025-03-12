@@ -2,6 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 
 public class UpgradeManager : MonoBehaviour
 {
@@ -11,7 +12,6 @@ public class UpgradeManager : MonoBehaviour
 
     public JSONDatabaseOperations db;
 
-    private RandomGenNum rnd;
     [SerializeField] InteractionManager interactionManager;
 
     void Start()
@@ -57,24 +57,15 @@ public class UpgradeManager : MonoBehaviour
             TextMeshProUGUI[] texts = newItem.GetComponentsInChildren<TextMeshProUGUI>();
             //todo: Add texts
             texts[0].text = upgrade.Name;
-            texts[1].text = "$" + upgrade.Cost;
+            //TODO: make this more efficient?
+            if (db.currentPlayer.employees.Any(employee => employee.id == 1)) {
+                texts[1].text = "$" + (upgrade.Cost * 0.95f);
+            }
+            else
+            {
+                texts[1].text = "$" + upgrade.Cost;
+            }
             texts[2].text = upgrade.Description;
-
-
-            //TODO: add button with correct name
-            Button buyButton = newItem.transform.Find("BuyButton").GetComponent<Button>();
-            buyButton.onClick.AddListener(() => buyUpgrade(upgrade.Cost, upgrade.id));
-        }
-        foreach (Upgrade upgrade in db.currentPlayer.upgrades)
-        {
-            GameObject newItem = Instantiate(upgradePrefab, upgradeContent);
-
-            TextMeshProUGUI[] texts = newItem.GetComponentsInChildren<TextMeshProUGUI>();
-            //todo: Add texts
-            texts[0].text = upgrade.Name;
-            texts[1].text = "$" + upgrade.Cost;
-            texts[2].text = upgrade.Description;
-
 
             //TODO: add button with correct name
             Button buyButton = newItem.transform.Find("BuyButton").GetComponent<Button>();
@@ -82,10 +73,12 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
-    //TODO: Fix ID thingy
     private void buyUpgrade(float cost, int id)
     {
-        if(db.currentPlayer.currentMoney > cost)
+        if (db.currentPlayer.employees.Any(employee => employee.id == 1)) {
+            cost *= 0.95f;
+        }
+        if (db.currentPlayer.currentMoney >= cost)
         {
             db.currentPlayer.currentMoney -= cost;
             Upgrade upgradeToBuy = db.currentPlayer.unpurchasedUpgrades.Find(upgrade => upgrade.id == id);
@@ -93,6 +86,7 @@ public class UpgradeManager : MonoBehaviour
             {
                 db.addUpgrade(upgradeToBuy);
                 db.currentPlayer.unpurchasedUpgrades.Remove(upgradeToBuy);
+                UpdateUpgradeUI();
             }
             else
             {

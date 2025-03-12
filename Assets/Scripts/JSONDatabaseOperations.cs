@@ -169,6 +169,7 @@ public class Player
             Debug.Log("Invalid ItemId");
             return;
         }
+
         else
         {
             if (merch[id].quantity + change > -1)
