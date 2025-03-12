@@ -71,6 +71,10 @@ public class GameManager : MonoBehaviour
         float upgradeUpkeepAmount = 0.0f;
         formatText(upgradeUpkeep, upgradeUpkeepAmount);
 
+        //TODO: ADD THIS TO END DAY THINGY
+        float utilitiesCost = 100.0f;
+        
+
 
         float netProfitAmount = moneyMadeAmount - -mandatoryLoansAmount - -wagesPaidAmount - -upgradeUpkeepAmount;
         formatText(netProfit, netProfitAmount);

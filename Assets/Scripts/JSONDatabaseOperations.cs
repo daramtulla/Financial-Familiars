@@ -60,6 +60,23 @@ public class JSONDatabaseOperations : MonoBehaviour
             currentPlayer.unemployedEmployees.Add(new Employee(10, "Grunkar Ironfist", "Blacksmith", 120, "Strong, no-nonsense, reclusive.", "Greatly increases demand for weapons.", "A seasoned blacksmith with a reputation for crafting legendary weapons.", "Employees/Grunkar.png"));
             currentPlayer.unemployedEmployees.Add(new Employee(11, "Selene Starwhisper", "Grand Enchanter", 150, "Mysterious, graceful, always floating.", "Greatly increases demand for special items.", "A powerful enchanter who once created an invisibility cloak.", "Employees/Selene.png"));
 
+            //TODO: Add upgrades
+            //TODO: Add functionality
+            currentPlayer.unpurchasedUpgrades.Add(new Upgrade(0, "Everburning Candles", 200, "Reduces utilities cost."));
+            currentPlayer.unpurchasedUpgrades.Add(new Upgrade(1, "Luxury Branding", 500, "Slightly Increases demand for all items."));
+            currentPlayer.unpurchasedUpgrades.Add(new Upgrade(2, "Premium Potions", 300, "Increases Demand for Potions."));
+            currentPlayer.unpurchasedUpgrades.Add(new Upgrade(3, "Premium Accessories", 600, "Increases Demand for Accessories."));
+            currentPlayer.unpurchasedUpgrades.Add(new Upgrade(4, "Premium Weapons", 600, "Increases Demand for Weapons."));
+            currentPlayer.unpurchasedUpgrades.Add(new Upgrade(5, "Premium Special Items", 1000, "Increases demand for Special items."));
+            //TODO: Add storage functionality
+            currentPlayer.unpurchasedUpgrades.Add(new Upgrade(6, "Bigger Storage", 400, "Increases max storage capacity."));
+            //TODO: Add restocking
+            currentPlayer.unpurchasedUpgrades.Add(new Upgrade(7, "Magic Hand I", 750, "Automatically restocks potions."));
+            currentPlayer.unpurchasedUpgrades.Add(new Upgrade(8, "Magic Hand II", 1250, "Automatically restocks accessories."));
+            currentPlayer.unpurchasedUpgrades.Add(new Upgrade(9, "Magic Hand III", 1750, "Automatically restocks weapons."));
+            currentPlayer.unpurchasedUpgrades.Add(new Upgrade(10, "Magic Hand IV", 2250, "Automatically restocks Special items."));
+            currentPlayer.unpurchasedUpgrades.Add(new Upgrade(11, "Matching Bling", 450, "Customers may buy two accessories."));
+            currentPlayer.unpurchasedUpgrades.Add(new Upgrade(12, "Wealthy Patrons", 2000, "Increases Demand for expensive items."));
 
             currentPlayer.moveSpeedModifier = 1;
             currentPlayer.currentMoney = 1000f;
@@ -118,6 +135,11 @@ public class JSONDatabaseOperations : MonoBehaviour
     {
         currentPlayer.dailySales = sales;
     }
+
+    public void addUpgrade(Upgrade upgrade)
+    {
+        currentPlayer.upgrades.Add(upgrade);
+    }
 }
 
 [System.Serializable]
@@ -135,6 +157,9 @@ public class Player
     public List<Merchandise> merch = new List<Merchandise>();
     public List<Supplier> suppliers = new List<Supplier>();
     public List<Employee> unemployedEmployees = new List<Employee>();
+    public List<Employee> employees = new List<Employee>();
+    public List<Upgrade> unpurchasedUpgrades = new List<Upgrade>();
+    public List<Upgrade> upgrades = new List<Upgrade>();
 
     public int currentLoanAmount;
     public void changeQuantity(int id, int change)
@@ -254,5 +279,22 @@ public class Employee
         this.benefits = benefits;
         this.qualifications = qualifications;
         this.imageSource = imageSource;
+    }
+}
+
+[System.Serializable]
+public class Upgrade
+{
+    public int id;
+    public string Name;
+    public int Cost;
+    public string Description;
+
+    public Upgrade(int this_id, string name, int cost, string description)
+    {
+        id = this_id;
+        Name = name;
+        Cost = cost;
+        Description = description;
     }
 }
