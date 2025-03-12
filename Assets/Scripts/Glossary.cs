@@ -10,6 +10,7 @@ public class Glossary : MonoBehaviour
     public GameObject termPrefab;
 
     private List<Term> termList = new List<Term>();
+    private List<GameObject> gameObjectTermList = new List<GameObject>();
 
     void Start()
     {
@@ -25,6 +26,7 @@ public class Glossary : MonoBehaviour
 
     public void UpdateGlossaryUI()
     {
+        gameObjectTermList.Clear();
         // Clear existing UI items
         foreach (Transform child in glossaryContent)
         {
@@ -35,13 +37,30 @@ public class Glossary : MonoBehaviour
         foreach (Term term in termList)
         {
             GameObject newTerm = Instantiate(termPrefab, glossaryContent);
+            gameObjectTermList.Add(newTerm);
 
             // Find TextMeshPro components directly in the prefab
             TextMeshProUGUI[] texts = newTerm.GetComponentsInChildren<TextMeshProUGUI>();
-            
+
             texts[0].text = term.idNumber.ToString();
             texts[1].text = term.word;
             texts[2].text = term.definition;
+        }
+    }
+
+    public void SearchForWords(string input)
+    {
+        for (int i = 0; i < gameObjectTermList.Count; i++)
+        {
+            TextMeshProUGUI[] texts = gameObjectTermList[i].GetComponentsInChildren<TextMeshProUGUI>();
+            if (!texts[1].text.ToLower().Contains(input))
+            {
+                gameObjectTermList[i].SetActive(false);
+            }
+            else
+            {
+                gameObjectTermList[i].SetActive(true);
+            }
         }
     }
 
