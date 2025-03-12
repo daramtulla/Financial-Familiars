@@ -63,6 +63,7 @@ public class PlayerManager : MonoBehaviour
     
     public void resetData()
     {
+        PlayerPrefs.DeleteAll();
         moneyCount.color = new Color(1.0f, 0.5f, 0);
         dayCount.text = "Day 1";
         money = 0;
