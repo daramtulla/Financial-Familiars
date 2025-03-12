@@ -46,6 +46,10 @@ public class JSONDatabaseOperations : MonoBehaviour
             currentPlayer.suppliers.Add(new Supplier(6, "Spellbound Supplies", 0, 0, 0, 0));
             currentPlayer.suppliers.Add(new Supplier(7, "Sigil & Sorcery", 0, 0, 0, 0));
 
+            currentPlayer.loans.Add(new Loans("Loan 1", 0f, 0f));
+            currentPlayer.loans.Add(new Loans("Loan 2", 0f, 0f));
+            currentPlayer.loans.Add(new Loans("Loan 3", 0f, 0f));
+
             currentPlayer.moveSpeedModifier = 1;
             currentPlayer.currentMoney = 1000f;
             currentPlayer.volume = .5f;
@@ -53,6 +57,8 @@ public class JSONDatabaseOperations : MonoBehaviour
             currentPlayer.dailySales = 0;
             currentPlayer.newPlayer = new IntegerField(1);
             currentPlayer.active = new int[12];
+            currentPlayer.totalSales = 0;
+            currentPlayer.purchases = 0;
 
             SaveData();
         }
@@ -96,6 +102,17 @@ public class JSONDatabaseOperations : MonoBehaviour
         {
             LoadData();
         }
+
+        //For testing
+        if (debug && Input.GetKey(KeyCode.V))
+        {
+            currentPlayer.currentMoney = 10000;
+
+            for (int i = 0; i < 12; i++)
+            {
+                currentPlayer.merch[i].quantity = 10;
+            }
+        }
     }
 }
 
@@ -109,14 +126,17 @@ public class Player
     //Day is private as increasing day needs to generate new supplier stock and reset daily sales
     [SerializeField] int dayCount;
     public float dailySales;
+    public float purchases;
 
     public int[] active;
 
     public System.Object newPlayer;
 
+    public List<Loans> loans = new List<Loans>();
+
     public List<Merchandise> merch = new List<Merchandise>();
     public List<Supplier> suppliers = new List<Supplier>();
-    public int currentLoanAmount;
+    public float totalSales;
     public void ChangeQuantity(int id, int change)
     {
         if (id < 1 || id > 13)
@@ -183,8 +203,12 @@ public class Player
     public void IncrDay()
     {
         dayCount++;
-        //Daily sales already added to money total
+        //Daily sales already added to money total. Add to total sales counter
+        totalSales += dailySales;
         dailySales = 0;
+
+        //Add interest to loan
+        AddDailyInterest(loans);
     }
 
     public int GetDay()
@@ -195,6 +219,50 @@ public class Player
     public void ResetDay()
     {
         dayCount = 1;
+    }
+
+    public void AddDailyInterest(List<Loans> loans)
+    {
+        foreach (Loans l in loans)
+        {
+            l.amount += l.amount * l.interest;
+        }
+    }
+
+    public void AddLoan(List<Loans> loans, float newAmount, float newInterest)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            if (loans[i].amount == 0f)
+            {
+                loans[i].amount = newAmount;
+                loans[i].interest = newInterest;
+                return;
+            }
+        }
+
+        //TODO put user feedback to say max amount of loans has been reached
+        Debug.Log("Already have 3 Loans");
+    }
+
+    public void PayLoan(int id, float pay)
+    {
+        loans[id].amount -= pay;
+    }
+
+    public int LoanCount()
+    {
+        int count = 0;
+
+        foreach (Loans l in loans)
+        {
+            if (l.amount > 0)
+            {
+                count++;
+            }
+        }
+
+        return count;
     }
 }
 
@@ -244,4 +312,21 @@ public class Supplier
         this.stock2 = stock2;
         this.cost2 = cost2;
     }
+}
+
+//Max of three loans out at once
+[System.Serializable]
+public class Loans
+{
+    public string id;
+    public float amount;
+    public float interest;
+    public Loans(string id, float amount, float interest)
+    {
+        this.id = id;
+        this.amount = amount;
+        this.interest = interest;
+    }
+
+
 }

@@ -21,11 +21,21 @@ public class RandomGenNum
 
     public int SalePriceModifier()
     {
-        return random.Next(0, 3);
+        return random.Next(1, 4);
     }
 
     public int GetRandomSaleTime(int totalDayTime)
     {
         return random.Next(0, totalDayTime + 1);
+    }
+
+    public int GetRandomLoanAmount(int low, int high)
+    {
+        return random.Next(low, high);
+    }
+
+    public int GetLoanInterestModifier()
+    {
+        return random.Next(-3, 4);
     }
 }

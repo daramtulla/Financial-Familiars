@@ -33,7 +33,7 @@ public class PlayerManager : MonoBehaviour
         dayCount.text = "Day " + day.ToString();
 
     }
-    public void updatePlayerStats(float moneyMade)
+    public void UpdatePlayerStats(float moneyMade)
     {
         //Increment day
         day += 1;

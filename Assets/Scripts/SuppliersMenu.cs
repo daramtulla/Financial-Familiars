@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.IO;
 using System.Security.Cryptography;
 using UnityEditor.Overlays;
+using System;
 
 public class SuppliersMenu : MonoBehaviour
 {
@@ -98,7 +99,7 @@ public class SuppliersMenu : MonoBehaviour
         float bCost = db.currentPlayer.merch[merchId - 1].baseCost;
 
         //Randomly generate sale price modifer
-        bCost *= (float)(rnd.SalePriceModifier() / 10);
+        bCost *= (float)(1 - ((float)rnd.SalePriceModifier() / 10));
 
         if ((storeID == 1 && (merchId == 1 || merchId == 2 || merchId == 3))
         || (storeID == 2 && (merchId == 4 || merchId == 4 || merchId == 6))
@@ -113,7 +114,7 @@ public class SuppliersMenu : MonoBehaviour
 
         Debug.Log(bCost.ToString());
 
-        return bCost;
+        return (float)Math.Round(bCost, 2);
     }
 
     public void UpdateSuppliersUI()
@@ -131,9 +132,9 @@ public class SuppliersMenu : MonoBehaviour
             TextMeshProUGUI[] texts = newItem.GetComponentsInChildren<TextMeshProUGUI>();
             texts[0].text = supplier.name;
             texts[1].text = db.currentPlayer.merch[supplier.stock1 - 1].name;
-            texts[2].text = "$" + supplier.cost1.ToString();
+            texts[2].text = "$" + string.Format("{0:F2}", supplier.cost1);
             texts[3].text = db.currentPlayer.merch[supplier.stock2 - 1].name;
-            texts[4].text = "$" + supplier.cost2.ToString();
+            texts[4].text = "$" + string.Format("{0:F2}", supplier.cost2);
 
             Button buy1Button1 = newItem.transform.Find("Buy1Button1").GetComponent<Button>();
             Button buy10Button1 = newItem.transform.Find("Buy10Button1").GetComponent<Button>();
@@ -157,6 +158,7 @@ public class SuppliersMenu : MonoBehaviour
         {
             db.currentPlayer.currentMoney -= total;
             db.currentPlayer.merch[id - 1].quantity += bought;
+            db.currentPlayer.purchases += total;
         }
     }
 }
