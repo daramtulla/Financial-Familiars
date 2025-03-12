@@ -3,6 +3,7 @@ using TMPro;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine.UI;
+using System.Linq;
 
 public class EmployeeManager : MonoBehaviour
 {
@@ -97,8 +98,26 @@ public class EmployeeManager : MonoBehaviour
                 }
             }
 
+            Button hireButton = newEmployee.transform.Find("HireButton").GetComponent<Button>();
+            hireButton.onClick.AddListener(() => hireEmployee(emp.id));
+
             Debug.Log("ADDING EMPLOYEE: " + emp.name + ", " + emp.position + ", " + emp.salary + ", " + emp.personality + ", " + emp.benefits + ", " + emp.qualifications);
             // todo: button functionality
         }
+    }
+    private void hireEmployee(int id)
+    {
+        Employee hiring = db.currentPlayer.unemployedEmployees.Find(employee => employee.id == id);
+        if (hiring!= null)
+        {
+            db.addEmployee(hiring);
+            db.currentPlayer.unemployedEmployees.Remove(hiring);
+            UpdateEmployeeUI();
+        }
+        else
+        {
+            Debug.Log("Employee not found");
+        }
+
     }
 }

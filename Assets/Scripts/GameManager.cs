@@ -67,8 +67,9 @@ public class GameManager : MonoBehaviour
         float wagesPaidAmount = 0.0f;
         foreach(var employee in db.currentPlayer.employees)
         {
-            wagesPaidAmount += employee.salary;
+            wagesPaidAmount -= employee.salary;
         }
+
 
         //TODO: Discuss if we're keeping upgrade upkeeps
         //For now: set Upgrades to 0 for no upgrades
@@ -96,7 +97,7 @@ public class GameManager : MonoBehaviour
         formatText(utilitiesCost, utilitiesCostAmount); 
 
 
-        float netProfitAmount = moneyMadeAmount - -mandatoryLoansAmount - wagesPaidAmount - -upgradeUpkeepAmount - -utilitiesCostAmount;
+        float netProfitAmount = moneyMadeAmount - -mandatoryLoansAmount - -wagesPaidAmount - -upgradeUpkeepAmount - -utilitiesCostAmount;
         formatText(netProfit, netProfitAmount);
 
         //TODO: Split money between savings and spending

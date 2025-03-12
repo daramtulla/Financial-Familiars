@@ -140,6 +140,10 @@ public class JSONDatabaseOperations : MonoBehaviour
     {
         currentPlayer.upgrades.Add(upgrade);
     }
+    public void addEmployee(Employee employee)
+    {
+        currentPlayer.employees.Add(employee);
+    }
 }
 
 [System.Serializable]
