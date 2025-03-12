@@ -66,7 +66,7 @@ public class PlayerManager : MonoBehaviour
         PlayerPrefs.DeleteAll();
         moneyCount.color = new Color(1.0f, 0.5f, 0);
         dayCount.text = "Day 1";
-        money = 0;
+        money = 1000;
         day = 1;
         db.currentPlayer.currentMoney = money;
         db.currentPlayer.dayCount = day;
