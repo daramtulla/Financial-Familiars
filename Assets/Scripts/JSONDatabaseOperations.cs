@@ -45,6 +45,39 @@ public class JSONDatabaseOperations : MonoBehaviour
             currentPlayer.suppliers.Add(new Supplier(6, "Spellbound Supplies", 0, 0, 0, 0));
             currentPlayer.suppliers.Add(new Supplier(7, "Sigil & Sorcery", 0, 0, 0, 0));
 
+
+            //TODO: Tweak daily wages
+            currentPlayer.unemployedEmployees.Add(new Employee(0, "Fizzwick Flash", "Marketer", 80, "Fast-talking, dramatic, obsessed with catchy slogans.", "Increases demand for all items.", "Self-Employed for 10 years, made a steady living for themselves, in the Merchant’s Guild", "Employees/Fizzwick.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(1, "Briza Coppercrank", "Technician", 90, "Meticulous, resourceful, loves tinkering with everything.", "Reduces the cost of all upgrades.", "Former airship mechanic, certified in arcane engineering, once rebuilt a golem using only scrap parts.", "Employees/Briza.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(2, "Grumlek Stonesnout", "Supplier", 85, "Gruff, well-connected, always knows a guy who knows a guy.", "Reduces the cost of buying items by negotiating better deals.", "Former caravan trader, has contacts in every market.", "Employees/Grumlek.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(3, "Velora Swiftwhisper", "Rent Negotiator", 95, "Charming, silver-tongued, can talk anyone into a better deal.", "Reduces the cost of rent.", "Former noble house emissary, expert in contracts, once convinced an ogre to pay her for toll fees.", "Employees/Velora.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(4, "Quillbert Ledgersnout", "Taxman", 100, "Nerdy, precise, loves finding loopholes.", "Reduces the cost of taxes.", "Former royal accountant, memorized entire tax laws, once deducted a wizard’s beard as a business expense.", "Employees/Quillbert.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(5, "Marlo Wickert", "Business Contact", 95, "Well-dressed, well-mannered, and always knows the right people.", "Adds more items to the shipping cauldron.", "Former trade broker, once arranged a deal between rival witch covens.", "Employees/Marlo.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(6, "Evalis Keeneye", "Appraiser", 90, "Sharp-eyed, analytical, and detail-oriented.", "Reveals the optimal prices for items to maximize profits.", "Former auction house expert and trained in magical artifact valuation.", "Employees/Evalis.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(7, "Talia Greenbloom", "Loan Assistant", 85, "Friendly, organized, and always ready to help.", "Lowers interest rates on loans.", "Former banker, has saved people 1,000,000 gold over his life.", "Employees/Talia.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(8, "Zara Flaskbrew", "Alchemist", 110, "Curious, experimental, and always smells like chemicals.", "Greatly increases demand for potions.", "Self-employed for 100 years, master of alchemical mixtures.", "Employees/Zara.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(9, "Jaxson Goldleaf", "Designer", 100, "Charming, stylish, perfectionist.", "Greatly increases demand for accessories.", "Former fashion designer for high society, known for turning simple items into coveted pieces.", "Employees/Jaxson.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(10, "Grunkar Ironfist", "Blacksmith", 120, "Strong, no-nonsense, reclusive.", "Greatly increases demand for weapons.", "A seasoned blacksmith with a reputation for crafting legendary weapons.", "Employees/Grunkar.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(11, "Selene Starwhisper", "Grand Enchanter", 150, "Mysterious, graceful, always floating.", "Greatly increases demand for special items.", "A powerful enchanter who once created an invisibility cloak.", "Employees/Selene.png"));
+
+            //TODO: Add upgrades
+            //TODO: Add functionality
+            currentPlayer.unpurchasedUpgrades.Add(new Upgrade(0, "Everburning Candles", 200, "Reduces utilities cost."));
+            currentPlayer.unpurchasedUpgrades.Add(new Upgrade(1, "Luxury Branding", 500, "Slightly Increases demand for all items."));
+            currentPlayer.unpurchasedUpgrades.Add(new Upgrade(2, "Premium Potions", 300, "Increases Demand for Potions."));
+            currentPlayer.unpurchasedUpgrades.Add(new Upgrade(3, "Premium Accessories", 600, "Increases Demand for Accessories."));
+            currentPlayer.unpurchasedUpgrades.Add(new Upgrade(4, "Premium Weapons", 600, "Increases Demand for Weapons."));
+            currentPlayer.unpurchasedUpgrades.Add(new Upgrade(5, "Premium Special Items", 1000, "Increases demand for Special items."));
+            //TODO: Add storage functionality
+            currentPlayer.unpurchasedUpgrades.Add(new Upgrade(6, "Bigger Storage", 400, "Increases max storage capacity."));
+            //TODO: Add restocking
+            currentPlayer.unpurchasedUpgrades.Add(new Upgrade(7, "Magic Hand I", 750, "Automatically restocks potions."));
+            currentPlayer.unpurchasedUpgrades.Add(new Upgrade(8, "Magic Hand II", 1250, "Automatically restocks accessories."));
+            currentPlayer.unpurchasedUpgrades.Add(new Upgrade(9, "Magic Hand III", 1750, "Automatically restocks weapons."));
+            currentPlayer.unpurchasedUpgrades.Add(new Upgrade(10, "Magic Hand IV", 2250, "Automatically restocks Special items."));
+            currentPlayer.unpurchasedUpgrades.Add(new Upgrade(11, "Matching Bling", 450, "Customers may buy two accessories."));
+            currentPlayer.unpurchasedUpgrades.Add(new Upgrade(12, "Wealthy Patrons", 2000, "Increases Demand for expensive items."));
+
             currentPlayer.moveSpeedModifier = 1;
             currentPlayer.currentMoney = 1000f;
             currentPlayer.volume = .5f;
@@ -61,7 +94,7 @@ public class JSONDatabaseOperations : MonoBehaviour
     public void SaveData()
     {
         filePath = Application.persistentDataPath + "/JSONDatabase.json";
-        string JSONString = JsonUtility.ToJson(currentPlayer);
+        string JSONString = JsonUtility.ToJson(currentPlayer, true);
         System.IO.File.WriteAllText(filePath, JSONString);
 
         if (debug)
@@ -102,6 +135,11 @@ public class JSONDatabaseOperations : MonoBehaviour
     {
         currentPlayer.dailySales = sales;
     }
+
+    public void addUpgrade(Upgrade upgrade)
+    {
+        currentPlayer.upgrades.Add(upgrade);
+    }
 }
 
 [System.Serializable]
@@ -118,6 +156,11 @@ public class Player
 
     public List<Merchandise> merch = new List<Merchandise>();
     public List<Supplier> suppliers = new List<Supplier>();
+    public List<Employee> unemployedEmployees = new List<Employee>();
+    public List<Employee> employees = new List<Employee>();
+    public List<Upgrade> unpurchasedUpgrades = new List<Upgrade>();
+    public List<Upgrade> upgrades = new List<Upgrade>();
+
     public int currentLoanAmount;
     public void changeQuantity(int id, int change)
     {
@@ -126,6 +169,7 @@ public class Player
             Debug.Log("Invalid ItemId");
             return;
         }
+
         else
         {
             if (merch[id].quantity + change > -1)
@@ -211,5 +255,47 @@ public class Supplier
         this.cost1 = cost1;
         this.stock2 = stock2;
         this.cost2 = cost2;
+    }
+}
+[System.Serializable]
+public class Employee
+{
+    public int id;
+    public string name;
+    public string position;
+    public int salary;
+    public string personality;
+    public string benefits;
+    public string qualifications;
+    public string imageSource;
+
+
+    public Employee(int id, string name, string position, int salary, string personality, string benefits, string qualifications, string imageSource)
+    {
+        this.id = id;
+        this.name = name;
+        this.position = position;
+        this.salary = salary;
+        this.personality = personality;
+        this.benefits = benefits;
+        this.qualifications = qualifications;
+        this.imageSource = imageSource;
+    }
+}
+
+[System.Serializable]
+public class Upgrade
+{
+    public int id;
+    public string Name;
+    public int Cost;
+    public string Description;
+
+    public Upgrade(int this_id, string name, int cost, string description)
+    {
+        id = this_id;
+        Name = name;
+        Cost = cost;
+        Description = description;
     }
 }
