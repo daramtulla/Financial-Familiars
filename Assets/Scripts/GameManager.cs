@@ -107,17 +107,17 @@ public class GameManager : MonoBehaviour
     {
         if (amount > 0)
         {
-            textObject.text = "$" + amount.ToString();
+            textObject.text = "$" + amount.ToString("N2");
             textObject.color = Color.green;
         }
         else if (amount < 0)
         {
-            textObject.text = "-$" + (-amount).ToString();
+            textObject.text = "-$" + (-amount).ToString("N2");
             textObject.color = Color.red;
         }
         else
         {
-            textObject.text = "$" + amount.ToString();
+            textObject.text = "$" + amount.ToString("N2");
             textObject.color = Color.gray;
         }
     }

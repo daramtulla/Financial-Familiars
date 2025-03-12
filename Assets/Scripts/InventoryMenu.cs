@@ -82,7 +82,7 @@ public class InventoryMenu : MonoBehaviour
             TextMeshProUGUI[] texts = newItem.GetComponentsInChildren<TextMeshProUGUI>();
             texts[0].text = item.name;
             texts[1].text = item.quantity.ToString();
-            texts[2].text = "$" + item.baseCost.ToString();
+            texts[2].text = "$" + item.baseCost.ToString("N2");
             texts[3].text = item.markupPercentage.ToString() + "%";
             texts[4].text = item.group.ToString();
             texts[5].text = item.tier.ToString();
