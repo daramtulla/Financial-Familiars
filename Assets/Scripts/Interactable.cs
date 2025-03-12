@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Interactable : MonoBehaviour, Interact
 {
@@ -9,6 +10,8 @@ public class Interactable : MonoBehaviour, Interact
     [SerializeField] GameManager gameManager;
     [SerializeField] ShowMenu showMenu;
     [SerializeField] LoansMenu loansMenu;
+    public Text interactableNameText;
+    public string interactableNameTextString;
 
     public void Interact()
     {
