@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
         formatText(utilitiesCost, utilitiesCostAmount); 
 
 
-        float netProfitAmount = moneyMadeAmount - -mandatoryLoansAmount - -wagesPaidAmount - -upgradeUpkeepAmount - -utilitiesCostAmount;
+        float netProfitAmount = moneyMadeAmount - -mandatoryLoansAmount - wagesPaidAmount - -upgradeUpkeepAmount - -utilitiesCostAmount;
         formatText(netProfit, netProfitAmount);
 
         //TODO: Split money between savings and spending
