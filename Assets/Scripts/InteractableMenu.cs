@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Interactable : MonoBehaviour, InteractMenu
 {
@@ -12,8 +11,6 @@ public class Interactable : MonoBehaviour, InteractMenu
     [SerializeField] GameManager gameManager;
     [SerializeField] ShowMenu showMenu;
     [SerializeField] LoansMenu loansMenu;
-    public Text interactableNameText;
-    public string interactableNameTextString;
 
     [SerializeField] JSONDatabaseOperations db;
 
