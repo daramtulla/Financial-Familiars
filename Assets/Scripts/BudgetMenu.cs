@@ -9,6 +9,8 @@ public class BudgetMenu : MonoBehaviour
     public GameObject budgetPanel;
     [SerializeField] InteractionManager interactionManager;
 
+    [SerializeField] TMP_InputField textInputField;
+
     //spreadsheet variables
     //earned income
     private float sales = 0;
@@ -72,7 +74,7 @@ public class BudgetMenu : MonoBehaviour
     void Update()
     {
         //press B to open budget
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.B) && !textInputField.isFocused)
         {
             ToggleBudgetMenu();
         }

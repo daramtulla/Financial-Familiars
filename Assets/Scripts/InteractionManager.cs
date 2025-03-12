@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using System;
+using TMPro;
 
 interface Interact
 {
@@ -18,6 +19,9 @@ public class InteractionManager : MonoBehaviour
     public Animator playerAnimator;
 
     [SerializeField] GameObject redArrow;
+    [SerializeField] GameObject interactableNameText;
+
+    [SerializeField] TMP_InputField textInputField;
 
     void Update()
     {
@@ -30,6 +34,8 @@ public class InteractionManager : MonoBehaviour
             {
                 if (rayInfoF2.collider.gameObject.layer == 3)
                 {
+                    rayInfoF2.collider.gameObject.GetComponent<Interactable>().interactableNameText.text = rayInfoF2.collider.gameObject.GetComponent<Interactable>().interactableNameTextString;
+                    interactableNameText.SetActive(true);
                     redArrow.SetActive(true);
                     redArrow.transform.position = new Vector3(interactableTransform.transform.position.x, interactableTransform.transform.position.y + 3, interactableTransform.transform.position.z);
                 }
@@ -37,10 +43,11 @@ public class InteractionManager : MonoBehaviour
         }
         else
         {
+            interactableNameText.SetActive(false);
             redArrow.SetActive(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) && !textInputField.isFocused)
         {
             if (Physics.Raycast(interactSource.transform.position,
             transform.TransformDirection(Vector3.forward),
