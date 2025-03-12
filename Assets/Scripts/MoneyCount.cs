@@ -10,14 +10,13 @@ public class MoneyCount : MonoBehaviour
     void Start()
     {
         money = db.currentPlayer.currentMoney;
-        text.text = string.Format("{0:F2}", money);
-
+        text.text = money.ToString("N2");
     }
 
     void Update()
     {
         money = db.currentPlayer.currentMoney;
-        text.text = string.Format("{0:F2}", money);
+        text.text = money.ToString("N2");
     }
     public void endDay()
     {

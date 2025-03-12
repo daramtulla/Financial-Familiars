@@ -6,6 +6,7 @@ using System.IO;
 using System.Security.Cryptography;
 using UnityEditor.Overlays;
 using System;
+using System.Linq;
 
 public class SuppliersMenu : MonoBehaviour
 {
@@ -110,6 +111,10 @@ public class SuppliersMenu : MonoBehaviour
         || (storeID == 7 && (merchId == 3 || merchId == 6 || merchId == 9 || merchId == 12)))
         {
             bCost *= .8f;
+        }
+        if(db.currentPlayer.employees.Any(employees => employees.id == 2))
+        {
+            bCost *= .85f;
         }
 
         Debug.Log(bCost.ToString());

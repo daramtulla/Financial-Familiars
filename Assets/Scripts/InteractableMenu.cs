@@ -3,7 +3,10 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour, InteractMenu
 {
-    //Menus
+    [SerializeField] GameObject tutorialPopup;
+    [SerializeField] string tutorialKey;
+    [SerializeField] Button closeButton;
+
     [SerializeField] GameObject menuToOpenOrClose;
     [SerializeField] SuppliersMenu suppliersMenu;
     [SerializeField] BudgetMenu budgetMenu;
@@ -11,13 +14,31 @@ public class Interactable : MonoBehaviour, InteractMenu
     [SerializeField] GameManager gameManager;
     [SerializeField] ShowMenu showMenu;
     [SerializeField] LoansMenu loansMenu;
+    [SerializeField] EmployeeManager employeeManager;
+    
+    public Text interactableNameText;
+    public string interactableNameTextString;
 
     [SerializeField] JSONDatabaseOperations db;
 
     public void InteractMenu()
     {
-        Debug.Log("Interacting");
+        Debug.Log("Interacting with " + menuToOpenOrClose.name);
 
+        //Check if the tutorial has been shown
+        //TODO: Change from playerprefs
+        if (PlayerPrefs.GetInt(tutorialKey, 0) == 0)
+        {
+            ShowTutorial();
+        }
+        else
+        {
+            showWindow();
+        }
+    }
+
+
+    void showWindow() {
         //If the menu is open
         if (menuToOpenOrClose.activeInHierarchy)
         {
@@ -45,6 +66,16 @@ public class Interactable : MonoBehaviour, InteractMenu
             {
                 Debug.Log("Close Loans Menu");
                 loansMenu.CloseThis();
+            }
+            else if (menuToOpenOrClose.name == "HiringUI")
+            {
+                //todo
+                employeeManager.ToggleMenu();
+            }
+            else if (menuToOpenOrClose.name == "UpgradeUI")
+            {
+                //todo
+                menuToOpenOrClose.SetActive(true);
             }
             else
             {
@@ -80,15 +111,37 @@ public class Interactable : MonoBehaviour, InteractMenu
                 Debug.Log("Open Loans Menu");
                 loansMenu.OpenThis();
             }
+            else if (menuToOpenOrClose.name == "HiringUI")
+            {
+                //todo
+                employeeManager.ToggleMenu();
+            }
+            else if (menuToOpenOrClose.name == "UpgradeUI")
+            {
+                //todo
+                menuToOpenOrClose.SetActive(true);
+            }
             else
             {
                 //Open the menu
                 menuToOpenOrClose.SetActive(true);
             }
         }
-
     }
+    void ShowTutorial()
+    {
+        tutorialPopup.SetActive(true);
+        closeButton.onClick.RemoveAllListeners();
+        closeButton.onClick.AddListener(CloseTutorial);
+    }
+    void CloseTutorial()
+    {
+        PlayerPrefs.SetInt(tutorialKey, 1);
+        PlayerPrefs.Save();
 
+        InteractionManager im = (InteractionManager)FindFirstObjectByType(typeof(InteractionManager));
+        im.switchInteractState();
 
-
+        tutorialPopup.SetActive(false);
+    }
 }
