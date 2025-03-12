@@ -15,6 +15,9 @@ public class Interactable : MonoBehaviour, Interact
     [SerializeField] ShowMenu showMenu;
     [SerializeField] LoansMenu loansMenu;
     [SerializeField] EmployeeManager employeeManager;
+    
+    public Text interactableNameText;
+    public string interactableNameTextString;
 
     public void Interact()
     {

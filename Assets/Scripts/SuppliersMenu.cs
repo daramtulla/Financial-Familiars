@@ -21,6 +21,8 @@ public class SuppliersMenu : MonoBehaviour
     private RandomGenNum rnd;
     [SerializeField] InteractionManager interactionManager;
 
+    [SerializeField] TMP_InputField textInputField;
+
     void Awake()
     {
         rnd = new RandomGenNum();
@@ -42,7 +44,7 @@ public class SuppliersMenu : MonoBehaviour
     void Update()
     {
         //press P to open purchasing of goods
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P) && !textInputField.isFocused)
         {
             ToggleMenu();
         }
