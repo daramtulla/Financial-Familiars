@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using System;
+using TMPro;
 
 interface Interact
 {
@@ -19,6 +20,8 @@ public class InteractionManager : MonoBehaviour
 
     [SerializeField] GameObject redArrow;
     [SerializeField] GameObject interactableNameText;
+
+    [SerializeField] TMP_InputField textInputField;
 
     void Update()
     {
@@ -44,7 +47,7 @@ public class InteractionManager : MonoBehaviour
             redArrow.SetActive(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) && !textInputField.isFocused)
         {
             if (Physics.Raycast(interactSource.transform.position,
             transform.TransformDirection(Vector3.forward),
