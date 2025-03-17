@@ -24,6 +24,8 @@ public class InteractionManager : MonoBehaviour
 
     [SerializeField] GameObject redArrow;
 
+    [SerializeField] Glossary gl;
+
     void Update()
     {
         if (Physics.Raycast(interactSource.transform.position,
@@ -45,7 +47,7 @@ public class InteractionManager : MonoBehaviour
             redArrow.SetActive(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) && !gl.glossaryScreen.activeSelf)
         {
             if (Physics.Raycast(interactSource.transform.position,
             transform.TransformDirection(Vector3.forward),

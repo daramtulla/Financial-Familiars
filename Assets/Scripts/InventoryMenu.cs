@@ -31,10 +31,12 @@ public class InventoryMenu : MonoBehaviour
     void Update()
     {
         //press I to open inventory
+        /*
         if (Input.GetKeyDown(KeyCode.I))
         {
             ToggleMenu();
         }
+        */
     }
 
     public void ToggleMenu()
@@ -116,7 +118,7 @@ public class InventoryMenu : MonoBehaviour
             {
                 //Potions
                 case 1:
-                    if(db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 2))
+                    if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 2))
                     {
                         degrees *= 0.9f;
                     }
@@ -161,7 +163,7 @@ public class InventoryMenu : MonoBehaviour
                     break;
             }
             //general upgrades
-            if(db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 1))
+            if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 1))
             {
                 degrees *= 0.95f;
             }
@@ -171,7 +173,7 @@ public class InventoryMenu : MonoBehaviour
             }
             //TODO: ADD UPGRADE 11, but this might require a rework of this system
 
-            if(db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 12 && merch.baseCost >= 450))
+            if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 12 && merch.baseCost >= 450))
             {
                 degrees *= 0.9f;
             }

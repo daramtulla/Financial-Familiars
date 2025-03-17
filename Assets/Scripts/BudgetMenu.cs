@@ -120,10 +120,12 @@ public class BudgetMenu : MonoBehaviour
     void Update()
     {
         //press B to open budget
+        /*
         if (Input.GetKeyDown(KeyCode.B))
         {
             ToggleBudgetMenu();
         }
+        */
 
     }
 
