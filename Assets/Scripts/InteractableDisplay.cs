@@ -66,9 +66,9 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
         if (displayToModify.activeInHierarchy)
         {
             Debug.Log("Interacting with Display");
-            if (displayToModify.name == "Potion T1 Display")
+            if (displayToModify.name == "Potion T1 Pedestal")
             {
-                //Debug.Log("Breakpoint");
+                Debug.Log("Breakpoint");
                 if (db.currentPlayer.merch[0].quantity > 0)
                 {
                     Debug.Log("Placed Potion T1");
@@ -76,7 +76,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
                     db.currentPlayer.active[0] = 1;
                 }
             }
-            else if (displayToModify.name == "Potion T2 Display")
+            else if (displayToModify.name == "Potion T2 Pedestal")
             {
                 if (db.currentPlayer.merch[1].quantity > 0)
                 {
@@ -84,7 +84,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
                     db.currentPlayer.active[1] = 1;
                 }
             }
-            else if (displayToModify.name == "Potion T3 Display")
+            else if (displayToModify.name == "Potion T3 Pedestal")
             {
                 if (db.currentPlayer.merch[2].quantity > 0)
                 {
@@ -92,7 +92,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
                     db.currentPlayer.active[2] = 1;
                 }
             }
-            else if (displayToModify.name == "Accessory T1 Display")
+            else if (displayToModify.name == "Accessory T1 Pedestal")
             {
                 if (db.currentPlayer.merch[3].quantity > 0)
                 {
@@ -100,7 +100,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
                     db.currentPlayer.active[3] = 1;
                 }
             }
-            else if (displayToModify.name == "Accessory T2 Display")
+            else if (displayToModify.name == "Accessory T2 Pedestal")
             {
                 if (db.currentPlayer.merch[4].quantity > 0)
                 {
@@ -108,7 +108,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
                     db.currentPlayer.active[4] = 1;
                 }
             }
-            else if (displayToModify.name == "Accessory T3 Display")
+            else if (displayToModify.name == "Accessory T3 Pedestal")
             {
                 if (db.currentPlayer.merch[5].quantity > 0)
                 {
@@ -116,7 +116,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
                     db.currentPlayer.active[5] = 1;
                 }
             }
-            else if (displayToModify.name == "Weapon T1 Display")
+            else if (displayToModify.name == "Weapon T1 Pedestal")
             {
                 if (db.currentPlayer.merch[6].quantity > 0)
                 {
@@ -124,7 +124,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
                     db.currentPlayer.active[6] = 1;
                 }
             }
-            else if (displayToModify.name == "Weapon T2 Display")
+            else if (displayToModify.name == "Weapon T2 Pedestal")
             {
                 if (db.currentPlayer.merch[7].quantity > 0)
                 {
@@ -132,7 +132,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
                     db.currentPlayer.active[7] = 1;
                 }
             }
-            else if (displayToModify.name == "Weapon T3 Display")
+            else if (displayToModify.name == "Weapon T3 Pedestal")
             {
                 if (db.currentPlayer.merch[8].quantity > 0)
                 {
@@ -140,7 +140,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
                     db.currentPlayer.active[8] = 1;
                 }
             }
-            else if (displayToModify.name == "Special T1 Display")
+            else if (displayToModify.name == "Special T1 Pedestal")
             {
                 if (db.currentPlayer.merch[9].quantity > 0)
                 {
@@ -148,7 +148,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
                     db.currentPlayer.active[9] = 1;
                 }
             }
-            else if (displayToModify.name == "Special T2 Display")
+            else if (displayToModify.name == "Special T2 Pedestal")
             {
                 if (db.currentPlayer.merch[10].quantity > 0)
                 {
@@ -156,7 +156,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
                     db.currentPlayer.active[10] = 1;
                 }
             }
-            else if (displayToModify.name == "Special T3 Display")
+            else if (displayToModify.name == "Special T3 Pedestal")
             {
                 if (db.currentPlayer.merch[11].quantity > 0)
                 {
@@ -164,7 +164,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
                     db.currentPlayer.active[11] = 1;
                 }
             }
-            else if (displayToModify.name == "Shield T1 Display")
+            else if (displayToModify.name == "Shield T1 Pedestal")
             {
                 if (db.currentPlayer.merch[15].quantity > 0)
                 {
@@ -172,7 +172,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
                     db.currentPlayer.active[15] = 1;
                 }
             }
-            else if (displayToModify.name == "Shield T2 Display")
+            else if (displayToModify.name == "Shield T2 Pedestal")
             {
                 if (db.currentPlayer.merch[16].quantity > 0)
                 {
@@ -180,7 +180,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
                     db.currentPlayer.active[16] = 1;
                 }
             }
-            else if (displayToModify.name == "Shield T3 Display")
+            else if (displayToModify.name == "Shield T3 Pedestal")
             {
                 if (db.currentPlayer.merch[17].quantity > 0)
                 {
@@ -188,7 +188,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
                     db.currentPlayer.active[17] = 1;
                 }
             }
-            else if (displayToModify.name == "Rune T1 Display")
+            else if (displayToModify.name == "Rune T1 Pedestal")
             {
                 if (db.currentPlayer.merch[12].quantity > 0)
                 {
@@ -196,7 +196,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
                     db.currentPlayer.active[12] = 1;
                 }
             }
-            else if (displayToModify.name == "Rune T2 Display")
+            else if (displayToModify.name == "Rune T2 Pedestal")
             {
                 if (db.currentPlayer.merch[13].quantity > 0)
                 {
@@ -204,7 +204,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
                     db.currentPlayer.active[13] = 1;
                 }
             }
-            else if (displayToModify.name == "Rune T3 Display")
+            else if (displayToModify.name == "Rune T3 Pedestal")
             {
                 if (db.currentPlayer.merch[14].quantity > 0)
                 {
@@ -279,11 +279,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
                         shieldT3.SetActive(false);
                         break;
                 }
-
             }
         }
-
     }
-
-
 }

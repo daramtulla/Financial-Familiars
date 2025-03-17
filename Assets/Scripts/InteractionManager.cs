@@ -56,6 +56,7 @@ public class InteractionManager : MonoBehaviour
                 if (rayInfoF.collider.gameObject.
                 TryGetComponent(out InteractMenu interactableM))
                 {
+                    //Debug.Log("Attempting Menu Interaction");
                     if (rayInfoF.collider.gameObject.layer == 3)
                     {
                         SwitchInteractState();
@@ -66,6 +67,7 @@ public class InteractionManager : MonoBehaviour
                 if (rayInfoF.collider.gameObject.
                 TryGetComponent(out InteractDisplay interactableD))
                 {
+                    //Debug.Log("Attempting Display Interaction");
                     if (rayInfoF.collider.gameObject.layer == 6)
                     {
                         //Do not want to freeze movement when stocking displays so do not change interact state
