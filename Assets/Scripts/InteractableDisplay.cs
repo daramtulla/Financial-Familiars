@@ -21,6 +21,14 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
     [SerializeField] GameObject specialT2;
     [SerializeField] GameObject specialT3;
 
+    [SerializeField] GameObject runeT1;
+    [SerializeField] GameObject runeT2;
+    [SerializeField] GameObject runeT3;
+
+    [SerializeField] GameObject shieldT1;
+    [SerializeField] GameObject shieldT2;
+    [SerializeField] GameObject shieldT3;
+
     //Displays
     [SerializeField] GameObject displayToModify;
     [SerializeField] GameObject potionT1Pedestal;
@@ -39,6 +47,14 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
     [SerializeField] GameObject specialT2Pedestal;
     [SerializeField] GameObject specialT3Pedestal;
 
+    [SerializeField] GameObject runeT1Pedestal;
+    [SerializeField] GameObject runeT2Pedestal;
+    [SerializeField] GameObject runeT3Pedestal;
+
+    [SerializeField] GameObject shieldT1Pedestal;
+    [SerializeField] GameObject shieldT2Pedestal;
+    [SerializeField] GameObject shieldT3Pedestal;
+
     [SerializeField] JSONDatabaseOperations db;
 
     /* Make sure to add display item pedestal to layer 6 and match the name of the gameobject to the name in the script. Set script onto table as non active item scripts do not run */
@@ -52,7 +68,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
             Debug.Log("Interacting with Display");
             if (displayToModify.name == "Potion T1 Display")
             {
-                Debug.Log("Breakpoint");
+                //Debug.Log("Breakpoint");
                 if (db.currentPlayer.merch[0].quantity > 0)
                 {
                     Debug.Log("Placed Potion T1");
@@ -148,13 +164,61 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
                     db.currentPlayer.active[11] = 1;
                 }
             }
+            else if (displayToModify.name == "Shield T1 Display")
+            {
+                if (db.currentPlayer.merch[15].quantity > 0)
+                {
+                    shieldT1.SetActive(true);
+                    db.currentPlayer.active[15] = 1;
+                }
+            }
+            else if (displayToModify.name == "Shield T2 Display")
+            {
+                if (db.currentPlayer.merch[16].quantity > 0)
+                {
+                    shieldT2.SetActive(true);
+                    db.currentPlayer.active[16] = 1;
+                }
+            }
+            else if (displayToModify.name == "Shield T3 Display")
+            {
+                if (db.currentPlayer.merch[17].quantity > 0)
+                {
+                    shieldT3.SetActive(true);
+                    db.currentPlayer.active[17] = 1;
+                }
+            }
+            else if (displayToModify.name == "Rune T1 Display")
+            {
+                if (db.currentPlayer.merch[12].quantity > 0)
+                {
+                    runeT1.SetActive(true);
+                    db.currentPlayer.active[12] = 1;
+                }
+            }
+            else if (displayToModify.name == "Rune T2 Display")
+            {
+                if (db.currentPlayer.merch[13].quantity > 0)
+                {
+                    runeT2.SetActive(true);
+                    db.currentPlayer.active[13] = 1;
+                }
+            }
+            else if (displayToModify.name == "Rune T3 Display")
+            {
+                if (db.currentPlayer.merch[14].quantity > 0)
+                {
+                    runeT3.SetActive(true);
+                    db.currentPlayer.active[14] = 1;
+                }
+            }
         }
     }
 
     public void Update()
     {
         //Check to see if display needs to be set inactive when item is sold
-        for (int i = 0; i < 12; i++)
+        for (int i = 0; i < 18; i++)
         {
             if (db.currentPlayer.active[i] != 1)
             {
@@ -195,6 +259,24 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
                         break;
                     case 11:
                         specialT3.SetActive(false);
+                        break;
+                    case 12:
+                        runeT1.SetActive(false);
+                        break;
+                    case 13:
+                        runeT2.SetActive(false);
+                        break;
+                    case 14:
+                        runeT3.SetActive(false);
+                        break;
+                    case 15:
+                        shieldT1.SetActive(false);
+                        break;
+                    case 16:
+                        shieldT2.SetActive(false);
+                        break;
+                    case 17:
+                        shieldT3.SetActive(false);
                         break;
                 }
 

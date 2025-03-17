@@ -94,7 +94,7 @@ public class CustomerManager : MonoBehaviour
         List<Merchandise> merch = db.currentPlayer.merch;
         List<KeyValuePair<int, int>> timeline = new();
 
-        for (int i = 0; i < 12; i++)
+        for (int i = 0; i < 18; i++)
         {
             float markupDeviation = merch[i].markupPercentage * merch[i].customerMod;
             int saleLimit = (int)Math.Round(markupDeviation);
@@ -127,7 +127,7 @@ public class CustomerManager : MonoBehaviour
         //For testing
         if (debug && Input.GetKeyDown(KeyCode.J))
         {
-            for (int i = 0; i < 12; i++)
+            for (int i = 0; i < 18; i++)
             {
                 AttemptSale(i + 1);
             }
