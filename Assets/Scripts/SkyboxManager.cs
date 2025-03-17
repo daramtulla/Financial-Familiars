@@ -43,13 +43,13 @@ public class SkyboxManager : MonoBehaviour
 
         switch (db.currentPlayer.cycleNum)
         {
-            case 1:
+            case 0:
                 SetMorning();
                 break;
-            case 2:
+            case 1:
                 SetNoon();
                 break;
-            case 3:
+            case 2:
                 SetEvening();
                 break;
             default:

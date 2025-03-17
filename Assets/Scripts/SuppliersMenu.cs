@@ -22,6 +22,8 @@ public class SuppliersMenu : MonoBehaviour
     private RandomGenNum rnd;
     [SerializeField] InteractionManager interactionManager;
 
+    [SerializeField] Boolean debug;
+
     void Awake()
     {
         rnd = new RandomGenNum();
@@ -37,12 +39,10 @@ public class SuppliersMenu : MonoBehaviour
     void Update()
     {
         //press P to open purchasing of goods
-        /*
-        if (Input.GetKeyDown(KeyCode.P))
+        if (debug && Input.GetKeyDown(KeyCode.P))
         {
             ToggleMenu();
         }
-        */
 
         //Generate new stock on day increase
         if (db.currentPlayer.GetDay() == day)
@@ -120,9 +120,6 @@ public class SuppliersMenu : MonoBehaviour
         {
             bCost *= .85f;
         }
-
-        Debug.Log(bCost.ToString());
-
         return (float)Math.Round(bCost, 2);
     }
 
