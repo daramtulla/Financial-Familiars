@@ -37,10 +37,12 @@ public class SuppliersMenu : MonoBehaviour
     void Update()
     {
         //press P to open purchasing of goods
+        /*
         if (Input.GetKeyDown(KeyCode.P))
         {
             ToggleMenu();
         }
+        */
 
         //Generate new stock on day increase
         if (db.currentPlayer.GetDay() == day)
@@ -112,7 +114,7 @@ public class SuppliersMenu : MonoBehaviour
         {
             bCost *= .8f;
         }
-        if(db.currentPlayer.employees.Any(employees => employees.id == 2))
+        if (db.currentPlayer.employees.Any(employees => employees.id == 2))
         {
             bCost *= .85f;
         }
