@@ -29,7 +29,7 @@ public class CustomerManager : MonoBehaviour
 
     private float pastDayTime;
 
-    public void StartDay()
+    public void StartSelling()
     {
         dayTime = 0;
         timerActive = true;
@@ -58,6 +58,9 @@ public class CustomerManager : MonoBehaviour
 
             yield return null;
         }
+
+        //After timer is up
+        db.currentPlayer.cycleNum = 2;
     }
 
     public void SaleTimeCheck(List<KeyValuePair<int, int>> copy)
@@ -133,12 +136,6 @@ public class CustomerManager : MonoBehaviour
             }
         }
 
-        //For testing
-        if (debug && Input.GetKeyDown(KeyCode.H))
-        {
-            StartDay();
-        }
-
         if (timerActive)
         {
             StartCoroutine(CustomerSales());
@@ -168,17 +165,83 @@ public class CustomerManager : MonoBehaviour
     {
         float baseCost = db.currentPlayer.merch[id - 1].baseCost;
         float markup = db.currentPlayer.merch[id - 1].markupPercentage;
+        float customerMod = db.currentPlayer.merch[id - 1].customerMod;
+        float degrees = markup / customerMod;
+
+
+        //From Zach M's other selling function
+        switch (id)
+        {
+            //Potions
+            case 1:
+                if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 2))
+                {
+                    degrees *= 0.9f;
+                }
+                if (db.currentPlayer.employees.Any(employee => employee.id == 8))
+                {
+                    degrees *= 0.85f;
+                }
+                break;
+            //accessories
+            case 2:
+                if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 3))
+                {
+                    degrees *= 0.9f;
+                }
+                if (db.currentPlayer.employees.Any(employee => employee.id == 9))
+                {
+                    degrees *= 0.85f;
+                }
+                break;
+            case 3:
+                if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 4))
+                {
+                    degrees *= 0.9f;
+                }
+                if (db.currentPlayer.employees.Any(employee => employee.id == 10))
+                {
+                    degrees *= 0.85f;
+                }
+                break;
+            case 4:
+                if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 5))
+                {
+                    degrees *= 0.9f;
+                }
+                if (db.currentPlayer.employees.Any(employee => employee.id == 11))
+                {
+                    degrees *= 0.85f;
+                }
+                break;
+            default:
+                Debug.Log("Item does not belong to a group");
+                break;
+        }
+        //general upgrades
+        if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 1))
+        {
+            degrees *= 0.95f;
+        }
+        if (db.currentPlayer.employees.Any(employee => employee.id == 0))
+        {
+            degrees *= 0.95f;
+        }
+        //TODO: ADD UPGRADE 11, but this might require a rework of this system
+
+        if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 12 && db.currentPlayer.merch[id - 1].baseCost >= 450))
+        {
+            degrees *= 0.9f;
+        }
+
+        //Todo Test for correctness
+        float sale = baseCost * markup * (100 - (100 * customerMod * degrees));
 
         //TODO Upgrades that sell multiple items at a time
         db.currentPlayer.ChangeQuantity(id, -1);
-        db.currentPlayer.currentMoney += baseCost * (1 + markup);
-        db.currentPlayer.dailySales += baseCost * (1 + markup);
-
+        db.currentPlayer.currentMoney += sale;
+        db.currentPlayer.dailySales += sale;
         db.currentPlayer.active[id - 1] = 0;
     }
-
-
-
-
-
 }
+

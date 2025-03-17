@@ -108,6 +108,7 @@ public class JSONDatabaseOperations : MonoBehaviour
             currentPlayer.active = new int[18];
             currentPlayer.totalSales = 0;
             currentPlayer.purchases = 0;
+            currentPlayer.cycleNum = 0;
 
             SaveData();
         }
@@ -141,18 +142,18 @@ public class JSONDatabaseOperations : MonoBehaviour
 
     void Update()
     {
-        //Hotkeys for saving and loading
-        if (Input.GetKey(KeyCode.K))
+        //Hotkeys for saving and loading. For testing
+        if (debug && Input.GetKey(KeyCode.K))
         {
             SaveData();
         }
 
-        if (Input.GetKey(KeyCode.L))
+        if (debug && Input.GetKey(KeyCode.L))
         {
             LoadData();
         }
 
-        //For testing
+        //For testing. Gives Player full inventory and money
         if (debug && Input.GetKey(KeyCode.V))
         {
             currentPlayer.currentMoney = 10000;
@@ -164,7 +165,7 @@ public class JSONDatabaseOperations : MonoBehaviour
         }
     }
 
-    public void addUpgrade(Upgrade upgrade)
+    public void AddUpgrade(Upgrade upgrade)
     {
         currentPlayer.upgrades.Add(upgrade);
     }
@@ -176,27 +177,33 @@ public class Player
     public float moveSpeedModifier;
     public float currentMoney;
     public float volume;
-
+    //0 = setup, 1 = selling, 2 = close
+    public int cycleNum;
+    public int currentLoanAmount;
     //Day is private as increasing day needs to generate new supplier stock and reset daily sales
-    [SerializeField] int dayCount;
+    private int dayCount;
     public float dailySales;
     public float purchases;
+    public float totalSales;
 
+    //To determine what displays should be active
     public int[] active;
 
+    //For determing if the character was just created
     public System.Object newPlayer;
 
+    //Sub objects of player
     public List<Loans> loans = new List<Loans>();
-
     public List<Merchandise> merch = new List<Merchandise>();
     public List<Supplier> suppliers = new List<Supplier>();
-    public float totalSales;
     public List<Employee> unemployedEmployees = new List<Employee>();
     public List<Employee> employees = new List<Employee>();
     public List<Upgrade> unpurchasedUpgrades = new List<Upgrade>();
     public List<Upgrade> upgrades = new List<Upgrade>();
 
-    public int currentLoanAmount;
+    //Player Helper Methods
+
+    //Merchandise Helpers
     public void ChangeQuantity(int id, int change)
     {
         if (id < 1 || id > 19)
@@ -272,6 +279,8 @@ public class Player
         merch.Add(new Merchandise(18, "Dragon Scale Shield", 0, 390, 0, .15f, 6, 3));
     }
 
+    //Day Method Helpers
+
     public void IncrDay()
     {
         dayCount++;
@@ -292,6 +301,8 @@ public class Player
     {
         dayCount = 1;
     }
+
+    //Loan Method Helpers
 
     public void AddDailyInterest(List<Loans> loans)
     {

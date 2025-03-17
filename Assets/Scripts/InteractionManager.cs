@@ -14,7 +14,7 @@ interface InteractDisplay
 
 public class InteractionManager : MonoBehaviour
 {
-    //IMPORTANT! Any object that is meant to be interactable must be assigned to the interactable layer (#3).
+    //IMPORTANT! Any object that is meant to be interactable must be assigned to the interactable layer (#3) or display layer (#6).
 
     [SerializeField] GameObject interactSource;
     [SerializeField] float interactRayRange;
