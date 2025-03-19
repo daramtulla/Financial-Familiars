@@ -19,6 +19,8 @@ public class InventoryMenu : MonoBehaviour
 
     public JSONDatabaseOperations db;
 
+    [SerializeField] TMP_InputField textInputField;
+
     void Start()
     {
         inventoryPanel.SetActive(false);
@@ -31,12 +33,10 @@ public class InventoryMenu : MonoBehaviour
     void Update()
     {
         //press I to open inventory
-        /*
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I) && !textInputField.isFocused)
         {
             ToggleMenu();
         }
-        */
     }
 
     public void ToggleMenu()
