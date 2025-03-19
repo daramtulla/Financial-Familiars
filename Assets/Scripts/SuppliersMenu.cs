@@ -22,7 +22,7 @@ public class SuppliersMenu : MonoBehaviour
     private RandomGenNum rnd;
     [SerializeField] InteractionManager interactionManager;
 
-    [SerializeField] Boolean debug;
+    [SerializeField] TMP_InputField textInputField;
 
     void Awake()
     {
@@ -39,132 +39,133 @@ public class SuppliersMenu : MonoBehaviour
     void Update()
     {
         //press P to open purchasing of goods
-        if (debug && Input.GetKeyDown(KeyCode.P))
-        {
-            ToggleMenu();
-        }
+/*
+if (Input.GetKeyDown(KeyCode.P))
+{
+    ToggleMenu();
+}
 
-        //Generate new stock on day increase
-        if (db.currentPlayer.GetDay() == day)
-        {
-            generateStock();
-            day++;
-        }
-    }
+//Generate new stock on day increase
+if (db.currentPlayer.GetDay() == day)
+{
+    generateStock();
+    day++;
+}
+}
 
-    public void ToggleMenu()
+public void ToggleMenu()
+{
+suppliersPanel.SetActive(!suppliersPanel.activeSelf);
+if (suppliersPanel.activeSelf)
+{
+    UpdateSuppliersUI();
+}
+}
+
+public void CloseMenu()
+{
+Debug.Log("Test Suppliers Menu Close");
+//The if statement prevents you from being frozen when you press P to open the suppliers menu
+//and then press the close button.
+//Also prevents "switchInteractState()" from being called twice when F is pressed
+//(once in the Update() function of InteractionManager.cs and the other time here).
+if (InteractionManager.GetInteractState() == true)
+{
+    Debug.Log("(SuppliersMenu): GetInteractState() is true");
+    interactionManager.SwitchInteractState();
+}
+suppliersPanel.SetActive(false);
+}
+
+public void generateStock()
+{
+for (int i = 1; i < 10; i++)
+{
+    int id1 = rnd.GetRandomMerchId();
+
+    int id2 = rnd.GetRandomMerchId();
+
+    while (id1 == id2)
     {
-        suppliersPanel.SetActive(!suppliersPanel.activeSelf);
-        if (suppliersPanel.activeSelf)
-        {
-            UpdateSuppliersUI();
-        }
+        id2 = rnd.GetRandomMerchId();
     }
 
-    public void CloseMenu()
-    {
-        Debug.Log("Test Suppliers Menu Close");
-        //The if statement prevents you from being frozen when you press P to open the suppliers menu
-        //and then press the close button.
-        //Also prevents "switchInteractState()" from being called twice when F is pressed
-        //(once in the Update() function of InteractionManager.cs and the other time here).
-        if (InteractionManager.GetInteractState() == true)
-        {
-            Debug.Log("(SuppliersMenu): GetInteractState() is true");
-            interactionManager.SwitchInteractState();
-        }
-        suppliersPanel.SetActive(false);
-    }
+    db.currentPlayer.suppliers[i - 1].stock1 = id1;
+    db.currentPlayer.suppliers[i - 1].stock2 = id2;
 
-    public void generateStock()
-    {
-        for (int i = 1; i < 10; i++)
-        {
-            int id1 = rnd.GetRandomMerchId();
+    db.currentPlayer.suppliers[i - 1].cost1 = generateCost(id1, i);
+    db.currentPlayer.suppliers[i - 1].cost2 = generateCost(id2, i);
+}
+}
 
-            int id2 = rnd.GetRandomMerchId();
+public float generateCost(int merchId, int storeID)
+{
+float bCost = db.currentPlayer.merch[merchId - 1].baseCost;
 
-            while (id1 == id2)
-            {
-                id2 = rnd.GetRandomMerchId();
-            }
+//Randomly generate sale price modifer
+bCost *= (float)(1 - ((float)rnd.SalePriceModifier() / 10));
 
-            db.currentPlayer.suppliers[i - 1].stock1 = id1;
-            db.currentPlayer.suppliers[i - 1].stock2 = id2;
+if ((storeID == 1 && (merchId == 1 || merchId == 2 || merchId == 3))
+|| (storeID == 2 && (merchId == 4 || merchId == 4 || merchId == 6))
+|| (storeID == 3 && (merchId == 7 || merchId == 8 || merchId == 8))
+|| (storeID == 4 && (merchId == 10 || merchId == 11 || merchId == 12))
+|| (storeID == 8 && (merchId == 16 || merchId == 17 || merchId == 18))
+|| (storeID == 9 && (merchId == 13 || merchId == 14 || merchId == 15))
+|| (storeID == 5 && (merchId == 1 || merchId == 4 || merchId == 7 || merchId == 10))
+|| (storeID == 6 && (merchId == 2 || merchId == 5 || merchId == 8 || merchId == 11))
+|| (storeID == 7 && (merchId == 3 || merchId == 6 || merchId == 9 || merchId == 12)))
+{
+    bCost *= .8f;
+}
+if (db.currentPlayer.employees.Any(employees => employees.id == 2))
+{
+    bCost *= .85f;
+}
+return (float)Math.Round(bCost, 2);
+}
 
-            db.currentPlayer.suppliers[i - 1].cost1 = generateCost(id1, i);
-            db.currentPlayer.suppliers[i - 1].cost2 = generateCost(id2, i);
-        }
-    }
+public void UpdateSuppliersUI()
+{
+//Destroys prior entries in suppliers list
+foreach (Transform child in suppliersContent)
+{
+    Destroy(child.gameObject);
+}
 
-    public float generateCost(int merchId, int storeID)
-    {
-        float bCost = db.currentPlayer.merch[merchId - 1].baseCost;
+foreach (Supplier supplier in db.currentPlayer.suppliers)
+{
+    GameObject newItem = Instantiate(supplierItemPrefab, suppliersContent);
 
-        //Randomly generate sale price modifer
-        bCost *= (float)(1 - ((float)rnd.SalePriceModifier() / 10));
+    TextMeshProUGUI[] texts = newItem.GetComponentsInChildren<TextMeshProUGUI>();
+    texts[0].text = supplier.name;
+    texts[1].text = db.currentPlayer.merch[supplier.stock1 - 1].name;
+    texts[2].text = "$" + string.Format("{0:F2}", supplier.cost1);
+    texts[3].text = db.currentPlayer.merch[supplier.stock2 - 1].name;
+    texts[4].text = "$" + string.Format("{0:F2}", supplier.cost2);
 
-        if ((storeID == 1 && (merchId == 1 || merchId == 2 || merchId == 3))
-        || (storeID == 2 && (merchId == 4 || merchId == 4 || merchId == 6))
-        || (storeID == 3 && (merchId == 7 || merchId == 8 || merchId == 8))
-        || (storeID == 4 && (merchId == 10 || merchId == 11 || merchId == 12))
-        || (storeID == 8 && (merchId == 16 || merchId == 17 || merchId == 18))
-        || (storeID == 9 && (merchId == 13 || merchId == 14 || merchId == 15))
-        || (storeID == 5 && (merchId == 1 || merchId == 4 || merchId == 7 || merchId == 10))
-        || (storeID == 6 && (merchId == 2 || merchId == 5 || merchId == 8 || merchId == 11))
-        || (storeID == 7 && (merchId == 3 || merchId == 6 || merchId == 9 || merchId == 12)))
-        {
-            bCost *= .8f;
-        }
-        if (db.currentPlayer.employees.Any(employees => employees.id == 2))
-        {
-            bCost *= .85f;
-        }
-        return (float)Math.Round(bCost, 2);
-    }
+    Button buy1Button1 = newItem.transform.Find("Buy1Button1").GetComponent<Button>();
+    Button buy10Button1 = newItem.transform.Find("Buy10Button1").GetComponent<Button>();
 
-    public void UpdateSuppliersUI()
-    {
-        //Destroys prior entries in suppliers list
-        foreach (Transform child in suppliersContent)
-        {
-            Destroy(child.gameObject);
-        }
+    buy1Button1.onClick.AddListener(() => BuyItem(supplier.cost1, 1, supplier.stock1));
+    buy10Button1.onClick.AddListener(() => BuyItem(supplier.cost1, 10, supplier.stock1));
 
-        foreach (Supplier supplier in db.currentPlayer.suppliers)
-        {
-            GameObject newItem = Instantiate(supplierItemPrefab, suppliersContent);
+    Button buy1Button2 = newItem.transform.Find("Buy1Button2").GetComponent<Button>();
+    Button buy10Button2 = newItem.transform.Find("Buy10Button2").GetComponent<Button>();
 
-            TextMeshProUGUI[] texts = newItem.GetComponentsInChildren<TextMeshProUGUI>();
-            texts[0].text = supplier.name;
-            texts[1].text = db.currentPlayer.merch[supplier.stock1 - 1].name;
-            texts[2].text = "$" + string.Format("{0:F2}", supplier.cost1);
-            texts[3].text = db.currentPlayer.merch[supplier.stock2 - 1].name;
-            texts[4].text = "$" + string.Format("{0:F2}", supplier.cost2);
+    buy1Button2.onClick.AddListener(() => BuyItem(supplier.cost2, 1, supplier.stock2));
+    buy10Button2.onClick.AddListener(() => BuyItem(supplier.cost2, 10, supplier.stock2));
+}
+}
 
-            Button buy1Button1 = newItem.transform.Find("Buy1Button1").GetComponent<Button>();
-            Button buy10Button1 = newItem.transform.Find("Buy10Button1").GetComponent<Button>();
+private void BuyItem(float cost, int bought, int id)
+{
+float total = cost * bought;
 
-            buy1Button1.onClick.AddListener(() => BuyItem(supplier.cost1, 1, supplier.stock1));
-            buy10Button1.onClick.AddListener(() => BuyItem(supplier.cost1, 10, supplier.stock1));
-
-            Button buy1Button2 = newItem.transform.Find("Buy1Button2").GetComponent<Button>();
-            Button buy10Button2 = newItem.transform.Find("Buy10Button2").GetComponent<Button>();
-
-            buy1Button2.onClick.AddListener(() => BuyItem(supplier.cost2, 1, supplier.stock2));
-            buy10Button2.onClick.AddListener(() => BuyItem(supplier.cost2, 10, supplier.stock2));
-        }
-    }
-
-    private void BuyItem(float cost, int bought, int id)
-    {
-        float total = cost * bought;
-
-        if (db.currentPlayer.currentMoney > total)
-        {
-            db.currentPlayer.currentMoney -= total;
-            db.currentPlayer.merch[id - 1].quantity += bought;
-            db.currentPlayer.purchases += total;
-        }
-    }
+if (db.currentPlayer.currentMoney > total)
+{
+    db.currentPlayer.currentMoney -= total;
+    db.currentPlayer.merch[id - 1].quantity += bought;
+    db.currentPlayer.purchases += total;
+}
+}
 }

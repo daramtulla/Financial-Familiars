@@ -23,6 +23,7 @@ public class InteractionManager : MonoBehaviour
     public Animator playerAnimator;
 
     [SerializeField] GameObject redArrow;
+    [SerializeField] GameObject interactableNameText;
 
     [SerializeField] Glossary gl;
 
@@ -37,6 +38,8 @@ public class InteractionManager : MonoBehaviour
             {
                 if (rayInfoF2.collider.gameObject.layer == 3)
                 {
+                    rayInfoF2.collider.gameObject.GetComponent<Interactable>().interactableNameText.text = rayInfoF2.collider.gameObject.GetComponent<Interactable>().interactableNameTextString;
+                    interactableNameText.SetActive(true);
                     redArrow.SetActive(true);
                     redArrow.transform.position = new Vector3(interactableTransform.transform.position.x, interactableTransform.transform.position.y + 3, interactableTransform.transform.position.z);
                 }
@@ -44,6 +47,7 @@ public class InteractionManager : MonoBehaviour
         }
         else
         {
+            interactableNameText.SetActive(false);
             redArrow.SetActive(false);
         }
 

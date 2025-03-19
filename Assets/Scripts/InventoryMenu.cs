@@ -20,7 +20,7 @@ public class InventoryMenu : MonoBehaviour
 
     public JSONDatabaseOperations db;
 
-    [SerializeField] Boolean debug;
+    [SerializeField] TMP_InputField textInputField;
 
     void Start()
     {
@@ -34,7 +34,7 @@ public class InventoryMenu : MonoBehaviour
     void Update()
     {
         //press I to open inventory
-        if (debug && Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I) && !textInputField.isFocused)
         {
             ToggleMenu();
         }
