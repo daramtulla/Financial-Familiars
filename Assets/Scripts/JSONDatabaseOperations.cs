@@ -16,6 +16,8 @@ public class JSONDatabaseOperations : MonoBehaviour
     [SerializeField] Boolean debug;
     public Player currentPlayer;
 
+    [SerializeField] Boolean RegenerateOnLoad;
+
     void Awake()
     {
         currentPlayer = new Player();
@@ -23,7 +25,7 @@ public class JSONDatabaseOperations : MonoBehaviour
         Debug.Log(filePath);
 
         //Check to see if JSON db is created
-        if (!File.Exists(filePath))
+        if (!File.Exists(filePath) || RegenerateOnLoad)
         {
             //Merchandise
             currentPlayer.merch.Add(new Merchandise(1, "Crimson Restoration Potion", 0, 10, 0, .2f, 1, 1));
@@ -201,9 +203,7 @@ public class Player
     public List<Upgrade> unpurchasedUpgrades = new List<Upgrade>();
     public List<Upgrade> upgrades = new List<Upgrade>();
 
-    //Player Helper Methods
-
-    //Merchandise Helpers
+    //Merchandise Method Helpers
     public void ChangeQuantity(int id, int change)
     {
         if (id < 1 || id > 19)
