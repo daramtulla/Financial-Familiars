@@ -163,6 +163,7 @@ public class JSONDatabaseOperations : MonoBehaviour
             for (int i = 0; i < 18; i++)
             {
                 currentPlayer.merch[i].quantity = 10;
+                currentPlayer.active[i] = 1;
             }
         }
     }

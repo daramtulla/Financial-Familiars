@@ -29,11 +29,19 @@ public class CustomerManager : MonoBehaviour
 
     private float pastDayTime;
 
+    [SerializeField] CustomerMovement cm;
+
     public void StartSelling()
     {
         dayTime = 0;
         timerActive = true;
         timeline = GetItemSaleTimeLine();
+
+        //Create customers to buy objects
+        foreach (KeyValuePair<int, int> key in timeline)
+        {
+            cm.CreateCustomer(key.Key);
+        }
     }
 
     //Perform customer sales during day phase
@@ -167,7 +175,6 @@ public class CustomerManager : MonoBehaviour
         float markup = db.currentPlayer.merch[id - 1].markupPercentage;
         float customerMod = db.currentPlayer.merch[id - 1].customerMod;
         float degrees = markup / customerMod;
-
 
         //From Zach M's other selling function
         switch (id)

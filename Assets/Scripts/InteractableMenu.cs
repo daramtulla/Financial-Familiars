@@ -21,6 +21,7 @@ public class Interactable : MonoBehaviour, InteractMenu
     public string interactableNameTextString;
 
     [SerializeField] JSONDatabaseOperations db;
+    [SerializeField] InteractionManager im;
 
     public void InteractMenu()
     {
@@ -106,7 +107,16 @@ public class Interactable : MonoBehaviour, InteractMenu
             else if (menuToOpenOrClose.name == "EndDayScreen")
             {
                 Debug.Log("Open End Day Screen");
-                gameManager.EndDay();
+
+                if (db.currentPlayer.cycleNum == 0)
+                {
+                    gameManager.StartSellingPhase();
+                    im.SwitchInteractState();
+                }
+                else if (db.currentPlayer.cycleNum == 2)
+                {
+                    gameManager.RestartCyle();
+                }
             }
             else if (menuToOpenOrClose.name == "Loans Menu")
             {
