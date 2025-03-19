@@ -14,7 +14,7 @@ interface InteractDisplay
 
 public class InteractionManager : MonoBehaviour
 {
-    //IMPORTANT! Any object that is meant to be interactable must be assigned to the interactable layer (#3).
+    //IMPORTANT! Any object that is meant to be interactable must be assigned to the interactable layer (#3) or display layer (#6).
 
     [SerializeField] GameObject interactSource;
     [SerializeField] float interactRayRange;
@@ -60,6 +60,7 @@ public class InteractionManager : MonoBehaviour
                 if (rayInfoF.collider.gameObject.
                 TryGetComponent(out InteractMenu interactableM))
                 {
+                    //Debug.Log("Attempting Menu Interaction");
                     if (rayInfoF.collider.gameObject.layer == 3)
                     {
                         SwitchInteractState();
@@ -70,6 +71,7 @@ public class InteractionManager : MonoBehaviour
                 if (rayInfoF.collider.gameObject.
                 TryGetComponent(out InteractDisplay interactableD))
                 {
+                    //Debug.Log("Attempting Display Interaction");
                     if (rayInfoF.collider.gameObject.layer == 6)
                     {
                         //Do not want to freeze movement when stocking displays so do not change interact state

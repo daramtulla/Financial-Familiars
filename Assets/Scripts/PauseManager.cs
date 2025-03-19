@@ -8,11 +8,11 @@ public class PauseManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            pauseGame();
+            PauseGame();
         }
     }
 
-    public void pauseGame()
+    public void PauseGame()
     {
         if (pauseMenu.activeSelf)
         {

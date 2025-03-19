@@ -16,7 +16,7 @@ public class Interactable : MonoBehaviour, InteractMenu
     [SerializeField] ShowMenu showMenu;
     [SerializeField] LoansMenu loansMenu;
     [SerializeField] EmployeeManager employeeManager;
-    
+
     public Text interactableNameText;
     public string interactableNameTextString;
 
@@ -39,7 +39,8 @@ public class Interactable : MonoBehaviour, InteractMenu
     }
 
 
-    void showWindow() {
+    void showWindow()
+    {
         //If the menu is open
         if (menuToOpenOrClose.activeInHierarchy)
         {
@@ -105,7 +106,7 @@ public class Interactable : MonoBehaviour, InteractMenu
             else if (menuToOpenOrClose.name == "EndDayScreen")
             {
                 Debug.Log("Open End Day Screen");
-                gameManager.endDay();
+                gameManager.EndDay();
             }
             else if (menuToOpenOrClose.name == "Loans Menu")
             {

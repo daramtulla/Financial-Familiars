@@ -1,6 +1,9 @@
+using System;
 using System.Data.Common;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.ProBuilder;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -24,11 +27,52 @@ public class GameManager : MonoBehaviour
     //Pause Menu Logic
     public GameObject pauseMenu;
 
+    //Day Phase Logic
+    [SerializeField] CustomerManager cm;
+    [SerializeField] Boolean debug;
+
+    public void StartSellingPhase()
+    {
+        if (db.currentPlayer.cycleNum != 0)
+        {
+            Debug.Log("Incorrect cycle order");
+        }
+
+        db.currentPlayer.cycleNum = 1;
+        cm.StartSelling();
+    }
+
+    //Close Phase starts automatically when selling phase timer ends
+
+    public void RestartCyle()
+    {
+        if (db.currentPlayer.cycleNum != 2)
+        {
+            Debug.Log("Incorrect cyle order");
+        }
+
+        db.currentPlayer.IncrDay();
+        db.currentPlayer.cycleNum = 0;
+        EndDay();
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             PauseGame();
+        }
+
+        //For testing
+        if (debug && Input.GetKeyDown("N"))
+        {
+            StartSellingPhase();
+        }
+
+        //For testing
+        if (debug && Input.GetKeyDown("M"))
+        {
+            StartSellingPhase();
         }
     }
     public void PauseGame()
@@ -45,19 +89,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void endDay()
+    public void EndDay()
     {
         Time.timeScale = 0.0f;
 
-        //Sell Items
-        inventoryMenu.SellItems();
         float moneyMadeAmount = db.currentPlayer.dailySales;
 
         //Display End of Day
         endScreen.SetActive(true);
         endDayTitle.text = "Day " + db.currentPlayer.GetDay() + " Results";
-
-        
 
         //TODO: Add loan logic
         //For now: say it takes $50 to pay off every day
@@ -65,7 +105,7 @@ public class GameManager : MonoBehaviour
 
 
         float wagesPaidAmount = 0.0f;
-        foreach(var employee in db.currentPlayer.employees)
+        foreach (var employee in db.currentPlayer.employees)
         {
             wagesPaidAmount += employee.salary;
         }
@@ -76,7 +116,8 @@ public class GameManager : MonoBehaviour
 
         float utilitiesCostAmount = -50.0f;
 
-        if(db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 0)) {
+        if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 0))
+        {
             utilitiesCostAmount *= 0.9f;
         }
 
@@ -87,23 +128,21 @@ public class GameManager : MonoBehaviour
             utilitiesCostAmount *= 0.9f;
         }
 
-
         //Money Made
-        formatText(moneyMade, moneyMadeAmount);
-        formatText(loansPaid, mandatoryLoansAmount);
-        formatText(wagesPaid, wagesPaidAmount);
-        formatText(upgradeUpkeep, upgradeUpkeepAmount);
-        formatText(utilitiesCost, utilitiesCostAmount); 
-
+        FormatText(moneyMade, moneyMadeAmount);
+        FormatText(loansPaid, mandatoryLoansAmount);
+        FormatText(wagesPaid, wagesPaidAmount);
+        FormatText(upgradeUpkeep, upgradeUpkeepAmount);
+        FormatText(utilitiesCost, utilitiesCostAmount);
 
         float netProfitAmount = moneyMadeAmount - -mandatoryLoansAmount - wagesPaidAmount - -upgradeUpkeepAmount - -utilitiesCostAmount;
-        formatText(netProfit, netProfitAmount);
+        FormatText(netProfit, netProfitAmount);
 
         //TODO: Split money between savings and spending
         //For now: Send all money to one account
         playerManager.UpdatePlayerStats(netProfitAmount);
     }
-    public void formatText(Text textObject, float amount)
+    public void FormatText(Text textObject, float amount)
     {
         if (amount > 0)
         {

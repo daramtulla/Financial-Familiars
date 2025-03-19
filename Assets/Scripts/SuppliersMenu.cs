@@ -39,6 +39,7 @@ public class SuppliersMenu : MonoBehaviour
     void Update()
     {
         //press P to open purchasing of goods
+
         if (Input.GetKeyDown(KeyCode.P) && !textInputField.isFocused)
         {
             ToggleMenu();
@@ -78,7 +79,7 @@ public class SuppliersMenu : MonoBehaviour
 
     public void generateStock()
     {
-        for (int i = 1; i < 8; i++)
+        for (int i = 1; i < 10; i++)
         {
             int id1 = rnd.GetRandomMerchId();
 
@@ -108,6 +109,8 @@ public class SuppliersMenu : MonoBehaviour
         || (storeID == 2 && (merchId == 4 || merchId == 4 || merchId == 6))
         || (storeID == 3 && (merchId == 7 || merchId == 8 || merchId == 8))
         || (storeID == 4 && (merchId == 10 || merchId == 11 || merchId == 12))
+        || (storeID == 8 && (merchId == 16 || merchId == 17 || merchId == 18))
+        || (storeID == 9 && (merchId == 13 || merchId == 14 || merchId == 15))
         || (storeID == 5 && (merchId == 1 || merchId == 4 || merchId == 7 || merchId == 10))
         || (storeID == 6 && (merchId == 2 || merchId == 5 || merchId == 8 || merchId == 11))
         || (storeID == 7 && (merchId == 3 || merchId == 6 || merchId == 9 || merchId == 12)))
@@ -118,9 +121,6 @@ public class SuppliersMenu : MonoBehaviour
         {
             bCost *= .85f;
         }
-
-        Debug.Log(bCost.ToString());
-
         return (float)Math.Round(bCost, 2);
     }
 

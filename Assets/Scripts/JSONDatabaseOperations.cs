@@ -16,6 +16,8 @@ public class JSONDatabaseOperations : MonoBehaviour
     [SerializeField] Boolean debug;
     public Player currentPlayer;
 
+    [SerializeField] Boolean RegenerateOnLoad;
+
     void Awake()
     {
         currentPlayer = new Player();
@@ -23,21 +25,34 @@ public class JSONDatabaseOperations : MonoBehaviour
         Debug.Log(filePath);
 
         //Check to see if JSON db is created
-        if (!File.Exists(filePath))
+        if (!File.Exists(filePath) || RegenerateOnLoad)
         {
+            //Merchandise
             currentPlayer.merch.Add(new Merchandise(1, "Crimson Restoration Potion", 0, 10, 0, .2f, 1, 1));
             currentPlayer.merch.Add(new Merchandise(2, "Bubbling Polymorph Flask", 0, 25, 0, .2f, 1, 2));
             currentPlayer.merch.Add(new Merchandise(3, "Draught of Living Death", 0, 65, 0, .2f, 1, 3));
+
             currentPlayer.merch.Add(new Merchandise(4, "Emerald Ring of Minor Protection", 0, 30, 0, .15f, 2, 1));
             currentPlayer.merch.Add(new Merchandise(5, "Necklace of Fire Resistance", 0, 70, 0, .15f, 2, 2));
             currentPlayer.merch.Add(new Merchandise(6, "Pocket Dimension Bag", 0, 220, 0, .15f, 2, 3));
+
             currentPlayer.merch.Add(new Merchandise(7, "Never-Dull Gold Dagger", 0, 150, 0, .10f, 3, 1));
             currentPlayer.merch.Add(new Merchandise(8, "Lich King Grimoire", 0, 320, 0, .10f, 3, 2));
             currentPlayer.merch.Add(new Merchandise(9, "Featherlight Warhammer", 0, 700, 0, .10f, 3, 3));
+
             currentPlayer.merch.Add(new Merchandise(10, "All-Seeing Crystal Ball", 0, 200, 0, .10f, 4, 1));
             currentPlayer.merch.Add(new Merchandise(11, "Wand Core Cluster", 0, 450, 0, .10f, 4, 2));
             currentPlayer.merch.Add(new Merchandise(12, "Pulsating Dragon Heart", 0, 1000, 0, .10f, 4, 3));
 
+            currentPlayer.merch.Add(new Merchandise(13, "Minor Rune of Healing", 0, 15, 0, .20f, 5, 1));
+            currentPlayer.merch.Add(new Merchandise(14, "Major Rune of Damage", 0, 40, 0, .20f, 5, 2));
+            currentPlayer.merch.Add(new Merchandise(15, "Omega Rune of Protection", 0, 95, 0, .20f, 5, 3));
+
+            currentPlayer.merch.Add(new Merchandise(16, "Ironwood Shield", 0, 110, 0, .15f, 6, 1));
+            currentPlayer.merch.Add(new Merchandise(17, "Darksteel Shield", 0, 280, 0, .15f, 6, 2));
+            currentPlayer.merch.Add(new Merchandise(18, "Dragon Scale Shield", 0, 390, 0, .15f, 6, 3));
+
+            //Suppliers
             currentPlayer.suppliers.Add(new Supplier(1, "Arcane Emporium", 0, 0, 0, 0));
             currentPlayer.suppliers.Add(new Supplier(2, "Mystic Merchants", 0, 0, 0, 0));
             currentPlayer.suppliers.Add(new Supplier(3, "Wand & Whimsy", 0, 0, 0, 0));
@@ -45,7 +60,10 @@ public class JSONDatabaseOperations : MonoBehaviour
             currentPlayer.suppliers.Add(new Supplier(5, "Twilight Trinkets", 0, 0, 0, 0));
             currentPlayer.suppliers.Add(new Supplier(6, "Spellbound Supplies", 0, 0, 0, 0));
             currentPlayer.suppliers.Add(new Supplier(7, "Sigil & Sorcery", 0, 0, 0, 0));
+            currentPlayer.suppliers.Add(new Supplier(8, "Dwarven Magics", 0, 0, 0, 0));
+            currentPlayer.suppliers.Add(new Supplier(9, "Witch's Circle", 0, 0, 0, 0));
 
+            //Loans
             currentPlayer.loans.Add(new Loans("Loan 1", 0f, 0f));
             currentPlayer.loans.Add(new Loans("Loan 2", 0f, 0f));
             currentPlayer.loans.Add(new Loans("Loan 3", 0f, 0f));
@@ -82,15 +100,17 @@ public class JSONDatabaseOperations : MonoBehaviour
             currentPlayer.unpurchasedUpgrades.Add(new Upgrade(11, "Matching Bling", 450, "Customers may buy two accessories."));
             currentPlayer.unpurchasedUpgrades.Add(new Upgrade(12, "Wealthy Patrons", 2000, "Increases Demand for expensive items."));
 
+            //Player Stats
             currentPlayer.moveSpeedModifier = 1;
             currentPlayer.currentMoney = 1000f;
             currentPlayer.volume = .5f;
             currentPlayer.ResetDay();
             currentPlayer.dailySales = 0;
             currentPlayer.newPlayer = new IntegerField(1);
-            currentPlayer.active = new int[12];
+            currentPlayer.active = new int[18];
             currentPlayer.totalSales = 0;
             currentPlayer.purchases = 0;
+            currentPlayer.cycleNum = 0;
 
             SaveData();
         }
@@ -124,30 +144,30 @@ public class JSONDatabaseOperations : MonoBehaviour
 
     void Update()
     {
-        //Hotkeys for saving and loading
-        if (Input.GetKey(KeyCode.K))
+        //Hotkeys for saving and loading. For testing
+        if (debug && Input.GetKey(KeyCode.K))
         {
             SaveData();
         }
 
-        if (Input.GetKey(KeyCode.L))
+        if (debug && Input.GetKey(KeyCode.L))
         {
             LoadData();
         }
 
-        //For testing
+        //For testing. Gives Player full inventory and money
         if (debug && Input.GetKey(KeyCode.V))
         {
             currentPlayer.currentMoney = 10000;
 
-            for (int i = 0; i < 12; i++)
+            for (int i = 0; i < 18; i++)
             {
                 currentPlayer.merch[i].quantity = 10;
             }
         }
     }
 
-    public void addUpgrade(Upgrade upgrade)
+    public void AddUpgrade(Upgrade upgrade)
     {
         currentPlayer.upgrades.Add(upgrade);
     }
@@ -159,31 +179,34 @@ public class Player
     public float moveSpeedModifier;
     public float currentMoney;
     public float volume;
-
+    //0 = setup, 1 = selling, 2 = close
+    public int cycleNum;
+    public int currentLoanAmount;
     //Day is private as increasing day needs to generate new supplier stock and reset daily sales
-    [SerializeField] int dayCount;
+    private int dayCount;
     public float dailySales;
     public float purchases;
+    public float totalSales;
 
+    //To determine what displays should be active
     public int[] active;
 
+    //For determing if the character was just created
     public System.Object newPlayer;
 
+    //Sub objects of player
     public List<Loans> loans = new List<Loans>();
-
     public List<Merchandise> merch = new List<Merchandise>();
     public List<Supplier> suppliers = new List<Supplier>();
-    public float totalSales;
-    //public void ChangeQuantity(int id, int change)
     public List<Employee> unemployedEmployees = new List<Employee>();
     public List<Employee> employees = new List<Employee>();
     public List<Upgrade> unpurchasedUpgrades = new List<Upgrade>();
     public List<Upgrade> upgrades = new List<Upgrade>();
 
-    public int currentLoanAmount;
+    //Merchandise Method Helpers
     public void ChangeQuantity(int id, int change)
     {
-        if (id < 1 || id > 13)
+        if (id < 1 || id > 19)
         {
             Debug.Log("Invalid ItemId");
             return;
@@ -208,7 +231,7 @@ public class Player
     public void ChangeMarkup(int id, float newMarkup)
     {
         //TODO Add feedback for player
-        if (id < 1 || id > 13)
+        if (id < 1 || id > 19)
         {
             Debug.Log("Invalid ItemId");
             return;
@@ -234,16 +257,29 @@ public class Player
         merch.Add(new Merchandise(1, "Crimson Restoration Potion", 0, 10, 0, .2f, 1, 1));
         merch.Add(new Merchandise(2, "Bubbling Polymorph Flask", 0, 25, 0, .2f, 1, 2));
         merch.Add(new Merchandise(3, "Draught of Living Death", 0, 65, 0, .2f, 1, 3));
+
         merch.Add(new Merchandise(4, "Emerald Ring of Minor Protection", 0, 30, 0, .15f, 2, 1));
         merch.Add(new Merchandise(5, "Necklace of Fire Resistance", 0, 70, 0, .15f, 2, 2));
         merch.Add(new Merchandise(6, "Pocket Dimension Bag", 0, 220, 0, .15f, 2, 3));
+
         merch.Add(new Merchandise(7, "Never-Dull Gold Dagger", 0, 150, 0, .10f, 3, 1));
         merch.Add(new Merchandise(8, "Lich King Grimoire", 0, 320, 0, .10f, 3, 2));
         merch.Add(new Merchandise(9, "Featherlight Warhammer", 0, 700, 0, .10f, 3, 3));
+
         merch.Add(new Merchandise(10, "All-Seeing Crystal Ball", 0, 200, 0, .10f, 4, 1));
         merch.Add(new Merchandise(11, "Wand Core Cluster", 0, 450, 0, .10f, 4, 2));
         merch.Add(new Merchandise(12, "Pulsating Dragon Heart", 0, 1000, 0, .10f, 4, 3));
+
+        merch.Add(new Merchandise(13, "Minor Rune of Healing", 0, 15, 0, .20f, 5, 1));
+        merch.Add(new Merchandise(14, "Major Rune of Damage", 0, 40, 0, .20f, 5, 2));
+        merch.Add(new Merchandise(15, "Omega Rune of Protection", 0, 95, 0, .20f, 5, 3));
+
+        merch.Add(new Merchandise(16, "Ironwood Shield", 0, 110, 0, .15f, 6, 1));
+        merch.Add(new Merchandise(17, "Darksteel Shield", 0, 280, 0, .15f, 6, 2));
+        merch.Add(new Merchandise(18, "Dragon Scale Shield", 0, 390, 0, .15f, 6, 3));
     }
+
+    //Day Method Helpers
 
     public void IncrDay()
     {
@@ -265,6 +301,8 @@ public class Player
     {
         dayCount = 1;
     }
+
+    //Loan Method Helpers
 
     public void AddDailyInterest(List<Loans> loans)
     {
@@ -402,20 +440,20 @@ public class Employee
     }
 }
 
-    [System.Serializable]
-    public class Upgrade
-    {
-        public int id;
-        public string Name;
-        public int Cost;
-        public string Description;
+[System.Serializable]
+public class Upgrade
+{
+    public int id;
+    public string Name;
+    public int Cost;
+    public string Description;
 
-        public Upgrade(int this_id, string name, int cost, string description)
-        {
-            id = this_id;
-            Name = name;
-            Cost = cost;
-            Description = description;
-        }
+    public Upgrade(int this_id, string name, int cost, string description)
+    {
+        id = this_id;
+        Name = name;
+        Cost = cost;
+        Description = description;
     }
+}
 

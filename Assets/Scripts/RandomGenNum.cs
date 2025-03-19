@@ -11,7 +11,7 @@ public class RandomGenNum
 
     public int GetRandomMerchId()
     {
-        return random.Next(1, 13);
+        return random.Next(1, 19);
     }
 
     public int GetDailyItemSaleNumber(int low, int high)
