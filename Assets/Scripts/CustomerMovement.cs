@@ -1,5 +1,9 @@
+using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class CustomerMovement : MonoBehaviour
 {
@@ -63,12 +67,59 @@ public class CustomerMovement : MonoBehaviour
     [SerializeField] int speed;
 
     //Non node refs
-    private GameObject customerPrefab;
+    [SerializeField] GameObject customerPrefab;
 
-    private Dictionary<Customer, GameObject> linkTable;
+    private Dictionary<Customer, GameObject> linkTable = new Dictionary<Customer, GameObject>();
 
+    [SerializeField] Boolean debug;
 
+    void Update()
+    {
+        if (debug && Input.GetKeyDown(KeyCode.Z))
+        {
+            CreateCustomer(7);
+        }
 
+        foreach (KeyValuePair<Customer, GameObject> cust in linkTable)
+        {
+            switch (cust.Key.nodeNum)
+            {
+                case 0:
+                    GoToNode1(cust.Key);
+                    break;
+                case 1:
+                    GoToNode2(cust.Key);
+                    break;
+                case 2:
+                    GoToNode3(cust.Key);
+                    break;
+                case 3:
+                    GoToNode4(cust.Key);
+                    break;
+                case 4:
+                    GoToNode5(cust.Key);
+                    break;
+                case 5:
+                    GoToNode6(cust.Key);
+                    break;
+                case 6:
+                    GoToNode7(cust.Key);
+                    break;
+                case 7:
+                    GoToNode8(cust.Key);
+                    break;
+                case 8:
+                    GoToNode9(cust.Key);
+                    break;
+                case 9:
+                    GoToNodeEnd(cust.Key);
+                    break;
+                default:
+                    Debug.Log("Invalid node num");
+                    break;
+            }
+        }
+    }
 
     public void CreateCustomer(int merchId)
     {
@@ -76,58 +127,50 @@ public class CustomerMovement : MonoBehaviour
         customerObj.SetActive(true);
         Customer customerClass = new Customer(merchId);
         linkTable.Add(customerClass, customerObj);
-
-        GoToNode1(customerClass);
     }
 
     public void GoToNode1(Customer cust)
     {
-        transform.position = Vector3.Lerp(transform.position, node1.transform.position, speed * Time.deltaTime);
+
+        linkTable[cust].transform.position = Vector3.MoveTowards(transform.position, node1.transform.position, speed * Time.deltaTime);
     }
 
     public void GoToNode2(Customer cust)
     {
-        switch (cust.itemToBuy)
-        {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            case 16:
-            case 17:
-            case 18:
-                //transform.position = Vector3.Lerp(transform.position, node2f.transform.position, speed * Time.deltaTime);
-                break;
-            default:
-                Debug.Log("Invalid Node to move to");
-                break;
-        }
-
-
+        linkTable[cust].transform.position = Vector3.MoveTowards(transform.position, node2.transform.position, speed * Time.deltaTime);
     }
 
-    public void GoToNode3()
+    public void GoToNode3(Customer cust)
     {
-
+        linkTable[cust].transform.position = Vector3.MoveTowards(transform.position, node2.transform.position, speed * Time.deltaTime);
     }
 
-    public void GoToNode4()
+    public void GoToNode4(Customer cust)
     {
-
+        linkTable[cust].transform.position = Vector3.MoveTowards(transform.position, node2.transform.position, speed * Time.deltaTime);
     }
-
-    public void GoToNode5()
+    public void GoToNode5(Customer cust)
     {
-
+        linkTable[cust].transform.position = Vector3.MoveTowards(transform.position, node2.transform.position, speed * Time.deltaTime);
+    }
+    public void GoToNode6(Customer cust)
+    {
+        linkTable[cust].transform.position = Vector3.MoveTowards(transform.position, node2.transform.position, speed * Time.deltaTime);
+    }
+    public void GoToNode7(Customer cust)
+    {
+        linkTable[cust].transform.position = Vector3.MoveTowards(transform.position, node2.transform.position, speed * Time.deltaTime);
+    }
+    public void GoToNode8(Customer cust)
+    {
+        linkTable[cust].transform.position = Vector3.MoveTowards(transform.position, node2.transform.position, speed * Time.deltaTime);
+    }
+    public void GoToNode9(Customer cust)
+    {
+        linkTable[cust].transform.position = Vector3.MoveTowards(transform.position, node2.transform.position, speed * Time.deltaTime);
     }
 
-    public void GoToNodeEnd()
+    public void GoToNodeEnd(Customer cust)
     {
 
     }
@@ -138,11 +181,15 @@ public class Customer
     public int itemToBuy;
     public int speed;
 
+    public int nodeNum;
+
     public Customer(int merchId)
     {
         this.itemToBuy = merchId;
 
         //TODO dynamically set
         this.speed = 1;
+
+        this.nodeNum = 0;
     }
 }
