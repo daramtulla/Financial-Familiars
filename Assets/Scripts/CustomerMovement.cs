@@ -7,6 +7,7 @@ using UnityEngine.Rendering;
 
 public class CustomerMovement : MonoBehaviour
 {
+    /*
     //General pathing nodes
     [SerializeField] GameObject startNode;
     [SerializeField] GameObject node1;
@@ -192,4 +193,5 @@ public class Customer
 
         this.nodeNum = 0;
     }
+    */
 }

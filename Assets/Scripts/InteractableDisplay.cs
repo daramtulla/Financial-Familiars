@@ -280,6 +280,66 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
                         break;
                 }
             }
+            else if (db.currentPlayer.active[i] == 1)
+            {
+                switch (i)
+                {
+                    case 0:
+                        potionT1.SetActive(true);
+                        break;
+                    case 1:
+                        potionT2.SetActive(true);
+                        break;
+                    case 2:
+                        potionT3.SetActive(true);
+                        break;
+                    case 3:
+                        accesoryT1.SetActive(true);
+                        break;
+                    case 4:
+                        accesoryT2.SetActive(true);
+                        break;
+                    case 5:
+                        accesoryT3.SetActive(true);
+                        break;
+                    case 6:
+                        weaponT1.SetActive(true);
+                        break;
+                    case 7:
+                        weaponT2.SetActive(true);
+                        break;
+                    case 8:
+                        weaponT3.SetActive(true);
+                        break;
+                    case 9:
+                        specialT1.SetActive(true);
+                        break;
+                    case 10:
+                        specialT2.SetActive(true);
+                        break;
+                    case 11:
+                        specialT3.SetActive(true);
+                        break;
+                    case 12:
+                        runeT1.SetActive(true);
+                        break;
+                    case 13:
+                        runeT2.SetActive(true);
+                        break;
+                    case 14:
+                        runeT3.SetActive(true);
+                        break;
+                    case 15:
+                        shieldT1.SetActive(true);
+                        break;
+                    case 16:
+                        shieldT2.SetActive(true);
+                        break;
+                    case 17:
+                        shieldT3.SetActive(true);
+                        break;
+                }
+            }
         }
     }
 }

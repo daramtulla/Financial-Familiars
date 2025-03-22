@@ -51,9 +51,10 @@ public class GameManager : MonoBehaviour
             Debug.Log("Incorrect cyle order");
         }
 
+        EndDay();
         db.currentPlayer.IncrDay();
         db.currentPlayer.cycleNum = 0;
-        EndDay();
+
     }
 
     private void Update()

@@ -35,12 +35,12 @@ public class Interactable : MonoBehaviour, InteractMenu
         }
         else
         {
-            showWindow();
+            ShowWindow();
         }
     }
 
 
-    void showWindow()
+    void ShowWindow()
     {
         //If the menu is open
         if (menuToOpenOrClose.activeInHierarchy)

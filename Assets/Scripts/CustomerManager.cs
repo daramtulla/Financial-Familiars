@@ -40,7 +40,7 @@ public class CustomerManager : MonoBehaviour
         //Create customers to buy objects
         foreach (KeyValuePair<int, int> key in timeline)
         {
-            cm.CreateCustomer(key.Key);
+            //cm.CreateCustomer(key.Key);
         }
     }
 
@@ -132,7 +132,7 @@ public class CustomerManager : MonoBehaviour
         return timeline;
     }
 
-    //For Testing
+
     public void Update()
     {
         //For testing
@@ -142,6 +142,12 @@ public class CustomerManager : MonoBehaviour
             {
                 AttemptSale(i + 1);
             }
+        }
+
+        //For Testing. Auto ends sale period
+        if (debug && Input.GetKeyDown(KeyCode.X))
+        {
+            dayTime = dayTimeTotal;
         }
 
         if (timerActive)
@@ -242,7 +248,9 @@ public class CustomerManager : MonoBehaviour
         }
 
         //Todo Test for correctness
-        float sale = baseCost * markup * (100 - (100 * customerMod * degrees));
+        float sale = baseCost * (1 + markup) * (2 - (2 * customerMod * degrees));
+
+        if (debug) { Debug.Log(sale); }
 
         //TODO Upgrades that sell multiple items at a time
         db.currentPlayer.ChangeQuantity(id, -1);
