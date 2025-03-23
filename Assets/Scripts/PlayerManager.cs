@@ -9,7 +9,7 @@ public class PlayerManager : MonoBehaviour
 
     public JSONDatabaseOperations db;
 
-    int day;
+    private int day;
     public Text dayCount;
     void Start()
     {
@@ -35,9 +35,7 @@ public class PlayerManager : MonoBehaviour
     }
     public void UpdatePlayerStats(float moneyMade)
     {
-        //Increment day
-        day += 1;
-        db.currentPlayer.IncrDay();
+        day = db.currentPlayer.GetDay();
         dayCount.text = "Day " + day.ToString();
 
         //Money Logic
@@ -76,7 +74,7 @@ public class PlayerManager : MonoBehaviour
         db.currentPlayer.currentMoney = money;
         //db.currentPlayer.dayCount = day;
         moneyCount.text = db.currentPlayer.currentMoney.ToString("N2");
-        
+
         //Clear inventory
         db.currentPlayer.ResetInventory();
     }
