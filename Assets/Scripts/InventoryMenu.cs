@@ -3,6 +3,8 @@ using TMPro;
 using System.Collections.Generic;
 using System.IO;
 using System.Data.Common;
+using System.Linq;
+using System;
 public class InventoryMenu : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -57,7 +59,7 @@ public class InventoryMenu : MonoBehaviour
         if (InteractionManager.GetInteractState() == true)
         {
             Debug.Log("(InventoryMenu): GetInteractState() is true");
-            interactionManager.switchInteractState();
+            interactionManager.SwitchInteractState();
         }
         inventoryPanel.SetActive(false);
     }
@@ -83,7 +85,7 @@ public class InventoryMenu : MonoBehaviour
             TextMeshProUGUI[] texts = newItem.GetComponentsInChildren<TextMeshProUGUI>();
             texts[0].text = item.name;
             texts[1].text = item.quantity.ToString();
-            texts[2].text = "$" + item.baseCost.ToString();
+            texts[2].text = "$" + item.baseCost.ToString("N2");
             texts[3].text = item.markupPercentage.ToString() + "%";
             texts[4].text = item.group.ToString();
             texts[5].text = item.tier.ToString();
@@ -101,19 +103,5 @@ public class InventoryMenu : MonoBehaviour
         Canvas.ForceUpdateCanvases();
 
         Debug.Log("Inventory Reloaded and UI Updated.");
-    }
-
-    public void SellItems()
-    {
-        foreach (Merchandise merch in db.currentPlayer.merch)
-        {
-            float degrees = merch.markupPercentage / merch.customerMod;
-
-            //100 is a place holder value for now
-            float sales = merch.baseCost * merch.markupPercentage * (100 - (100 * merch.customerMod * degrees));
-
-            db.currentPlayer.currentMoney += sales;
-            db.UpdateDailySales(sales);
-        }
     }
 }

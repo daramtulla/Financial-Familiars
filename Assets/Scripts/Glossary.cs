@@ -41,7 +41,7 @@ public class Glossary : MonoBehaviour
 
             // Find TextMeshPro components directly in the prefab
             TextMeshProUGUI[] texts = newTerm.GetComponentsInChildren<TextMeshProUGUI>();
-            
+
             texts[0].text = term.idNumber.ToString();
             texts[1].text = term.word;
             texts[2].text = term.definition;
@@ -50,7 +50,7 @@ public class Glossary : MonoBehaviour
 
     public void SearchForWords(string input)
     {
-        for(int i = 0; i < gameObjectTermList.Count; i++)
+        for (int i = 0; i < gameObjectTermList.Count; i++)
         {
             TextMeshProUGUI[] texts = gameObjectTermList[i].GetComponentsInChildren<TextMeshProUGUI>();
             if (!texts[1].text.ToLower().Contains(input))

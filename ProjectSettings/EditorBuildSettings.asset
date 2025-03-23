@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/TitleScreen.unity
     guid: ff7c7b68b4577814e8e4faa60168a63b
   - enabled: 1
-    path: Assets/Scenes/MovementTestScene.unity
+    path: Assets/Scenes/ZachJTesting.unity
     guid: 44ad04392c2f17244ad2965ca12a6794
   - enabled: 1
     path: Assets/Scenes/Store.unity
