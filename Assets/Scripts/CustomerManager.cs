@@ -34,6 +34,7 @@ public class CustomerManager : MonoBehaviour
     public void StartSelling()
     {
         dayTime = 0;
+        pastDayTime = 0;
         timerActive = true;
         timeline = GetItemSaleTimeLine();
 
@@ -69,6 +70,7 @@ public class CustomerManager : MonoBehaviour
 
         //After timer is up
         db.currentPlayer.cycleNum = 2;
+        timerActive = false;
     }
 
     public void SaleTimeCheck(List<KeyValuePair<int, int>> copy)
@@ -93,7 +95,6 @@ public class CustomerManager : MonoBehaviour
                     if (debug) { Debug.Log("Attempting to sell merch " + pair.Value); }
                     KeyValuePair<int, int> toRemove = new(pair.Key, pair.Value);
                     Debug.Log("Remove Successful? " + copy.Remove(toRemove));
-                    contains = false;
                 }
             }
         }
