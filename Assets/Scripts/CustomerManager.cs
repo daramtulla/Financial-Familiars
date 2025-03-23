@@ -29,11 +29,20 @@ public class CustomerManager : MonoBehaviour
 
     private float pastDayTime;
 
+    [SerializeField] CustomerMovement cm;
+
     public void StartSelling()
     {
         dayTime = 0;
+        pastDayTime = 0;
         timerActive = true;
         timeline = GetItemSaleTimeLine();
+
+        //Create customers to buy objects
+        foreach (KeyValuePair<int, int> key in timeline)
+        {
+            //cm.CreateCustomer(key.Key);
+        }
     }
 
     //Perform customer sales during day phase
@@ -61,6 +70,7 @@ public class CustomerManager : MonoBehaviour
 
         //After timer is up
         db.currentPlayer.cycleNum = 2;
+        timerActive = false;
     }
 
     public void SaleTimeCheck(List<KeyValuePair<int, int>> copy)
@@ -85,7 +95,6 @@ public class CustomerManager : MonoBehaviour
                     if (debug) { Debug.Log("Attempting to sell merch " + pair.Value); }
                     KeyValuePair<int, int> toRemove = new(pair.Key, pair.Value);
                     Debug.Log("Remove Successful? " + copy.Remove(toRemove));
-                    contains = false;
                 }
             }
         }
@@ -124,7 +133,7 @@ public class CustomerManager : MonoBehaviour
         return timeline;
     }
 
-    //For Testing
+
     public void Update()
     {
         //For testing
@@ -134,6 +143,12 @@ public class CustomerManager : MonoBehaviour
             {
                 AttemptSale(i + 1);
             }
+        }
+
+        //For Testing. Auto ends sale period
+        if (debug && Input.GetKeyDown(KeyCode.X))
+        {
+            dayTime = dayTimeTotal;
         }
 
         if (timerActive)
@@ -167,7 +182,6 @@ public class CustomerManager : MonoBehaviour
         float markup = db.currentPlayer.merch[id - 1].markupPercentage;
         float customerMod = db.currentPlayer.merch[id - 1].customerMod;
         float degrees = markup / customerMod;
-
 
         //From Zach M's other selling function
         switch (id)
@@ -235,7 +249,9 @@ public class CustomerManager : MonoBehaviour
         }
 
         //Todo Test for correctness
-        float sale = baseCost * markup * (100 - (100 * customerMod * degrees));
+        float sale = baseCost * (1 + markup) * (2 - (2 * customerMod * degrees));
+
+        if (debug) { Debug.Log(sale); }
 
         //TODO Upgrades that sell multiple items at a time
         db.currentPlayer.ChangeQuantity(id, -1);

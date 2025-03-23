@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
 
     //Close Phase starts automatically when selling phase timer ends
 
-    public void RestartCyle()
+    public void RestartCycle()
     {
         if (db.currentPlayer.cycleNum != 2)
         {
@@ -52,8 +52,9 @@ public class GameManager : MonoBehaviour
         }
 
         db.currentPlayer.IncrDay();
-        db.currentPlayer.cycleNum = 0;
         EndDay();
+        db.currentPlayer.cycleNum = 0;
+
     }
 
     private void Update()
