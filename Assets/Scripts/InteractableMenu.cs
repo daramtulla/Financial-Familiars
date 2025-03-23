@@ -115,7 +115,7 @@ public class Interactable : MonoBehaviour, InteractMenu
                 }
                 else if (db.currentPlayer.cycleNum == 2)
                 {
-                    gameManager.RestartCyle();
+                    gameManager.RestartCycle();
                 }
             }
             else if (menuToOpenOrClose.name == "Loans Menu")
