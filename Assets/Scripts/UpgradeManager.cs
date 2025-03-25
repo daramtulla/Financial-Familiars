@@ -27,7 +27,7 @@ public class UpgradeManager : MonoBehaviour
     public void ToggleMenu()
     {
         upgradeUI.SetActive(!upgradeUI.activeSelf);
-        if(upgradeUI.activeSelf)
+        if (upgradeUI.activeSelf)
         {
             UpdateUpgradeUI();
         }
@@ -36,17 +36,17 @@ public class UpgradeManager : MonoBehaviour
     public void CloseMenu()
     {
         Debug.Log("Upgrade Menu Close");
-        if(InteractionManager.GetInteractState() == true)
+        if (InteractionManager.GetInteractState() == true)
         {
             Debug.Log("(UpgradeManager): GetInteractState() is true");
-            interactionManager.switchInteractState();
+            interactionManager.SwitchInteractState();
         }
         upgradeUI.SetActive(false);
     }
 
     public void UpdateUpgradeUI()
     {
-        foreach(Transform child in upgradeContent)
+        foreach (Transform child in upgradeContent)
         {
             Destroy(child.gameObject);
         }
@@ -58,7 +58,8 @@ public class UpgradeManager : MonoBehaviour
             //todo: Add texts
             texts[0].text = upgrade.Name;
             //TODO: make this more efficient?
-            if (db.currentPlayer.employees.Any(employee => employee.id == 1)) {
+            if (db.currentPlayer.employees.Any(employee => employee.id == 1))
+            {
                 texts[1].text = "$" + (upgrade.Cost * 0.95f);
             }
             else
@@ -75,16 +76,17 @@ public class UpgradeManager : MonoBehaviour
 
     private void buyUpgrade(float cost, int id)
     {
-        if (db.currentPlayer.employees.Any(employee => employee.id == 1)) {
+        if (db.currentPlayer.employees.Any(employee => employee.id == 1))
+        {
             cost *= 0.95f;
         }
         if (db.currentPlayer.currentMoney >= cost)
         {
             db.currentPlayer.currentMoney -= cost;
             Upgrade upgradeToBuy = db.currentPlayer.unpurchasedUpgrades.Find(upgrade => upgrade.id == id);
-            if(upgradeToBuy != null )
+            if (upgradeToBuy != null)
             {
-                db.addUpgrade(upgradeToBuy);
+                db.AddUpgrade(upgradeToBuy);
                 db.currentPlayer.unpurchasedUpgrades.Remove(upgradeToBuy);
                 UpdateUpgradeUI();
             }
