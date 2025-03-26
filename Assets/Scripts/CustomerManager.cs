@@ -70,6 +70,7 @@ public class CustomerManager : MonoBehaviour
 
         //After timer is up
         db.currentPlayer.cycleNum = 2;
+        //Debug.Log($"db.currentPlayer.cycleNum: {db.currentPlayer.cycleNum}");
         timerActive = false;
     }
 
@@ -151,6 +152,7 @@ public class CustomerManager : MonoBehaviour
             dayTime = dayTimeTotal;
         }
 
+        //Debug.Log($"TimerActive: {timerActive}");
         if (timerActive)
         {
             StartCoroutine(CustomerSales());
@@ -257,6 +259,7 @@ public class CustomerManager : MonoBehaviour
         db.currentPlayer.ChangeQuantity(id, -1);
         db.currentPlayer.currentMoney += sale;
         db.currentPlayer.dailySales += sale;
+        //Debug.Log($"Daily Sales: {db.currentPlayer.dailySales}");
         db.currentPlayer.active[id - 1] = 0;
     }
 }

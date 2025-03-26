@@ -59,8 +59,9 @@ public class GameManager : MonoBehaviour
 
         db.currentPlayer.IncrDay();
         EndDay();
+        db.currentPlayer.dailySales = 0;
+        //Debug.Log($"RestartCycle(): db.currentPlayer.dailySales: {db.currentPlayer.dailySales}");
         db.currentPlayer.cycleNum = 0;
-
     }
 
     private void Update()
