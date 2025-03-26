@@ -571,5 +571,6 @@ public class TriggerListener : MonoBehaviour
     {
         GameObject obj = col.gameObject;
         cm.linkTable.Remove(obj);
+        Destroy(obj);
     }
 }
