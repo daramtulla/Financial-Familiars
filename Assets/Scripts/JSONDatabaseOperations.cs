@@ -69,29 +69,18 @@ public class JSONDatabaseOperations : MonoBehaviour
             currentPlayer.loans.Add(new Loans("Loan 3", 0f, 0f));
 
             //TODO: Tweak daily wages
-            currentPlayer.unemployedEmployees.Add(new Employee(0, "Fizzwick Flash", "Marketer", 80, "Fast-talking, dramatic, obsessed with catchy slogans.", "Increases demand for all items.", "Self-Employed for 10 years, made a steady living for themselves, in the Merchant's Guild", "Employees/Fizzwick.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(0, "Fizzwick Flash", "Marketer", 80, "Fast-talking, dramatic, obsessed with catchy slogans.", "Increases demand for all items.", "Self-Employed for 10 years, made a steady living for themselves, in the Merchant�s Guild", "Employees/Fizzwick.png"));
             currentPlayer.unemployedEmployees.Add(new Employee(1, "Briza Coppercrank", "Technician", 90, "Meticulous, resourceful, loves tinkering with everything.", "Reduces the cost of all upgrades.", "Former airship mechanic, certified in arcane engineering, once rebuilt a golem using only scrap parts.", "Employees/Briza.png"));
             currentPlayer.unemployedEmployees.Add(new Employee(2, "Grumlek Stonesnout", "Supplier", 85, "Gruff, well-connected, always knows a guy who knows a guy.", "Reduces the cost of buying items by negotiating better deals.", "Former caravan trader, has contacts in every market.", "Employees/Grumlek.png"));
-            currentPlayer.unemployedEmployees.Add(new Employee(4, "Velora Swiftwhisper", "Rent Negotiator", 95, "Charming, silver-tongued, can talk anyone into a better deal.", "Reduces the cost of rent.", "Former noble house emissary, expert in contracts, once convinced an ogre to pay her for toll fees.", "Employees/Velora.png"));
-            currentPlayer.unemployedEmployees.Add(new Employee(6, "Quillbert Ledgersnout", "Taxman", 100, "Nerdy, precise, loves finding loopholes.", "Reduces the cost of taxes.", "Former royal accountant, memorized entire tax laws, once deducted a wizard's beard as a business expense.", "Employees/Quillbert.png"));
-            currentPlayer.unemployedEmployees.Add(new Employee(9, "Marlo Wickert", "Business Contact", 95, "Well-dressed, well-mannered, and always knows the right people.", "Adds more items to the shipping cauldron.", "Former trade broker, once arranged a deal between rival witch covens.", "Employees/Marlo.png"));
-            currentPlayer.unemployedEmployees.Add(new Employee(12, "Evalis Keeneye", "Appraiser", 90, "Sharp-eyed, analytical, and detail-oriented.", "Reveals the optimal prices for items to maximize profits.", "Former auction house expert and trained in magical artifact valuation.", "Employees/Evalis.png"));
-            currentPlayer.unemployedEmployees.Add(new Employee(14, "Talia Greenbloom", "Loan Assistant", 85, "Friendly, organized, and always ready to help.", "Lowers interest rates on loans.", "Former banker, has saved people 1,000,000 gold over his life.", "Employees/Talia.png"));
-            currentPlayer.unemployedEmployees.Add(new Employee(16, "Zara Flaskbrew", "Alchemist", 110, "Curious, experimental, and always smells like chemicals.", "Greatly increases demand for potions.", "Self-employed for 100 years, master of alchemical mixtures.", "Employees/Zara.png"));
-            currentPlayer.unemployedEmployees.Add(new Employee(17, "Jaxson Goldleaf", "Designer", 100, "Charming, stylish, perfectionist.", "Greatly increases demand for accessories.", "Former fashion designer for high society, known for turning simple items into coveted pieces.", "Employees/Jaxson.png"));
-            currentPlayer.unemployedEmployees.Add(new Employee(19, "Grunkar Ironfist", "Blacksmith", 120, "Strong, no-nonsense, reclusive.", "Greatly increases demand for weapons.", "A seasoned blacksmith with a reputation for crafting legendary weapons.", "Employees/Grunkar.png"));
-            currentPlayer.unemployedEmployees.Add(new Employee(20, "Selene Starwhisper", "Grand Enchanter", 150, "Mysterious, graceful, always floating.", "Greatly increases demand for special items.", "A powerful enchanter who once created an invisibility cloak.", "Employees/Selene.png"));
-            //Bad employees
-            currentPlayer.unemployedEmployees.Add(new Employee(3, "Dorin Dullard", "Idea Maker", 50, "Enthusiastic, always brainstorming, never executing.", "Spends time talking about ideas.", "Has 'Revolutionary' business insights, but has never held a real job", "Employees/Dorin.png"));
-            currentPlayer.unemployedEmployees.Add(new Employee(5, "Lazlo Snooze", "Productivity Expert", 40, "Always tired and drinking coffee, grumpy", "Slows down all work", "Started writing a book on efficiency, but never finished reading it", "Employees/Lazlo.png"));
-            currentPlayer.unemployedEmployees.Add(new Employee(7, "Bertie Blunder", "Logistics Coordinator", 60, "Eager, but niave and clueless", "Has a chance to lose shipments or send them to the wrong locations", "Formal postal worker, was fired for misdelivering royal mail.", "Employees/Bertie.png"));
-            currentPlayer.unemployedEmployees.Add(new Employee(8, "Velma Redtape", "Administrator", 55, "Strict, loves paperwork, enforces pointless rules.", "Increases price of upgrades due to extra paperwork", "Worked in the royal archives, once rejected a request becaues the ink was the wrong color", "Employees/Velma.png"));
-            currentPlayer.unemployedEmployees.Add(new Employee(10, "Clodwick Stumble", "Security Expert", 45, "Paranoid, clumsy, sets off his own traps.", "Occasionally locks employees out of the building.", "Former castle guard, once arrested himself on accident", "Employees/Clodwick.png"));
-            currentPlayer.unemployedEmployees.Add(new Employee(11, "Mina Gossip", "Public Relations", 50, "Knows everyone's business and shares it freely.", "Has a chance to lower demand by spreading embarrasing company secrets.", "Former town crier, fired for sharing scandalous rumors.", "Employees/Mina.png"));
-            currentPlayer.unemployedEmployees.Add(new Employee(13, "Todd Tinkerfall", "R&D Specialist", 70, "Overly ambitious, but most experiments explode.", "Has a chance to destroy an upgrade, rather than purchasing it.", "Once designed a 'self-cleaning' rug that destroyed itself.", "Employees/Todd.png"));
-            currentPlayer.unemployedEmployees.Add(new Employee(15, "Gilda Grumble", "HR Manager", 65, "Loves mediating, even when there's no conflict.", "Employees spend more time in meetings, lowering productivity", "Former peacekeeper for a goblin clan, retired due to stress.", "Employees/Gilda.png"));
-            currentPlayer.unemployedEmployees.Add(new Employee(18, "Borin Brightchant", "Motivational Speaker", 50, "Loud, overly enthusiastic, uses a lot of buzzwords", "Attempts to boost morale in mandatory meetings.", "Claims to have inspired famous heroes, but nobody has commented on this", "Employees/Borin.png"));
-
+            currentPlayer.unemployedEmployees.Add(new Employee(3, "Velora Swiftwhisper", "Rent Negotiator", 95, "Charming, silver-tongued, can talk anyone into a better deal.", "Reduces the cost of rent.", "Former noble house emissary, expert in contracts, once convinced an ogre to pay her for toll fees.", "Employees/Velora.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(4, "Quillbert Ledgersnout", "Taxman", 100, "Nerdy, precise, loves finding loopholes.", "Reduces the cost of taxes.", "Former royal accountant, memorized entire tax laws, once deducted a wizard�s beard as a business expense.", "Employees/Quillbert.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(5, "Marlo Wickert", "Business Contact", 95, "Well-dressed, well-mannered, and always knows the right people.", "Adds more items to the shipping cauldron.", "Former trade broker, once arranged a deal between rival witch covens.", "Employees/Marlo.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(6, "Evalis Keeneye", "Appraiser", 90, "Sharp-eyed, analytical, and detail-oriented.", "Reveals the optimal prices for items to maximize profits.", "Former auction house expert and trained in magical artifact valuation.", "Employees/Evalis.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(7, "Talia Greenbloom", "Loan Assistant", 85, "Friendly, organized, and always ready to help.", "Lowers interest rates on loans.", "Former banker, has saved people 1,000,000 gold over his life.", "Employees/Talia.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(8, "Zara Flaskbrew", "Alchemist", 110, "Curious, experimental, and always smells like chemicals.", "Greatly increases demand for potions.", "Self-employed for 100 years, master of alchemical mixtures.", "Employees/Zara.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(9, "Jaxson Goldleaf", "Designer", 100, "Charming, stylish, perfectionist.", "Greatly increases demand for accessories.", "Former fashion designer for high society, known for turning simple items into coveted pieces.", "Employees/Jaxson.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(10, "Grunkar Ironfist", "Blacksmith", 120, "Strong, no-nonsense, reclusive.", "Greatly increases demand for weapons.", "A seasoned blacksmith with a reputation for crafting legendary weapons.", "Employees/Grunkar.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(11, "Selene Starwhisper", "Grand Enchanter", 150, "Mysterious, graceful, always floating.", "Greatly increases demand for special items.", "A powerful enchanter who once created an invisibility cloak.", "Employees/Selene.png"));
 
             //TODO: Add upgrades
             //TODO: Add functionality
@@ -101,7 +90,6 @@ public class JSONDatabaseOperations : MonoBehaviour
             currentPlayer.unpurchasedUpgrades.Add(new Upgrade(3, "Premium Accessories", 600, "Increases Demand for Accessories."));
             currentPlayer.unpurchasedUpgrades.Add(new Upgrade(4, "Premium Weapons", 600, "Increases Demand for Weapons."));
             currentPlayer.unpurchasedUpgrades.Add(new Upgrade(5, "Premium Special Items", 1000, "Increases demand for Special items."));
-
             //TODO: Add storage functionality
             currentPlayer.unpurchasedUpgrades.Add(new Upgrade(6, "Bigger Storage", 400, "Increases max storage capacity."));
             //TODO: Add restocking
@@ -183,10 +171,6 @@ public class JSONDatabaseOperations : MonoBehaviour
     public void AddUpgrade(Upgrade upgrade)
     {
         currentPlayer.upgrades.Add(upgrade);
-    }
-    public void addEmployee(Employee employee)
-    {
-        currentPlayer.employees.Add(employee);
     }
 }
 
@@ -303,9 +287,7 @@ public class Player
         dayCount++;
         //Daily sales already added to money total. Add to total sales counter
         totalSales += dailySales;
-        //dailySales = 0;
-        /*Commented the above out because it caused the daily sales to be 0 in the end day menu.
-          Instead I moved it to the GameManager.cs script in the RestartCycle() function after the EndDay() function was called.*/
+        dailySales = 0;
 
         //Add interest to loan
         AddDailyInterest(loans);

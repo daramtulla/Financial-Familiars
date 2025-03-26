@@ -79,12 +79,6 @@ public class SuppliersMenu : MonoBehaviour
 
     public void generateStock()
     {
-        if (db.currentPlayer.suppliers.Count < 9)
-        {
-            Debug.LogWarning("Not enough suppliers to generate stock!");
-            return;
-        }
-
         for (int i = 1; i < 10; i++)
         {
             int id1 = rnd.GetRandomMerchId();

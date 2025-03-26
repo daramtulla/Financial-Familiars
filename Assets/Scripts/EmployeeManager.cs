@@ -3,7 +3,6 @@ using TMPro;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine.UI;
-using System.Linq;
 
 public class EmployeeManager : MonoBehaviour
 {
@@ -60,7 +59,7 @@ public class EmployeeManager : MonoBehaviour
             TextMeshProUGUI[] texts = newEmployee.GetComponentsInChildren<TextMeshProUGUI>();
             texts[0].text = emp.name;
             texts[1].text = emp.position;
-            texts[2].text = "$" + emp.salary.ToString("N2") + " / day";
+            texts[2].text = "$" + emp.salary.ToString("N2");
             texts[3].text = emp.personality;
             texts[4].text = emp.benefits;
             texts[5].text = emp.qualifications;
@@ -98,26 +97,8 @@ public class EmployeeManager : MonoBehaviour
                 }
             }
 
-            Button hireButton = newEmployee.transform.Find("HireButton").GetComponent<Button>();
-            hireButton.onClick.AddListener(() => hireEmployee(emp.id));
-
             Debug.Log("ADDING EMPLOYEE: " + emp.name + ", " + emp.position + ", " + emp.salary + ", " + emp.personality + ", " + emp.benefits + ", " + emp.qualifications);
             // todo: button functionality
         }
-    }
-    private void hireEmployee(int id)
-    {
-        Employee hiring = db.currentPlayer.unemployedEmployees.Find(employee => employee.id == id);
-        if (hiring!= null)
-        {
-            db.addEmployee(hiring);
-            db.currentPlayer.unemployedEmployees.Remove(hiring);
-            UpdateEmployeeUI();
-        }
-        else
-        {
-            Debug.Log("Employee not found");
-        }
-
     }
 }
