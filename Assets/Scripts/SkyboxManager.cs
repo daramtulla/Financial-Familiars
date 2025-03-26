@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class SkyboxManager : MonoBehaviour
@@ -8,11 +9,19 @@ public class SkyboxManager : MonoBehaviour
     public Material nightSky;
 
     private Material[] skyboxes;
-    private int currentSkyboxIndex = 0;
+    private int currentSkyboxIndex;
+    [SerializeField] Boolean debug;
+
+    [SerializeField] JSONDatabaseOperations db;
+
+    void Awake()
+    {
+        currentSkyboxIndex = db.currentPlayer.cycleNum;
+    }
 
     void Start()
     {
-        skyboxes = new Material[] {morningSky, noonSky, eveningSky, nightSky};
+        skyboxes = new Material[] { morningSky, noonSky, eveningSky }; //, nightSky 
 
         RenderSettings.skybox = skyboxes[currentSkyboxIndex];
         DynamicGI.UpdateEnvironment();
@@ -21,7 +30,8 @@ public class SkyboxManager : MonoBehaviour
     void Update()
     {
         // press [ to make the sky timetravel
-        if (Input.GetKeyDown(KeyCode.LeftBracket))
+        /*
+        if (debug && Input.GetKeyDown(KeyCode.LeftBracket))
         {
             currentSkyboxIndex = (currentSkyboxIndex + 1) % skyboxes.Length;
 
@@ -29,5 +39,62 @@ public class SkyboxManager : MonoBehaviour
 
             DynamicGI.UpdateEnvironment();
         }
+        */
+
+        switch (db.currentPlayer.cycleNum)
+        {
+            case 0:
+                SetMorning();
+                break;
+            case 1:
+                SetNoon();
+                break;
+            case 2:
+                SetEvening();
+                break;
+            default:
+                Debug.Log("Invalid cycleNum");
+                break;
+        }
+    }
+
+    //Since there is only 3 game phases as of now, not using nightSky
+    public void SetMorning()
+    {
+        if (db.currentPlayer.cycleNum != 0)
+        {
+            Debug.Log("Incorrect Phase");
+        }
+
+        currentSkyboxIndex = db.currentPlayer.cycleNum;
+
+        RenderSettings.skybox = skyboxes[currentSkyboxIndex];
+        DynamicGI.UpdateEnvironment();
+    }
+
+    public void SetNoon()
+    {
+        if (db.currentPlayer.cycleNum != 1)
+        {
+            Debug.Log("Incorrect Phase");
+        }
+
+        currentSkyboxIndex = db.currentPlayer.cycleNum;
+
+        RenderSettings.skybox = skyboxes[currentSkyboxIndex];
+        DynamicGI.UpdateEnvironment();
+    }
+
+    public void SetEvening()
+    {
+        if (db.currentPlayer.cycleNum != 2)
+        {
+            Debug.Log("Incorrect Phase");
+        }
+
+        currentSkyboxIndex = db.currentPlayer.cycleNum;
+
+        RenderSettings.skybox = skyboxes[currentSkyboxIndex];
+        DynamicGI.UpdateEnvironment();
     }
 }

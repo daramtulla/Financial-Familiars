@@ -15,7 +15,7 @@ public class ShowMenu : MonoBehaviour
         if (InteractionManager.GetInteractState() == true)
         {
             Debug.Log("(ShowMenu (End Day Menu)): GetInteractState() is true");
-            interactionManager.switchInteractState();
+            interactionManager.SwitchInteractState();
         }
         if (unPause)
             Time.timeScale = 1.0f;

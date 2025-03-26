@@ -13820,6 +13820,8 @@ MonoBehaviour:
   noonSky: {fileID: 2100000, guid: 56113b3b655ab7349bab4d7d405c258a, type: 2}
   eveningSky: {fileID: 2100000, guid: 528363c5c1cf6a7458140c6851c77b68, type: 2}
   nightSky: {fileID: 2100000, guid: 52fcefd712182d743a781fde12426775, type: 2}
+  debug: 0
+  db: {fileID: 1481270403}
 --- !u!4 &547533503 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5320409ef5c06214084a33adbbfbc7a5, type: 3}
@@ -32824,11 +32826,19 @@ MonoBehaviour:
     moveSpeedModifier: 0
     currentMoney: 0
     volume: 1
-    dayCount: 0
+    cycleNum: 0
+    currentLoanAmount: 0
     dailySales: 0
+    purchases: 0
+    totalSales: 0
+    active: 
+    loans: []
     merch: []
     suppliers: []
-    currentLoanAmount: 0
+    unemployedEmployees: []
+    employees: []
+    unpurchasedUpgrades: []
+    upgrades: []
 --- !u!4 &1481270404
 Transform:
   m_ObjectHideFlags: 0
