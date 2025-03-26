@@ -138,7 +138,7 @@ public class GameManager : MonoBehaviour
 
         //Apply Tax
         float taxAmount = ApplyTax(moneyMadeAmount);
-        FormatText(taxText, taxAmount);
+        FormatText(taxText, -taxAmount);
         Debug.Log($"Money Made: {moneyMadeAmount}");
         Debug.Log($"Tax: {taxAmount}");
 
