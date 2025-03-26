@@ -38,4 +38,9 @@ public class RandomGenNum
     {
         return random.Next(-3, 4);
     }
+
+    public int GetBinary()
+    {
+        return random.Next(0, 2);
+    }
 }
