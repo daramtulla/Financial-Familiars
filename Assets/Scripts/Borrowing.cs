@@ -16,6 +16,7 @@ public class Borrowing : MonoBehaviour
         public float Interest;
         public string Lender;
         public InterestType interestType;
+        public bool borrowed = false;
     }
 
     public List<LoanOffer> availableLoans = new List<LoanOffer>();
@@ -27,6 +28,11 @@ public class Borrowing : MonoBehaviour
         LoadTestLoans();
 
         PopulateLoanCards();
+    }
+
+    public void CloseMenu()
+    {
+        gameObject.SetActive(false);
     }
 
 
@@ -49,8 +55,11 @@ public class Borrowing : MonoBehaviour
 
         foreach (LoanOffer loan in availableLoans)
         {
-            GameObject card = Instantiate(BorrowingCardPrefab, loanCardContainer);
-            SetCardInfo(card, loan);
+            if (!loan.borrowed){
+                GameObject card = Instantiate(BorrowingCardPrefab, loanCardContainer);
+                SetCardInfo(card, loan);
+            }
+            
         }
     }
 
@@ -65,5 +74,12 @@ public class Borrowing : MonoBehaviour
             else if (t.name == "Lender") t.text = $"{loan.Lender}";
             else if (t.name == "InterestType") t.text = $"{loan.interestType.ToString()}";
         }
+
+        Button borrowButton = card.transform.Find("BorrowButton").GetComponent<Button>();
+        borrowButton.onClick.AddListener(() =>
+        {
+            loan.borrowed = true;
+            PopulateLoanCards();
+        });
     }
 }
