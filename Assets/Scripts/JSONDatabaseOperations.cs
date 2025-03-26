@@ -303,7 +303,9 @@ public class Player
         dayCount++;
         //Daily sales already added to money total. Add to total sales counter
         totalSales += dailySales;
-        dailySales = 0;
+        //dailySales = 0;
+        /*Commented the above out because it caused the daily sales to be 0 in the end day menu.
+          Instead I moved it to the GameManager.cs script in the RestartCycle() function after the EndDay() function was called.*/
 
         //Add interest to loan
         AddDailyInterest(loans);

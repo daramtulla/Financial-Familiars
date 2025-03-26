@@ -1,6 +1,7 @@
 using System;
 using System.Data.Common;
 using System.Linq;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.ProBuilder;
@@ -23,6 +24,11 @@ public class GameManager : MonoBehaviour
     public Text upgradeUpkeep;
     public Text netProfit;
     public Text utilitiesCost;
+    public Text taxText;
+
+    //Debug Text
+    public TMP_Text dailySalesNumber;
+    public Text moneyCount;
 
     //Pause Menu Logic
     public GameObject pauseMenu;
@@ -53,8 +59,9 @@ public class GameManager : MonoBehaviour
 
         db.currentPlayer.IncrDay();
         EndDay();
+        db.currentPlayer.dailySales = 0;
+        //Debug.Log($"RestartCycle(): db.currentPlayer.dailySales: {db.currentPlayer.dailySales}");
         db.currentPlayer.cycleNum = 0;
-
     }
 
     private void Update()
@@ -130,6 +137,12 @@ public class GameManager : MonoBehaviour
             utilitiesCostAmount *= 0.9f;
         }
 
+        //Apply Tax
+        float taxAmount = ApplyTax(moneyMadeAmount);
+        FormatText(taxText, -taxAmount);
+        Debug.Log($"Money Made: {moneyMadeAmount}");
+        Debug.Log($"Tax: {taxAmount}");
+
         //Money Made
         FormatText(moneyMade, moneyMadeAmount);
         FormatText(loansPaid, mandatoryLoansAmount);
@@ -137,8 +150,7 @@ public class GameManager : MonoBehaviour
         FormatText(upgradeUpkeep, upgradeUpkeepAmount);
         FormatText(utilitiesCost, utilitiesCostAmount);
 
-
-        float netProfitAmount = moneyMadeAmount - -mandatoryLoansAmount - wagesPaidAmount - -upgradeUpkeepAmount - -utilitiesCostAmount;
+        float netProfitAmount = moneyMadeAmount - -mandatoryLoansAmount - wagesPaidAmount - -upgradeUpkeepAmount - -utilitiesCostAmount - taxAmount;
         FormatText(netProfit, netProfitAmount);
 
         //TODO: Split money between savings and spending
@@ -162,5 +174,39 @@ public class GameManager : MonoBehaviour
             textObject.text = "$" + amount.ToString("N2");
             textObject.color = Color.gray;
         }
+    }
+
+    public float ApplyTax(float moneyMadeAmount)
+    {
+        float taxAmount = 0.0f;
+
+        //My aim is to implement a progressive tax system (higher income = higher tax)
+        if(moneyMadeAmount > 5000f)
+        {
+            //only money made above 5000 is taxed at the 30% tax rate
+            taxAmount = ((moneyMadeAmount - 5000f) * 0.3f) + 700f;
+        }
+        else if (moneyMadeAmount > 2500f)
+        {
+            //only money made above 2500 is taxed at the 20% tax rate
+            taxAmount = ((moneyMadeAmount - 2500f) * 0.2f) + 200f;
+        } 
+        else if (moneyMadeAmount > 500f)
+        {
+            //only money made above 500 is taxed at the 10% tax rate
+            taxAmount = (moneyMadeAmount - 500f) * 0.1f;
+        }
+        //500 and below money made means there is no tax
+        return taxAmount;
+    }
+
+    public void Add100DailySales()
+    {
+        //Used to test the tax system
+        db.currentPlayer.dailySales += 100;
+        dailySalesNumber.text = db.currentPlayer.dailySales.ToString("N2");
+
+        db.currentPlayer.currentMoney += 100;
+        moneyCount.text = db.currentPlayer.currentMoney.ToString("N2");
     }
 }
