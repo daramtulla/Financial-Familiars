@@ -28,7 +28,7 @@ public class CameraManager : MonoBehaviour
         followMode = false;
     }
 
-    //TODO Implement zoom in feature when interacting with objects
+    //TODO Implement zoom in feature when interacting with objects if time
 
     // Update is called once per frame
     void Update()

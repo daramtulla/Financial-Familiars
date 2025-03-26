@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.IO;
 using System.Security.Cryptography;
 using UnityEditor.Overlays;
+using System;
 using System.Linq;
 
 public class SuppliersMenu : MonoBehaviour
@@ -27,26 +28,28 @@ public class SuppliersMenu : MonoBehaviour
     {
         rnd = new RandomGenNum();
 
-        day = -1;
+        day = db.currentPlayer.GetDay();
     }
 
     void Start()
     {
         suppliersPanel.SetActive(false);
-
-        if (db.currentPlayer.dayCount != day)
-        {
-            generateStock();
-            day++;
-        }
     }
 
     void Update()
     {
         //press P to open purchasing of goods
+
         if (Input.GetKeyDown(KeyCode.P) && !textInputField.isFocused)
         {
             ToggleMenu();
+        }
+
+        //Generate new stock on day increase
+        if (db.currentPlayer.GetDay() == day)
+        {
+            generateStock();
+            day++;
         }
     }
 
@@ -69,14 +72,14 @@ public class SuppliersMenu : MonoBehaviour
         if (InteractionManager.GetInteractState() == true)
         {
             Debug.Log("(SuppliersMenu): GetInteractState() is true");
-            interactionManager.switchInteractState();
+            interactionManager.SwitchInteractState();
         }
         suppliersPanel.SetActive(false);
     }
 
     public void generateStock()
     {
-        for (int i = 1; i < 8; i++)
+        for (int i = 1; i < 10; i++)
         {
             int id1 = rnd.GetRandomMerchId();
 
@@ -98,26 +101,27 @@ public class SuppliersMenu : MonoBehaviour
     public float generateCost(int merchId, int storeID)
     {
         float bCost = db.currentPlayer.merch[merchId - 1].baseCost;
-        bCost *= .9f;
+
+        //Randomly generate sale price modifer
+        bCost *= (float)(1 - ((float)rnd.SalePriceModifier() / 10));
 
         if ((storeID == 1 && (merchId == 1 || merchId == 2 || merchId == 3))
         || (storeID == 2 && (merchId == 4 || merchId == 4 || merchId == 6))
         || (storeID == 3 && (merchId == 7 || merchId == 8 || merchId == 8))
         || (storeID == 4 && (merchId == 10 || merchId == 11 || merchId == 12))
+        || (storeID == 8 && (merchId == 16 || merchId == 17 || merchId == 18))
+        || (storeID == 9 && (merchId == 13 || merchId == 14 || merchId == 15))
         || (storeID == 5 && (merchId == 1 || merchId == 4 || merchId == 7 || merchId == 10))
         || (storeID == 6 && (merchId == 2 || merchId == 5 || merchId == 8 || merchId == 11))
         || (storeID == 7 && (merchId == 3 || merchId == 6 || merchId == 9 || merchId == 12)))
         {
             bCost *= .8f;
         }
-        if(db.currentPlayer.employees.Any(employees => employees.id == 2))
+        if (db.currentPlayer.employees.Any(employees => employees.id == 2))
         {
             bCost *= .85f;
         }
-
-        Debug.Log(bCost.ToString());
-
-        return bCost;
+        return (float)Math.Round(bCost, 2);
     }
 
     public void UpdateSuppliersUI()
@@ -135,9 +139,9 @@ public class SuppliersMenu : MonoBehaviour
             TextMeshProUGUI[] texts = newItem.GetComponentsInChildren<TextMeshProUGUI>();
             texts[0].text = supplier.name;
             texts[1].text = db.currentPlayer.merch[supplier.stock1 - 1].name;
-            texts[2].text = "$" + supplier.cost1.ToString();
+            texts[2].text = "$" + string.Format("{0:F2}", supplier.cost1);
             texts[3].text = db.currentPlayer.merch[supplier.stock2 - 1].name;
-            texts[4].text = "$" + supplier.cost2.ToString();
+            texts[4].text = "$" + string.Format("{0:F2}", supplier.cost2);
 
             Button buy1Button1 = newItem.transform.Find("Buy1Button1").GetComponent<Button>();
             Button buy10Button1 = newItem.transform.Find("Buy10Button1").GetComponent<Button>();
@@ -161,6 +165,7 @@ public class SuppliersMenu : MonoBehaviour
         {
             db.currentPlayer.currentMoney -= total;
             db.currentPlayer.merch[id - 1].quantity += bought;
+            db.currentPlayer.purchases += total;
         }
     }
 }
