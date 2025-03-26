@@ -195,7 +195,7 @@ public class GameManager : MonoBehaviour
             //only money made above 500 is taxed at the 10% tax rate
             taxAmount = (moneyMadeAmount - 500f) * 0.1f;
         }
-        //Below 500 money made means there is no tax
+        //500 and below money made means there is no tax
         return taxAmount;
     }
 
