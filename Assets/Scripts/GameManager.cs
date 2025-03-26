@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
 
         //TODO: Add multiple employees. For now, just use the ID
         //TODO: Add rent? Or lump it all in utilities. for now, just lump it in with utilities
-        if (db.currentPlayer.employees.Any(employee => employee.id == 3))
+        if (db.currentPlayer.employees.Any(employee => employee.id == 4))
         {
             utilitiesCostAmount *= 0.9f;
         }
