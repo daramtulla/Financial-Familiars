@@ -26,8 +26,14 @@ public class RandomGenNum
 
     public int GetRandomSaleTime(int totalDayTime)
     {
+        return random.Next(10, totalDayTime + 1);
+    }
+
+    public int GetRandomCustomerEntrance(int totalDayTime)
+    {
         return random.Next(0, totalDayTime + 1);
     }
+
 
     public int GetRandomLoanAmount(int low, int high)
     {

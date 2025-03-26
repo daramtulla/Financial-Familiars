@@ -75,10 +75,10 @@ public class CustomerMovement : MonoBehaviour
 
     public Boolean debug;
 
-    RandomGenNum rnd;
-
     void Update()
     {
+
+        //Testing
         if (debug && Input.GetKeyDown(KeyCode.Z))
         {
             for (int i = 1; i < 19; i++)
