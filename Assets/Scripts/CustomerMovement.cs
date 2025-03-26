@@ -81,7 +81,10 @@ public class CustomerMovement : MonoBehaviour
     {
         if (debug && Input.GetKeyDown(KeyCode.Z))
         {
-            CreateCustomer(7);
+            for (int i = 1; i < 19; i++)
+            {
+                CreateCustomer(i);
+            }
         }
 
         foreach (KeyValuePair<GameObject, Customer> cust in linkTable)
@@ -135,8 +138,9 @@ public class CustomerMovement : MonoBehaviour
     {
         GameObject customerObj = Instantiate(customerPrefab, startNode.transform.position, startNode.transform.rotation);
         customerObj.SetActive(true);
-        Customer customerClass = new Customer(merchId);
+        Customer customerClass = new Customer(merchId, this);
         linkTable.Add(customerObj, customerClass);
+        if (debug) { Debug.Log("Obj Id: " + customerObj.GetInstanceID()); }
     }
 
     public void GoToNode1(GameObject cust)
@@ -351,26 +355,29 @@ public class CustomerMovement : MonoBehaviour
     {
         cust.transform.position = Vector3.MoveTowards(cust.transform.position, endNode.transform.position, speed * Time.deltaTime);
     }
-}
 
-public class Customer
-{
-    public int itemToBuy;
-    public int speed;
-
-    public int nodeNum;
-
-    public GameObject nextNode;
-    public CustomerMovement cm;
-
-    public Customer(int merchId)
+    public class Customer
     {
-        this.itemToBuy = merchId;
+        public int itemToBuy;
+        public int speed;
 
-        //TODO dynamically set
-        this.speed = 1;
+        public int nodeNum;
 
-        this.nodeNum = 1;
-        this.nextNode = cm.node2;
+        public GameObject nextNode;
+        public CustomerMovement cm;
+
+        public Customer(int merchId, CustomerMovement instance)
+        {
+            this.itemToBuy = merchId;
+
+            //TODO dynamically set
+            this.speed = 1;
+
+            this.nodeNum = 1;
+            this.cm = instance;
+            this.nextNode = cm.node1;
+        }
     }
+
 }
+

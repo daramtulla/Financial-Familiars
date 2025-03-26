@@ -1,3 +1,5 @@
+using System;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Polybrush;
 using UnityEngine.SceneManagement;
@@ -57,14 +59,25 @@ public class TriggerListener : MonoBehaviour
     public Collider triggerEnd;
 
     //
-    CustomerMovement cm;
+    public CustomerMovement cm;
 
-    RandomGenNum rnd;
+    public RandomGenNum rnd = new RandomGenNum();
 
-
+    [SerializeField] Boolean debug;
 
     public void OnTriggerEnter(Collider col)
     {
+        if (debug) { Debug.Log("Obj Id: " + col.gameObject.GetInstanceID()); }
+
+        if (col.gameObject.tag == "Player")
+        {
+            return;
+        }
+
+        if (debug) { Debug.Log("NodeNum: " + cm.linkTable[col.gameObject].nodeNum); }
+
+        if (debug) { Debug.Log("NextNode: " + cm.linkTable[col.gameObject].nextNode); }
+
         switch (cm.linkTable[col.gameObject].nodeNum)
         {
             case 1:
@@ -126,112 +139,128 @@ public class TriggerListener : MonoBehaviour
         GameObject obj = col.gameObject;
         int path = rnd.GetBinary();
 
-        if (cm.linkTable[obj].itemToBuy % 3 == 0 && col == trigger4a
-        || cm.linkTable[obj].itemToBuy % 2 == 0 && col == trigger4a && path == 0)
+        if (cm.linkTable[obj].itemToBuy % 3 == 0
+        || cm.linkTable[obj].itemToBuy % 3 == 2 && path == 0)
         {
             cm.linkTable[obj].nextNode = cm.node4a;
             cm.linkTable[obj].nodeNum++;
         }
-        else if (cm.linkTable[obj].itemToBuy % 3 == 1 && col == trigger4b
-        || cm.linkTable[obj].itemToBuy % 2 == 0 && col == trigger4b)
+        else if (cm.linkTable[obj].itemToBuy % 3 == 1
+        || cm.linkTable[obj].itemToBuy % 3 == 2)
         {
             cm.linkTable[obj].nextNode = cm.node4b;
             cm.linkTable[obj].nodeNum++;
         }
 
+
+
     }
     public void ReachNode4(Collider col)
     {
+
+
         GameObject obj = col.gameObject;
-        cm.linkTable[obj].nodeNum++;
 
-        if (col == trigger4a && cm.linkTable[obj].nextNode == cm.node4a)
+        if (this.name == "Node 4a" || this.name == "Node 4b")
         {
-            cm.linkTable[obj].nodeNum++;
 
-            switch (cm.linkTable[obj].itemToBuy)
+            Debug.Log(this.name + " " + cm.linkTable[obj].nextNode);
+
+            if (cm.linkTable[obj].nodeNum != 4)
             {
-                case 18:
-                    cm.linkTable[obj].nextNode = cm.node5a;
-                    break;
-                case 15:
-                    cm.linkTable[obj].nextNode = cm.node5b;
-                    break;
-                case 12:
-                    cm.linkTable[obj].nextNode = cm.node5c;
-                    break;
-                case 9:
-                    cm.linkTable[obj].nextNode = cm.node5d;
-                    break;
-                case 6:
-                    cm.linkTable[obj].nextNode = cm.node5e;
-                    break;
-                case 3:
-                    cm.linkTable[obj].nextNode = cm.node5f;
-                    break;
-                case 17:
-                    cm.linkTable[obj].nextNode = cm.node5a;
-                    break;
-                case 14:
-                    cm.linkTable[obj].nextNode = cm.node5b;
-                    break;
-                case 11:
-                    cm.linkTable[obj].nextNode = cm.node5c;
-                    break;
-                case 8:
-                    cm.linkTable[obj].nextNode = cm.node5d;
-                    break;
-                case 5:
-                    cm.linkTable[obj].nextNode = cm.node5e;
-                    break;
-                case 2:
-                    cm.linkTable[obj].nextNode = cm.node5f;
-                    break;
+                return;
             }
-        }
-        else if (col == trigger4b && cm.linkTable[obj].nextNode == cm.node4b)
-        {
-            //Go on path to 6 and skip 5s
-            cm.linkTable[obj].nodeNum++;
 
-            switch (cm.linkTable[obj].itemToBuy)
+            if (this.name == "Node 4a" && cm.linkTable[obj].nextNode == cm.node4a)
             {
-                case 16:
-                    cm.linkTable[obj].nextNode = cm.node6a;
-                    break;
-                case 13:
-                    cm.linkTable[obj].nextNode = cm.node6b; ;
-                    break;
-                case 10:
-                    cm.linkTable[obj].nextNode = cm.node6c;
-                    break;
-                case 7:
-                    cm.linkTable[obj].nextNode = cm.node6d;
-                    break;
-                case 4:
-                    cm.linkTable[obj].nextNode = cm.node6e;
-                    break;
-                case 1:
-                    cm.linkTable[obj].nextNode = cm.node6f;
-                    break;
-                case 17:
-                    cm.linkTable[obj].nextNode = cm.node6a;
-                    break;
-                case 14:
-                    cm.linkTable[obj].nextNode = cm.node6b;
-                    break;
-                case 11:
-                    cm.linkTable[obj].nextNode = cm.node6c;
-                    break;
-                case 8:
-                    cm.linkTable[obj].nextNode = cm.node6d;
-                    break;
-                case 5:
-                    cm.linkTable[obj].nextNode = cm.node6e;
-                    break;
-                case 2:
-                    cm.linkTable[obj].nextNode = cm.node6f;
-                    break;
+                cm.linkTable[obj].nodeNum++;
+
+                switch (cm.linkTable[obj].itemToBuy)
+                {
+                    case 18:
+                        cm.linkTable[obj].nextNode = cm.node5a;
+                        break;
+                    case 15:
+                        cm.linkTable[obj].nextNode = cm.node5b;
+                        break;
+                    case 12:
+                        cm.linkTable[obj].nextNode = cm.node5c;
+                        break;
+                    case 9:
+                        cm.linkTable[obj].nextNode = cm.node5d;
+                        break;
+                    case 6:
+                        cm.linkTable[obj].nextNode = cm.node5e;
+                        break;
+                    case 3:
+                        cm.linkTable[obj].nextNode = cm.node5f;
+                        break;
+                    case 17:
+                        cm.linkTable[obj].nextNode = cm.node5a;
+                        break;
+                    case 14:
+                        cm.linkTable[obj].nextNode = cm.node5b;
+                        break;
+                    case 11:
+                        cm.linkTable[obj].nextNode = cm.node5c;
+                        break;
+                    case 8:
+                        cm.linkTable[obj].nextNode = cm.node5d;
+                        break;
+                    case 5:
+                        cm.linkTable[obj].nextNode = cm.node5e;
+                        break;
+                    case 2:
+                        cm.linkTable[obj].nextNode = cm.node5f;
+                        break;
+                }
+            }
+            else if (this.name == "Node 4b" && cm.linkTable[obj].nextNode == cm.node4b)
+            {
+
+                //Go on path to 6 and skip 5s
+                cm.linkTable[obj].nodeNum++;
+                cm.linkTable[obj].nodeNum++;
+
+                switch (cm.linkTable[obj].itemToBuy)
+                {
+                    case 16:
+                        cm.linkTable[obj].nextNode = cm.node6a;
+                        break;
+                    case 13:
+                        cm.linkTable[obj].nextNode = cm.node6b; ;
+                        break;
+                    case 10:
+                        cm.linkTable[obj].nextNode = cm.node6c;
+                        break;
+                    case 7:
+                        cm.linkTable[obj].nextNode = cm.node6d;
+                        break;
+                    case 4:
+                        cm.linkTable[obj].nextNode = cm.node6e;
+                        break;
+                    case 1:
+                        cm.linkTable[obj].nextNode = cm.node6f;
+                        break;
+                    case 17:
+                        cm.linkTable[obj].nextNode = cm.node6a;
+                        break;
+                    case 14:
+                        cm.linkTable[obj].nextNode = cm.node6b;
+                        break;
+                    case 11:
+                        cm.linkTable[obj].nextNode = cm.node6c;
+                        break;
+                    case 8:
+                        cm.linkTable[obj].nextNode = cm.node6d;
+                        break;
+                    case 5:
+                        cm.linkTable[obj].nextNode = cm.node6e;
+                        break;
+                    case 2:
+                        cm.linkTable[obj].nextNode = cm.node6f;
+                        break;
+                }
             }
         }
     }
@@ -239,102 +268,105 @@ public class TriggerListener : MonoBehaviour
     {
         GameObject obj = col.gameObject;
 
-
-        if (cm.linkTable[obj].nextNode == cm.node5a && col == trigger5a)
+        if (this.name == "Node 5a" || this.name == "Node 5b" || this.name == "Node 5c" || this.name == "Node 5d" || this.name == "Node 5e" || this.name == "Node 5f")
         {
-            //Skip node 6 path
-            cm.linkTable[obj].nodeNum++;
-            cm.linkTable[obj].nodeNum++;
 
-            switch (cm.linkTable[obj].nodeNum)
+            if (cm.linkTable[obj].nextNode == cm.node5a && this.name == "Node 5a")
             {
-                case 18:
-                    cm.linkTable[obj].nextNode = cm.nodeT3Shield;
-                    break;
-                case 17:
-                    cm.linkTable[obj].nextNode = cm.nodeT2Shield;
-                    break;
+                //Skip node 6 path
+                cm.linkTable[obj].nodeNum++;
+                cm.linkTable[obj].nodeNum++;
+
+                switch (cm.linkTable[obj].itemToBuy)
+                {
+                    case 18:
+                        cm.linkTable[obj].nextNode = cm.nodeT3Shield;
+                        break;
+                    case 17:
+                        cm.linkTable[obj].nextNode = cm.nodeT2Shield;
+                        break;
+                }
             }
-        }
-        else if (cm.linkTable[obj].nextNode == cm.node5b && col == trigger5b)
-        {
-            //Skip node 6 path
-            cm.linkTable[obj].nodeNum++;
-            cm.linkTable[obj].nodeNum++;
-
-            switch (cm.linkTable[obj].nodeNum)
+            else if (cm.linkTable[obj].nextNode == cm.node5b && this.name == "Node 5b")
             {
-                case 15:
-                    cm.linkTable[obj].nextNode = cm.nodeT3Rune;
-                    break;
-                case 14:
-                    cm.linkTable[obj].nextNode = cm.nodeT2Rune;
-                    break;
+                //Skip node 6 path
+                cm.linkTable[obj].nodeNum++;
+                cm.linkTable[obj].nodeNum++;
+
+                switch (cm.linkTable[obj].itemToBuy)
+                {
+                    case 15:
+                        cm.linkTable[obj].nextNode = cm.nodeT3Rune;
+                        break;
+                    case 14:
+                        cm.linkTable[obj].nextNode = cm.nodeT2Rune;
+                        break;
+                }
+
             }
-
-        }
-        else if (cm.linkTable[obj].nextNode == cm.node5c && col == trigger5c)
-        {
-            //Skip node 6 path
-            cm.linkTable[obj].nodeNum++;
-            cm.linkTable[obj].nodeNum++;
-
-            switch (cm.linkTable[obj].nodeNum)
+            else if (cm.linkTable[obj].nextNode == cm.node5c && this.name == "Node 5c")
             {
-                case 9:
-                    cm.linkTable[obj].nextNode = cm.nodeT3Weapon;
-                    break;
-                case 8:
-                    cm.linkTable[obj].nextNode = cm.nodeT2Weapon;
-                    break;
+                //Skip node 6 path
+                cm.linkTable[obj].nodeNum++;
+                cm.linkTable[obj].nodeNum++;
+
+                switch (cm.linkTable[obj].itemToBuy)
+                {
+                    case 12:
+                        cm.linkTable[obj].nextNode = cm.nodeT3Special;
+                        break;
+                    case 11:
+                        cm.linkTable[obj].nextNode = cm.nodeT2Special;
+                        break;
+                }
             }
-        }
-        else if (cm.linkTable[obj].nextNode == cm.node5d && col == trigger5d)
-        {
-            //Skip node 6 path
-            cm.linkTable[obj].nodeNum++;
-            cm.linkTable[obj].nodeNum++;
-
-            switch (cm.linkTable[obj].nodeNum)
+            else if (cm.linkTable[obj].nextNode == cm.node5d && this.name == "Node 5d")
             {
-                case 6:
-                    cm.linkTable[obj].nextNode = cm.nodeT3Accessory;
-                    break;
-                case 5:
-                    cm.linkTable[obj].nextNode = cm.nodeT2Accessory;
-                    break;
+                //Skip node 6 path
+                cm.linkTable[obj].nodeNum++;
+                cm.linkTable[obj].nodeNum++;
+
+                switch (cm.linkTable[obj].itemToBuy)
+                {
+                    case 9:
+                        cm.linkTable[obj].nextNode = cm.nodeT3Weapon;
+                        break;
+                    case 8:
+                        cm.linkTable[obj].nextNode = cm.nodeT2Weapon;
+                        break;
+                }
             }
-        }
-        else if (cm.linkTable[obj].nextNode == cm.node5e && col == trigger5e)
-        {
-            //Skip node 6 path
-            cm.linkTable[obj].nodeNum++;
-            cm.linkTable[obj].nodeNum++;
-
-            switch (cm.linkTable[obj].nodeNum)
+            else if (cm.linkTable[obj].nextNode == cm.node5e && this.name == "Node 5e")
             {
-                case 12:
-                    cm.linkTable[obj].nextNode = cm.nodeT3Special;
-                    break;
-                case 11:
-                    cm.linkTable[obj].nextNode = cm.nodeT2Special;
-                    break;
+                //Skip node 6 path
+                cm.linkTable[obj].nodeNum++;
+                cm.linkTable[obj].nodeNum++;
+
+                switch (cm.linkTable[obj].itemToBuy)
+                {
+                    case 6:
+                        cm.linkTable[obj].nextNode = cm.nodeT3Accessory;
+                        break;
+                    case 5:
+                        cm.linkTable[obj].nextNode = cm.nodeT2Accessory;
+                        break;
+                }
             }
-        }
-        else if (cm.linkTable[obj].nextNode == cm.node5f && col == trigger5f)
-        {
-            //Skip node 6 path
-            cm.linkTable[obj].nodeNum++;
-            cm.linkTable[obj].nodeNum++;
-
-            switch (cm.linkTable[obj].nodeNum)
+            else if (cm.linkTable[obj].nextNode == cm.node5f && this.name == "Node 5f")
             {
-                case 3:
-                    cm.linkTable[obj].nextNode = cm.nodeT3Potion;
-                    break;
-                case 2:
-                    cm.linkTable[obj].nextNode = cm.nodeT2Potion;
-                    break;
+                //Skip node 6 path
+                cm.linkTable[obj].nodeNum++;
+                cm.linkTable[obj].nodeNum++;
+
+                switch (cm.linkTable[obj].itemToBuy)
+                {
+                    case 3:
+                        cm.linkTable[obj].nextNode = cm.nodeT3Potion;
+                        break;
+                    case 2:
+                        cm.linkTable[obj].nextNode = cm.nodeT2Potion;
+                        break;
+                }
             }
         }
     }
@@ -342,216 +374,192 @@ public class TriggerListener : MonoBehaviour
     {
         GameObject obj = col.gameObject;
 
-
-        if (cm.linkTable[obj].nextNode == cm.node6a && col == trigger6a)
+        if (this.name == "Node 6a" || this.name == "Node 6b" || this.name == "Node 6c" || this.name == "Node 6d" || this.name == "Node 6e" || this.name == "Node 6f")
         {
-            cm.linkTable[obj].nodeNum++;
 
-            switch (cm.linkTable[obj].nodeNum)
+            if (cm.linkTable[obj].nextNode == cm.node6a && this.name == "Node 6a")
             {
-                case 16:
-                    cm.linkTable[obj].nextNode = cm.nodeT1Shield;
-                    break;
-                case 17:
-                    cm.linkTable[obj].nextNode = cm.nodeT2Shield;
-                    break;
+                cm.linkTable[obj].nodeNum++;
+
+                switch (cm.linkTable[obj].itemToBuy)
+                {
+                    case 16:
+                        cm.linkTable[obj].nextNode = cm.nodeT1Shield;
+                        break;
+                    case 17:
+                        cm.linkTable[obj].nextNode = cm.nodeT2Shield;
+                        break;
+                }
             }
-        }
-        else if (cm.linkTable[obj].nextNode == cm.node6b && col == trigger6b)
-        {
-            cm.linkTable[obj].nodeNum++;
-
-            switch (cm.linkTable[obj].nodeNum)
+            else if (cm.linkTable[obj].nextNode == cm.node6b && this.name == "Node 6b")
             {
-                case 13:
-                    cm.linkTable[obj].nextNode = cm.nodeT1Rune;
-                    break;
-                case 14:
-                    cm.linkTable[obj].nextNode = cm.nodeT2Rune;
-                    break;
+                cm.linkTable[obj].nodeNum++;
+
+                switch (cm.linkTable[obj].itemToBuy)
+                {
+                    case 13:
+                        cm.linkTable[obj].nextNode = cm.nodeT1Rune;
+                        break;
+                    case 14:
+                        cm.linkTable[obj].nextNode = cm.nodeT2Rune;
+                        break;
+                }
+
             }
-
-        }
-        else if (cm.linkTable[obj].nextNode == cm.node6c && col == trigger6c)
-        {
-            cm.linkTable[obj].nodeNum++;
-
-            switch (cm.linkTable[obj].nodeNum)
+            else if (cm.linkTable[obj].nextNode == cm.node6c && this.name == "Node 6c")
             {
-                case 7:
-                    cm.linkTable[obj].nextNode = cm.nodeT1Weapon;
-                    break;
-                case 8:
-                    cm.linkTable[obj].nextNode = cm.nodeT2Weapon;
-                    break;
+                cm.linkTable[obj].nodeNum++;
+
+                switch (cm.linkTable[obj].itemToBuy)
+                {
+                    case 10:
+                        cm.linkTable[obj].nextNode = cm.nodeT1Special;
+                        break;
+                    case 11:
+                        cm.linkTable[obj].nextNode = cm.nodeT2Special;
+                        break;
+                }
             }
-        }
-        else if (cm.linkTable[obj].nextNode == cm.node6d && col == trigger6d)
-        {
-            cm.linkTable[obj].nodeNum++;
-
-            switch (cm.linkTable[obj].nodeNum)
+            else if (cm.linkTable[obj].nextNode == cm.node6d && this.name == "Node 6d")
             {
-                case 4:
-                    cm.linkTable[obj].nextNode = cm.nodeT1Accessory;
-                    break;
-                case 5:
-                    cm.linkTable[obj].nextNode = cm.nodeT2Accessory;
-                    break;
+                cm.linkTable[obj].nodeNum++;
+
+                switch (cm.linkTable[obj].itemToBuy)
+                {
+                    case 7:
+                        cm.linkTable[obj].nextNode = cm.nodeT1Weapon;
+                        break;
+                    case 8:
+                        cm.linkTable[obj].nextNode = cm.nodeT2Weapon;
+                        break;
+                }
             }
-        }
-        else if (cm.linkTable[obj].nextNode == cm.node6e && col == trigger6e)
-        {
-            cm.linkTable[obj].nodeNum++;
-
-            switch (cm.linkTable[obj].nodeNum)
+            else if (cm.linkTable[obj].nextNode == cm.node6e && this.name == "Node 6e")
             {
-                case 11:
-                    cm.linkTable[obj].nextNode = cm.nodeT1Special;
-                    break;
-                case 10:
-                    cm.linkTable[obj].nextNode = cm.nodeT2Special;
-                    break;
+                cm.linkTable[obj].nodeNum++;
+
+                switch (cm.linkTable[obj].itemToBuy)
+                {
+                    case 4:
+                        cm.linkTable[obj].nextNode = cm.nodeT1Accessory;
+                        break;
+                    case 5:
+                        cm.linkTable[obj].nextNode = cm.nodeT2Accessory;
+                        break;
+                }
             }
-        }
-        else if (cm.linkTable[obj].nextNode == cm.node6f && col == trigger6f)
-        {
-            cm.linkTable[obj].nodeNum++;
-
-            switch (cm.linkTable[obj].nodeNum)
+            else if (cm.linkTable[obj].nextNode == cm.node6f && this.name == "Node 6f")
             {
-                case 2:
-                    cm.linkTable[obj].nextNode = cm.nodeT1Potion;
-                    break;
-                case 1:
-                    cm.linkTable[obj].nextNode = cm.nodeT2Potion;
-                    break;
+                cm.linkTable[obj].nodeNum++;
+
+                switch (cm.linkTable[obj].itemToBuy)
+                {
+                    case 1:
+                        cm.linkTable[obj].nextNode = cm.nodeT1Potion;
+                        break;
+                    case 2:
+                        cm.linkTable[obj].nextNode = cm.nodeT2Potion;
+                        break;
+                }
             }
         }
     }
     public void ReachNodeItem(Collider col)
     {
         GameObject obj = col.gameObject;
-        cm.linkTable[obj].nodeNum++;
 
-        switch (cm.linkTable[obj].itemToBuy)
+        if (this.name == triggerItemT3Shield.name ||
+    this.name == triggerItemT2Shield.name ||
+    this.name == triggerItemT1Shield.name ||
+    this.name == triggerItemT3Rune.name ||
+    this.name == triggerItemT2Rune.name ||
+    this.name == triggerItemT1Rune.name ||
+    this.name == triggerItemT3Potion.name ||
+    this.name == triggerItemT2Potion.name ||
+    this.name == triggerItemT1Potion.name ||
+    this.name == triggerItemT3Accessory.name ||
+    this.name == triggerItemT2Accessory.name ||
+    this.name == triggerItemT1Accessory.name ||
+    this.name == triggerItemT3Special.name ||
+    this.name == triggerItemT2Special.name ||
+    this.name == triggerItemT1Special.name ||
+    this.name == triggerItemT3Weapon.name ||
+    this.name == triggerItemT2Weapon.name ||
+    this.name == triggerItemT1Weapon.name)
         {
-            case 18:
-                if (col != triggerItemT3Shield) { return; }
-                break;
-            case 17:
-                if (col != triggerItemT2Shield) { return; }
-                break;
-            case 16:
-                if (col != triggerItemT1Shield) { return; }
-                break;
-            case 15:
-                if (col != triggerItemT3Rune) { return; }
-                break;
-            case 14:
-                if (col != triggerItemT2Rune) { return; }
-                break;
-            case 13:
-                if (col != triggerItemT1Rune) { return; }
-                break;
-            case 12:
-                if (col != triggerItemT3Weapon) { return; }
-                break;
-            case 11:
-                if (col != triggerItemT2Weapon) { return; }
-                break;
-            case 10:
-                if (col != triggerItemT1Weapon) { return; }
-                break;
-            case 9:
-                if (col != triggerItemT3Accessory) { return; }
-                break;
-            case 8:
-                if (col != triggerItemT2Accessory) { return; }
-                break;
-            case 7:
-                if (col != triggerItemT1Accessory) { return; }
 
-                break;
-            case 6:
-                if (col != triggerItemT3Special) { return; }
-                break;
-            case 5:
-                if (col != triggerItemT2Special) { return; }
-                break;
-            case 4:
-                if (col != triggerItemT1Special) { return; }
-                break;
-            case 3:
-                if (col != triggerItemT3Potion) { return; }
-                break;
-            case 2:
-                if (col != triggerItemT3Potion) { return; }
-                break;
-            case 1:
-                if (col != triggerItemT3Potion) { return; }
-                break;
-        }
+            switch (cm.linkTable[obj].itemToBuy)
+            {
+                case 18:
+                case 17:
+                case 16:
+                    cm.linkTable[obj].nextNode = cm.node7a;
+                    break;
+                case 15:
+                case 14:
+                case 13:
+                    cm.linkTable[obj].nextNode = cm.node7b;
+                    break;
+                case 12:
+                case 11:
+                case 10:
+                    cm.linkTable[obj].nextNode = cm.node7c;
+                    break;
+                case 9:
+                case 8:
+                case 7:
+                    cm.linkTable[obj].nextNode = cm.node7d;
+                    break;
+                case 6:
+                case 5:
+                case 4:
+                    cm.linkTable[obj].nextNode = cm.node7e;
+                    break;
+                case 3:
+                case 2:
+                case 1:
+                    cm.linkTable[obj].nextNode = cm.node7f;
+                    break;
+            }
 
-        switch (cm.linkTable[obj].itemToBuy)
-        {
-            case 18:
-            case 17:
-            case 16:
-                cm.linkTable[obj].nextNode = cm.node7a;
-                break;
-            case 15:
-            case 14:
-            case 13:
-                cm.linkTable[obj].nextNode = cm.node7b;
-                break;
-            case 12:
-            case 11:
-            case 10:
-                cm.linkTable[obj].nextNode = cm.node7c;
-                break;
-            case 9:
-            case 8:
-            case 7:
-                cm.linkTable[obj].nextNode = cm.node7d;
-                break;
-            case 6:
-            case 5:
-            case 4:
-                cm.linkTable[obj].nextNode = cm.node7e;
-                break;
-            case 3:
-            case 2:
-            case 1:
-                cm.linkTable[obj].nextNode = cm.node7f;
-                break;
+            cm.linkTable[obj].nodeNum++;
         }
     }
     public void ReachNode7(Collider col)
     {
-        GameObject obj = col.gameObject;
-        cm.linkTable[obj].nodeNum++;
+        if (this.name == "Node 7a" || this.name == "Node 7b" || this.name == "Node 7c" || this.name == "Node 7d" || this.name == "Node 7e" || this.name == "Node 7f")
+        {
+            GameObject obj = col.gameObject;
+            cm.linkTable[obj].nodeNum++;
 
-        if (rnd.GetBinary() == 0)
-        {
-            cm.linkTable[obj].nextNode = cm.nodeReg1;
+            if (rnd.GetBinary() == 0)
+            {
+                cm.linkTable[obj].nextNode = cm.nodeReg1;
+            }
+            else
+            {
+                cm.linkTable[obj].nextNode = cm.nodeReg2;
+            }
         }
-        else
-        {
-            cm.linkTable[obj].nextNode = cm.nodeReg2;
-        }
+
     }
     public void ReachNodeReg(Collider col)
     {
-        GameObject obj = col.gameObject;
-        cm.linkTable[obj].nodeNum++;
-        cm.linkTable[obj].nextNode = cm.node8;
+        if (this.name == "Node Reg1" || this.name == "Node Reg2")
+        {
+            GameObject obj = col.gameObject;
+            cm.linkTable[obj].nodeNum++;
+            cm.linkTable[obj].nextNode = cm.node8;
+        }
     }
     public void ReachNode8(Collider col)
     {
-        GameObject obj = col.gameObject;
-        cm.linkTable[obj].nodeNum++;
-        cm.linkTable[obj].nextNode = cm.node9;
+        if (this.name == "Node 8")
+        {
+            GameObject obj = col.gameObject;
+            cm.linkTable[obj].nodeNum++;
+            cm.linkTable[obj].nextNode = cm.node9;
+        }
     }
     public void ReachNode9(Collider col)
     {
