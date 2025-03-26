@@ -81,10 +81,13 @@ public class CustomerMovement : MonoBehaviour
         //Testing
         if (debug && Input.GetKeyDown(KeyCode.Z))
         {
+            CreateCustomer(4);
+            /*
             for (int i = 1; i < 19; i++)
             {
                 CreateCustomer(i);
             }
+            */
         }
 
         foreach (KeyValuePair<GameObject, Customer> cust in linkTable)

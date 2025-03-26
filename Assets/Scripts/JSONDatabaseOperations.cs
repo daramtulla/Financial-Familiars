@@ -5,7 +5,6 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEditor;
-using UnityEditor.Overlays;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
@@ -64,7 +63,7 @@ public class JSONDatabaseOperations : MonoBehaviour
             currentPlayer.suppliers.Add(new Supplier(9, "Witch's Circle", 0, 0, 0, 0));
 
             //Loans
-            currentPlayer.loans.Add(new Loans("Loan 1", 0f, 0f));
+            currentPlayer.loans.Add(new Loans("Loan 1", 100000f, 1f));
             currentPlayer.loans.Add(new Loans("Loan 2", 0f, 0f));
             currentPlayer.loans.Add(new Loans("Loan 3", 0f, 0f));
 
@@ -114,7 +113,7 @@ public class JSONDatabaseOperations : MonoBehaviour
 
             //Player Stats
             currentPlayer.moveSpeedModifier = 1;
-            currentPlayer.currentMoney = 1000f;
+            currentPlayer.currentMoney = 50000f;
             currentPlayer.volume = .5f;
             currentPlayer.ResetDay();
             currentPlayer.dailySales = 0;
@@ -142,6 +141,13 @@ public class JSONDatabaseOperations : MonoBehaviour
         }
     }
 
+    /*
+    public void toChangeMarkup()
+    {
+        currentPlayer.ChangeMarkup();
+    }
+    */
+
     public void LoadData()
     {
         filePath = Application.persistentDataPath + "/JSONDatabase.json";
@@ -168,14 +174,28 @@ public class JSONDatabaseOperations : MonoBehaviour
         }
 
         //For testing. Gives Player full inventory and money
+        /*
         if (debug && Input.GetKey(KeyCode.V))
         {
-            currentPlayer.currentMoney = 10000;
+            currentPlayer.currentMoney = 50000;
 
             for (int i = 0; i < 18; i++)
             {
                 currentPlayer.merch[i].quantity = 10;
                 currentPlayer.active[i] = 1;
+            }
+        }
+        */
+
+        //For testing. Gives Player full inventory and money
+        if (debug && Input.GetKey(KeyCode.V))
+        {
+            currentPlayer.currentMoney = 50000;
+
+            for (int i = 0; i < 18; i++)
+            {
+                currentPlayer.merch[i].quantity = 2;
+                currentPlayer.active[i] = 0;
             }
         }
     }

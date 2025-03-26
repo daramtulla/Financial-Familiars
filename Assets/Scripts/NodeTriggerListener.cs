@@ -1,5 +1,4 @@
 using System;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Polybrush;
 using UnityEngine.SceneManagement;
@@ -124,32 +123,43 @@ public class TriggerListener : MonoBehaviour
 
     public void ReachNode1(Collider col)
     {
-        GameObject obj = col.gameObject;
-        cm.linkTable[obj].nodeNum++;
-        cm.linkTable[obj].nextNode = cm.node2;
+        if (this.name == "Node 1")
+        {
+            GameObject obj = col.gameObject;
+            cm.linkTable[obj].nodeNum++;
+            cm.linkTable[obj].nextNode = cm.node2;
+        }
+
     }
     public void ReachNode2(Collider col)
     {
-        GameObject obj = col.gameObject;
-        cm.linkTable[obj].nodeNum++;
-        cm.linkTable[obj].nextNode = cm.node3;
+        if (this.name == "Node 2")
+        {
+            GameObject obj = col.gameObject;
+            cm.linkTable[obj].nodeNum++;
+            cm.linkTable[obj].nextNode = cm.node3;
+        }
     }
     public void ReachNode3(Collider col)
     {
-        GameObject obj = col.gameObject;
-        int path = rnd.GetBinary();
+        if (this.name == "Node 3")
+        {
 
-        if (cm.linkTable[obj].itemToBuy % 3 == 0
-        || cm.linkTable[obj].itemToBuy % 3 == 2 && path == 0)
-        {
-            cm.linkTable[obj].nextNode = cm.node4a;
-            cm.linkTable[obj].nodeNum++;
-        }
-        else if (cm.linkTable[obj].itemToBuy % 3 == 1
-        || cm.linkTable[obj].itemToBuy % 3 == 2)
-        {
-            cm.linkTable[obj].nextNode = cm.node4b;
-            cm.linkTable[obj].nodeNum++;
+            GameObject obj = col.gameObject;
+            int path = rnd.GetBinary();
+
+            if (cm.linkTable[obj].itemToBuy % 3 == 0
+            || cm.linkTable[obj].itemToBuy % 3 == 2 && path == 0)
+            {
+                cm.linkTable[obj].nextNode = cm.node4a;
+                cm.linkTable[obj].nodeNum++;
+            }
+            else if (cm.linkTable[obj].itemToBuy % 3 == 1
+            || cm.linkTable[obj].itemToBuy % 3 == 2)
+            {
+                cm.linkTable[obj].nextNode = cm.node4b;
+                cm.linkTable[obj].nodeNum++;
+            }
         }
 
 
@@ -563,14 +573,20 @@ public class TriggerListener : MonoBehaviour
     }
     public void ReachNode9(Collider col)
     {
-        GameObject obj = col.gameObject;
-        cm.linkTable[obj].nodeNum++;
-        cm.linkTable[obj].nextNode = cm.endNode;
+        if (this.name == "Node 9")
+        {
+            GameObject obj = col.gameObject;
+            cm.linkTable[obj].nodeNum++;
+            cm.linkTable[obj].nextNode = cm.endNode;
+        }
     }
     public void ReachNodeEnd(Collider col)
     {
-        GameObject obj = col.gameObject;
-        cm.linkTable.Remove(obj);
-        Destroy(obj);
+        if (this.name == "End Node")
+        {
+            GameObject obj = col.gameObject;
+            cm.linkTable.Remove(obj);
+            Destroy(obj);
+        }
     }
 }
