@@ -69,11 +69,11 @@ public class JSONDatabaseOperations : MonoBehaviour
             currentPlayer.loans.Add(new Loans("Loan 3", 0f, 0f));
 
             //TODO: Tweak daily wages
-            currentPlayer.unemployedEmployees.Add(new Employee(0, "Fizzwick Flash", "Marketer", 80, "Fast-talking, dramatic, obsessed with catchy slogans.", "Increases demand for all items.", "Self-Employed for 10 years, made a steady living for themselves, in the Merchant�s Guild", "Employees/Fizzwick.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(0, "Fizzwick Flash", "Marketer", 80, "Fast-talking, dramatic, obsessed with catchy slogans.", "Increases demand for all items.", "Self-Employed for 10 years, made a steady living for themselves, in the Merchant's Guild", "Employees/Fizzwick.png"));
             currentPlayer.unemployedEmployees.Add(new Employee(1, "Briza Coppercrank", "Technician", 90, "Meticulous, resourceful, loves tinkering with everything.", "Reduces the cost of all upgrades.", "Former airship mechanic, certified in arcane engineering, once rebuilt a golem using only scrap parts.", "Employees/Briza.png"));
             currentPlayer.unemployedEmployees.Add(new Employee(2, "Grumlek Stonesnout", "Supplier", 85, "Gruff, well-connected, always knows a guy who knows a guy.", "Reduces the cost of buying items by negotiating better deals.", "Former caravan trader, has contacts in every market.", "Employees/Grumlek.png"));
             currentPlayer.unemployedEmployees.Add(new Employee(4, "Velora Swiftwhisper", "Rent Negotiator", 95, "Charming, silver-tongued, can talk anyone into a better deal.", "Reduces the cost of rent.", "Former noble house emissary, expert in contracts, once convinced an ogre to pay her for toll fees.", "Employees/Velora.png"));
-            currentPlayer.unemployedEmployees.Add(new Employee(6, "Quillbert Ledgersnout", "Taxman", 100, "Nerdy, precise, loves finding loopholes.", "Reduces the cost of taxes.", "Former royal accountant, memorized entire tax laws, once deducted a wizard�s beard as a business expense.", "Employees/Quillbert.png"));
+            currentPlayer.unemployedEmployees.Add(new Employee(6, "Quillbert Ledgersnout", "Taxman", 100, "Nerdy, precise, loves finding loopholes.", "Reduces the cost of taxes.", "Former royal accountant, memorized entire tax laws, once deducted a wizard's beard as a business expense.", "Employees/Quillbert.png"));
             currentPlayer.unemployedEmployees.Add(new Employee(9, "Marlo Wickert", "Business Contact", 95, "Well-dressed, well-mannered, and always knows the right people.", "Adds more items to the shipping cauldron.", "Former trade broker, once arranged a deal between rival witch covens.", "Employees/Marlo.png"));
             currentPlayer.unemployedEmployees.Add(new Employee(12, "Evalis Keeneye", "Appraiser", 90, "Sharp-eyed, analytical, and detail-oriented.", "Reveals the optimal prices for items to maximize profits.", "Former auction house expert and trained in magical artifact valuation.", "Employees/Evalis.png"));
             currentPlayer.unemployedEmployees.Add(new Employee(14, "Talia Greenbloom", "Loan Assistant", 85, "Friendly, organized, and always ready to help.", "Lowers interest rates on loans.", "Former banker, has saved people 1,000,000 gold over his life.", "Employees/Talia.png"));
@@ -101,6 +101,7 @@ public class JSONDatabaseOperations : MonoBehaviour
             currentPlayer.unpurchasedUpgrades.Add(new Upgrade(3, "Premium Accessories", 600, "Increases Demand for Accessories."));
             currentPlayer.unpurchasedUpgrades.Add(new Upgrade(4, "Premium Weapons", 600, "Increases Demand for Weapons."));
             currentPlayer.unpurchasedUpgrades.Add(new Upgrade(5, "Premium Special Items", 1000, "Increases demand for Special items."));
+
             //TODO: Add storage functionality
             currentPlayer.unpurchasedUpgrades.Add(new Upgrade(6, "Bigger Storage", 400, "Increases max storage capacity."));
             //TODO: Add restocking
