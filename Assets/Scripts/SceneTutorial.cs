@@ -6,6 +6,7 @@ public class SceneTutorial : MonoBehaviour
     [SerializeField] GameObject tutorialPopup;
     [SerializeField] Button closeButton;
     [SerializeField] string tutorialKey = "SceneStartTutorial";
+
     void Start()
     {
         if (PlayerPrefs.GetInt(tutorialKey, 0) == 0)
