@@ -108,8 +108,9 @@ public class GameManager : MonoBehaviour
         float wagesPaidAmount = 0.0f;
         foreach (var employee in db.currentPlayer.employees)
         {
-            wagesPaidAmount += employee.salary;
+            wagesPaidAmount -= employee.salary;
         }
+
 
         //TODO: Discuss if we're keeping upgrade upkeeps
         //For now: set Upgrades to 0 for no upgrades
@@ -124,7 +125,7 @@ public class GameManager : MonoBehaviour
 
         //TODO: Add multiple employees. For now, just use the ID
         //TODO: Add rent? Or lump it all in utilities. for now, just lump it in with utilities
-        if (db.currentPlayer.employees.Any(employee => employee.id == 3))
+        if (db.currentPlayer.employees.Any(employee => employee.id == 4))
         {
             utilitiesCostAmount *= 0.9f;
         }
@@ -135,6 +136,7 @@ public class GameManager : MonoBehaviour
         FormatText(wagesPaid, wagesPaidAmount);
         FormatText(upgradeUpkeep, upgradeUpkeepAmount);
         FormatText(utilitiesCost, utilitiesCostAmount);
+
 
         float netProfitAmount = moneyMadeAmount - -mandatoryLoansAmount - wagesPaidAmount - -upgradeUpkeepAmount - -utilitiesCostAmount;
         FormatText(netProfit, netProfitAmount);
