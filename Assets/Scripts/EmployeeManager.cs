@@ -60,7 +60,7 @@ public class EmployeeManager : MonoBehaviour
             TextMeshProUGUI[] texts = newEmployee.GetComponentsInChildren<TextMeshProUGUI>();
             texts[0].text = emp.name;
             texts[1].text = emp.position;
-            texts[2].text = "$" + emp.salary.ToString("N2");
+            texts[2].text = "$" + emp.salary.ToString("N2") + " / day";
             texts[3].text = emp.personality;
             texts[4].text = emp.benefits;
             texts[5].text = emp.qualifications;
