@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     public Text netProfit;
     public Text utilitiesCost;
     public Text taxText;
+    public Text netProfitBeforeTax;
 
     //Debug Text
     public TMP_Text dailySalesNumber;
@@ -137,8 +138,11 @@ public class GameManager : MonoBehaviour
             utilitiesCostAmount *= 0.9f;
         }
 
+        float netProfitBeforeTaxAmount = moneyMadeAmount - -mandatoryLoansAmount - -wagesPaidAmount - -upgradeUpkeepAmount - -utilitiesCostAmount;
+        FormatText(netProfitBeforeTax, netProfitBeforeTaxAmount);
+
         //Apply Tax
-        float taxAmount = ApplyTax(moneyMadeAmount);
+        float taxAmount = ApplyTax(netProfitBeforeTaxAmount);
         FormatText(taxText, -taxAmount);
         Debug.Log($"Money Made: {moneyMadeAmount}");
         Debug.Log($"Tax: {taxAmount}");
@@ -150,7 +154,9 @@ public class GameManager : MonoBehaviour
         FormatText(upgradeUpkeep, upgradeUpkeepAmount);
         FormatText(utilitiesCost, utilitiesCostAmount);
 
-        float netProfitAmount = moneyMadeAmount - -mandatoryLoansAmount - wagesPaidAmount - -upgradeUpkeepAmount - -utilitiesCostAmount - taxAmount;
+        Debug.Log($"wagesPaidAmount: {wagesPaidAmount}");
+
+        float netProfitAmount = netProfitBeforeTaxAmount - taxAmount;
         FormatText(netProfit, netProfitAmount);
 
         //TODO: Split money between savings and spending
@@ -180,23 +186,23 @@ public class GameManager : MonoBehaviour
     {
         float taxAmount = 0.0f;
 
-        //My aim is to implement a progressive tax system (higher income = higher tax)
+        //My aim is to implement a progressive tax system (higher profit = higher tax)
         if(moneyMadeAmount > 5000f)
         {
-            //only money made above 5000 is taxed at the 30% tax rate
+            //only profit made above 5000 is taxed at the 30% tax rate
             taxAmount = ((moneyMadeAmount - 5000f) * 0.3f) + 700f;
         }
         else if (moneyMadeAmount > 2500f)
         {
-            //only money made above 2500 is taxed at the 20% tax rate
+            //only profit made above 2500 is taxed at the 20% tax rate
             taxAmount = ((moneyMadeAmount - 2500f) * 0.2f) + 200f;
         } 
         else if (moneyMadeAmount > 500f)
         {
-            //only money made above 500 is taxed at the 10% tax rate
+            //only profit made above 500 is taxed at the 10% tax rate
             taxAmount = (moneyMadeAmount - 500f) * 0.1f;
         }
-        //500 and below money made means there is no tax
+        //500 and below profit made means there is no tax
         return taxAmount;
     }
 

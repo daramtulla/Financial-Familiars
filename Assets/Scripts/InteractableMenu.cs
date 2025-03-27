@@ -70,6 +70,11 @@ public class Interactable : MonoBehaviour, InteractMenu
                 Debug.Log("Close Loans Menu");
                 loansMenu.CloseThis();
             }
+            else if (menuToOpenOrClose.name == "Borrowing Lectern")
+            {
+                Debug.Log("Close Borrowing Menu");
+                loansMenu.CloseThis();
+            }
             else if (menuToOpenOrClose.name == "HiringUI")
             {
                 //todo
@@ -121,6 +126,11 @@ public class Interactable : MonoBehaviour, InteractMenu
             else if (menuToOpenOrClose.name == "Loans Menu")
             {
                 Debug.Log("Open Loans Menu");
+                loansMenu.OpenThis();
+            }
+            else if (menuToOpenOrClose.name == "Borrowing Lectern")
+            {
+                Debug.Log("Close Borrowing Menu");
                 loansMenu.OpenThis();
             }
             else if (menuToOpenOrClose.name == "HiringUI")
