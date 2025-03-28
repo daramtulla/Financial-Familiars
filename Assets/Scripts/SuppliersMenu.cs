@@ -88,7 +88,7 @@ public class SuppliersMenu : MonoBehaviour
 
         // HIRE ID 8: Increases number of suppliers
         int numSuppliers = 7;
-        if(db.currentPlayer.employees.Any(employee => employee.id == 8))
+        if(db.currentPlayer.employees.Any(employee => employee.id == 9))
         {
             numSuppliers = 10;
         }
@@ -186,7 +186,7 @@ public class SuppliersMenu : MonoBehaviour
         if (db.currentPlayer.currentMoney > total)
         {
             //HIRE ID 6: Possibility of losing items
-            if (db.currentPlayer.employees.Any(e => e.id == 6) && new System.Random().Next(1, 100) >= 95)
+            if (db.currentPlayer.employees.Any(e => e.id == 7) && new System.Random().Next(1, 100) >= 95)
             {
                 // TODO: ADD FEEDBACK FOR THE ITEMS BEING LOST
                 db.currentPlayer.currentMoney -= total;
