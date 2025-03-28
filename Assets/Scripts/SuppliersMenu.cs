@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using UnityEditor.Overlays;
 using System;
 using System.Linq;
+using static UnityEngine.ParticleSystem;
 
 public class SuppliersMenu : MonoBehaviour
 {
@@ -85,7 +86,13 @@ public class SuppliersMenu : MonoBehaviour
             return;
         }
 
-        for (int i = 1; i < 10; i++)
+        // HIRE ID 8: Increases number of suppliers
+        int numSuppliers = 7;
+        if(db.currentPlayer.employees.Any(employee => employee.id == 8))
+        {
+            numSuppliers = 10;
+        }
+        for (int i = 1; i < numSuppliers; i++)
         {
             int id1 = rnd.GetRandomMerchId();
 
@@ -140,6 +147,10 @@ public class SuppliersMenu : MonoBehaviour
 
         foreach (Supplier supplier in db.currentPlayer.suppliers)
         {
+            if(supplier.stock1 == 0 || supplier.stock2 == 0)
+            {
+                continue;
+            }
             GameObject newItem = Instantiate(supplierItemPrefab, suppliersContent);
 
             TextMeshProUGUI[] texts = newItem.GetComponentsInChildren<TextMeshProUGUI>();
@@ -167,11 +178,25 @@ public class SuppliersMenu : MonoBehaviour
     {
         float total = cost * bought;
 
+        if (db.currentPlayer.employees.Any(employees => employees.id == 2))
+        {
+            total *= .85f;
+        }
+
         if (db.currentPlayer.currentMoney > total)
         {
-            db.currentPlayer.currentMoney -= total;
-            db.currentPlayer.merch[id - 1].quantity += bought;
-            db.currentPlayer.purchases += total;
+            //HIRE ID 6: Possibility of losing items
+            if (db.currentPlayer.employees.Any(e => e.id == 6) && new System.Random().Next(1, 100) >= 95)
+            {
+                // TODO: ADD FEEDBACK FOR THE ITEMS BEING LOST
+                db.currentPlayer.currentMoney -= total;
+            }
+            else
+            {
+                db.currentPlayer.currentMoney -= total;
+                db.currentPlayer.merch[id - 1].quantity += bought;
+                db.currentPlayer.purchases += total;
+            }
         }
     }
 }
