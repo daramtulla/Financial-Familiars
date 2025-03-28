@@ -27,29 +27,29 @@ public class JSONDatabaseOperations : MonoBehaviour
         if (!File.Exists(filePath) || RegenerateOnLoad)
         {
             //Merchandise
-            currentPlayer.merch.Add(new Merchandise(1, "Crimson Restoration Potion", 0, 10, 0, .2f, 1, 1));
-            currentPlayer.merch.Add(new Merchandise(2, "Bubbling Polymorph Flask", 0, 25, 0, .2f, 1, 2));
-            currentPlayer.merch.Add(new Merchandise(3, "Draught of Living Death", 0, 65, 0, .2f, 1, 3));
+            currentPlayer.merch.Add(new Merchandise(1, "Crimson Restoration Potion", 0, 10, 10, .2f, 1, 1));
+            currentPlayer.merch.Add(new Merchandise(2, "Bubbling Polymorph Flask", 0, 25, 10, .2f, 1, 2));
+            currentPlayer.merch.Add(new Merchandise(3, "Draught of Living Death", 0, 65, 10, .2f, 1, 3));
 
-            currentPlayer.merch.Add(new Merchandise(4, "Emerald Ring of Minor Protection", 0, 30, 0, .15f, 2, 1));
-            currentPlayer.merch.Add(new Merchandise(5, "Necklace of Fire Resistance", 0, 70, 0, .15f, 2, 2));
-            currentPlayer.merch.Add(new Merchandise(6, "Pocket Dimension Bag", 0, 220, 0, .15f, 2, 3));
+            currentPlayer.merch.Add(new Merchandise(4, "Emerald Ring of Minor Protection", 0, 30, 10, .15f, 2, 1));
+            currentPlayer.merch.Add(new Merchandise(5, "Necklace of Fire Resistance", 0, 70, 10, .15f, 2, 2));
+            currentPlayer.merch.Add(new Merchandise(6, "Pocket Dimension Bag", 0, 220, 10, .15f, 2, 3));
 
-            currentPlayer.merch.Add(new Merchandise(7, "Never-Dull Gold Dagger", 0, 150, 0, .10f, 3, 1));
-            currentPlayer.merch.Add(new Merchandise(8, "Lich King Grimoire", 0, 320, 0, .10f, 3, 2));
-            currentPlayer.merch.Add(new Merchandise(9, "Featherlight Warhammer", 0, 700, 0, .10f, 3, 3));
+            currentPlayer.merch.Add(new Merchandise(7, "Never-Dull Gold Dagger", 0, 150, 10, .10f, 3, 1));
+            currentPlayer.merch.Add(new Merchandise(8, "Lich King Grimoire", 0, 320, 10, .10f, 3, 2));
+            currentPlayer.merch.Add(new Merchandise(9, "Featherlight Warhammer", 0, 700, 10, .10f, 3, 3));
 
-            currentPlayer.merch.Add(new Merchandise(10, "All-Seeing Crystal Ball", 0, 200, 0, .10f, 4, 1));
-            currentPlayer.merch.Add(new Merchandise(11, "Wand Core Cluster", 0, 450, 0, .10f, 4, 2));
-            currentPlayer.merch.Add(new Merchandise(12, "Pulsating Dragon Heart", 0, 1000, 0, .10f, 4, 3));
+            currentPlayer.merch.Add(new Merchandise(10, "All-Seeing Crystal Ball", 0, 200, 10, .10f, 4, 1));
+            currentPlayer.merch.Add(new Merchandise(11, "Wand Core Cluster", 0, 450, 10, .10f, 4, 2));
+            currentPlayer.merch.Add(new Merchandise(12, "Pulsating Dragon Heart", 0, 1000, 10, .10f, 4, 3));
 
-            currentPlayer.merch.Add(new Merchandise(13, "Minor Rune of Healing", 0, 15, 0, .20f, 5, 1));
-            currentPlayer.merch.Add(new Merchandise(14, "Major Rune of Damage", 0, 40, 0, .20f, 5, 2));
-            currentPlayer.merch.Add(new Merchandise(15, "Omega Rune of Protection", 0, 95, 0, .20f, 5, 3));
+            currentPlayer.merch.Add(new Merchandise(13, "Minor Rune of Healing", 0, 15, 10, .20f, 5, 1));
+            currentPlayer.merch.Add(new Merchandise(14, "Major Rune of Damage", 0, 40, 10, .20f, 5, 2));
+            currentPlayer.merch.Add(new Merchandise(15, "Omega Rune of Protection", 10, 95, 0, .20f, 5, 3));
 
-            currentPlayer.merch.Add(new Merchandise(16, "Ironwood Shield", 0, 110, 0, .15f, 6, 1));
-            currentPlayer.merch.Add(new Merchandise(17, "Darksteel Shield", 0, 280, 0, .15f, 6, 2));
-            currentPlayer.merch.Add(new Merchandise(18, "Dragon Scale Shield", 0, 390, 0, .15f, 6, 3));
+            currentPlayer.merch.Add(new Merchandise(16, "Ironwood Shield", 0, 110, 10, .15f, 6, 1));
+            currentPlayer.merch.Add(new Merchandise(17, "Darksteel Shield", 0, 280, 10, .15f, 6, 2));
+            currentPlayer.merch.Add(new Merchandise(18, "Dragon Scale Shield", 0, 390, 10, .15f, 6, 3));
 
             //Suppliers
             currentPlayer.suppliers.Add(new Supplier(1, "Arcane Emporium", 0, 0, 0, 0));
@@ -291,29 +291,29 @@ public class Player
     {
         merch.Clear();
 
-        merch.Add(new Merchandise(1, "Crimson Restoration Potion", 0, 10, 0, .2f, 1, 1));
-        merch.Add(new Merchandise(2, "Bubbling Polymorph Flask", 0, 25, 0, .2f, 1, 2));
-        merch.Add(new Merchandise(3, "Draught of Living Death", 0, 65, 0, .2f, 1, 3));
+        merch.Add(new Merchandise(1, "Crimson Restoration Potion", 0, 10, 10, .2f, 1, 1));
+        merch.Add(new Merchandise(2, "Bubbling Polymorph Flask", 0, 25, 10, .2f, 1, 2));
+        merch.Add(new Merchandise(3, "Draught of Living Death", 0, 65, 10, .2f, 1, 3));
 
-        merch.Add(new Merchandise(4, "Emerald Ring of Minor Protection", 0, 30, 0, .15f, 2, 1));
-        merch.Add(new Merchandise(5, "Necklace of Fire Resistance", 0, 70, 0, .15f, 2, 2));
-        merch.Add(new Merchandise(6, "Pocket Dimension Bag", 0, 220, 0, .15f, 2, 3));
+        merch.Add(new Merchandise(4, "Emerald Ring of Minor Protection", 0, 30, 10, .15f, 2, 1));
+        merch.Add(new Merchandise(5, "Necklace of Fire Resistance", 0, 70, 10, .15f, 2, 2));
+        merch.Add(new Merchandise(6, "Pocket Dimension Bag", 0, 220, 10, .15f, 2, 3));
 
-        merch.Add(new Merchandise(7, "Never-Dull Gold Dagger", 0, 150, 0, .10f, 3, 1));
-        merch.Add(new Merchandise(8, "Lich King Grimoire", 0, 320, 0, .10f, 3, 2));
-        merch.Add(new Merchandise(9, "Featherlight Warhammer", 0, 700, 0, .10f, 3, 3));
+        merch.Add(new Merchandise(7, "Never-Dull Gold Dagger", 0, 150, 10, .10f, 3, 1));
+        merch.Add(new Merchandise(8, "Lich King Grimoire", 0, 320, 10, .10f, 3, 2));
+        merch.Add(new Merchandise(9, "Featherlight Warhammer", 0, 700, 10, .10f, 3, 3));
 
-        merch.Add(new Merchandise(10, "All-Seeing Crystal Ball", 0, 200, 0, .10f, 4, 1));
-        merch.Add(new Merchandise(11, "Wand Core Cluster", 0, 450, 0, .10f, 4, 2));
-        merch.Add(new Merchandise(12, "Pulsating Dragon Heart", 0, 1000, 0, .10f, 4, 3));
+        merch.Add(new Merchandise(10, "All-Seeing Crystal Ball", 0, 200, 10, .10f, 4, 1));
+        merch.Add(new Merchandise(11, "Wand Core Cluster", 0, 450, 10, .10f, 4, 2));
+        merch.Add(new Merchandise(12, "Pulsating Dragon Heart", 0, 1000, 10, .10f, 4, 3));
 
-        merch.Add(new Merchandise(13, "Minor Rune of Healing", 0, 15, 0, .20f, 5, 1));
-        merch.Add(new Merchandise(14, "Major Rune of Damage", 0, 40, 0, .20f, 5, 2));
-        merch.Add(new Merchandise(15, "Omega Rune of Protection", 0, 95, 0, .20f, 5, 3));
+        merch.Add(new Merchandise(13, "Minor Rune of Healing", 0, 15, 10, .20f, 5, 1));
+        merch.Add(new Merchandise(14, "Major Rune of Damage", 0, 40, 10, .20f, 5, 2));
+        merch.Add(new Merchandise(15, "Omega Rune of Protection", 0, 95, 10, .20f, 5, 3));
 
-        merch.Add(new Merchandise(16, "Ironwood Shield", 0, 110, 0, .15f, 6, 1));
-        merch.Add(new Merchandise(17, "Darksteel Shield", 0, 280, 0, .15f, 6, 2));
-        merch.Add(new Merchandise(18, "Dragon Scale Shield", 0, 390, 0, .15f, 6, 3));
+        merch.Add(new Merchandise(16, "Ironwood Shield", 0, 110, 10, .15f, 6, 1));
+        merch.Add(new Merchandise(17, "Darksteel Shield", 0, 280, 10, .15f, 6, 2));
+        merch.Add(new Merchandise(18, "Dragon Scale Shield", 0, 390, 10, .15f, 6, 3));
     }
 
     //Day Method Helpers

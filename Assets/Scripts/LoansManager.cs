@@ -5,12 +5,15 @@ public class LoansManager : MonoBehaviour
 {
     [SerializeField] GameObject loansmenu;
 
+    [SerializeField] GameObject borrowmenu;
+
     [SerializeField] TMP_InputField textInputField;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        //loansmenu.SetActive(false);
+        //borrowmenu.SetActive(false);
     }
 
     // Update is called once per frame
@@ -18,19 +21,18 @@ public class LoansManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.L) && !textInputField.isFocused)
         {
-            HandleThis();
+            //ToggleMenu();
         }
     }
-    void HandleThis()
-    {
-        if (!loansmenu.activeInHierarchy)
-        {
-            loansmenu.SetActive(true);
-        }
-        else
-        {
-            loansmenu.SetActive(false);
-        }
 
+    /*
+    public void ToggleMenu()
+    {
+        loansmenu.SetActive(!inventoryPanel.activeSelf);
+        if (inventoryPanel.activeSelf)
+        {
+            UpdateInventoryUI();
+        }
     }
+    */
 }
