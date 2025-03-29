@@ -16,10 +16,13 @@ public class CustomerManager : MonoBehaviour
 
     [SerializeField] RandomGenNum rnd;
 
-    [SerializeField] int dayTimeTotal;
+    public int dayTimeTotal;
 
     //Item id first, then sale time
     private List<KeyValuePair<int, int>> timeline;
+
+    //Item id, then customer time
+    private List<KeyValuePair<int, int>> entrance;
 
     private float dayTime;
 
@@ -39,19 +42,15 @@ public class CustomerManager : MonoBehaviour
         pastDayTime = 0;
         timerActive = true;
         timeline = GetItemSaleTimeLine();
-
-        //Create customers to buy objects
-        foreach (KeyValuePair<int, int> key in timeline)
-        {
-            //cm.CreateCustomer(key.Key);
-        }
+        entrance = GenerateCustomerEntrance();
     }
 
     //Perform customer sales during day phase
     public IEnumerator CustomerSales()
     {
         //Can't remove while foreach is iterating so make a deep copy
-        List<KeyValuePair<int, int>> copy = timeline.Select(pair => new KeyValuePair<int, int>(pair.Key, pair.Value)).ToList();
+        List<KeyValuePair<int, int>> copy1 = timeline.Select(pair => new KeyValuePair<int, int>(pair.Key, pair.Value)).ToList();
+        List<KeyValuePair<int, int>> copy2 = entrance.Select(pair => new KeyValuePair<int, int>(pair.Key, pair.Value)).ToList();
 
         while (dayTime < dayTimeTotal)
         {
@@ -64,7 +63,8 @@ public class CustomerManager : MonoBehaviour
                 if (debug) { Debug.Log("Checking sale time at " + dayTime); }
 
                 //Check to see what sales occured at this time
-                SaleTimeCheck(copy);
+                SaleTimeCheck(copy1);
+                CustomerTimeCheck(copy2);
             }
 
             yield return null;
@@ -72,7 +72,36 @@ public class CustomerManager : MonoBehaviour
 
         //After timer is up
         db.currentPlayer.cycleNum = 2;
+        //Debug.Log($"db.currentPlayer.cycleNum: {db.currentPlayer.cycleNum}");
         timerActive = false;
+    }
+
+    public void CustomerTimeCheck(List<KeyValuePair<int, int>> copy)
+    {
+
+        foreach (KeyValuePair<int, int> pair in entrance)
+        {
+            Boolean contains = false;
+            if (pair.Value <= dayTime)
+            {
+                foreach (KeyValuePair<int, int> copyPair in copy)
+                {
+                    //Debug.Log("copy key" + copyPair.Key + ", copy value" + copyPair.Value);
+                    if (copyPair.Value.Equals(pair.Value) && copyPair.Key.Equals(pair.Key))
+                    {
+                        contains = true;
+                    }
+                }
+
+                if (contains)
+                {
+                    cm.CreateCustomer(pair.Key);
+                    if (debug) { Debug.Log("Attempting to sell merch " + pair.Value); }
+                    KeyValuePair<int, int> toRemove = new(pair.Key, pair.Value);
+                    Debug.Log("Remove Successful? " + copy.Remove(toRemove));
+                }
+            }
+        }
     }
 
     public void SaleTimeCheck(List<KeyValuePair<int, int>> copy)
@@ -135,6 +164,26 @@ public class CustomerManager : MonoBehaviour
         return timeline;
     }
 
+    public List<KeyValuePair<int, int>> GenerateCustomerEntrance()
+    {
+        List<KeyValuePair<int, int>> entrance = new();
+
+        //Generate sale time for item
+        for (int j = 0; j < (dayTimeTotal - 10) / 3; j++)
+        {
+            KeyValuePair<int, int> customerTime = new(rnd.GetRandomMerchId(), rnd.GetRandomCustomerEntrance(dayTimeTotal));
+
+            if (debug)
+            {
+                Debug.Log("Pair added: " + customerTime.Key + ", " + customerTime.Value);
+            }
+
+            entrance.Add(customerTime);
+        }
+
+        return entrance;
+    }
+
 
     public void Update()
     {
@@ -153,6 +202,7 @@ public class CustomerManager : MonoBehaviour
             dayTime = dayTimeTotal;
         }
 
+        //Debug.Log($"TimerActive: {timerActive}");
         if (timerActive)
         {
             StartCoroutine(CustomerSales());
