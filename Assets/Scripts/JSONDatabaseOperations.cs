@@ -102,8 +102,6 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.unemployedEmployees.Add(new Employee(18, "Borin Brightchant", "Motivational Speaker", 50, "Loud, overly enthusiastic, uses a lot of buzzwords", "Attempts to boost morale in mandatory meetings.", "Claims to have inspired famous heroes, but nobody has commented on this", "Employees/Borin.png"));
         currentPlayer.unemployedEmployees.Add(new Employee(19, "Grunkar Ironfist", "Blacksmith", 120, "Strong, no-nonsense, reclusive.", "Greatly increases demand for weapons.", "A seasoned blacksmith with a reputation for crafting legendary weapons.", "Employees/Grunkar.png"));
         currentPlayer.unemployedEmployees.Add(new Employee(20, "Selene Starwhisper", "Grand Enchanter", 150, "Mysterious, graceful, always floating.", "Greatly increases demand for special items.", "A powerful enchanter who once created an invisibility cloak.", "Employees/Selene.png"));
-
-        //TODO: Add upgrades
         //TODO: Add functionality
         currentPlayer.unpurchasedUpgrades.Add(new Upgrade(0, "Everburning Candles", 200, "Reduces utilities cost."));
         currentPlayer.unpurchasedUpgrades.Add(new Upgrade(1, "Luxury Branding", 500, "Slightly Increases demand for all items."));
@@ -114,7 +112,6 @@ public class JSONDatabaseOperations : MonoBehaviour
 
         //TODO: Add storage functionality
         currentPlayer.unpurchasedUpgrades.Add(new Upgrade(6, "Bigger Boxes", 400, "Increases max storage capacity."));
-        //TODO: Add restocking
         currentPlayer.unpurchasedUpgrades.Add(new Upgrade(7, "Magic Hand I", 750, "Automatically restocks potions."));
         currentPlayer.unpurchasedUpgrades.Add(new Upgrade(8, "Magic Hand II", 1250, "Automatically restocks accessories."));
         currentPlayer.unpurchasedUpgrades.Add(new Upgrade(9, "Magic Hand III", 1750, "Automatically restocks weapons."));
@@ -133,6 +130,7 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.totalSales = 0;
         currentPlayer.purchases = 0;
         currentPlayer.cycleNum = 0;
+        SaveData();
     }
 
     public void SaveData()
@@ -245,6 +243,7 @@ public class Player
     public List<Employee> employees = new List<Employee>();
     public List<Upgrade> unpurchasedUpgrades = new List<Upgrade>();
     public List<Upgrade> upgrades = new List<Upgrade>();
+    public List<string> completedTutorials = new List<string>();
 
     //Merchandise Method Helpers
     public void ChangeQuantity(int id, int change)
