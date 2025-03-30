@@ -10,6 +10,7 @@ using System.Linq;
 
 public class CustomerManager : MonoBehaviour
 {
+    public SoundManager soundManager;
     [SerializeField] JSONDatabaseOperations db;
 
     [SerializeField] Boolean debug;
@@ -34,6 +35,8 @@ public class CustomerManager : MonoBehaviour
 
     [SerializeField] CustomerMovement cm;
 
+    // HIRE 0, 15, 16, 18, 19: Affects demand/prices
+    // UPGRADE 1, 2, 3, 4, 5, 11, 12: Affects dmeand/prices
     public void StartSelling()
     {
         dayTime = 0;
@@ -72,6 +75,7 @@ public class CustomerManager : MonoBehaviour
         db.currentPlayer.cycleNum = 2;
         //Debug.Log($"db.currentPlayer.cycleNum: {db.currentPlayer.cycleNum}");
         timerActive = false;
+        soundManager.soundAudioSource.PlayOneShot(soundManager.storeClosing, 0.3f);
     }
 
     public void CustomerTimeCheck(List<KeyValuePair<int, int>> copy)
@@ -223,9 +227,13 @@ public class CustomerManager : MonoBehaviour
         if (db.currentPlayer.active[id - 1] == 1)
         {
             SellItem(id);
+            soundManager.soundAudioSource.PlayOneShot(soundManager.itemSold, 1.25f);
         }
     }
 
+    //HIRES AND UPGRADES
+    //TODO: CHECK THIS SELLING EQUATION
+    //UPGRADE 11: possibly sell two accessories at once
     public void SellItem(int id)
     {
         float baseCost = db.currentPlayer.merch[id - 1].baseCost;
@@ -234,7 +242,7 @@ public class CustomerManager : MonoBehaviour
         float degrees = markup / customerMod;
 
         //From Zach M's other selling function
-        switch (id)
+        switch (db.currentPlayer.merch[id - 1].group)
         {
             //Potions
             case 1:
@@ -242,7 +250,7 @@ public class CustomerManager : MonoBehaviour
                 {
                     degrees *= 0.9f;
                 }
-                if (db.currentPlayer.employees.Any(employee => employee.id == 8))
+                if (db.currentPlayer.employees.Any(employee => employee.id == 15))
                 {
                     degrees *= 0.85f;
                 }
@@ -253,7 +261,7 @@ public class CustomerManager : MonoBehaviour
                 {
                     degrees *= 0.9f;
                 }
-                if (db.currentPlayer.employees.Any(employee => employee.id == 9))
+                if (db.currentPlayer.employees.Any(employee => employee.id == 16))
                 {
                     degrees *= 0.85f;
                 }
@@ -263,7 +271,7 @@ public class CustomerManager : MonoBehaviour
                 {
                     degrees *= 0.9f;
                 }
-                if (db.currentPlayer.employees.Any(employee => employee.id == 10))
+                if (db.currentPlayer.employees.Any(employee => employee.id == 18))
                 {
                     degrees *= 0.85f;
                 }
@@ -273,10 +281,16 @@ public class CustomerManager : MonoBehaviour
                 {
                     degrees *= 0.9f;
                 }
-                if (db.currentPlayer.employees.Any(employee => employee.id == 11))
+                if (db.currentPlayer.employees.Any(employee => employee.id == 19))
                 {
                     degrees *= 0.85f;
                 }
+                break;
+            case 5:
+                //todo
+                break;
+            case 6:
+                //todo
                 break;
             default:
                 Debug.Log("Item does not belong to a group");
@@ -307,8 +321,58 @@ public class CustomerManager : MonoBehaviour
         db.currentPlayer.ChangeQuantity(id, -1);
         db.currentPlayer.currentMoney += sale;
         db.currentPlayer.dailySales += sale;
-        //Debug.Log($"Daily Sales: {db.currentPlayer.dailySales}");
-        db.currentPlayer.active[id - 1] = 0;
+
+        //Upgrade ID 7, 8, 9, 10: Auto restock items
+
+        int upgradeNeeded = -1;
+        switch (db.currentPlayer.merch[id - 1].group)
+        {
+            //potions
+            case 1:
+                upgradeNeeded = 7;
+                break;
+            //accessory
+            case 2:
+                upgradeNeeded = 8;
+                break;
+            //weapons
+            case 3:
+                upgradeNeeded = 9;
+                break;
+            //special items
+            case 4:
+                upgradeNeeded = 10;
+                break;
+            //runes
+            case 5:
+                //TODO
+                break;
+            //shields
+            case 6:
+                //TODO
+                break;
+            default:
+                Debug.Log("Unknown item group: " + db.currentPlayer.merch[id - 1].group);
+                break;
+        }
+        if(db.currentPlayer.upgrades.Any(upgrade => upgrade.id == upgradeNeeded))
+        {
+            //auto restocks if possible
+            //we have already moved the purchased item, so see if there's another one
+            if (db.currentPlayer.merch[id].quantity > 0)
+            {
+                //Auto restock, yay!
+            }
+            else
+            {
+                db.currentPlayer.active[id - 1] = 0;
+            }
+        }
+        else
+        {
+            db.currentPlayer.active[id - 1] = 0;
+
+        }
     }
 }
 

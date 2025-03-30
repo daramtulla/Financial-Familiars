@@ -9,6 +9,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public SoundManager soundManager;
+
     public BudgetMenu budgetMenu;
     public SuppliersMenu suppliersMenu;
     public PlayerManager playerManager;
@@ -46,6 +48,7 @@ public class GameManager : MonoBehaviour
         }
 
         db.currentPlayer.cycleNum = 1;
+        soundManager.soundAudioSource.PlayOneShot(soundManager.storeSelling, 0.3f);
         cm.StartSelling();
     }
 
@@ -63,6 +66,7 @@ public class GameManager : MonoBehaviour
         db.currentPlayer.dailySales = 0;
         //Debug.Log($"RestartCycle(): db.currentPlayer.dailySales: {db.currentPlayer.dailySales}");
         db.currentPlayer.cycleNum = 0;
+        soundManager.soundAudioSource.PlayOneShot(soundManager.storeSetup, 1.0f);
     }
 
     private void Update()
@@ -108,6 +112,7 @@ public class GameManager : MonoBehaviour
         endScreen.SetActive(true);
         endDayTitle.text = "Day " + db.currentPlayer.GetDay() + " Results";
 
+        //HIRE 13: Lowers interest rates on loans
         //TODO: Add loan logic
         //For now: say it takes $50 to pay off every day
         float mandatoryLoansAmount = -50.0f;
@@ -131,7 +136,6 @@ public class GameManager : MonoBehaviour
             utilitiesCostAmount *= 0.9f;
         }
 
-        //TODO: Add multiple employees. For now, just use the ID
         //TODO: Add rent? Or lump it all in utilities. for now, just lump it in with utilities
         if (db.currentPlayer.employees.Any(employee => employee.id == 4))
         {

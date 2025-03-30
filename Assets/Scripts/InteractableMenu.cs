@@ -28,8 +28,17 @@ public class Interactable : MonoBehaviour, InteractMenu
         Debug.Log("Interacting with " + menuToOpenOrClose.name);
 
         //Check if the tutorial has been shown
-        //TODO: Change from playerprefs
-        if (PlayerPrefs.GetInt(tutorialKey, 0) == 0)
+        /*
+         * if (PlayerPrefs.GetInt(tutorialKey, 0) == 0)
+        {
+            ShowTutorial();
+        }
+        else
+        {
+            ShowWindow();
+        }
+         */
+        if (!db.currentPlayer.completedTutorials.Contains(tutorialKey))
         {
             ShowTutorial();
         }
@@ -158,8 +167,12 @@ public class Interactable : MonoBehaviour, InteractMenu
     }
     void CloseTutorial()
     {
-        PlayerPrefs.SetInt(tutorialKey, 1);
-        PlayerPrefs.Save();
+        db.currentPlayer.completedTutorials.Add(tutorialKey);
+        db.SaveData();
+        /*
+         * PlayerPrefs.SetInt(tutorialKey, 1);
+         * PlayerPrefs.Save();
+         */
 
         InteractionManager im = (InteractionManager)FindFirstObjectByType(typeof(InteractionManager));
         im.SwitchInteractState();
