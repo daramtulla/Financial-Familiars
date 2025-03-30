@@ -7,6 +7,7 @@ using System.Linq;
 
 public class EmployeeManager : MonoBehaviour
 {
+    public SoundManager soundManager;
 
     public GameObject employeePanel;
     public Transform employeeContent;
@@ -100,6 +101,7 @@ public class EmployeeManager : MonoBehaviour
 
             Button hireButton = newEmployee.transform.Find("HireButton").GetComponent<Button>();
             hireButton.onClick.AddListener(() => hireEmployee(emp.id));
+            hireButton.onClick.AddListener(soundManager.ButtonClickSound);
 
             Debug.Log("ADDING EMPLOYEE: " + emp.name + ", " + emp.position + ", " + emp.salary + ", " + emp.personality + ", " + emp.benefits + ", " + emp.qualifications);
             // todo: button functionality
