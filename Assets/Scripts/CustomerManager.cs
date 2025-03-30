@@ -10,6 +10,7 @@ using System.Linq;
 
 public class CustomerManager : MonoBehaviour
 {
+    public SoundManager soundManager;
     [SerializeField] JSONDatabaseOperations db;
 
     [SerializeField] Boolean debug;
@@ -75,6 +76,7 @@ public class CustomerManager : MonoBehaviour
         db.SaveData();
         //Debug.Log($"db.currentPlayer.cycleNum: {db.currentPlayer.cycleNum}");
         timerActive = false;
+        soundManager.soundAudioSource.PlayOneShot(soundManager.storeClosing, 0.3f);
     }
 
     public void CustomerTimeCheck(List<KeyValuePair<int, int>> copy)
@@ -226,6 +228,7 @@ public class CustomerManager : MonoBehaviour
         if (db.currentPlayer.active[id - 1] == 1)
         {
             SellItem(id);
+            soundManager.soundAudioSource.PlayOneShot(soundManager.itemSold, 1.25f);
         }
     }
 
@@ -311,7 +314,7 @@ public class CustomerManager : MonoBehaviour
         }
 
         //Todo Test for correctness
-        float sale = baseCost * (1 + markup) * (2 - (2 * customerMod * degrees));
+        float sale = baseCost * (1 + markup);
 
         if (debug) { Debug.Log(sale); }
 

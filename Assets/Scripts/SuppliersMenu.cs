@@ -10,6 +10,8 @@ using static UnityEngine.ParticleSystem;
 
 public class SuppliersMenu : MonoBehaviour
 {
+    public SoundManager soundManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public GameObject suppliersPanel;
     public Transform suppliersContent;
@@ -48,7 +50,7 @@ public class SuppliersMenu : MonoBehaviour
         //Generate new stock on day increase
         if (db.currentPlayer.GetDay() == day)
         {
-            generateStock();
+            GenerateStock();
             day++;
         }
     }
@@ -77,7 +79,7 @@ public class SuppliersMenu : MonoBehaviour
         suppliersPanel.SetActive(false);
     }
 
-    public void generateStock()
+    public void GenerateStock()
     {
         if (db.currentPlayer.suppliers.Count < 9)
         {
@@ -87,7 +89,7 @@ public class SuppliersMenu : MonoBehaviour
 
         // HIRE ID 8: Increases number of suppliers
         int numSuppliers = 7;
-        if(db.currentPlayer.employees.Any(employee => employee.id == 9))
+        if (db.currentPlayer.employees.Any(employee => employee.id == 9))
         {
             numSuppliers = 10;
         }
@@ -146,7 +148,7 @@ public class SuppliersMenu : MonoBehaviour
 
         foreach (Supplier supplier in db.currentPlayer.suppliers)
         {
-            if(supplier.stock1 == 0 || supplier.stock2 == 0)
+            if (supplier.stock1 == 0 || supplier.stock2 == 0)
             {
                 continue;
             }
@@ -196,6 +198,19 @@ public class SuppliersMenu : MonoBehaviour
                 db.currentPlayer.merch[id - 1].quantity += bought;
                 db.currentPlayer.purchases += total;
             }
+
+            if (bought == 1)
+            {
+                soundManager.soundAudioSource.PlayOneShot(soundManager.oneItemPurchase, 1.0f);
+            }
+            else
+            {
+                soundManager.soundAudioSource.PlayOneShot(soundManager.tenItemPurchase, 1.0f);
+            }
+        }
+        else
+        {
+            soundManager.soundAudioSource.PlayOneShot(soundManager.itemPurchaseError, 0.2f);
         }
         db.SaveData();
     }
