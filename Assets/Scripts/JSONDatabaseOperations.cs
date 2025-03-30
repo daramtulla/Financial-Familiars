@@ -104,7 +104,7 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.unemployedEmployees.Add(new Employee(19, "Grunkar Ironfist", "Blacksmith", 120, "Strong, no-nonsense, reclusive.", "Greatly increases demand for weapons.", "A seasoned blacksmith with a reputation for crafting legendary weapons.", "Employees/Grunkar.png"));
         currentPlayer.unemployedEmployees.Add(new Employee(20, "Selene Starwhisper", "Grand Enchanter", 150, "Mysterious, graceful, always floating.", "Greatly increases demand for special items.", "A powerful enchanter who once created an invisibility cloak.", "Employees/Selene.png"));
         //TODO: Add functionality
-        currentPlayer.unpurchasedUpgrades.Add(new Upgrade(0, "Everburning Candles", 200, "Reduces utilities cost."));
+        currentPlayer.unpurchasedUpgrades.Add(new Upgrade(0, "Efficient Lighting", 200, "Reduces utilities cost."));
         currentPlayer.unpurchasedUpgrades.Add(new Upgrade(1, "Luxury Branding", 500, "Slightly Increases demand for all items."));
         currentPlayer.unpurchasedUpgrades.Add(new Upgrade(2, "Premium Potions", 300, "Increases Demand for Potions."));
         currentPlayer.unpurchasedUpgrades.Add(new Upgrade(3, "Premium Accessories", 600, "Increases Demand for Accessories."));
