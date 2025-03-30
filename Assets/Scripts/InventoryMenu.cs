@@ -5,6 +5,8 @@ using System.IO;
 using System.Data.Common;
 using System.Linq;
 using System;
+using UnityEngine.UI;
+using Unity.VisualScripting;
 public class InventoryMenu : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -15,19 +17,22 @@ public class InventoryMenu : MonoBehaviour
     public Transform inventoryContent;
     public GameObject inventoryItemPrefab;
 
-    //For selling items
-    private CustomerManager customerManager;
-
     public JSONDatabaseOperations db;
 
     [SerializeField] TMP_InputField textInputField;
+
+    float[] dBoxOptions = { 10f, 25f, 50f };
 
     void Start()
     {
         inventoryPanel.SetActive(false);
         //AddTestItems();
         UpdateInventoryUI();
+    }
 
+    void MarkupChange(int index, int merchID)
+    {
+        db.currentPlayer.merch[merchID - 1].markupPercentage = dBoxOptions[index];
     }
 
     // Update is called once per frame
@@ -79,6 +84,15 @@ public class InventoryMenu : MonoBehaviour
         {
             GameObject newItem = Instantiate(inventoryItemPrefab, inventoryContent);
 
+            TMP_Dropdown dBox = newItem.GetComponentInChildren<TMP_Dropdown>();
+
+            if (dBox == null)
+            {
+                Debug.Log("Could not find dropdown");
+            }
+
+            dBox.onValueChanged.AddListener((int index) => MarkupChange(index, item.id));
+
             float sellingPrice = item.baseCost * item.markupPercentage;
 
             // Find TextMeshPro components directly in the prefab
@@ -89,6 +103,19 @@ public class InventoryMenu : MonoBehaviour
             texts[3].text = item.markupPercentage.ToString() + "%";
             texts[4].text = item.group.ToString();
             texts[5].text = item.tier.ToString();
+
+            if (item.markupPercentage == 10f)
+            {
+                dBox.value = 0;
+            }
+            else if (item.markupPercentage == 25f)
+            {
+                dBox.value = 1;
+            }
+            else if (item.markupPercentage == 50f)
+            {
+                dBox.value = 2;
+            }
         }
     }
 

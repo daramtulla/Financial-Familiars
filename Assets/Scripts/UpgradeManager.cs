@@ -6,6 +6,8 @@ using System.Linq;
 
 public class UpgradeManager : MonoBehaviour
 {
+    public SoundManager soundManager;
+
     public GameObject upgradeUI;
     public Transform upgradeContent;
     public GameObject upgradePrefab;
@@ -44,6 +46,7 @@ public class UpgradeManager : MonoBehaviour
         upgradeUI.SetActive(false);
     }
 
+    //HIRE ID 1
     public void UpdateUpgradeUI()
     {
         foreach (Transform child in upgradeContent)
@@ -58,15 +61,23 @@ public class UpgradeManager : MonoBehaviour
             //todo: Add texts
             texts[0].text = upgrade.Name;
             //TODO: make this more efficient?
+
+            float cost = upgrade.Cost;
+
+            //HIRE ID 1, 7: Affects prices of upgrades
             if (db.currentPlayer.employees.Any(employee => employee.id == 1))
             {
-                texts[1].text = "$" + (upgrade.Cost * 0.95f);
+                cost *= 0.95f;
             }
-            else
+            if (db.currentPlayer.employees.Any(employee => employee.id == 7))
             {
-                texts[1].text = "$" + upgrade.Cost;
+                cost *= 1.10f;
             }
+            texts[1].text = "$" + cost;
+  
             texts[2].text = upgrade.Description;
+
+
 
             //TODO: add button with correct name
             Button buyButton = newItem.transform.Find("BuyButton").GetComponent<Button>();
@@ -82,19 +93,32 @@ public class UpgradeManager : MonoBehaviour
         }
         if (db.currentPlayer.currentMoney >= cost)
         {
-            db.currentPlayer.currentMoney -= cost;
-            Upgrade upgradeToBuy = db.currentPlayer.unpurchasedUpgrades.Find(upgrade => upgrade.id == id);
-            if (upgradeToBuy != null)
+            // HIRE ID 12: Chance to not buy an upgrade
+            if (db.currentPlayer.employees.Any(e => e.id == 12) && new System.Random().Next(1, 100) >= 95)
             {
-                db.AddUpgrade(upgradeToBuy);
-                db.currentPlayer.unpurchasedUpgrades.Remove(upgradeToBuy);
-                UpdateUpgradeUI();
+                // TODO: ADD FEEDBACK FOR THE ITEMS BEING LOST
+                db.currentPlayer.currentMoney -= cost;
             }
             else
             {
-                Debug.Log("Upgrade not found");
+                db.currentPlayer.currentMoney -= cost;
+                Upgrade upgradeToBuy = db.currentPlayer.unpurchasedUpgrades.Find(upgrade => upgrade.id == id);
+                if (upgradeToBuy != null)
+                {
+                    db.AddUpgrade(upgradeToBuy);
+                    db.currentPlayer.unpurchasedUpgrades.Remove(upgradeToBuy);
+                    UpdateUpgradeUI();
+                }
+                else
+                {
+                    Debug.Log("Upgrade not found");
+                }
             }
-
+            soundManager.ButtonClickSound();
+        }
+        else
+        {
+            soundManager.soundAudioSource.PlayOneShot(soundManager.itemPurchaseError, 0.2f);
         }
     }
 }

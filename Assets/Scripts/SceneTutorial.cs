@@ -6,9 +6,11 @@ public class SceneTutorial : MonoBehaviour
     [SerializeField] GameObject tutorialPopup;
     [SerializeField] Button closeButton;
     [SerializeField] string tutorialKey = "SceneStartTutorial";
+    [SerializeField] JSONDatabaseOperations db;
+
     void Start()
     {
-        if (PlayerPrefs.GetInt(tutorialKey, 0) == 0)
+        if (!db.currentPlayer.completedTutorials.Contains(tutorialKey))
         {
             ShowTutorial();
         }
@@ -23,8 +25,12 @@ public class SceneTutorial : MonoBehaviour
     }
     void CloseTutorial()
     {
-        PlayerPrefs.SetInt(tutorialKey, 1);
-        PlayerPrefs.Save();
+        /* 
+         * PlayerPrefs.SetInt(tutorialKey, 1);
+         * PlayerPrefs.Save();
+         */
+        db.currentPlayer.completedTutorials.Add(tutorialKey);
+        db.SaveData();
         tutorialPopup.SetActive(false);
     }
 }
