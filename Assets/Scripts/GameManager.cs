@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("Incorrect cyle order");
         }
 
-        db.currentPlayer.IncrDay();
+
         EndDay();
         db.currentPlayer.dailySales = 0;
         //Debug.Log($"RestartCycle(): db.currentPlayer.dailySales: {db.currentPlayer.dailySales}");
@@ -162,6 +162,8 @@ public class GameManager : MonoBehaviour
 
         float netProfitAmount = netProfitBeforeTaxAmount - taxAmount;
         FormatText(netProfit, netProfitAmount);
+
+        db.currentPlayer.IncrDay();
 
         //TODO: Split money between savings and spending
         //For now: Send all money to one account
