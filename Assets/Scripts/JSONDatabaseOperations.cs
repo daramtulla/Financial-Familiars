@@ -79,7 +79,7 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.suppliers.Add(new Supplier(9, "Witch's Circle", 0, 0, 0, 0));
 
         //Loans (initial loans)
-        //currentPlayer.loans.Add(new Loan(0, 0f, 0f));
+        //currentPlayer.loans.Add(DECIDE ON VALUE);
 
         //TODO: Tweak daily wages
         currentPlayer.unemployedEmployees.Add(new Employee(0, "Fizzwick Flash", "Marketer", 80, "Fast-talking, dramatic, obsessed with catchy slogans.", "Increases demand for all items.", "Self-Employed for 10 years, made a steady living for themselves, in the Merchant's Guild", "Employees/Fizzwick.png"));
@@ -222,6 +222,7 @@ public class Player
     public float dailySales;
     public float purchases;
     public float totalSales;
+    public float totalLoansPaid;
 
     //To determine what displays should be active
     public int[] active;
@@ -351,6 +352,30 @@ public class Player
         }
     }
 
+    public float GetDailyInterest(List<Loan> loans)
+    {
+        float interest = 0;
+
+        foreach (Loan l in loans)
+        {
+            interest += l.amount * l.interest;
+        }
+
+        return interest;
+    }
+
+    public float GetTotalLoansOwed(List<Loan> loans)
+    {
+        float total = 0;
+
+        foreach (Loan l in loans)
+        {
+            total += l.amount;
+        }
+
+        return total;
+    }
+
     public void AddLoan(Loan loan)
     {
         //Handled in borrowing.cs now
@@ -366,21 +391,6 @@ public class Player
     public void PayLoan(int id, float pay)
     {
         loans[id].amount -= pay;
-    }
-
-    public int LoanCount()
-    {
-        int count = 0;
-
-        foreach (Loan l in loans)
-        {
-            if (l.amount > 0)
-            {
-                count++;
-            }
-        }
-
-        return count;
     }
 }
 

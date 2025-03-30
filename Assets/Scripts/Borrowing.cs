@@ -40,15 +40,24 @@ public class Borrowing : MonoBehaviour
         }
     }
 
+    public void ToggleMenu()
+    {
+        borrowmenu.SetActive(!borrowmenu.activeSelf);
+        if (borrowmenu.activeSelf)
+        {
+            PopulateLoanCards();
+        }
+    }
+
 
     void LoadTestLoans()
     {
         availableLoans.Clear();
-        availableLoans.Add(new Loan(0, 25000f, 20f, "Candlelight Credit", false, JSONDatabaseOperations.InterestType.Flat));
-        availableLoans.Add(new Loan(1, 10000f, 50f, "Dragon Investments", false, JSONDatabaseOperations.InterestType.Flat));
-        availableLoans.Add(new Loan(2, 50000f, 5f, "Bank of Enchancia", false, JSONDatabaseOperations.InterestType.Flat));
-        availableLoans.Add(new Loan(3, 35000f, 15f, "Turtle Tank inc.", false, JSONDatabaseOperations.InterestType.Flat));
-        availableLoans.Add(new Loan(4, 15000f, 3f, "Fae Court Credit Union", false, JSONDatabaseOperations.InterestType.Compound));
+        availableLoans.Add(new Loan(0, 25000f, .2f, "Candlelight Credit", false, JSONDatabaseOperations.InterestType.Flat));
+        availableLoans.Add(new Loan(1, 10000f, .5f, "Dragon Investments", false, JSONDatabaseOperations.InterestType.Flat));
+        availableLoans.Add(new Loan(2, 50000f, .05f, "Bank of Enchancia", false, JSONDatabaseOperations.InterestType.Flat));
+        availableLoans.Add(new Loan(3, 35000f, .15f, "Turtle Tank inc.", false, JSONDatabaseOperations.InterestType.Flat));
+        availableLoans.Add(new Loan(4, 15000f, .03f, "Fae Court Credit Union", false, JSONDatabaseOperations.InterestType.Compound));
     }
 
     void PopulateLoanCards()

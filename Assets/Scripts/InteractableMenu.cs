@@ -15,6 +15,7 @@ public class Interactable : MonoBehaviour, InteractMenu
     [SerializeField] GameManager gameManager;
     [SerializeField] ShowMenu showMenu;
     [SerializeField] LoansMenu loansMenu;
+    [SerializeField] Borrowing borrowMenu;
     [SerializeField] EmployeeManager employeeManager;
 
     public Text interactableNameText;
@@ -74,7 +75,7 @@ public class Interactable : MonoBehaviour, InteractMenu
                 Debug.Log("Close End Day Screen");
                 showMenu.ShowElement(true); //I'm assuming true for ShowElement means "yes" to unpause
             }
-            else if (menuToOpenOrClose.name == "Loans Menu")
+            else if (menuToOpenOrClose.name == "LoansMenu")
             {
                 Debug.Log("Close Loans Menu");
                 loansMenu.CloseThis();
@@ -82,7 +83,7 @@ public class Interactable : MonoBehaviour, InteractMenu
             else if (menuToOpenOrClose.name == "Borrowing Lectern")
             {
                 Debug.Log("Close Borrowing Menu");
-                loansMenu.CloseThis();
+                borrowMenu.CloseMenu();
             }
             else if (menuToOpenOrClose.name == "HiringUI")
             {
@@ -132,7 +133,7 @@ public class Interactable : MonoBehaviour, InteractMenu
                     gameManager.RestartCycle();
                 }
             }
-            else if (menuToOpenOrClose.name == "Loans Menu")
+            else if (menuToOpenOrClose.name == "LoansMenu")
             {
                 Debug.Log("Open Loans Menu");
                 loansMenu.OpenThis();
@@ -140,7 +141,7 @@ public class Interactable : MonoBehaviour, InteractMenu
             else if (menuToOpenOrClose.name == "Borrowing Lectern")
             {
                 Debug.Log("Close Borrowing Menu");
-                loansMenu.OpenThis();
+                borrowMenu.ToggleMenu();
             }
             else if (menuToOpenOrClose.name == "HiringUI")
             {
