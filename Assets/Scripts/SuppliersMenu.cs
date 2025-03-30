@@ -212,5 +212,6 @@ public class SuppliersMenu : MonoBehaviour
         {
             soundManager.soundAudioSource.PlayOneShot(soundManager.itemPurchaseError, 0.2f);
         }
+        db.SaveData();
     }
 }

@@ -166,6 +166,7 @@ public class GameManager : MonoBehaviour
         //TODO: Split money between savings and spending
         //For now: Send all money to one account
         playerManager.UpdatePlayerStats(netProfitAmount);
+        db.SaveData();
     }
     public void FormatText(Text textObject, float amount)
     {
