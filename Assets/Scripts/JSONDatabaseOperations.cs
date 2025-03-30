@@ -8,6 +8,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
+using static JSONDatabaseOperations;
 
 public class JSONDatabaseOperations : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class JSONDatabaseOperations : MonoBehaviour
     public Player currentPlayer;
 
     [SerializeField] Boolean RegenerateOnLoad;
+
+    public enum InterestType { Flat, Compound }
 
     void Awake()
     {
@@ -35,7 +38,7 @@ public class JSONDatabaseOperations : MonoBehaviour
 
     public void generateDatabase()
     {
-        if(File.Exists(Application.persistentDataPath + "/JSONDatabase.json"))
+        if (File.Exists(Application.persistentDataPath + "/JSONDatabase.json"))
         {
             File.Delete(Application.persistentDataPath + "/JSONDatabase.json");
         }
@@ -75,10 +78,8 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.suppliers.Add(new Supplier(8, "Dwarven Magics", 0, 0, 0, 0));
         currentPlayer.suppliers.Add(new Supplier(9, "Witch's Circle", 0, 0, 0, 0));
 
-        //Loans
-        currentPlayer.loans.Add(new Loans("Loan 1", 0f, 0f));
-        currentPlayer.loans.Add(new Loans("Loan 2", 0f, 0f));
-        currentPlayer.loans.Add(new Loans("Loan 3", 0f, 0f));
+        //Loans (initial loans)
+        //currentPlayer.loans.Add(new Loan(0, 0f, 0f));
 
         //TODO: Tweak daily wages
         currentPlayer.unemployedEmployees.Add(new Employee(0, "Fizzwick Flash", "Marketer", 80, "Fast-talking, dramatic, obsessed with catchy slogans.", "Increases demand for all items.", "Self-Employed for 10 years, made a steady living for themselves, in the Merchant's Guild", "Employees/Fizzwick.png"));
@@ -144,13 +145,6 @@ public class JSONDatabaseOperations : MonoBehaviour
             Debug.Log("Data Saved");
         }
     }
-
-    /*
-    public void toChangeMarkup()
-    {
-        currentPlayer.ChangeMarkup();
-    }
-    */
 
     public void LoadData()
     {
@@ -236,7 +230,7 @@ public class Player
     public System.Object newPlayer;
 
     //Sub objects of player
-    public List<Loans> loans = new List<Loans>();
+    public List<Loan> loans = new List<Loan>();
     public List<Merchandise> merch = new List<Merchandise>();
     public List<Supplier> suppliers = new List<Supplier>();
     public List<Employee> unemployedEmployees = new List<Employee>();
@@ -349,28 +343,24 @@ public class Player
 
     //Loan Method Helpers
     // HIRE 13: LOWER INTEREST RATE ON LOANS
-    public void AddDailyInterest(List<Loans> loans)
+    public void AddDailyInterest(List<Loan> loans)
     {
-        foreach (Loans l in loans)
+        foreach (Loan l in loans)
         {
             l.amount += l.amount * l.interest;
         }
     }
 
-    public void AddLoan(List<Loans> loans, float newAmount, float newInterest)
+    public void AddLoan(Loan loan)
     {
-        for (int i = 0; i < 3; i++)
+        //Handled in borrowing.cs now
+        if (loans.Count > 3)
         {
-            if (loans[i].amount == 0f)
-            {
-                loans[i].amount = newAmount;
-                loans[i].interest = newInterest;
-                return;
-            }
+            Debug.Log("Already have 3 Loans");
+            return;
         }
 
-        //TODO put user feedback to say max amount of loans has been reached
-        Debug.Log("Already have 3 Loans");
+        loans.Add(loan);
     }
 
     public void PayLoan(int id, float pay)
@@ -382,7 +372,7 @@ public class Player
     {
         int count = 0;
 
-        foreach (Loans l in loans)
+        foreach (Loan l in loans)
         {
             if (l.amount > 0)
             {
@@ -444,16 +434,23 @@ public class Supplier
 
 //Max of three loans out at once
 [System.Serializable]
-public class Loans
+public class Loan
 {
-    public string id;
+    public int id;
     public float amount;
     public float interest;
-    public Loans(string id, float amount, float interest)
+    public string lender;
+    public bool borrowed = false;
+
+    public InterestType type;
+    public Loan(int id, float amount, float interest, string lender, bool borrowed, InterestType type)
     {
         this.id = id;
         this.amount = amount;
         this.interest = interest;
+        this.lender = lender;
+        this.borrowed = borrowed;
+        this.type = type;
     }
 
 }

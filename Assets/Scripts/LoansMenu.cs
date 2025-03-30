@@ -11,18 +11,14 @@ using System.Data.Common;
 
 public class LoansMenu : MonoBehaviour
 {
-    [SerializeField] Button close;
 
+    [SerializeField] Button close;
     [SerializeField] Button up;
     [SerializeField] Button down;
-
     [SerializeField] Button newest;
     [SerializeField] Button oldest;
-
     [SerializeField] Button paynow;
-
     [SerializeField] GameObject loansmenu;
-
     [SerializeField] GameObject totalloans;
     [SerializeField] GameObject totalinterest;
     [SerializeField] GameObject currenttype;
@@ -32,7 +28,7 @@ public class LoansMenu : MonoBehaviour
     [SerializeField] InteractionManager interactionManager;
     [SerializeField] JSONDatabaseOperations db;
 
-    [SerializeField] RandomGenNum rnd;
+    [SerializeField] RandomGenNum rnd = new RandomGenNum();
 
     [SerializeField] int highOffer = 10001;
 
@@ -40,56 +36,7 @@ public class LoansMenu : MonoBehaviour
 
     [SerializeField] int maxLoans = 3;
 
-    public string numDisp(float numba)
-    {
-        string preturnable;
-        string returnable = "";
-        bool dotfound = false;
-        preturnable = MathF.Round(numba, 2, 0).ToString();
 
-        if (preturnable.Length < 3)
-        {
-            return "$" + preturnable + ".00";
-        }
-
-        int digitcount = 1;
-        for (int i = preturnable.Length - 1; i >= 0; i--)
-        {
-            if (preturnable[i] == '.')
-            {
-                if (returnable.Length == 1)
-                {
-                    returnable = returnable + "0";
-                }
-                digitcount = 0;
-                dotfound = true;
-            }
-
-            returnable = preturnable[i] + returnable;
-            if (digitcount == 3)
-            {
-                if (i != 0)
-                {
-                    returnable = "," + returnable;
-                }
-
-                if (!dotfound)
-                {
-                    returnable = returnable + ".00";
-                    //not found, but we ain looking no more
-                    dotfound = true;
-                }
-                digitcount = 1;
-            }
-            else
-            {
-                digitcount++;
-            }
-        }
-
-        ///returnable[returnable.Length];
-        return "$" + returnable;
-    }
 
     private int currentindex = 0;
 
@@ -97,20 +44,18 @@ public class LoansMenu : MonoBehaviour
     Color target = new Color(118, 89, 60, 255);
     Color current = new Color(53, 41, 42, 255);
 
-    List<Loans> theloans;
+    List<Loan> loans;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-
-        theloans = db.currentPlayer.loans;
-        rnd = new RandomGenNum();
+        loans = db.currentPlayer.loans;
     }
 
     void Start()
     {
         loansmenu.SetActive(false);
 
-        GenerateOffers();
+        //GenerateOffers();
         close.onClick.AddListener(CloseThis);
         up.onClick.AddListener(Increaser);
         down.onClick.AddListener(Decreaser);
@@ -130,7 +75,7 @@ public class LoansMenu : MonoBehaviour
     {
 
         LoansDisplay();
-        if (theloans[currentindex].interest > 0)
+        if (loans[currentindex].interest > 0)
         {
             highlighttext(currentinterest, currentamount);
         }
@@ -153,7 +98,7 @@ public class LoansMenu : MonoBehaviour
 
     void ClearLoan()
     {
-        float value = theloans[currentindex].amount;
+        float value = loans[currentindex].amount;
 
         //TODO
         if (true)
@@ -163,7 +108,7 @@ public class LoansMenu : MonoBehaviour
         }
         else
         {
-            theloans[currentindex].interest -= value;
+            loans[currentindex].interest -= value;
             db.currentPlayer.currentMoney -= value;
         }
     }
@@ -227,6 +172,7 @@ public class LoansMenu : MonoBehaviour
     }
 
 
+    /*
     void GenerateOffers()
     {
         //Offering five loans
@@ -235,9 +181,10 @@ public class LoansMenu : MonoBehaviour
             String name = "Offer" + i;
             float amount = OfferAmount();
             float interest = OfferInterest(amount);
-            theloans.Add(new Loans(name, amount, interest));
+            //theloans.Add(new Loans(name, amount, interest));
         }
     }
+    
 
     public float OfferInterest(float offer)
     {
@@ -253,6 +200,7 @@ public class LoansMenu : MonoBehaviour
         //Rounds to nearest hundred
         return (float)Math.Round((float)rnd.GetRandomLoanAmount(lowOffer, highOffer) / 100 * 100);
     }
+    */
 
     void LoansDisplay()
     {
@@ -272,11 +220,12 @@ public class LoansMenu : MonoBehaviour
             }
         }
 
-        totalloans.GetComponent<TMP_Text>().text = db.currentPlayer.LoanCount().ToString();
+        totalloans.GetComponent<TMP_Text>().text = db.currentPlayer.loans.Count.ToString();
         totalinterest.GetComponent<TMP_Text>().text = "N/A"; //Does it make sense to add interest?
         currentamount.GetComponent<TMP_Text>().text = Math.Round(db.currentPlayer.loans[currentindex].interest, 2).ToString();
         currentinterest.GetComponent<TMP_Text>().text = Math.Round(db.currentPlayer.loans[currentindex].amount, 2).ToString();
         currenttype.GetComponent<TMP_Text>().text = currentindex.ToString();
     }
 }
+
 
