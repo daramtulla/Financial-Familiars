@@ -2,27 +2,22 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
+using System.Data.Common;
 
 public class Borrowing : MonoBehaviour
 {
     public GameObject BorrowingCardPrefab;
-    public Transform loanCardContainer; 
-    public enum InterestType { Flat, Compounding }
+    public Transform loanCardContainer;
     public GameObject loanLimitMessage;
+
+    [SerializeField] GameObject borrowmenu;
+
+    [SerializeField] JSONDatabaseOperations db;
+    [SerializeField] InteractionManager im;
 
     public int maxLoans = 3;
 
-    [System.Serializable]
-    public class LoanOffer
-    {
-        public int Amount;
-        public float Interest;
-        public string Lender;
-        public InterestType interestType;
-        public bool borrowed = false;
-    }
-
-    public List<LoanOffer> availableLoans = new List<LoanOffer>();
+    public List<Loan> availableLoans = new List<Loan>();
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -37,17 +32,32 @@ public class Borrowing : MonoBehaviour
     public void CloseMenu()
     {
         gameObject.SetActive(false);
+
+        if (InteractionManager.GetInteractState() == true)
+        {
+            Debug.Log("(SuppliersMenu): GetInteractState() is true");
+            im.SwitchInteractState();
+        }
+    }
+
+    public void ToggleMenu()
+    {
+        borrowmenu.SetActive(!borrowmenu.activeSelf);
+        if (borrowmenu.activeSelf)
+        {
+            PopulateLoanCards();
+        }
     }
 
 
     void LoadTestLoans()
     {
         availableLoans.Clear();
-        availableLoans.Add(new LoanOffer { Amount = 25000, Interest = 20f, Lender = "Candlelight Credit", interestType = InterestType.Flat, borrowed = false });
-        availableLoans.Add(new LoanOffer { Amount = 10000, Interest = 50f, Lender = "Dragon Investments", interestType = InterestType.Flat, borrowed = false });
-        availableLoans.Add(new LoanOffer { Amount = 50000, Interest = 5f, Lender = "Bank of Enchancia", interestType = InterestType.Compounding, borrowed = false });
-        availableLoans.Add(new LoanOffer { Amount = 35000, Interest = 15f, Lender = "Turtle Tank inc.", interestType = InterestType.Flat, borrowed = false });
-        availableLoans.Add(new LoanOffer { Amount = 15000, Interest = 3f, Lender = "Fae Court Credit Union", interestType = InterestType.Compounding, borrowed = false });
+        availableLoans.Add(new Loan(0, 25000f, .2f, "Candlelight Credit", false, JSONDatabaseOperations.InterestType.Flat));
+        availableLoans.Add(new Loan(1, 10000f, .5f, "Dragon Investments", false, JSONDatabaseOperations.InterestType.Flat));
+        availableLoans.Add(new Loan(2, 50000f, .05f, "Bank of Enchancia", false, JSONDatabaseOperations.InterestType.Flat));
+        availableLoans.Add(new Loan(3, 35000f, .15f, "Turtle Tank inc.", false, JSONDatabaseOperations.InterestType.Flat));
+        availableLoans.Add(new Loan(4, 15000f, .03f, "Fae Court Credit Union", false, JSONDatabaseOperations.InterestType.Compound));
     }
 
     void PopulateLoanCards()
@@ -70,33 +80,36 @@ public class Borrowing : MonoBehaviour
             if (loanLimitMessage != null) loanLimitMessage.SetActive(false);
         }
 
-        foreach (LoanOffer loan in availableLoans)
+        foreach (Loan loan in availableLoans)
         {
-            if (!loan.borrowed){
+            if (!loan.borrowed)
+            {
                 GameObject card = Instantiate(BorrowingCardPrefab, loanCardContainer);
                 SetCardInfo(card, loan);
             }
-            
+
         }
     }
 
     // HIRE 13: Lower interest rates
-    void SetCardInfo(GameObject card, LoanOffer loan)
+    void SetCardInfo(GameObject card, Loan loan)
     {
         TextMeshProUGUI[] texts = card.GetComponentsInChildren<TextMeshProUGUI>();
 
         foreach (TextMeshProUGUI t in texts)
         {
-            if (t.name == "Amount") t.text = $"${loan.Amount}";
-            else if (t.name == "Interest") t.text = $"{loan.Interest}%";
-            else if (t.name == "Lender") t.text = $"{loan.Lender}";
-            else if (t.name == "InterestType") t.text = $"{loan.interestType.ToString()}";
+            if (t.name == "Amount") t.text = $"${loan.amount}";
+            else if (t.name == "Interest") t.text = $"{loan.interest}%";
+            else if (t.name == "Lender") t.text = $"{loan.lender}";
+            else if (t.name == "InterestType") t.text = $"{loan.type.ToString()}";
         }
 
         Button borrowButton = card.transform.Find("BorrowButton").GetComponent<Button>();
         borrowButton.onClick.AddListener(() =>
         {
             loan.borrowed = true;
+            db.currentPlayer.AddLoan(loan);
+            db.currentPlayer.currentMoney += loan.amount;
             PopulateLoanCards();
         });
     }

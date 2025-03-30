@@ -11,85 +11,34 @@ using System.Data.Common;
 
 public class LoansMenu : MonoBehaviour
 {
-    [SerializeField] Button close;
 
+    [SerializeField] Button close;
     [SerializeField] Button up;
     [SerializeField] Button down;
-
     [SerializeField] Button newest;
     [SerializeField] Button oldest;
-
     [SerializeField] Button paynow;
-
     [SerializeField] GameObject loansmenu;
-
     [SerializeField] GameObject totalloans;
     [SerializeField] GameObject totalinterest;
     [SerializeField] GameObject currenttype;
     [SerializeField] GameObject currentamount;
     [SerializeField] GameObject currentinterest;
+    [SerializeField] GameObject payInput;
+
+    [SerializeField] int maxLoans;
 
     [SerializeField] InteractionManager interactionManager;
     [SerializeField] JSONDatabaseOperations db;
 
-    [SerializeField] RandomGenNum rnd;
+    [SerializeField] RandomGenNum rnd = new RandomGenNum();
 
-    [SerializeField] int highOffer = 10001;
 
-    [SerializeField] int lowOffer = 1000;
+    //[SerializeField] int highOffer = 10001;
 
-    [SerializeField] int maxLoans = 3;
+    //[SerializeField] int lowOffer = 1000;
 
-    public string numDisp(float numba)
-    {
-        string preturnable;
-        string returnable = "";
-        bool dotfound = false;
-        preturnable = MathF.Round(numba, 2, 0).ToString();
-
-        if (preturnable.Length < 3)
-        {
-            return "$" + preturnable + ".00";
-        }
-
-        int digitcount = 1;
-        for (int i = preturnable.Length - 1; i >= 0; i--)
-        {
-            if (preturnable[i] == '.')
-            {
-                if (returnable.Length == 1)
-                {
-                    returnable = returnable + "0";
-                }
-                digitcount = 0;
-                dotfound = true;
-            }
-
-            returnable = preturnable[i] + returnable;
-            if (digitcount == 3)
-            {
-                if (i != 0)
-                {
-                    returnable = "," + returnable;
-                }
-
-                if (!dotfound)
-                {
-                    returnable = returnable + ".00";
-                    //not found, but we ain looking no more
-                    dotfound = true;
-                }
-                digitcount = 1;
-            }
-            else
-            {
-                digitcount++;
-            }
-        }
-
-        ///returnable[returnable.Length];
-        return "$" + returnable;
-    }
+    //[SerializeField] int maxLoans = 3;
 
     private int currentindex = 0;
 
@@ -97,12 +46,9 @@ public class LoansMenu : MonoBehaviour
     Color target = new Color(118, 89, 60, 255);
     Color current = new Color(53, 41, 42, 255);
 
-    List<Loans> theloans;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-
-        theloans = db.currentPlayer.loans;
         rnd = new RandomGenNum();
     }
 
@@ -110,13 +56,13 @@ public class LoansMenu : MonoBehaviour
     {
         loansmenu.SetActive(false);
 
-        GenerateOffers();
+        //GenerateOffers();
         close.onClick.AddListener(CloseThis);
         up.onClick.AddListener(Increaser);
         down.onClick.AddListener(Decreaser);
         newest.onClick.AddListener(setset2);
         oldest.onClick.AddListener(setset1);
-        paynow.onClick.AddListener(ClearLoan);
+        paynow.onClick.AddListener(PayLoan);
         //highlighttext();
 
         ogcolor = new Color(53, 41, 42, 255);
@@ -125,52 +71,30 @@ public class LoansMenu : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+    void PayLoan()
     {
-
-        LoansDisplay();
-        if (theloans[currentindex].interest > 0)
+        List<Loan> loans = db.currentPlayer.loans;
+        float payAmt;
+        if (float.TryParse(payInput.GetComponent<TMP_InputField>().text, out payAmt))
         {
-            highlighttext(currentinterest, currentamount);
-        }
-        else
-        {
-            highlighttext(currentamount, currentinterest);
-        }
+            Debug.Log(payAmt);
 
-        //Debug.Log(moneyspent);
-    }
+            if (db.currentPlayer.currentMoney >= payAmt)
+            {
+                loans[currentindex].amount -= payAmt;
+                db.currentPlayer.currentMoney -= payAmt;
+                db.currentPlayer.totalLoansPaid += payAmt;
+            }
 
-    bool AttemptLoanPayment(float value)
-    {
-        if (db.currentPlayer.currentMoney >= value)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    void ClearLoan()
-    {
-        float value = theloans[currentindex].amount;
-
-        //TODO
-        if (true)
-        {
-            //TODO play noise or display graphic showing you cant pay
-            return;
-        }
-        else
-        {
-            theloans[currentindex].interest -= value;
-            db.currentPlayer.currentMoney -= value;
+            LoansDisplay();
         }
     }
 
     public void CloseThis()
     {
         Debug.Log("Test Loan Menu Close");
+
+        loansmenu.SetActive(false);
         //The if statement prevents you from being frozen when you press F to interact
         //and then press the close button.
         //Also prevents "switchInteractState()" from being called twice when F is pressed
@@ -180,38 +104,57 @@ public class LoansMenu : MonoBehaviour
             Debug.Log("(LoansMenu): GetInteractState() is true");
             interactionManager.SwitchInteractState();
         }
-        loansmenu.SetActive(false);
+
     }
     public void OpenThis()
     {
         loansmenu.SetActive(true);
+        LoansDisplay();
     }
     void Increaser()
     {
+        if (db.currentPlayer.loans.Count == 0)
+        {
+            return;
+        }
+
         currentindex += 1;
         if (currentindex >= maxLoans)
         {
             currentindex = 0;
         }
+
+        LoansDisplay();
     }
     void Decreaser()
     {
+        if (db.currentPlayer.loans.Count == 0)
+        {
+            return;
+        }
+
         currentindex -= 1;
         if (currentindex < 0)
         {
             currentindex = maxLoans - 1;
         }
+
+        LoansDisplay();
     }
     void setset1()
     {
         currentindex = 0;
+
+        LoansDisplay();
     }
     void setset2()
     {
-        currentindex = maxLoans - 1;
+        currentindex = db.currentPlayer.loans.Count - 1;
+
+        LoansDisplay();
     }
 
-
+    /*
     float cycler = 0;
     void highlighttext(GameObject tom, GameObject jerry)
     {
@@ -226,7 +169,7 @@ public class LoansMenu : MonoBehaviour
         jerry.GetComponent<TMP_Text>().color = new Color(ogcolor.r / 255, ogcolor.g / 255, ogcolor.b / 255);
     }
 
-
+    
     void GenerateOffers()
     {
         //Offering five loans
@@ -235,7 +178,7 @@ public class LoansMenu : MonoBehaviour
             String name = "Offer" + i;
             float amount = OfferAmount();
             float interest = OfferInterest(amount);
-            theloans.Add(new Loans(name, amount, interest));
+            //theloans.Add(new Loans(name, amount, interest));
         }
     }
 
@@ -253,9 +196,12 @@ public class LoansMenu : MonoBehaviour
         //Rounds to nearest hundred
         return (float)Math.Round((float)rnd.GetRandomLoanAmount(lowOffer, highOffer) / 100 * 100);
     }
+    */
 
     void LoansDisplay()
     {
+        List<Loan> loans = db.currentPlayer.loans;
+
 
         if (currentindex < 0)
         {
@@ -272,11 +218,36 @@ public class LoansMenu : MonoBehaviour
             }
         }
 
-        totalloans.GetComponent<TMP_Text>().text = db.currentPlayer.LoanCount().ToString();
-        totalinterest.GetComponent<TMP_Text>().text = "N/A"; //Does it make sense to add interest?
-        currentamount.GetComponent<TMP_Text>().text = Math.Round(db.currentPlayer.loans[currentindex].interest, 2).ToString();
-        currentinterest.GetComponent<TMP_Text>().text = Math.Round(db.currentPlayer.loans[currentindex].amount, 2).ToString();
-        currenttype.GetComponent<TMP_Text>().text = currentindex.ToString();
+        totalloans.GetComponent<TMP_Text>().text = db.currentPlayer.GetTotalLoansOwed(loans).ToString();
+        totalinterest.GetComponent<TMP_Text>().text = db.currentPlayer.GetDailyInterest(loans).ToString();
+
+        if (loans.Count == 0)
+        {
+            currentamount.GetComponent<TMP_Text>().text = "0";
+        }
+        else
+        {
+            currentamount.GetComponent<TMP_Text>().text = Math.Round(db.currentPlayer.loans[currentindex].amount, 2).ToString();
+        }
+
+        if (loans.Count == 0)
+        {
+            currentinterest.GetComponent<TMP_Text>().text = "0";
+        }
+        else
+        {
+            currentinterest.GetComponent<TMP_Text>().text = Math.Round(db.currentPlayer.loans[currentindex].interest, 2).ToString();
+        }
+
+        if (loans.Count == 0)
+        {
+            currenttype.GetComponent<TMP_Text>().text = "N/A";
+        }
+        else
+        {
+            currenttype.GetComponent<TMP_Text>().text = loans[currentindex].lender;
+        }
     }
 }
+
 

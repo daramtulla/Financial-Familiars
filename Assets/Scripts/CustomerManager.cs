@@ -313,7 +313,7 @@ public class CustomerManager : MonoBehaviour
         }
 
         //Todo Test for correctness
-        float sale = baseCost * (1 + markup) * (2 - (2 * customerMod * degrees));
+        float sale = baseCost * (1 + markup);
 
         if (debug) { Debug.Log(sale); }
 
