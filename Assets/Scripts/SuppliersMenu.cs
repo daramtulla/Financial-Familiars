@@ -197,5 +197,6 @@ public class SuppliersMenu : MonoBehaviour
                 db.currentPlayer.purchases += total;
             }
         }
+        db.SaveData();
     }
 }
