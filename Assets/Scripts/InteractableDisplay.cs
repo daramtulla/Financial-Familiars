@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class InteractableDisplay : MonoBehaviour, InteractDisplay
 {
+    public SoundManager soundManager;
+    public static bool isPlayingSound = false;
 
     //Merch
     [SerializeField] GameObject potionT1;
@@ -246,6 +248,19 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
     void pastepoof(GameObject point)
     {
         Instantiate(poof,point.transform.position + Vector3.up*0.85f, poof.transform.rotation);
+        if (!isPlayingSound)
+        //Prevents itemPlaced sound to stack due to V key being pressed and an item being placed on every pedestal
+        {
+            soundManager.soundAudioSource.PlayOneShot(soundManager.itemPlaced, 1.0f);
+            isPlayingSound = true;
+            StartCoroutine(IsPlayingSoundRoutine());
+        }
+    }
+
+    IEnumerator IsPlayingSoundRoutine()
+    {
+        yield return new WaitForSeconds(0.01f);
+        isPlayingSound = false;
     }
 
 

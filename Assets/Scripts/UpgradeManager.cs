@@ -6,6 +6,8 @@ using System.Linq;
 
 public class UpgradeManager : MonoBehaviour
 {
+    public SoundManager soundManager;
+
     public GameObject upgradeUI;
     public Transform upgradeContent;
     public GameObject upgradePrefab;
@@ -112,6 +114,11 @@ public class UpgradeManager : MonoBehaviour
                     Debug.Log("Upgrade not found");
                 }
             }
+            soundManager.ButtonClickSound();
+        }
+        else
+        {
+            soundManager.soundAudioSource.PlayOneShot(soundManager.itemPurchaseError, 0.2f);
         }
     }
 }

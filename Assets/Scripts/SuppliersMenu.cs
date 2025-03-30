@@ -10,6 +10,8 @@ using static UnityEngine.ParticleSystem;
 
 public class SuppliersMenu : MonoBehaviour
 {
+    public SoundManager soundManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public GameObject suppliersPanel;
     public Transform suppliersContent;
@@ -196,6 +198,19 @@ public class SuppliersMenu : MonoBehaviour
                 db.currentPlayer.merch[id - 1].quantity += bought;
                 db.currentPlayer.purchases += total;
             }
+
+            if (bought == 1)
+            {
+                soundManager.soundAudioSource.PlayOneShot(soundManager.oneItemPurchase, 1.0f);
+            }
+            else
+            {
+                soundManager.soundAudioSource.PlayOneShot(soundManager.tenItemPurchase, 1.0f);
+            }
+        }
+        else
+        {
+            soundManager.soundAudioSource.PlayOneShot(soundManager.itemPurchaseError, 0.2f);
         }
     }
 }

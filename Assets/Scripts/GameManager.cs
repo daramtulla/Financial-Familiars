@@ -9,6 +9,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public SoundManager soundManager;
+
     public BudgetMenu budgetMenu;
     public SuppliersMenu suppliersMenu;
     public PlayerManager playerManager;
@@ -46,6 +48,7 @@ public class GameManager : MonoBehaviour
         }
 
         db.currentPlayer.cycleNum = 1;
+        soundManager.soundAudioSource.PlayOneShot(soundManager.storeSelling, 0.3f);
         cm.StartSelling();
     }
 
@@ -63,6 +66,7 @@ public class GameManager : MonoBehaviour
         db.currentPlayer.dailySales = 0;
         //Debug.Log($"RestartCycle(): db.currentPlayer.dailySales: {db.currentPlayer.dailySales}");
         db.currentPlayer.cycleNum = 0;
+        soundManager.soundAudioSource.PlayOneShot(soundManager.storeSetup, 1.0f);
     }
 
     private void Update()
