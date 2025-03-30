@@ -109,6 +109,7 @@ public class Borrowing : MonoBehaviour
         {
             loan.borrowed = true;
             db.currentPlayer.AddLoan(loan);
+            db.currentPlayer.currentMoney += loan.amount;
             PopulateLoanCards();
         });
     }
