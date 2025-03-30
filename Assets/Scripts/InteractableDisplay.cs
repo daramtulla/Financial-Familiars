@@ -61,6 +61,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
     [SerializeField] JSONDatabaseOperations db;
 
     private bool Active = false;
+    int frames = 0;
 
     Dictionary<string, GameObject> solutions = new Dictionary<string, GameObject>();
 
@@ -282,15 +283,21 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
             mapper();
             Active = false;
         }
-        if (solutions[displayToModify.name].activeInHierarchy && !Active)
+        if (solutions[displayToModify.name].activeInHierarchy && !Active && frames!=0)
         {
             Active = true;
+            //Debug.Log(solutions[displayToModify.name].name);
             pastepoof(displayToModify);
         }
         else if (!solutions[displayToModify.name].activeInHierarchy)
         {
             Active = false;
         }
+        if (frames < 1)
+        {
+            frames++;
+        }
+        
         //Check to see if display needs to be set inactive when item is sold
         for (int i = 0; i < 18; i++)
         {
