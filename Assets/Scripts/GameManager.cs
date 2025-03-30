@@ -9,6 +9,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public SoundManager soundManager;
+
     public BudgetMenu budgetMenu;
     public SuppliersMenu suppliersMenu;
     public PlayerManager playerManager;
@@ -46,6 +48,7 @@ public class GameManager : MonoBehaviour
         }
 
         db.currentPlayer.cycleNum = 1;
+        soundManager.soundAudioSource.PlayOneShot(soundManager.storeSelling, 0.3f);
         cm.StartSelling();
     }
 
@@ -63,6 +66,7 @@ public class GameManager : MonoBehaviour
         db.currentPlayer.dailySales = 0;
         //Debug.Log($"RestartCycle(): db.currentPlayer.dailySales: {db.currentPlayer.dailySales}");
         db.currentPlayer.cycleNum = 0;
+        soundManager.soundAudioSource.PlayOneShot(soundManager.storeSetup, 1.0f);
     }
 
     private void Update()
@@ -111,7 +115,7 @@ public class GameManager : MonoBehaviour
         //HIRE 13: Lowers interest rates on loans
         //TODO: Add loan logic
         //For now: say it takes $50 to pay off every day
-        float mandatoryLoansAmount = -50.0f;
+        float mandatoryLoansAmount = -db.currentPlayer.totalLoansPaid;
 
 
         float wagesPaidAmount = 0.0f;
@@ -188,7 +192,7 @@ public class GameManager : MonoBehaviour
         float taxAmount = 0.0f;
 
         //My aim is to implement a progressive tax system (higher profit = higher tax)
-        if(moneyMadeAmount > 5000f)
+        if (moneyMadeAmount > 5000f)
         {
             //only profit made above 5000 is taxed at the 30% tax rate
             taxAmount = ((moneyMadeAmount - 5000f) * 0.3f) + 700f;
@@ -197,7 +201,7 @@ public class GameManager : MonoBehaviour
         {
             //only profit made above 2500 is taxed at the 20% tax rate
             taxAmount = ((moneyMadeAmount - 2500f) * 0.2f) + 200f;
-        } 
+        }
         else if (moneyMadeAmount > 500f)
         {
             //only profit made above 500 is taxed at the 10% tax rate
