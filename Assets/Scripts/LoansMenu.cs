@@ -11,7 +11,7 @@ using System.Data.Common;
 
 public class LoansMenu : MonoBehaviour
 {
-    [SerializeField] Button bob;
+    [SerializeField] Button close;
 
     [SerializeField] Button up;
     [SerializeField] Button down;
@@ -21,13 +21,6 @@ public class LoansMenu : MonoBehaviour
 
     [SerializeField] Button paynow;
 
-    [SerializeField] Toggle addone;
-
-    [SerializeField] Toggle addten;
-
-    [SerializeField] Toggle addhundred;
-
-    [SerializeField] Toggle thousandtimes;
     [SerializeField] GameObject loansmenu;
 
     [SerializeField] GameObject totalloans;
@@ -118,7 +111,7 @@ public class LoansMenu : MonoBehaviour
         loansmenu.SetActive(false);
 
         GenerateOffers();
-        bob.onClick.AddListener(CloseThis);
+        close.onClick.AddListener(CloseThis);
         up.onClick.AddListener(Increaser);
         down.onClick.AddListener(Decreaser);
         newest.onClick.AddListener(setset2);
@@ -162,11 +155,8 @@ public class LoansMenu : MonoBehaviour
     {
         float value = theloans[currentindex].amount;
 
-        value += addone.isOn ? 1 : 0;
-        value += addten.isOn ? 10 : 0;
-        value += addhundred.isOn ? 100 : 0;
-        value *= thousandtimes.isOn ? 1000 : 0;
-        if (AttemptLoanPayment(value) == false)
+        //TODO
+        if (true)
         {
             //TODO play noise or display graphic showing you cant pay
             return;

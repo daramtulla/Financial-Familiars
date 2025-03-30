@@ -108,6 +108,7 @@ public class GameManager : MonoBehaviour
         endScreen.SetActive(true);
         endDayTitle.text = "Day " + db.currentPlayer.GetDay() + " Results";
 
+        //HIRE 13: Lowers interest rates on loans
         //TODO: Add loan logic
         //For now: say it takes $50 to pay off every day
         float mandatoryLoansAmount = -50.0f;
@@ -131,7 +132,6 @@ public class GameManager : MonoBehaviour
             utilitiesCostAmount *= 0.9f;
         }
 
-        //TODO: Add multiple employees. For now, just use the ID
         //TODO: Add rent? Or lump it all in utilities. for now, just lump it in with utilities
         if (db.currentPlayer.employees.Any(employee => employee.id == 4))
         {
