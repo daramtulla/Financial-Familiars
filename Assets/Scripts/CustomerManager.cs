@@ -73,6 +73,7 @@ public class CustomerManager : MonoBehaviour
 
         //After timer is up
         db.currentPlayer.cycleNum = 2;
+        //db.SaveData();
         //Debug.Log($"db.currentPlayer.cycleNum: {db.currentPlayer.cycleNum}");
         timerActive = false;
         soundManager.soundAudioSource.PlayOneShot(soundManager.storeClosing, 0.3f);
@@ -313,7 +314,7 @@ public class CustomerManager : MonoBehaviour
         }
 
         //Todo Test for correctness
-        float sale = baseCost * (1 + markup) * (2 - (2 * customerMod * degrees));
+        float sale = baseCost * (1 + markup);
 
         if (debug) { Debug.Log(sale); }
 
@@ -355,7 +356,7 @@ public class CustomerManager : MonoBehaviour
                 Debug.Log("Unknown item group: " + db.currentPlayer.merch[id - 1].group);
                 break;
         }
-        if(db.currentPlayer.upgrades.Any(upgrade => upgrade.id == upgradeNeeded))
+        if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == upgradeNeeded))
         {
             //auto restocks if possible
             //we have already moved the purchased item, so see if there's another one
