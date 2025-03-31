@@ -84,7 +84,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
                 {
                     Debug.Log("Placed Potion T1");
                     potionT1.SetActive(true);
-                    
+
                     db.currentPlayer.active[0] = 1;
                 }
 
@@ -247,7 +247,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
 
     void pastepoof(GameObject point)
     {
-        Instantiate(poof,point.transform.position + Vector3.up*0.85f, poof.transform.rotation);
+        Instantiate(poof, point.transform.position + Vector3.up * 0.85f, poof.transform.rotation);
         if (!isPlayingSound)
         //Prevents itemPlaced sound to stack due to V key being pressed and an item being placed on every pedestal
         {
@@ -290,15 +290,15 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
         solutions.Add(shieldT2Pedestal.gameObject.name, shieldT2);
         solutions.Add(shieldT3Pedestal.gameObject.name, shieldT3);
     }
-   
+
     public void Update()
     {
-        if(solutions.Count == 0)
+        if (solutions.Count == 0)
         {
             mapper();
             Active = false;
         }
-        if (solutions[displayToModify.name].activeInHierarchy && !Active && frames!=0)
+        if (solutions[displayToModify.name].activeInHierarchy && !Active && frames != 0)
         {
             Active = true;
             //Debug.Log(solutions[displayToModify.name].name);
@@ -308,14 +308,12 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
         {
             Active = false;
         }
-        if (frames < 1)
-        {
-            frames++;
-        }
-        
+
+
         //Check to see if display needs to be set inactive when item is sold
         for (int i = 0; i < 18; i++)
         {
+
             if (db.currentPlayer.active[i] != 1)
             {
                 switch (i)
@@ -378,8 +376,6 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
             }
             else if (db.currentPlayer.active[i] == 1)
             {
-                
-                
                 switch (i)
                 {
                     case 0:
@@ -439,5 +435,12 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
                 }
             }
         }
+
+        if (frames < 1)
+        {
+            frames++;
+        }
+
+
     }
 }

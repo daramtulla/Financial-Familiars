@@ -128,6 +128,12 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.dailySales = 0;
         currentPlayer.newPlayer = new IntegerField(1);
         currentPlayer.active = new int[18];
+
+        for (int i = 0; i < 18; i++)
+        {
+            currentPlayer.active[i] = 0;
+        }
+
         currentPlayer.totalSales = 0;
         currentPlayer.purchases = 0;
         currentPlayer.cycleNum = 0;
@@ -151,6 +157,11 @@ public class JSONDatabaseOperations : MonoBehaviour
         filePath = Application.persistentDataPath + "/JSONDatabase.json";
         string JSONString = System.IO.File.ReadAllText(filePath);
         currentPlayer = JsonUtility.FromJson<Player>(JSONString);
+
+        if (currentPlayer.merch.Count != 18)
+        {
+            generateDatabase();
+        }
 
         if (debug)
         {
@@ -218,7 +229,7 @@ public class Player
     public int cycleNum;
     public int currentLoanAmount;
     //Day is private as increasing day needs to generate new supplier stock and reset daily sales
-    private int dayCount;
+    public int dayCount;
     public float dailySales;
     public float purchases;
     public float totalSales;
