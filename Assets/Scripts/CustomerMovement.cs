@@ -70,17 +70,25 @@ public class CustomerMovement : MonoBehaviour
 
     //Non node refs
     public GameObject customerPrefab;
+    public GameObject customerPrefab1;
+    public GameObject customerPrefab2;
+    GameObject[] customerSet;
 
     public Dictionary<GameObject, Customer> linkTable = new Dictionary<GameObject, Customer>();
 
     public Boolean debug;
 
+    private void Start()
+    {
+        customerSet = new GameObject[] { customerPrefab, customerPrefab1, customerPrefab2 };
+    }
     void Update()
     {
 
         //Testing
         if (debug && Input.GetKeyDown(KeyCode.Z))
         {
+            
             CreateCustomer(4);
             /*
             for (int i = 1; i < 19; i++)
@@ -139,7 +147,8 @@ public class CustomerMovement : MonoBehaviour
 
     public void CreateCustomer(int merchId)
     {
-        GameObject customerObj = Instantiate(customerPrefab, startNode.transform.position, startNode.transform.rotation);
+        //GameObject customerObj = Instantiate(customerPrefab, startNode.transform.position, startNode.transform.rotation);
+        GameObject customerObj = Instantiate(customerSet[UnityEngine.Random.Range(0, 3)], startNode.transform.position, startNode.transform.rotation);
         customerObj.SetActive(true);
         Customer customerClass = new Customer(merchId, this);
         linkTable.Add(customerObj, customerClass);
