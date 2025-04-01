@@ -75,6 +75,8 @@ public class CustomerMovement : MonoBehaviour
 
     public Boolean debug;
 
+    [SerializeField] CustomerManager cm;
+
     void Update()
     {
 
@@ -116,6 +118,9 @@ public class CustomerMovement : MonoBehaviour
                     GotoItem(cust.Key);
                     break;
                 case 8:
+                    //Has already reached item.
+                    cm.customerReached[cust.Value.itemToBuy - 1] = 2;
+
                     GoToNode7(cust.Key);
                     break;
                 case 9:
