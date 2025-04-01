@@ -149,16 +149,19 @@ public class CustomerMovement : MonoBehaviour
     public void GoToNode1(GameObject cust)
     {
         cust.transform.position = Vector3.MoveTowards(cust.transform.position, node1.transform.position, speed * Time.deltaTime);
+        cust.transform.LookAt(node1.transform.position);
     }
 
     public void GoToNode2(GameObject cust)
     {
         cust.transform.position = Vector3.MoveTowards(cust.transform.position, node2.transform.position, speed * Time.deltaTime);
+        cust.transform.LookAt(node2.transform.position);
     }
 
     public void GoToNode3(GameObject cust)
     {
         cust.transform.position = Vector3.MoveTowards(cust.transform.position, node3.transform.position, speed * Time.deltaTime);
+        cust.transform.LookAt(node3.transform.position);
     }
 
     public void GoToNode4(GameObject cust)
@@ -168,10 +171,12 @@ public class CustomerMovement : MonoBehaviour
         if (linkTable[cust].nextNode == node4a)
         {
             cust.transform.position = Vector3.MoveTowards(cust.transform.position, node4a.transform.position, speed * Time.deltaTime);
+            cust.transform.LookAt(node4a.transform.position);
         }
         else if (linkTable[cust].nextNode == node4b)
         {
             cust.transform.position = Vector3.MoveTowards(cust.transform.position, node4b.transform.position, speed * Time.deltaTime);
+            cust.transform.LookAt(node4b.transform.position);
         }
     }
     public void GoToNode5(GameObject cust)
@@ -179,26 +184,32 @@ public class CustomerMovement : MonoBehaviour
         if (linkTable[cust].nextNode == node5a)
         {
             cust.transform.position = Vector3.MoveTowards(cust.transform.position, node5a.transform.position, speed * Time.deltaTime);
+            cust.transform.LookAt(node5a.transform.position);
         }
         else if (linkTable[cust].nextNode == node5b)
         {
             cust.transform.position = Vector3.MoveTowards(cust.transform.position, node5b.transform.position, speed * Time.deltaTime);
+            cust.transform.LookAt(node5b.transform.position);
         }
         else if (linkTable[cust].nextNode == node5c)
         {
             cust.transform.position = Vector3.MoveTowards(cust.transform.position, node5c.transform.position, speed * Time.deltaTime);
+            cust.transform.LookAt(node5c.transform.position);
         }
         else if (linkTable[cust].nextNode == node5d)
         {
             cust.transform.position = Vector3.MoveTowards(cust.transform.position, node5d.transform.position, speed * Time.deltaTime);
+            cust.transform.LookAt(node5d.transform.position);
         }
         else if (linkTable[cust].nextNode == node5e)
         {
             cust.transform.position = Vector3.MoveTowards(cust.transform.position, node5e.transform.position, speed * Time.deltaTime);
+            cust.transform.LookAt(node5e.transform.position);
         }
         else if (linkTable[cust].nextNode == node5f)
         {
             cust.transform.position = Vector3.MoveTowards(cust.transform.position, node5f.transform.position, speed * Time.deltaTime);
+            cust.transform.LookAt(node5f.transform.position);
         }
     }
     public void GoToNode6(GameObject cust)
@@ -206,26 +217,32 @@ public class CustomerMovement : MonoBehaviour
         if (linkTable[cust].nextNode == node6a)
         {
             cust.transform.position = Vector3.MoveTowards(cust.transform.position, node6a.transform.position, speed * Time.deltaTime);
+            cust.transform.LookAt(node6a.transform.position);
         }
         else if (linkTable[cust].nextNode == node6b)
         {
             cust.transform.position = Vector3.MoveTowards(cust.transform.position, node6b.transform.position, speed * Time.deltaTime);
+            cust.transform.LookAt(node6b.transform.position);
         }
         else if (linkTable[cust].nextNode == node6c)
         {
             cust.transform.position = Vector3.MoveTowards(cust.transform.position, node6c.transform.position, speed * Time.deltaTime);
+            cust.transform.LookAt(node6c.transform.position);
         }
         else if (linkTable[cust].nextNode == node6d)
         {
             cust.transform.position = Vector3.MoveTowards(cust.transform.position, node6d.transform.position, speed * Time.deltaTime);
+            cust.transform.LookAt(node6d.transform.position);
         }
         else if (linkTable[cust].nextNode == node6e)
         {
             cust.transform.position = Vector3.MoveTowards(cust.transform.position, node6e.transform.position, speed * Time.deltaTime);
+            cust.transform.LookAt(node6e.transform.position);
         }
         else if (linkTable[cust].nextNode == node6f)
         {
             cust.transform.position = Vector3.MoveTowards(cust.transform.position, node6f.transform.position, speed * Time.deltaTime);
+            cust.transform.LookAt(node6f.transform.position);
         }
 
     }
@@ -235,30 +252,37 @@ public class CustomerMovement : MonoBehaviour
         if (linkTable[cust].nextNode == nodeT3Shield)
         {
             cust.transform.position = Vector3.MoveTowards(cust.transform.position, nodeT3Shield.transform.position, speed * Time.deltaTime);
+            
         }
         else if (linkTable[cust].nextNode == nodeT2Shield)
         {
             cust.transform.position = Vector3.MoveTowards(cust.transform.position, nodeT2Shield.transform.position, speed * Time.deltaTime);
+            
         }
         else if (linkTable[cust].nextNode == nodeT1Shield)
         {
             cust.transform.position = Vector3.MoveTowards(cust.transform.position, nodeT1Shield.transform.position, speed * Time.deltaTime);
+            
         }
         else if (linkTable[cust].nextNode == nodeT3Rune)
         {
             cust.transform.position = Vector3.MoveTowards(cust.transform.position, nodeT3Rune.transform.position, speed * Time.deltaTime);
+            
         }
         else if (linkTable[cust].nextNode == nodeT2Rune)
         {
             cust.transform.position = Vector3.MoveTowards(cust.transform.position, nodeT2Rune.transform.position, speed * Time.deltaTime);
+            
         }
         else if (linkTable[cust].nextNode == nodeT1Rune)
         {
             cust.transform.position = Vector3.MoveTowards(cust.transform.position, nodeT1Rune.transform.position, speed * Time.deltaTime);
+            ;
         }
         else if (linkTable[cust].nextNode == nodeT3Weapon)
         {
             cust.transform.position = Vector3.MoveTowards(cust.transform.position, nodeT3Weapon.transform.position, speed * Time.deltaTime);
+            
         }
         else if (linkTable[cust].nextNode == nodeT2Weapon)
         {
@@ -305,6 +329,7 @@ public class CustomerMovement : MonoBehaviour
             cust.transform.position = Vector3.MoveTowards(cust.transform.position, nodeT1Potion.transform.position, speed * Time.deltaTime);
         }
 
+        cust.transform.LookAt(linkTable[cust].nextNode.transform.position);
     }
     public void GoToNode7(GameObject cust)
     {
@@ -332,6 +357,7 @@ public class CustomerMovement : MonoBehaviour
         {
             cust.transform.position = Vector3.MoveTowards(cust.transform.position, node7f.transform.position, speed * Time.deltaTime);
         }
+        cust.transform.LookAt(linkTable[cust].nextNode.transform.position);
     }
 
     public void GoToReg(GameObject cust)
@@ -339,24 +365,29 @@ public class CustomerMovement : MonoBehaviour
         if (linkTable[cust].nextNode == nodeReg1)
         {
             cust.transform.position = Vector3.MoveTowards(cust.transform.position, nodeReg1.transform.position, speed * Time.deltaTime);
+            cust.transform.LookAt(nodeReg2.transform.position);
         }
         else if (linkTable[cust].nextNode == nodeReg2)
         {
             cust.transform.position = Vector3.MoveTowards(cust.transform.position, nodeReg2.transform.position, speed * Time.deltaTime);
+            cust.transform.LookAt(nodeReg2.transform.position);
         }
     }
     public void GoToNode8(GameObject cust)
     {
         cust.transform.position = Vector3.MoveTowards(cust.transform.position, node8.transform.position, speed * Time.deltaTime);
+        cust.transform.LookAt(node8.transform.position);
     }
     public void GoToNode9(GameObject cust)
     {
         cust.transform.position = Vector3.MoveTowards(cust.transform.position, node9.transform.position, speed * Time.deltaTime);
+        cust.transform.LookAt(node9.transform.position);
     }
 
     public void GoToNodeEnd(GameObject cust)
     {
         cust.transform.position = Vector3.MoveTowards(cust.transform.position, endNode.transform.position, speed * Time.deltaTime);
+        cust.transform.LookAt(endNode.transform.position);
     }
 
     public class Customer
