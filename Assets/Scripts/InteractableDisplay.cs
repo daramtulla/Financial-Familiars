@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class InteractableDisplay : MonoBehaviour, InteractDisplay
 {
+    public MovementController movementController;
+
     public SoundManager soundManager;
     public static bool isPlayingSound = false;
 
@@ -76,171 +78,287 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
         //Inventory count gets decremented when item is sold
         if (displayToModify.activeInHierarchy)
         {
-            Debug.Log("Interacting with Display");
-            if (displayToModify.name == "Potion T1 Pedestal")
+            StartCoroutine(IsPlayingInteractAnimationRoutine());
+        }
+    }
+    IEnumerator IsPlayingInteractAnimationRoutine()
+    {
+        if (displayToModify.name == "Potion T1 Pedestal")
+        {
+            Debug.Log("Breakpoint");
+            if (db.currentPlayer.merch[0].quantity > 0)
             {
-                Debug.Log("Breakpoint");
-                if (db.currentPlayer.merch[0].quantity > 0)
-                {
-                    Debug.Log("Placed Potion T1");
-                    potionT1.SetActive(true);
-
-                    db.currentPlayer.active[0] = 1;
-                }
-
+                movementController.PlayInteractAnimation();
             }
-            else if (displayToModify.name == "Potion T2 Pedestal")
+        }
+        else if (displayToModify.name == "Potion T2 Pedestal")
+        {
+            if (db.currentPlayer.merch[1].quantity > 0)
             {
-                if (db.currentPlayer.merch[1].quantity > 0)
-                {
-                    potionT2.SetActive(true);
-                    db.currentPlayer.active[1] = 1;
-                }
-
+                movementController.PlayInteractAnimation();
             }
-            else if (displayToModify.name == "Potion T3 Pedestal")
+        }
+        else if (displayToModify.name == "Potion T3 Pedestal")
+        {
+            if (db.currentPlayer.merch[2].quantity > 0)
             {
-                if (db.currentPlayer.merch[2].quantity > 0)
-                {
-                    potionT3.SetActive(true);
-                    db.currentPlayer.active[2] = 1;
-                }
-
+                movementController.PlayInteractAnimation();
             }
-            else if (displayToModify.name == "Accessory T1 Pedestal")
+        }
+        else if (displayToModify.name == "Accessory T1 Pedestal")
+        {
+            if (db.currentPlayer.merch[3].quantity > 0)
             {
-                if (db.currentPlayer.merch[3].quantity > 0)
-                {
-                    accesoryT1.SetActive(true);
-                    db.currentPlayer.active[3] = 1;
-                }
-
+                movementController.PlayInteractAnimation();
             }
-            else if (displayToModify.name == "Accessory T2 Pedestal")
+        }
+        else if (displayToModify.name == "Accessory T2 Pedestal")
+        {
+            if (db.currentPlayer.merch[4].quantity > 0)
             {
-                if (db.currentPlayer.merch[4].quantity > 0)
-                {
-                    accesoryT2.SetActive(true);
-                    db.currentPlayer.active[4] = 1;
-                }
-
+                movementController.PlayInteractAnimation();
             }
-            else if (displayToModify.name == "Accessory T3 Pedestal")
+        }
+        else if (displayToModify.name == "Accessory T3 Pedestal")
+        {
+            if (db.currentPlayer.merch[5].quantity > 0)
             {
-                if (db.currentPlayer.merch[5].quantity > 0)
-                {
-                    accesoryT3.SetActive(true);
-                    db.currentPlayer.active[5] = 1;
-                }
-
+                movementController.PlayInteractAnimation();
             }
-            else if (displayToModify.name == "Weapon T1 Pedestal")
+        }
+        else if (displayToModify.name == "Weapon T1 Pedestal")
+        {
+            if (db.currentPlayer.merch[6].quantity > 0)
             {
-                if (db.currentPlayer.merch[6].quantity > 0)
-                {
-                    weaponT1.SetActive(true);
-                    db.currentPlayer.active[6] = 1;
-                }
-
+                movementController.PlayInteractAnimation();
             }
-            else if (displayToModify.name == "Weapon T2 Pedestal")
+        }
+        else if (displayToModify.name == "Weapon T2 Pedestal")
+        {
+            if (db.currentPlayer.merch[7].quantity > 0)
             {
-                if (db.currentPlayer.merch[7].quantity > 0)
-                {
-                    weaponT2.SetActive(true);
-                    db.currentPlayer.active[7] = 1;
-                }
-
+                movementController.PlayInteractAnimation();
             }
-            else if (displayToModify.name == "Weapon T3 Pedestal")
+        }
+        else if (displayToModify.name == "Weapon T3 Pedestal")
+        {
+            if (db.currentPlayer.merch[8].quantity > 0)
             {
-                if (db.currentPlayer.merch[8].quantity > 0)
-                {
-                    weaponT3.SetActive(true);
-                    db.currentPlayer.active[8] = 1;
-                }
-
+                movementController.PlayInteractAnimation();
             }
-            else if (displayToModify.name == "Special T1 Pedestal")
+        }
+        else if (displayToModify.name == "Special T1 Pedestal")
+        {
+            if (db.currentPlayer.merch[9].quantity > 0)
             {
-                if (db.currentPlayer.merch[9].quantity > 0)
-                {
-                    specialT1.SetActive(true);
-                    db.currentPlayer.active[9] = 1;
-                }
-
+                movementController.PlayInteractAnimation();
             }
-            else if (displayToModify.name == "Special T2 Pedestal")
+        }
+        else if (displayToModify.name == "Special T2 Pedestal")
+        {
+            if (db.currentPlayer.merch[10].quantity > 0)
             {
-                if (db.currentPlayer.merch[10].quantity > 0)
-                {
-                    specialT2.SetActive(true);
-                    db.currentPlayer.active[10] = 1;
-                }
-
+                movementController.PlayInteractAnimation();
             }
-            else if (displayToModify.name == "Special T3 Pedestal")
+        }
+        else if (displayToModify.name == "Special T3 Pedestal")
+        {
+            if (db.currentPlayer.merch[11].quantity > 0)
             {
-                if (db.currentPlayer.merch[11].quantity > 0)
-                {
-                    specialT3.SetActive(true);
-                    db.currentPlayer.active[11] = 1;
-                }
-
+                movementController.PlayInteractAnimation();
             }
-            else if (displayToModify.name == "Shield T1 Pedestal")
+        }
+        else if (displayToModify.name == "Shield T1 Pedestal")
+        {
+            if (db.currentPlayer.merch[15].quantity > 0)
             {
-                if (db.currentPlayer.merch[15].quantity > 0)
-                {
-                    shieldT1.SetActive(true);
-                    db.currentPlayer.active[15] = 1;
-                }
-
+                movementController.PlayInteractAnimation();
             }
-            else if (displayToModify.name == "Shield T2 Pedestal")
+        }
+        else if (displayToModify.name == "Shield T2 Pedestal")
+        {
+            if (db.currentPlayer.merch[16].quantity > 0)
             {
-                if (db.currentPlayer.merch[16].quantity > 0)
-                {
-                    shieldT2.SetActive(true);
-                    db.currentPlayer.active[16] = 1;
-                }
-
+                movementController.PlayInteractAnimation();
             }
-            else if (displayToModify.name == "Shield T3 Pedestal")
+        }
+        else if (displayToModify.name == "Shield T3 Pedestal")
+        {
+            if (db.currentPlayer.merch[17].quantity > 0)
             {
-                if (db.currentPlayer.merch[17].quantity > 0)
-                {
-                    shieldT3.SetActive(true);
-                    db.currentPlayer.active[17] = 1;
-                }
-
+                movementController.PlayInteractAnimation();
             }
-            else if (displayToModify.name == "Rune T1 Pedestal")
+        }
+        else if (displayToModify.name == "Rune T1 Pedestal")
+        {
+            if (db.currentPlayer.merch[12].quantity > 0)
             {
-                if (db.currentPlayer.merch[12].quantity > 0)
-                {
-                    runeT1.SetActive(true);
-                    db.currentPlayer.active[12] = 1;
-                }
-
+                movementController.PlayInteractAnimation();
             }
-            else if (displayToModify.name == "Rune T2 Pedestal")
+        }
+        else if (displayToModify.name == "Rune T2 Pedestal")
+        {
+            if (db.currentPlayer.merch[13].quantity > 0)
             {
-                if (db.currentPlayer.merch[13].quantity > 0)
-                {
-                    runeT2.SetActive(true);
-                    db.currentPlayer.active[13] = 1;
-                }
-
+                movementController.PlayInteractAnimation();
             }
-            else if (displayToModify.name == "Rune T3 Pedestal")
+        }
+        else if (displayToModify.name == "Rune T3 Pedestal")
+        {
+            if (db.currentPlayer.merch[14].quantity > 0)
             {
-                if (db.currentPlayer.merch[14].quantity > 0)
-                {
-                    runeT3.SetActive(true);
-                    db.currentPlayer.active[14] = 1;
-                }
+                movementController.PlayInteractAnimation();
+            }
+        }
 
+        yield return new WaitForSeconds(0.3f);
+
+        Debug.Log("Interacting with Display");
+        if (displayToModify.name == "Potion T1 Pedestal")
+        {
+            Debug.Log("Breakpoint");
+            if (db.currentPlayer.merch[0].quantity > 0)
+            {
+                Debug.Log("Placed Potion T1");
+                potionT1.SetActive(true);
+
+                db.currentPlayer.active[0] = 1;
+            }
+        }
+        else if (displayToModify.name == "Potion T2 Pedestal")
+        {
+            if (db.currentPlayer.merch[1].quantity > 0)
+            {
+                potionT2.SetActive(true);
+                db.currentPlayer.active[1] = 1;
+            }
+        }
+        else if (displayToModify.name == "Potion T3 Pedestal")
+        {
+            if (db.currentPlayer.merch[2].quantity > 0)
+            {
+                potionT3.SetActive(true);
+                db.currentPlayer.active[2] = 1;
+            }
+        }
+        else if (displayToModify.name == "Accessory T1 Pedestal")
+        {
+            if (db.currentPlayer.merch[3].quantity > 0)
+            {
+                accesoryT1.SetActive(true);
+                db.currentPlayer.active[3] = 1;
+            }
+        }
+        else if (displayToModify.name == "Accessory T2 Pedestal")
+        {
+            if (db.currentPlayer.merch[4].quantity > 0)
+            {
+                accesoryT2.SetActive(true);
+                db.currentPlayer.active[4] = 1;
+            }
+        }
+        else if (displayToModify.name == "Accessory T3 Pedestal")
+        {
+            if (db.currentPlayer.merch[5].quantity > 0)
+            {
+                accesoryT3.SetActive(true);
+                db.currentPlayer.active[5] = 1;
+            }
+        }
+        else if (displayToModify.name == "Weapon T1 Pedestal")
+        {
+            if (db.currentPlayer.merch[6].quantity > 0)
+            {
+                weaponT1.SetActive(true);
+                db.currentPlayer.active[6] = 1;
+            }
+        }
+        else if (displayToModify.name == "Weapon T2 Pedestal")
+        {
+            if (db.currentPlayer.merch[7].quantity > 0)
+            {
+                weaponT2.SetActive(true);
+                db.currentPlayer.active[7] = 1;
+            }
+        }
+        else if (displayToModify.name == "Weapon T3 Pedestal")
+        {
+            if (db.currentPlayer.merch[8].quantity > 0)
+            {
+                weaponT3.SetActive(true);
+                db.currentPlayer.active[8] = 1;
+            }
+        }
+        else if (displayToModify.name == "Special T1 Pedestal")
+        {
+            if (db.currentPlayer.merch[9].quantity > 0)
+            {
+                specialT1.SetActive(true);
+                db.currentPlayer.active[9] = 1;
+            }
+        }
+        else if (displayToModify.name == "Special T2 Pedestal")
+        {
+            if (db.currentPlayer.merch[10].quantity > 0)
+            {
+                specialT2.SetActive(true);
+                db.currentPlayer.active[10] = 1;
+            }
+        }
+        else if (displayToModify.name == "Special T3 Pedestal")
+        {
+            if (db.currentPlayer.merch[11].quantity > 0)
+            {
+                specialT3.SetActive(true);
+                db.currentPlayer.active[11] = 1;
+            }
+        }
+        else if (displayToModify.name == "Shield T1 Pedestal")
+        {
+            if (db.currentPlayer.merch[15].quantity > 0)
+            {
+                shieldT1.SetActive(true);
+                db.currentPlayer.active[15] = 1;
+            }
+        }
+        else if (displayToModify.name == "Shield T2 Pedestal")
+        {
+            if (db.currentPlayer.merch[16].quantity > 0)
+            {
+                shieldT2.SetActive(true);
+                db.currentPlayer.active[16] = 1;
+            }
+        }
+        else if (displayToModify.name == "Shield T3 Pedestal")
+        {
+            if (db.currentPlayer.merch[17].quantity > 0)
+            {
+                shieldT3.SetActive(true);
+                db.currentPlayer.active[17] = 1;
+            }
+        }
+        else if (displayToModify.name == "Rune T1 Pedestal")
+        {
+            if (db.currentPlayer.merch[12].quantity > 0)
+            {
+                runeT1.SetActive(true);
+                db.currentPlayer.active[12] = 1;
+            }
+        }
+        else if (displayToModify.name == "Rune T2 Pedestal")
+        {
+            if (db.currentPlayer.merch[13].quantity > 0)
+            {
+                runeT2.SetActive(true);
+                db.currentPlayer.active[13] = 1;
+            }
+        }
+        else if (displayToModify.name == "Rune T3 Pedestal")
+        {
+            if (db.currentPlayer.merch[14].quantity > 0)
+            {
+                runeT3.SetActive(true);
+                db.currentPlayer.active[14] = 1;
             }
         }
     }
