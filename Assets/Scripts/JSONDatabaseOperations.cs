@@ -113,7 +113,7 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.unpurchasedUpgrades.Add(new Upgrade(5, "Premium Special Items", 1000, "Increases demand for Special items."));
 
         //TODO: Add storage functionality
-        currentPlayer.unpurchasedUpgrades.Add(new Upgrade(6, "Transmutation Scroll", 400, "Provides a small amount of money per day."));
+        currentPlayer.unpurchasedUpgrades.Add(new Upgrade(6, "Bigger Boxes", 400, "Increases max storage capacity."));
         currentPlayer.unpurchasedUpgrades.Add(new Upgrade(7, "Magic Hand I", 750, "Automatically restocks potions."));
         currentPlayer.unpurchasedUpgrades.Add(new Upgrade(8, "Magic Hand II", 1200, "Automatically restocks accessories."));
         currentPlayer.unpurchasedUpgrades.Add(new Upgrade(9, "Magic Hand III", 1500, "Automatically restocks weapons."));
