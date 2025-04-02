@@ -24,6 +24,7 @@ public class Interactable : MonoBehaviour, InteractMenu
     [SerializeField] JSONDatabaseOperations db;
     [SerializeField] InteractionManager im;
 
+
     public void InteractMenu()
     {
         Debug.Log("Interacting with " + menuToOpenOrClose.name);
@@ -47,6 +48,12 @@ public class Interactable : MonoBehaviour, InteractMenu
         {
             ShowWindow();
         }
+
+        if (!string.IsNullOrEmpty(tutorialKey))
+        {
+            FindObjectOfType<TutorialPlaybyPlay>()?.NotifyTutorialObjectUsed(tutorialKey);
+        }
+        
     }
 
 
