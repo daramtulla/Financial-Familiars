@@ -112,7 +112,6 @@ public class GameManager : MonoBehaviour
         endScreen.SetActive(true);
         endDayTitle.text = "Day " + db.currentPlayer.GetDay() + " Results";
 
-        //HIRE 13: Lowers interest rates on loans
         //TODO: Add loan logic
         //For now: say it takes $50 to pay off every day
         float mandatoryLoansAmount = -db.currentPlayer.totalLoansPaid;
@@ -123,6 +122,17 @@ public class GameManager : MonoBehaviour
         {
             wagesPaidAmount -= employee.salary;
         }
+        if(db.checkEmployee(0))
+        {
+            if (db.checkEmployee(15))
+            {
+                wagesPaidAmount -= db.currentPlayer.employees.Count * 20;
+            }
+            else
+            {
+                wagesPaidAmount -= db.currentPlayer.employees.Count * 30;
+            }
+        }
 
 
         //TODO: Discuss if we're keeping upgrade upkeeps
@@ -131,17 +141,27 @@ public class GameManager : MonoBehaviour
 
         float utilitiesCostAmount = -50.0f;
 
-        if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 0))
+        if (db.checkUpgrade(0))
         {
             utilitiesCostAmount *= 0.9f;
         }
 
         //TODO: Add rent? Or lump it all in utilities. for now, just lump it in with utilities
-        if (db.currentPlayer.employees.Any(employee => employee.id == 4))
+        if (db.checkEmployee(4))
         {
-            utilitiesCostAmount *= 0.9f;
+            if (db.checkEmployee(15))
+            {
+                utilitiesCostAmount *= 0.95f;
+            }
+            else
+            {
+                utilitiesCostAmount *= 0.9f;
+            }
         }
-
+        if (db.checkUpgrade(6))
+        {
+            moneyMadeAmount += 25;
+        }
         float netProfitBeforeTaxAmount = moneyMadeAmount - -mandatoryLoansAmount - -wagesPaidAmount - -upgradeUpkeepAmount - -utilitiesCostAmount;
         FormatText(netProfitBeforeTax, netProfitBeforeTaxAmount);
 
@@ -208,6 +228,19 @@ public class GameManager : MonoBehaviour
             taxAmount = (moneyMadeAmount - 500f) * 0.1f;
         }
         //500 and below profit made means there is no tax
+
+        //Hire 6: reduces the amount of taxes
+        if(db.checkEmployee(6))
+        {
+            if (db.checkEmployee(15))
+            {
+                taxAmount *= 0.98f;
+            }
+            else
+            {
+                taxAmount *= 0.96f;
+            }
+        }
         return taxAmount;
     }
 

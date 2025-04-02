@@ -89,9 +89,16 @@ public class SuppliersMenu : MonoBehaviour
 
         // HIRE ID 8: Increases number of suppliers
         int numSuppliers = 7;
-        if (db.currentPlayer.employees.Any(employee => employee.id == 9))
+        if (db.checkEmployee(9))
         {
-            numSuppliers = 10;
+            if(db.checkEmployee(15))
+            {
+                numSuppliers = 8;
+            }
+            else
+            {
+                numSuppliers = 10;
+            }
         }
         for (int i = 1; i < numSuppliers; i++)
         {
@@ -131,9 +138,16 @@ public class SuppliersMenu : MonoBehaviour
         {
             bCost *= .8f;
         }
-        if (db.currentPlayer.employees.Any(employees => employees.id == 2))
+        if (db.checkEmployee(2))
         {
-            bCost *= .85f;
+            if (db.checkEmployee(15))
+            {
+                bCost *= .92f;
+            }
+            else
+            {
+                bCost *= .85f;
+            }
         }
         return (float)Math.Round(bCost, 2);
     }
@@ -179,15 +193,22 @@ public class SuppliersMenu : MonoBehaviour
     {
         float total = cost * bought;
 
-        if (db.currentPlayer.employees.Any(employees => employees.id == 2))
+        if (db.checkEmployee(2))
         {
-            total *= .85f;
+            if (db.checkEmployee(15))
+            {
+                total *= .92f;
+            }
+            else
+            {
+                total *= .85f;
+            }
         }
 
         if (db.currentPlayer.currentMoney > total)
         {
-            //HIRE ID 6: Possibility of losing items
-            if (db.currentPlayer.employees.Any(e => e.id == 7) && new System.Random().Next(1, 100) >= 95)
+            //HIRE ID 7: Possibility of losing items
+            if (db.checkEmployee(7) && new System.Random().Next(1, 100) >= 95)
             {
                 // TODO: ADD FEEDBACK FOR THE ITEMS BEING LOST
                 db.currentPlayer.currentMoney -= total;

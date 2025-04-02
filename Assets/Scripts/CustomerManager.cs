@@ -247,44 +247,72 @@ public class CustomerManager : MonoBehaviour
         {
             //Potions
             case 1:
-                if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 2))
+                if (db.checkUpgrade(2))
                 {
                     degrees *= 0.9f;
                 }
-                if (db.currentPlayer.employees.Any(employee => employee.id == 15))
+                if (db.checkEmployee(16))
                 {
-                    degrees *= 0.85f;
+                    if(db.checkEmployee(15))
+                    {
+                        degrees *= 0.92f;
+                    }
+                    else
+                    {
+                        degrees *= 0.85f;
+                    }
                 }
                 break;
             //accessories
             case 2:
-                if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 3))
+                if (db.checkUpgrade(3))
                 {
                     degrees *= 0.9f;
                 }
-                if (db.currentPlayer.employees.Any(employee => employee.id == 16))
+                if (db.checkEmployee(17))
                 {
-                    degrees *= 0.85f;
+                    if (db.checkEmployee(15))
+                    {
+                        degrees *= 0.92f;
+                    }
+                    else
+                    {
+                        degrees *= 0.85f;
+                    }
                 }
                 break;
             case 3:
-                if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 4))
+                if (db.checkUpgrade(4))
                 {
                     degrees *= 0.9f;
                 }
-                if (db.currentPlayer.employees.Any(employee => employee.id == 18))
+                if (db.checkEmployee(19))
                 {
-                    degrees *= 0.85f;
+                    if (db.checkEmployee(15))
+                    {
+                        degrees *= 0.92f;
+                    }
+                    else
+                    {
+                        degrees *= 0.85f;
+                    }
                 }
                 break;
             case 4:
-                if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 5))
+                if (db.checkUpgrade(5))
                 {
                     degrees *= 0.9f;
                 }
-                if (db.currentPlayer.employees.Any(employee => employee.id == 19))
+                if (db.checkEmployee(20))
                 {
-                    degrees *= 0.85f;
+                    if (db.checkEmployee(15))
+                    {
+                        degrees *= 0.92f;
+                    }
+                    else
+                    {
+                        degrees *= 0.85f;
+                    }
                 }
                 break;
             case 5:
@@ -298,32 +326,81 @@ public class CustomerManager : MonoBehaviour
                 break;
         }
         //general upgrades
-        if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 1))
+        if (db.checkUpgrade(0))
         {
-            degrees *= 0.95f;
+            degrees *= 0.97f;
         }
-        if (db.currentPlayer.employees.Any(employee => employee.id == 0))
+        if (db.checkEmployee(0))
         {
-            degrees *= 0.95f;
+            if (db.checkEmployee(15))
+            {
+                degrees *= 0.98f;
+            }
+            else
+            {
+                degrees *= 0.95f;
+            }
         }
-        //TODO: ADD UPGRADE 11, but this might require a rework of this system
+        if (db.checkEmployee(11))
+        {
+            if (db.checkEmployee(15))
+            {
+                degrees *= 1.04f;
+            }
+            else
+            {
+                degrees *= 1.08f;
+            }
+        }
 
-        if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 12 && db.currentPlayer.merch[id - 1].baseCost >= 450))
+        if (db.checkEmployee(14) && db.currentPlayer.merch[id - 1].baseCost >= 450))
         {
-            degrees *= 0.9f;
+            if (db.checkEmployee(15))
+            {
+                degrees *= 0.95f;
+            }
+            else
+            {
+                degrees *= 0.9f;
+            }
         }
 
         //Todo Test for correctness
         float sale = baseCost * (1 + markup);
+        if (db.checkEmployee(12))
+        {
+            if (db.checkEmployee(15))
+            {
+                degrees *= 1.01f;
+            }
+            else
+            {
+                degrees *= 1.03f;
+            }
+        }
 
         if (debug) { Debug.Log(sale); }
 
-        //TODO Upgrades that sell multiple items at a time
         db.currentPlayer.ChangeQuantity(id, -1);
         db.currentPlayer.currentMoney += sale;
         db.currentPlayer.dailySales += sale;
+        //chance to buy two items
+        // If:
+            //1. This is an accessory
+            //2. We have the available item
+            //3. We have the employee
+            //4. 5% chance to buy it
+        if(db.currentPlayer.merch[id - 1].group == 2 &&
+            db.currentPlayer.merch[id].quantity > 0 &&
+            db.checkEmployee(13) &&
+            new System.Random().Next(1, 100) >= 95)
+        {
+            db.currentPlayer.ChangeQuantity(id, -1);
+            db.currentPlayer.currentMoney += sale;
+            db.currentPlayer.dailySales += sale;
+        }
 
-        //Upgrade ID 7, 8, 9, 10: Auto restock items
+        //Upgrade ID 7 - 12: Auto restock items
 
         int upgradeNeeded = -1;
         switch (db.currentPlayer.merch[id - 1].group)
@@ -346,17 +423,18 @@ public class CustomerManager : MonoBehaviour
                 break;
             //runes
             case 5:
-                //TODO
+                upgradeNeeded = 11;
                 break;
             //shields
             case 6:
-                //TODO
+                upgradeNeeded = 12;
                 break;
             default:
+                upgradeNeeded = -1;
                 Debug.Log("Unknown item group: " + db.currentPlayer.merch[id - 1].group);
                 break;
         }
-        if(db.currentPlayer.upgrades.Any(upgrade => upgrade.id == upgradeNeeded))
+        if(db.checkUpgrade(upgradeNeeded))
         {
             //auto restocks if possible
             //we have already moved the purchased item, so see if there's another one
