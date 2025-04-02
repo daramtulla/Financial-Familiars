@@ -12,6 +12,7 @@ public class TutorialPlaybyPlay : MonoBehaviour
     private int lecternUses = 0;
 
     public GameObject Warning2;
+    public GameObject Warning4;
 
 
     void Start()
@@ -45,6 +46,7 @@ public class TutorialPlaybyPlay : MonoBehaviour
         SpotChest.SetActive(true);
         SpotCauldron.SetActive(false);
         SpotLectern.SetActive(false);
+        Warning4.SetActive(false);
         yield return new WaitUntil(() => chestUses >= 2);
         chestUses = 0;
 
@@ -60,6 +62,7 @@ public class TutorialPlaybyPlay : MonoBehaviour
         yield return new WaitUntil(() => lecternUses >= 2);
         lecternUses = 0;
         Warning2.SetActive(false);
+        Warning4.SetActive(true);
 
         //Step 4: Go to cauldron
         SpotLectern.SetActive(false);
