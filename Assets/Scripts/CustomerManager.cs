@@ -353,7 +353,7 @@ public class CustomerManager : MonoBehaviour
             }
         }
 
-        if (db.checkEmployee(14) && db.currentPlayer.merch[id - 1].baseCost >= 450))
+        if (db.checkEmployee(14) && db.currentPlayer.merch[id - 1].baseCost >= 450)
         {
             if (db.checkEmployee(15))
             {
