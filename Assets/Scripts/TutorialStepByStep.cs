@@ -7,6 +7,7 @@ public class TutorialPlaybyPlay : MonoBehaviour
     public GameObject SpotChest;
     public GameObject SpotCauldron;
     public GameObject SpotLectern;
+    public GameObject SpotEnd;
     public GameObject tableLights;
 
     //keys
@@ -54,6 +55,7 @@ public class TutorialPlaybyPlay : MonoBehaviour
         SpotChest.SetActive(true);
         SpotCauldron.SetActive(false);
         SpotLectern.SetActive(false);
+        SpotEnd.SetActive(false);
         Warning4.SetActive(false);
         Warning5.SetActive(false);
         tableLights.SetActive(false);
@@ -96,6 +98,12 @@ public class TutorialPlaybyPlay : MonoBehaviour
         //Step 7: Start the day
         tableLights.SetActive(false);
         stopStocking.SetActive(true);
+        SpotEnd.SetActive(true);
+
+        //Step 8: the day goes
+        SpotEnd.SetActive(false);
+
+        //Step 9: look at the hires
 
 
 
