@@ -3,16 +3,21 @@ using System.Collections;
 
 public class TutorialPlaybyPlay : MonoBehaviour
 {
+    //lights
     public GameObject SpotChest;
     public GameObject SpotCauldron;
     public GameObject SpotLectern;
 
+    //keys
     private int chestUses = 0;
     private int cauldronUses = 0;
     private int lecternUses = 0;
 
+    //warnings
+    public GameObject Warning1;
     public GameObject Warning2;
     public GameObject Warning4;
+    public GameObject Warning5;
 
 
     void Start()
@@ -47,6 +52,7 @@ public class TutorialPlaybyPlay : MonoBehaviour
         SpotCauldron.SetActive(false);
         SpotLectern.SetActive(false);
         Warning4.SetActive(false);
+        Warning5.SetActive(false);
         yield return new WaitUntil(() => chestUses >= 2);
         chestUses = 0;
 
@@ -67,6 +73,16 @@ public class TutorialPlaybyPlay : MonoBehaviour
         //Step 4: Go to cauldron
         SpotLectern.SetActive(false);
         SpotCauldron.SetActive(true);
+        yield return new WaitUntil(() => cauldronUses >= 1);
+        cauldronUses = 0;
+
+        //Step 5: Go to chest
+        Warning1.SetActive(false);
+        Warning5.SetActive(true);
+        SpotCauldron.SetActive(false);
+        SpotChest.SetActive(true);
+        yield return new WaitUntil(() => chestUses >= 2);
+
 
 
 
