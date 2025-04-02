@@ -8,8 +8,10 @@ public class TutorialPlaybyPlay : MonoBehaviour
     public GameObject SpotLectern;
 
     private int chestUses = 0;
-    private bool cauldronUsed = false;
-    private bool lecternUsed = false;
+    private int cauldronUses = 0;
+    private int lecternUses = 0;
+
+    public GameObject Warning2;
 
 
     void Start()
@@ -26,11 +28,11 @@ public class TutorialPlaybyPlay : MonoBehaviour
             case "InventoryChest":
                 chestUses++;
                 break;
-            case "cauldron":
-                cauldronUsed = true;
+            case "ShippingCauldron":
+                cauldronUses++;
                 break;
-            case "lectern":
-                lecternUsed = true;
+            case "BorrowingTutorial":
+                lecternUses++;
                 break;
         }
     }
@@ -44,10 +46,25 @@ public class TutorialPlaybyPlay : MonoBehaviour
         SpotCauldron.SetActive(false);
         SpotLectern.SetActive(false);
         yield return new WaitUntil(() => chestUses >= 2);
+        chestUses = 0;
 
         //Step 2: Go to cauldron
         SpotChest.SetActive(false);
         SpotCauldron.SetActive(true);
+        yield return new WaitUntil(() => cauldronUses >= 2);
+        cauldronUses = 0;
+
+        //Step 3: Go to Lectern
+        SpotCauldron.SetActive(false);
+        SpotLectern.SetActive(true);
+        yield return new WaitUntil(() => lecternUses >= 2);
+        lecternUses = 0;
+        Warning2.SetActive(false);
+
+        //Step 4: Go to cauldron
+        SpotLectern.SetActive(false);
+        SpotCauldron.SetActive(true);
+
 
 
         Debug.Log("Tutorial complete!");
