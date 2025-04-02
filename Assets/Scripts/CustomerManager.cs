@@ -73,7 +73,7 @@ public class CustomerManager : MonoBehaviour
 
         //After timer is up
         db.currentPlayer.cycleNum = 2;
-        db.SaveData();
+        //db.SaveData();
         //Debug.Log($"db.currentPlayer.cycleNum: {db.currentPlayer.cycleNum}");
         timerActive = false;
         soundManager.soundAudioSource.PlayOneShot(soundManager.storeClosing, 0.3f);
