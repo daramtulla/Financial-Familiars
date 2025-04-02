@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
+using static UnityEngine.ParticleSystem;
 
 public class UpgradeManager : MonoBehaviour
 {
@@ -65,13 +66,27 @@ public class UpgradeManager : MonoBehaviour
             float cost = upgrade.Cost;
 
             //HIRE ID 1, 7: Affects prices of upgrades
-            if (db.currentPlayer.employees.Any(employee => employee.id == 1))
+            if (db.checkEmployee(1))
             {
-                cost *= 0.95f;
+                if (db.checkEmployee(15))
+                {
+                    cost *= .98f;
+                }
+                else
+                {
+                    cost *= .95f;
+                }
             }
-            if (db.currentPlayer.employees.Any(employee => employee.id == 7))
+            if (db.checkEmployee(8))
             {
-                cost *= 1.10f;
+                if (db.checkEmployee(15))
+                {
+                    cost *= 1.05f;
+                }
+                else
+                {
+                    cost *= 1.10f;
+                }
             }
             texts[1].text = "$" + cost;
   
@@ -87,14 +102,21 @@ public class UpgradeManager : MonoBehaviour
 
     private void buyUpgrade(float cost, int id)
     {
-        if (db.currentPlayer.employees.Any(employee => employee.id == 1))
+        if (db.checkEmployee(1))
         {
-            cost *= 0.95f;
+            if (db.checkEmployee(15))
+            {
+                cost *= .98f;
+            }
+            else
+            {
+                cost *= .95f;
+            }
         }
         if (db.currentPlayer.currentMoney >= cost)
         {
-            // HIRE ID 12: Chance to not buy an upgrade
-            if (db.currentPlayer.employees.Any(e => e.id == 12) && new System.Random().Next(1, 100) >= 95)
+            // HIRE ID 13: Chance to not buy an upgrade
+            if (db.checkEmployee(13) && new System.Random().Next(1, 100) >= 95)
             {
                 // TODO: ADD FEEDBACK FOR THE ITEMS BEING LOST
                 db.currentPlayer.currentMoney -= cost;
