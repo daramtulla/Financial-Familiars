@@ -8,12 +8,17 @@ public class TutorialPlaybyPlay : MonoBehaviour
     public GameObject SpotCauldron;
     public GameObject SpotLectern;
     public GameObject SpotEnd;
+    public GameObject SpotHire;
+    public GameObject SpotBoard;
     public GameObject tableLights;
 
     //keys
     private int chestUses = 0;
     private int cauldronUses = 0;
     private int lecternUses = 0;
+    private int endUses = 0;
+    private int hireUses = 0;
+    private int boardUses = 0;
 
     //warnings
     public GameObject Warning1;
@@ -44,6 +49,15 @@ public class TutorialPlaybyPlay : MonoBehaviour
             case "BorrowingTutorial":
                 lecternUses++;
                 break;
+            case "EndDayTable":
+                endUses++;
+                break;
+            case "HiringDesk":
+                hireUses++;
+                break;
+            case "UpgradeTutorial":
+                boardUses++;
+                break;
         }
     }
 
@@ -55,6 +69,8 @@ public class TutorialPlaybyPlay : MonoBehaviour
         SpotChest.SetActive(true);
         SpotCauldron.SetActive(false);
         SpotLectern.SetActive(false);
+        SpotEnd.SetActive(false);
+        SpotBoard.SetActive(false);
         SpotEnd.SetActive(false);
         Warning4.SetActive(false);
         Warning5.SetActive(false);
@@ -99,11 +115,27 @@ public class TutorialPlaybyPlay : MonoBehaviour
         tableLights.SetActive(false);
         stopStocking.SetActive(true);
         SpotEnd.SetActive(true);
+        yield return new WaitUntil(() => endUses >= 2);
+        endUses = 0;
 
         //Step 8: the day goes
         SpotEnd.SetActive(false);
+        yield return new WaitForSeconds(45f);
 
         //Step 9: look at the hires
+        SpotHire.SetActive(true);
+        yield return new WaitUntil(() => hireUses >= 2);
+        hireUses = 0;
+
+        //Step 10: look at the upgrades
+        SpotHire.SetActive(false);
+        SpotBoard.SetActive(true);
+        yield return new WaitUntil(() => boardUses >= 2);
+        boardUses = 0;
+
+        //Step 11: Close phase
+        SpotBoard.SetActive(false);
+        SpotEnd.SetActive(true);
 
 
 
