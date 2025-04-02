@@ -7,6 +7,7 @@ public class TutorialPlaybyPlay : MonoBehaviour
     public GameObject SpotChest;
     public GameObject SpotCauldron;
     public GameObject SpotLectern;
+    public GameObject tableLights;
 
     //keys
     private int chestUses = 0;
@@ -53,6 +54,7 @@ public class TutorialPlaybyPlay : MonoBehaviour
         SpotLectern.SetActive(false);
         Warning4.SetActive(false);
         Warning5.SetActive(false);
+        tableLights.SetActive(false);
         yield return new WaitUntil(() => chestUses >= 2);
         chestUses = 0;
 
@@ -81,7 +83,12 @@ public class TutorialPlaybyPlay : MonoBehaviour
         Warning5.SetActive(true);
         SpotCauldron.SetActive(false);
         SpotChest.SetActive(true);
-        yield return new WaitUntil(() => chestUses >= 2);
+        yield return new WaitUntil(() => chestUses >= 1);
+        chestUses = 0;
+
+        //Step 6: Go stock some shelves
+        SpotChest.SetActive(false);
+        tableLights.SetActive(true);
 
 
 
