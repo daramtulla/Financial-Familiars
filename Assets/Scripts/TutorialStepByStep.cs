@@ -10,6 +10,7 @@ public class TutorialPlaybyPlay : MonoBehaviour
     public GameObject SpotEnd;
     public GameObject SpotHire;
     public GameObject SpotBoard;
+    public GameObject SpotLoan;
     public GameObject tableLights;
 
     //keys
@@ -19,6 +20,7 @@ public class TutorialPlaybyPlay : MonoBehaviour
     private int endUses = 0;
     private int hireUses = 0;
     private int boardUses = 0;
+    private int loanUses = 0;
 
     //warnings
     public GameObject Warning1;
@@ -26,6 +28,7 @@ public class TutorialPlaybyPlay : MonoBehaviour
     public GameObject Warning4;
     public GameObject Warning5;
     public GameObject stopStocking;
+    public GameObject stopShopping;
 
 
 
@@ -57,6 +60,9 @@ public class TutorialPlaybyPlay : MonoBehaviour
                 break;
             case "UpgradeTutorial":
                 boardUses++;
+                break;
+            case "LoanDesk":
+                loanUses++;
                 break;
         }
     }
@@ -121,6 +127,7 @@ public class TutorialPlaybyPlay : MonoBehaviour
         //Step 8: the day goes
         SpotEnd.SetActive(false);
         yield return new WaitForSeconds(45f);
+        stopShopping.SetActive(true);
 
         //Step 9: look at the hires
         SpotHire.SetActive(true);
@@ -136,6 +143,18 @@ public class TutorialPlaybyPlay : MonoBehaviour
         //Step 11: Close phase
         SpotBoard.SetActive(false);
         SpotEnd.SetActive(true);
+        yield return new WaitUntil(() => endUses >= 1);
+        endUses = 0;
+
+        //Step 12: check on loans
+        SpotEnd.SetActive(false);
+        SpotLoan.SetActive(true);
+        yield return new WaitUntil(() => loanUses >= 2);
+        loanUses = 0;
+
+        //Step 13: DIY mode kid
+        SpotLoan.SetActive(false);
+
 
 
 
