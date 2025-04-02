@@ -29,6 +29,7 @@ public class TutorialPlaybyPlay : MonoBehaviour
     public GameObject Warning5;
     public GameObject stopStocking;
     public GameObject stopShopping;
+    public GameObject stopTutorial;
 
 
 
@@ -154,6 +155,8 @@ public class TutorialPlaybyPlay : MonoBehaviour
 
         //Step 13: DIY mode kid
         SpotLoan.SetActive(false);
+        yield return new WaitForSeconds(15f);
+        stopTutorial.SetActive(true);
 
 
 
