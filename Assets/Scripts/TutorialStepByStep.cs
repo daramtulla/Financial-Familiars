@@ -19,6 +19,8 @@ public class TutorialPlaybyPlay : MonoBehaviour
     public GameObject Warning2;
     public GameObject Warning4;
     public GameObject Warning5;
+    public GameObject stopStocking;
+
 
 
     void Start()
@@ -89,6 +91,11 @@ public class TutorialPlaybyPlay : MonoBehaviour
         //Step 6: Go stock some shelves
         SpotChest.SetActive(false);
         tableLights.SetActive(true);
+        yield return new WaitForSeconds(20f);
+
+        //Step 7: Start the day
+        tableLights.SetActive(false);
+        stopStocking.SetActive(true);
 
 
 
