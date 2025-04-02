@@ -61,6 +61,11 @@ public class MovementController : MonoBehaviour
         }
     }
 
+    public void PlayInteractAnimation()
+    {
+        playerAnimator.SetTrigger("Interact_trig");
+    }
+
     void moveDirection()
     {
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))

@@ -124,6 +124,7 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.moveSpeedModifier = 1;
         currentPlayer.currentMoney = 1000f;
         currentPlayer.volume = .5f;
+        currentPlayer.sfxVolume = .5f;
         currentPlayer.ResetDay();
         currentPlayer.dailySales = 0;
         currentPlayer.newPlayer = new IntegerField(1);
@@ -204,7 +205,7 @@ public class JSONDatabaseOperations : MonoBehaviour
             for (int i = 0; i < 18; i++)
             {
                 currentPlayer.merch[i].quantity = 10;
-                currentPlayer.active[i] = 1;
+                //currentPlayer.active[i] = 1;
             }
         }
     }
@@ -225,6 +226,7 @@ public class Player
     public float moveSpeedModifier;
     public float currentMoney;
     public float volume;
+    public float sfxVolume;
     //0 = setup, 1 = selling, 2 = close
     public int cycleNum;
     public int currentLoanAmount;
