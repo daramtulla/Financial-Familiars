@@ -77,8 +77,10 @@ public class CustomerMovement : MonoBehaviour
     public Dictionary<GameObject, Customer> linkTable = new Dictionary<GameObject, Customer>();
 
     public Boolean debug;
+    
+     [SerializeField] CustomerManager cm;
 
-    private void Start()
+     private void Start()
     {
         customerSet = new GameObject[] { customerPrefab, customerPrefab1, customerPrefab2 };
     }
@@ -124,6 +126,9 @@ public class CustomerMovement : MonoBehaviour
                     GotoItem(cust.Key);
                     break;
                 case 8:
+                    //Has already reached item.
+                    cm.customerReached[cust.Value.itemToBuy - 1] = 2;
+
                     GoToNode7(cust.Key);
                     break;
                 case 9:
