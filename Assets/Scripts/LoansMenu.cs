@@ -54,8 +54,6 @@ public class LoansMenu : MonoBehaviour
 
     void Start()
     {
-        loansmenu.SetActive(false);
-
         //GenerateOffers();
         close.onClick.AddListener(CloseThis);
         up.onClick.AddListener(Increaser);
