@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
 
         EndDay();
         db.currentPlayer.dailySales = 0;
+        db.currentPlayer.dailyLoanAmount = 0;
         //Debug.Log($"RestartCycle(): db.currentPlayer.dailySales: {db.currentPlayer.dailySales}");
         db.currentPlayer.cycleNum = 0;
         soundManager.soundAudioSource.PlayOneShot(soundManager.storeSetup, 1.0f);
@@ -122,7 +123,7 @@ public class GameManager : MonoBehaviour
         {
             wagesPaidAmount -= employee.salary;
         }
-        if(db.checkEmployee(0))
+        if (db.checkEmployee(0))
         {
             if (db.checkEmployee(15))
             {
@@ -166,7 +167,7 @@ public class GameManager : MonoBehaviour
         FormatText(netProfitBeforeTax, netProfitBeforeTaxAmount);
 
         //Apply Tax
-        float taxAmount = ApplyTax(netProfitBeforeTaxAmount);
+        float taxAmount = ApplyTax(netProfitBeforeTaxAmount - db.currentPlayer.dailyLoanAmount);
         FormatText(taxText, -taxAmount);
         Debug.Log($"Money Made: {moneyMadeAmount}");
         Debug.Log($"Tax: {taxAmount}");
@@ -232,7 +233,7 @@ public class GameManager : MonoBehaviour
         //500 and below profit made means there is no tax
 
         //Hire 6: reduces the amount of taxes
-        if(db.checkEmployee(6))
+        if (db.checkEmployee(6))
         {
             if (db.checkEmployee(15))
             {
