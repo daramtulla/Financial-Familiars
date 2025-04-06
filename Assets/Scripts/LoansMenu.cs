@@ -77,7 +77,7 @@ public class LoansMenu : MonoBehaviour
         {
             Debug.Log(payAmt);
 
-            if (db.currentPlayer.currentMoney >= payAmt)
+            if (db.currentPlayer.currentMoney >= payAmt && payAmt > 0 && payAmt <= loans[currentindex].amount)
             {
                 loans[currentindex].amount -= payAmt;
                 db.currentPlayer.currentMoney -= payAmt;
