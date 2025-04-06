@@ -84,7 +84,14 @@ public class LoansMenu : MonoBehaviour
                 db.currentPlayer.totalLoansPaid += payAmt;
             }
 
+            if (loans[currentindex].amount == 0)
+            {
+                loans.Remove(loans[currentindex]);
+                currentindex = 0;
+            }
+
             LoansDisplay();
+
         }
     }
 
@@ -134,7 +141,7 @@ public class LoansMenu : MonoBehaviour
         currentindex -= 1;
         if (currentindex < 0)
         {
-            currentindex = maxLoans - 1;
+            currentindex = db.currentPlayer.loans.Count - 1;
         }
 
         LoansDisplay();
