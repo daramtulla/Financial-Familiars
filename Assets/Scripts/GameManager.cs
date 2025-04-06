@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     public Text moneyMade;
     public Text loansPaid;
     public Text wagesPaid;
-    public Text loansMade;
+    public Text loansTaken;
     public Text netProfit;
     public Text utilitiesCost;
     public Text taxText;
@@ -135,7 +135,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        float loansTaken = db.currentPlayer.totalLoansPaid;
+        float loansTakenAmount = db.currentPlayer.dailyLoanAmount;
 
         float utilitiesCostAmount = -50.0f;
 
@@ -173,7 +173,7 @@ public class GameManager : MonoBehaviour
         FormatText(moneyMade, moneyMadeAmount);
         FormatText(loansPaid, mandatoryLoansAmount);
         FormatText(wagesPaid, wagesPaidAmount);
-        FormatText(loansMade, loansTaken);
+        FormatText(loansTaken, loansTakenAmount);
         FormatText(utilitiesCost, utilitiesCostAmount);
 
         Debug.Log($"wagesPaidAmount: {wagesPaidAmount}");
@@ -183,8 +183,6 @@ public class GameManager : MonoBehaviour
 
         db.currentPlayer.IncrDay();
 
-        //TODO: Split money between savings and spending
-        //For now: Send all money to one account
         playerManager.UpdatePlayerStats(netProfitAmount);
         db.SaveData();
     }
