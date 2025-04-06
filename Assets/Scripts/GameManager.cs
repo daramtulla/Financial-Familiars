@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0.0f;
 
-        float moneyMadeAmount = db.currentPlayer.dailySales;
+        float moneyMadeAmount = db.currentPlayer.dailySales - db.currentPlayer.dailyLoanAmount;
 
         //Display End of Day
         endScreen.SetActive(true);
