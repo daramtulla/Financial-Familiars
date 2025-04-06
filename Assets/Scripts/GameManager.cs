@@ -160,7 +160,9 @@ public class GameManager : MonoBehaviour
         {
             moneyMadeAmount += 25;
         }
-        float netProfitBeforeTaxAmount = moneyMadeAmount - -mandatoryLoansAmount - -wagesPaidAmount - -utilitiesCostAmount;
+
+        //Removed loan payments from profit calc
+        float netProfitBeforeTaxAmount = moneyMadeAmount - -wagesPaidAmount - -utilitiesCostAmount;
         FormatText(netProfitBeforeTax, netProfitBeforeTaxAmount);
 
         //Apply Tax
