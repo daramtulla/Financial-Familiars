@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     public Text moneyMade;
     public Text loansPaid;
     public Text wagesPaid;
-    public Text upgradeUpkeep;
+    public Text loansMade;
     public Text netProfit;
     public Text utilitiesCost;
     public Text taxText;
@@ -135,10 +135,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-
-        //TODO: Discuss if we're keeping upgrade upkeeps
-        //For now: set Upgrades to 0 for no upgrades
-        float upgradeUpkeepAmount = 0.0f;
+        float loansTaken = db.currentPlayer.totalLoansPaid;
 
         float utilitiesCostAmount = -50.0f;
 
@@ -163,7 +160,7 @@ public class GameManager : MonoBehaviour
         {
             moneyMadeAmount += 25;
         }
-        float netProfitBeforeTaxAmount = moneyMadeAmount - -mandatoryLoansAmount - -wagesPaidAmount - -upgradeUpkeepAmount - -utilitiesCostAmount;
+        float netProfitBeforeTaxAmount = moneyMadeAmount - -mandatoryLoansAmount - -wagesPaidAmount - -utilitiesCostAmount;
         FormatText(netProfitBeforeTax, netProfitBeforeTaxAmount);
 
         //Apply Tax
@@ -176,7 +173,7 @@ public class GameManager : MonoBehaviour
         FormatText(moneyMade, moneyMadeAmount);
         FormatText(loansPaid, mandatoryLoansAmount);
         FormatText(wagesPaid, wagesPaidAmount);
-        FormatText(upgradeUpkeep, upgradeUpkeepAmount);
+        FormatText(loansMade, loansTaken);
         FormatText(utilitiesCost, utilitiesCostAmount);
 
         Debug.Log($"wagesPaidAmount: {wagesPaidAmount}");
