@@ -455,7 +455,7 @@ public class Player
             return;
         }
 
-        dailyLoanAmount = loan.amount;
+        dailyLoanAmount += loan.amount;
         loans.Add(loan);
     }
 }
