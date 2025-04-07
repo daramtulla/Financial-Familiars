@@ -96,6 +96,12 @@ public class InteractionManager : MonoBehaviour
 
     public int AmountInStock(String displayToModify)
     {
+        if (db == null)
+        {
+            return -1;
+        }
+
+
         if (displayToModify == "Potion T1 Pedestal")
         {
             return db.currentPlayer.merch[0].quantity;
