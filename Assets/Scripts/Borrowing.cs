@@ -6,6 +6,8 @@ using System.Data.Common;
 
 public class Borrowing : MonoBehaviour
 {
+    public SoundManager soundManager;
+
     public GameObject BorrowingCardPrefab;
     public Transform loanCardContainer;
     public GameObject loanLimitMessage;
@@ -111,6 +113,7 @@ public class Borrowing : MonoBehaviour
             db.currentPlayer.currentMoney += loan.amount;
             db.currentPlayer.dailySales += loan.amount;
             PopulateLoanCards();
+            soundManager.ButtonClickSound();
         });
     }
 
