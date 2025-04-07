@@ -152,27 +152,27 @@ public class InteractionManager : MonoBehaviour
         }
         else if (displayToModify == "Shield T1 Pedestal")
         {
-            return db.currentPlayer.merch[12].quantity;
+            return db.currentPlayer.merch[15].quantity;
         }
         else if (displayToModify == "Shield T2 Pedestal")
         {
-            return db.currentPlayer.merch[13].quantity;
+            return db.currentPlayer.merch[16].quantity;
         }
         else if (displayToModify == "Shield T3 Pedestal")
         {
-            return db.currentPlayer.merch[14].quantity;
+            return db.currentPlayer.merch[17].quantity;
         }
         else if (displayToModify == "Rune T1 Pedestal")
         {
-            return db.currentPlayer.merch[15].quantity;
+            return db.currentPlayer.merch[12].quantity;
         }
         else if (displayToModify == "Rune T2 Pedestal")
         {
-            return db.currentPlayer.merch[16].quantity;
+            return db.currentPlayer.merch[13].quantity;
         }
         else if (displayToModify == "Rune T3 Pedestal")
         {
-            return db.currentPlayer.merch[17].quantity;
+            return db.currentPlayer.merch[14].quantity;
         }
 
         return -1;
