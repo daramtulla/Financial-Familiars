@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InteractableDisplay : MonoBehaviour, InteractDisplay
 {
@@ -35,7 +36,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
     [SerializeField] GameObject shieldT3;
 
     //Displays
-    [SerializeField] GameObject displayToModify;
+    public GameObject displayToModify;
     [SerializeField] GameObject potionT1Pedestal;
     [SerializeField] GameObject potionT2Pedestal;
     [SerializeField] GameObject potionT3Pedestal;
@@ -61,6 +62,9 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
     [SerializeField] GameObject shieldT3Pedestal;
 
     [SerializeField] GameObject poof;
+
+    public Text interactableNameText;
+    public string interactableNameTextString;
 
     [SerializeField] JSONDatabaseOperations db;
 

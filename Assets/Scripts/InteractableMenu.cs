@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Interactable : MonoBehaviour, InteractMenu
+public class InteractableMenu : MonoBehaviour, InteractMenu
 {
     [SerializeField] GameObject tutorialPopup;
     [SerializeField] string tutorialKey;
@@ -53,7 +53,7 @@ public class Interactable : MonoBehaviour, InteractMenu
         {
             FindObjectOfType<TutorialPlaybyPlay>()?.NotifyTutorialObjectUsed(tutorialKey);
         }
-        
+
     }
 
 
