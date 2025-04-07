@@ -132,6 +132,7 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.dailySales = 0;
         currentPlayer.newPlayer = new IntegerField(1);
         currentPlayer.active = new int[18];
+        currentPlayer.dailyLoanAmount = 0;
 
         for (int i = 0; i < 18; i++)
         {
@@ -224,7 +225,7 @@ public class JSONDatabaseOperations : MonoBehaviour
 
     public bool checkUpgrade(int id)
     {
-        if(id < 0)
+        if (id < 0)
         {
             return false;
         }
@@ -242,7 +243,7 @@ public class JSONDatabaseOperations : MonoBehaviour
             return false;
         }
         bool result = currentPlayer.employees.Any(employee => employee.id == id);
-        if(currentPlayer.employees.Any(employee => employee.id == 18) && new System.Random().Next(1, 100) >= 95)
+        if (currentPlayer.employees.Any(employee => employee.id == 18) && new System.Random().Next(1, 100) >= 95)
         {
             result = false;
         }
@@ -266,6 +267,8 @@ public class Player
     public float purchases;
     public float totalSales;
     public float totalLoansPaid;
+
+    public float dailyLoanAmount;
 
     //To determine what displays should be active
     public int[] active;
@@ -390,13 +393,13 @@ public class Player
     public void AddDailyInterest(List<Loan> loans)
     {
         bool lessInterest = false;
-        if(employees.Any(employee => employee.id == 14))
+        if (employees.Any(employee => employee.id == 14))
         {
             lessInterest = true;
         }
         foreach (Loan l in loans)
         {
-            if(lessInterest)
+            if (lessInterest)
             {
                 l.amount += l.amount * (l.interest * 0.95f);
             }
@@ -418,7 +421,7 @@ public class Player
 
         foreach (Loan l in loans)
         {
-            if(lessInterest)
+            if (lessInterest)
             {
                 interest += l.amount * (l.interest * 0.95f);
             }
@@ -452,12 +455,8 @@ public class Player
             return;
         }
 
+        dailyLoanAmount += loan.amount;
         loans.Add(loan);
-    }
-
-    public void PayLoan(int id, float pay)
-    {
-        loans[id].amount -= pay;
     }
 }
 

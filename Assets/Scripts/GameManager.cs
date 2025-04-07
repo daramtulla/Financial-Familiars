@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     public Text moneyMade;
     public Text loansPaid;
     public Text wagesPaid;
-    public Text upgradeUpkeep;
+    public Text loansTaken;
     public Text netProfit;
     public Text utilitiesCost;
     public Text taxText;
@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
 
         EndDay();
         db.currentPlayer.dailySales = 0;
+        db.currentPlayer.dailyLoanAmount = 0;
         //Debug.Log($"RestartCycle(): db.currentPlayer.dailySales: {db.currentPlayer.dailySales}");
         db.currentPlayer.cycleNum = 0;
         soundManager.soundAudioSource.PlayOneShot(soundManager.storeSetup, 1.0f);
@@ -106,7 +107,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0.0f;
 
-        float moneyMadeAmount = db.currentPlayer.dailySales;
+        float moneyMadeAmount = db.currentPlayer.dailySales - db.currentPlayer.dailyLoanAmount;
 
         //Display End of Day
         endScreen.SetActive(true);
@@ -122,7 +123,7 @@ public class GameManager : MonoBehaviour
         {
             wagesPaidAmount -= employee.salary;
         }
-        if(db.checkEmployee(0))
+        if (db.checkEmployee(0))
         {
             if (db.checkEmployee(15))
             {
@@ -134,10 +135,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-
-        //TODO: Discuss if we're keeping upgrade upkeeps
-        //For now: set Upgrades to 0 for no upgrades
-        float upgradeUpkeepAmount = 0.0f;
+        float loansTakenAmount = db.currentPlayer.dailyLoanAmount;
 
         float utilitiesCostAmount = -50.0f;
 
@@ -162,11 +160,13 @@ public class GameManager : MonoBehaviour
         {
             moneyMadeAmount += 25;
         }
-        float netProfitBeforeTaxAmount = moneyMadeAmount - -mandatoryLoansAmount - -wagesPaidAmount - -upgradeUpkeepAmount - -utilitiesCostAmount;
+
+        //Removed loan payments from profit calc
+        float netProfitBeforeTaxAmount = moneyMadeAmount - -wagesPaidAmount - -utilitiesCostAmount;
         FormatText(netProfitBeforeTax, netProfitBeforeTaxAmount);
 
         //Apply Tax
-        float taxAmount = ApplyTax(netProfitBeforeTaxAmount);
+        float taxAmount = ApplyTax(netProfitBeforeTaxAmount - db.currentPlayer.dailyLoanAmount);
         FormatText(taxText, -taxAmount);
         Debug.Log($"Money Made: {moneyMadeAmount}");
         Debug.Log($"Tax: {taxAmount}");
@@ -175,7 +175,7 @@ public class GameManager : MonoBehaviour
         FormatText(moneyMade, moneyMadeAmount);
         FormatText(loansPaid, mandatoryLoansAmount);
         FormatText(wagesPaid, wagesPaidAmount);
-        FormatText(upgradeUpkeep, upgradeUpkeepAmount);
+        FormatText(loansTaken, loansTakenAmount);
         FormatText(utilitiesCost, utilitiesCostAmount);
 
         Debug.Log($"wagesPaidAmount: {wagesPaidAmount}");
@@ -185,8 +185,6 @@ public class GameManager : MonoBehaviour
 
         db.currentPlayer.IncrDay();
 
-        //TODO: Split money between savings and spending
-        //For now: Send all money to one account
         playerManager.UpdatePlayerStats(netProfitAmount);
         db.SaveData();
     }
@@ -232,7 +230,7 @@ public class GameManager : MonoBehaviour
         //500 and below profit made means there is no tax
 
         //Hire 6: reduces the amount of taxes
-        if(db.checkEmployee(6))
+        if (db.checkEmployee(6))
         {
             if (db.checkEmployee(15))
             {
