@@ -330,10 +330,16 @@ public class CustomerManager : MonoBehaviour
                 }
                 break;
             case 5:
-                //todo
+                if (db.checkUpgrade(15))
+                {
+                    degrees *= 0.9f;
+                }
                 break;
             case 6:
-                //todo
+                if (db.checkUpgrade(16))
+                {
+                    degrees *= 0.9f;
+                }
                 break;
             default:
                 Debug.Log("Item does not belong to a group");
