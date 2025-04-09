@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] Boolean debug;
     public GameObject OpenSign;
     [SerializeField] private Animator openSignAnimator;
+    public GameObject ClosedSign;
+    [SerializeField] private Animator closedSignAnimator;
 
     public void StartSellingPhase()
     {
@@ -68,6 +70,10 @@ public class GameManager : MonoBehaviour
             Debug.Log("Incorrect cyle order");
         }
 
+        //open signs
+        openSignAnimator.gameObject.SetActive(false);
+        OpenSign.gameObject.SetActive(false);
+
 
         EndDay();
         db.currentPlayer.dailySales = 0;
@@ -75,10 +81,7 @@ public class GameManager : MonoBehaviour
         //Debug.Log($"RestartCycle(): db.currentPlayer.dailySales: {db.currentPlayer.dailySales}");
         db.currentPlayer.cycleNum = 0;
         soundManager.soundAudioSource.PlayOneShot(soundManager.storeSetup, 1.0f);
-
-        //open signs
-        openSignAnimator.gameObject.SetActive(false);
-        OpenSign.gameObject.SetActive(false);
+        
     }
 
     private void Update()
@@ -264,4 +267,13 @@ public class GameManager : MonoBehaviour
         db.currentPlayer.currentMoney += 100;
         moneyCount.text = db.currentPlayer.currentMoney.ToString("N2");
     }
+
+    public void ShowClosedSign()
+    {
+        ClosedSign.SetActive(true);
+        closedSignAnimator.gameObject.SetActive(true);
+        closedSignAnimator.Play("openGlow");
+    }
+
+    
 }
