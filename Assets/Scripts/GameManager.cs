@@ -39,10 +39,14 @@ public class GameManager : MonoBehaviour
     //Day Phase Logic
     [SerializeField] CustomerManager cm;
     [SerializeField] Boolean debug;
+
+    //signs
     public GameObject OpenSign;
     [SerializeField] private Animator openSignAnimator;
     public GameObject ClosedSign;
     [SerializeField] private Animator closedSignAnimator;
+    public GameObject RenewSign;
+    [SerializeField] private Animator renewSignAnimator;
 
     public void StartSellingPhase()
     {
@@ -59,6 +63,10 @@ public class GameManager : MonoBehaviour
         OpenSign.gameObject.SetActive(true);
         openSignAnimator.gameObject.SetActive(true);
         openSignAnimator.Play("openGlow");
+        closedSignAnimator.gameObject.SetActive(false);
+        ClosedSign.gameObject.SetActive(false);
+        renewSignAnimator.gameObject.SetActive(false);
+        RenewSign.gameObject.SetActive(false);
     }
 
     //Close Phase starts automatically when selling phase timer ends
@@ -73,6 +81,9 @@ public class GameManager : MonoBehaviour
         //open signs
         openSignAnimator.gameObject.SetActive(false);
         OpenSign.gameObject.SetActive(false);
+        RenewSign.gameObject.SetActive(true);
+        renewSignAnimator.gameObject.SetActive(true);
+        renewSignAnimator.Play("openGlow");
 
 
         EndDay();
