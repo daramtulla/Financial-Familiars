@@ -127,7 +127,7 @@ public class TutorialPlaybyPlay : MonoBehaviour
 
         //Step 8: the day goes
         SpotEnd.SetActive(false);
-        yield return new WaitForSeconds(45f);
+        yield return new WaitForSeconds(35f);
         stopShopping.SetActive(true);
 
         //Step 9: look at the hires
