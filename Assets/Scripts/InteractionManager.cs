@@ -25,6 +25,8 @@ public class InteractionManager : MonoBehaviour
     [SerializeField] GameObject redArrow;
     [SerializeField] GameObject interactableNameText;
 
+    [SerializeField] JSONDatabaseOperations db;
+
     [SerializeField] Glossary gl;
 
     void Update()
@@ -38,7 +40,16 @@ public class InteractionManager : MonoBehaviour
             {
                 if (rayInfoF2.collider.gameObject.layer == 3)
                 {
-                    rayInfoF2.collider.gameObject.GetComponent<Interactable>().interactableNameText.text = rayInfoF2.collider.gameObject.GetComponent<Interactable>().interactableNameTextString;
+                    rayInfoF2.collider.gameObject.GetComponent<InteractableMenu>().interactableNameText.text = rayInfoF2.collider.gameObject.GetComponent<InteractableMenu>().interactableNameTextString;
+                    interactableNameText.SetActive(true);
+                    redArrow.SetActive(true);
+                    redArrow.transform.position = new Vector3(interactableTransform.transform.position.x, interactableTransform.transform.position.y + 3, interactableTransform.transform.position.z);
+                }
+                else if (rayInfoF2.collider.gameObject.layer == 6)
+                {
+                    String display = rayInfoF2.collider.gameObject.GetComponent<InteractableDisplay>().displayToModify.name;
+
+                    rayInfoF2.collider.gameObject.GetComponent<InteractableDisplay>().interactableNameText.text = rayInfoF2.collider.gameObject.GetComponent<InteractableDisplay>().interactableNameTextString + " (" + AmountInStock(display) + ")";
                     interactableNameText.SetActive(true);
                     redArrow.SetActive(true);
                     redArrow.transform.position = new Vector3(interactableTransform.transform.position.x, interactableTransform.transform.position.y + 3, interactableTransform.transform.position.z);
@@ -81,6 +92,90 @@ public class InteractionManager : MonoBehaviour
             }
 
         }
+    }
+
+    public int AmountInStock(String displayToModify)
+    {
+        if (db == null)
+        {
+            return -1;
+        }
+
+
+        if (displayToModify == "Potion T1 Pedestal")
+        {
+            return db.currentPlayer.merch[0].quantity;
+        }
+        else if (displayToModify == "Potion T2 Pedestal")
+        {
+            return db.currentPlayer.merch[1].quantity;
+        }
+        else if (displayToModify == "Potion T3 Pedestal")
+        {
+            return db.currentPlayer.merch[2].quantity;
+        }
+        else if (displayToModify == "Accessory T1 Pedestal")
+        {
+            return db.currentPlayer.merch[3].quantity;
+        }
+        else if (displayToModify == "Accessory T2 Pedestal")
+        {
+            return db.currentPlayer.merch[4].quantity;
+        }
+        else if (displayToModify == "Accessory T3 Pedestal")
+        {
+            return db.currentPlayer.merch[5].quantity;
+        }
+        else if (displayToModify == "Weapon T1 Pedestal")
+        {
+            return db.currentPlayer.merch[6].quantity;
+        }
+        else if (displayToModify == "Weapon T2 Pedestal")
+        {
+            return db.currentPlayer.merch[7].quantity;
+        }
+        else if (displayToModify == "Weapon T3 Pedestal")
+        {
+            return db.currentPlayer.merch[8].quantity;
+        }
+        else if (displayToModify == "Special T1 Pedestal")
+        {
+            return db.currentPlayer.merch[9].quantity;
+        }
+        else if (displayToModify == "Special T2 Pedestal")
+        {
+            return db.currentPlayer.merch[10].quantity;
+        }
+        else if (displayToModify == "Special T3 Pedestal")
+        {
+            return db.currentPlayer.merch[11].quantity;
+        }
+        else if (displayToModify == "Shield T1 Pedestal")
+        {
+            return db.currentPlayer.merch[15].quantity;
+        }
+        else if (displayToModify == "Shield T2 Pedestal")
+        {
+            return db.currentPlayer.merch[16].quantity;
+        }
+        else if (displayToModify == "Shield T3 Pedestal")
+        {
+            return db.currentPlayer.merch[17].quantity;
+        }
+        else if (displayToModify == "Rune T1 Pedestal")
+        {
+            return db.currentPlayer.merch[12].quantity;
+        }
+        else if (displayToModify == "Rune T2 Pedestal")
+        {
+            return db.currentPlayer.merch[13].quantity;
+        }
+        else if (displayToModify == "Rune T3 Pedestal")
+        {
+            return db.currentPlayer.merch[14].quantity;
+        }
+
+        return -1;
     }
 
     public void SwitchInteractState()

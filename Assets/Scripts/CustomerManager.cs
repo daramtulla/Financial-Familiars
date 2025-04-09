@@ -20,10 +20,10 @@ public class CustomerManager : MonoBehaviour
     public int dayTimeTotal;
 
     //Item id first, then sale time
-    private List<KeyValuePair<int, int>> timeline;
+    private List<KeyValuePair<int, int>> timeline = new List<KeyValuePair<int, int>>();
 
     //Item id, then customer time
-    private List<KeyValuePair<int, int>> entrance;
+    private List<KeyValuePair<int, int>> entrance = new List<KeyValuePair<int, int>>();
 
     private float dayTime;
 
@@ -32,6 +32,9 @@ public class CustomerManager : MonoBehaviour
     private int day;
 
     private float pastDayTime;
+
+    //0 if no customer is heading towards, 1 if is heading towards, 2 if customer has reached
+    public int[] customerReached = new int[18];
 
     [SerializeField] CustomerMovement cm;
 
@@ -42,8 +45,15 @@ public class CustomerManager : MonoBehaviour
         dayTime = 0;
         pastDayTime = 0;
         timerActive = true;
-        timeline = GetItemSaleTimeLine();
-        entrance = GenerateCustomerEntrance();
+
+        //Zero out customerReached array
+        for (int i = 0; i < customerReached.Length; i++)
+        {
+            customerReached[i] = 0;
+        }
+
+        //Now calls generate customer entrance
+        GetItemSaleTimeLine();
     }
 
     //Perform customer sales during day phase
@@ -57,7 +67,7 @@ public class CustomerManager : MonoBehaviour
         {
             dayTime += Time.deltaTime;
 
-            if (dayTime >= pastDayTime + 1)
+            if (dayTime >= pastDayTime + .01)
             {
                 pastDayTime = dayTime;
 
@@ -77,6 +87,7 @@ public class CustomerManager : MonoBehaviour
         //Debug.Log($"db.currentPlayer.cycleNum: {db.currentPlayer.cycleNum}");
         timerActive = false;
         soundManager.soundAudioSource.PlayOneShot(soundManager.storeClosing, 0.3f);
+
     }
 
     public void CustomerTimeCheck(List<KeyValuePair<int, int>> copy)
@@ -94,6 +105,7 @@ public class CustomerManager : MonoBehaviour
                     {
                         contains = true;
                     }
+
                 }
 
                 if (contains)
@@ -102,6 +114,9 @@ public class CustomerManager : MonoBehaviour
                     if (debug) { Debug.Log("Attempting to sell merch " + pair.Value); }
                     KeyValuePair<int, int> toRemove = new(pair.Key, pair.Value);
                     Debug.Log("Remove Successful? " + copy.Remove(toRemove));
+
+
+                    customerReached[pair.Key - 1] = 1;
                 }
             }
         }
@@ -111,20 +126,11 @@ public class CustomerManager : MonoBehaviour
     {
         foreach (KeyValuePair<int, int> pair in timeline)
         {
-            Boolean contains = false;
             if (pair.Value <= dayTime)
             {
-                foreach (KeyValuePair<int, int> copyPair in copy)
+                if (customerReached[pair.Key - 1] == 2)
                 {
-                    //Debug.Log("copy key" + copyPair.Key + ", copy value" + copyPair.Value);
-                    if (copyPair.Value.Equals(pair.Value) && copyPair.Key.Equals(pair.Key))
-                    {
-                        contains = true;
-                    }
-                }
-
-                if (contains)
-                {
+                    customerReached[pair.Key - 1] = 0;
                     AttemptSale(pair.Key);
                     if (debug) { Debug.Log("Attempting to sell merch " + pair.Value); }
                     KeyValuePair<int, int> toRemove = new(pair.Key, pair.Value);
@@ -135,10 +141,11 @@ public class CustomerManager : MonoBehaviour
     }
 
     //Generates a number of sales based on the markup of the item and when those sales occur
-    public List<KeyValuePair<int, int>> GetItemSaleTimeLine()
+    public void GetItemSaleTimeLine()
     {
         List<Merchandise> merch = db.currentPlayer.merch;
-        List<KeyValuePair<int, int>> timeline = new();
+
+        bool onWay;
 
         for (int i = 0; i < 18; i++)
         {
@@ -149,42 +156,49 @@ public class CustomerManager : MonoBehaviour
 
             int sales = rnd.GetDailyItemSaleNumber(0, 4 - saleLimit);
 
+            onWay = false;
+
             //Generate sale time for item
             for (int j = 0; j < sales; j++)
             {
                 KeyValuePair<int, int> saleTime = new(i + 1, rnd.GetRandomSaleTime(dayTimeTotal));
 
-                if (debug)
+                foreach (KeyValuePair<int, int> pair in timeline)
                 {
-                    Debug.Log("Pair added: " + saleTime.Key + ", " + saleTime.Value);
+                    if (saleTime.Value == pair.Value)
+                    {
+                        onWay = true;
+                    }
                 }
 
-                timeline.Add(saleTime);
+                if (!onWay)
+                {
+                    GenerateCustomerEntrance(saleTime.Key, saleTime.Value);
+
+                    if (debug)
+                    {
+                        Debug.Log("Pair added: " + saleTime.Key + ", " + saleTime.Value);
+                    }
+
+                    timeline.Add(saleTime);
+                }
             }
 
-        }
 
-        return timeline;
+        }
     }
 
-    public List<KeyValuePair<int, int>> GenerateCustomerEntrance()
+    public void GenerateCustomerEntrance(int merchId, int entranceTime)
     {
-        List<KeyValuePair<int, int>> entrance = new();
+        //KeyValuePair<int, int> customerTime = new(rnd.GetRandomMerchId(), rnd.GetRandomCustomerEntrance(dayTimeTotal));
+        KeyValuePair<int, int> customerTime = new(merchId, entranceTime);
 
-        //Generate sale time for item
-        for (int j = 0; j < (dayTimeTotal - 10) / 3; j++)
+        if (debug)
         {
-            KeyValuePair<int, int> customerTime = new(rnd.GetRandomMerchId(), rnd.GetRandomCustomerEntrance(dayTimeTotal));
-
-            if (debug)
-            {
-                Debug.Log("Pair added: " + customerTime.Key + ", " + customerTime.Value);
-            }
-
-            entrance.Add(customerTime);
+            Debug.Log("Pair added: " + customerTime.Key + ", " + customerTime.Value);
         }
 
-        return entrance;
+        entrance.Add(customerTime);
     }
 
 
@@ -247,44 +261,72 @@ public class CustomerManager : MonoBehaviour
         {
             //Potions
             case 1:
-                if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 2))
+                if (db.checkUpgrade(2))
                 {
                     degrees *= 0.9f;
                 }
-                if (db.currentPlayer.employees.Any(employee => employee.id == 15))
+                if (db.checkEmployee(16))
                 {
-                    degrees *= 0.85f;
+                    if(db.checkEmployee(15))
+                    {
+                        degrees *= 0.92f;
+                    }
+                    else
+                    {
+                        degrees *= 0.85f;
+                    }
                 }
                 break;
             //accessories
             case 2:
-                if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 3))
+                if (db.checkUpgrade(3))
                 {
                     degrees *= 0.9f;
                 }
-                if (db.currentPlayer.employees.Any(employee => employee.id == 16))
+                if (db.checkEmployee(17))
                 {
-                    degrees *= 0.85f;
+                    if (db.checkEmployee(15))
+                    {
+                        degrees *= 0.92f;
+                    }
+                    else
+                    {
+                        degrees *= 0.85f;
+                    }
                 }
                 break;
             case 3:
-                if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 4))
+                if (db.checkUpgrade(4))
                 {
                     degrees *= 0.9f;
                 }
-                if (db.currentPlayer.employees.Any(employee => employee.id == 18))
+                if (db.checkEmployee(19))
                 {
-                    degrees *= 0.85f;
+                    if (db.checkEmployee(15))
+                    {
+                        degrees *= 0.92f;
+                    }
+                    else
+                    {
+                        degrees *= 0.85f;
+                    }
                 }
                 break;
             case 4:
-                if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 5))
+                if (db.checkUpgrade(5))
                 {
                     degrees *= 0.9f;
                 }
-                if (db.currentPlayer.employees.Any(employee => employee.id == 19))
+                if (db.checkEmployee(20))
                 {
-                    degrees *= 0.85f;
+                    if (db.checkEmployee(15))
+                    {
+                        degrees *= 0.92f;
+                    }
+                    else
+                    {
+                        degrees *= 0.85f;
+                    }
                 }
                 break;
             case 5:
@@ -298,32 +340,81 @@ public class CustomerManager : MonoBehaviour
                 break;
         }
         //general upgrades
-        if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 1))
+        if (db.checkUpgrade(0))
         {
-            degrees *= 0.95f;
+            degrees *= 0.97f;
         }
-        if (db.currentPlayer.employees.Any(employee => employee.id == 0))
+        if (db.checkEmployee(0))
         {
-            degrees *= 0.95f;
+            if (db.checkEmployee(15))
+            {
+                degrees *= 0.98f;
+            }
+            else
+            {
+                degrees *= 0.95f;
+            }
         }
-        //TODO: ADD UPGRADE 11, but this might require a rework of this system
+        if (db.checkEmployee(11))
+        {
+            if (db.checkEmployee(15))
+            {
+                degrees *= 1.04f;
+            }
+            else
+            {
+                degrees *= 1.08f;
+            }
+        }
 
-        if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == 12 && db.currentPlayer.merch[id - 1].baseCost >= 450))
+        if (db.checkEmployee(14) && db.currentPlayer.merch[id - 1].baseCost >= 450)
         {
-            degrees *= 0.9f;
+            if (db.checkEmployee(15))
+            {
+                degrees *= 0.95f;
+            }
+            else
+            {
+                degrees *= 0.9f;
+            }
         }
 
         //Todo Test for correctness
         float sale = baseCost * (1 + markup);
+        if (db.checkEmployee(12))
+        {
+            if (db.checkEmployee(15))
+            {
+                degrees *= 1.01f;
+            }
+            else
+            {
+                degrees *= 1.03f;
+            }
+        }
 
         if (debug) { Debug.Log(sale); }
 
-        //TODO Upgrades that sell multiple items at a time
         db.currentPlayer.ChangeQuantity(id, -1);
         db.currentPlayer.currentMoney += sale;
         db.currentPlayer.dailySales += sale;
+        //chance to buy two items
+        // If:
+            //1. This is an accessory
+            //2. We have the available item
+            //3. We have the employee
+            //4. 5% chance to buy it
+        if(db.currentPlayer.merch[id - 1].group == 2 &&
+            db.currentPlayer.merch[id].quantity > 0 &&
+            db.checkEmployee(13) &&
+            new System.Random().Next(1, 100) >= 95)
+        {
+            db.currentPlayer.ChangeQuantity(id, -1);
+            db.currentPlayer.currentMoney += sale;
+            db.currentPlayer.dailySales += sale;
+        }
 
-        //Upgrade ID 7, 8, 9, 10: Auto restock items
+        //Upgrade ID 7 - 12: Auto restock items
 
         int upgradeNeeded = -1;
         switch (db.currentPlayer.merch[id - 1].group)
@@ -346,17 +437,18 @@ public class CustomerManager : MonoBehaviour
                 break;
             //runes
             case 5:
-                //TODO
+                upgradeNeeded = 11;
                 break;
             //shields
             case 6:
-                //TODO
+                upgradeNeeded = 12;
                 break;
             default:
+                upgradeNeeded = -1;
                 Debug.Log("Unknown item group: " + db.currentPlayer.merch[id - 1].group);
                 break;
         }
-        if (db.currentPlayer.upgrades.Any(upgrade => upgrade.id == upgradeNeeded))
+        if(db.checkUpgrade(upgradeNeeded))
         {
             //auto restocks if possible
             //we have already moved the purchased item, so see if there's another one

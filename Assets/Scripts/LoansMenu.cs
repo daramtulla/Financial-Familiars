@@ -54,8 +54,6 @@ public class LoansMenu : MonoBehaviour
 
     void Start()
     {
-        loansmenu.SetActive(false);
-
         //GenerateOffers();
         close.onClick.AddListener(CloseThis);
         up.onClick.AddListener(Increaser);
@@ -79,14 +77,21 @@ public class LoansMenu : MonoBehaviour
         {
             Debug.Log(payAmt);
 
-            if (db.currentPlayer.currentMoney >= payAmt)
+            if (db.currentPlayer.currentMoney >= payAmt && payAmt > 0 && payAmt <= loans[currentindex].amount)
             {
                 loans[currentindex].amount -= payAmt;
                 db.currentPlayer.currentMoney -= payAmt;
                 db.currentPlayer.totalLoansPaid += payAmt;
             }
 
+            if (loans[currentindex].amount == 0)
+            {
+                loans.Remove(loans[currentindex]);
+                currentindex = 0;
+            }
+
             LoansDisplay();
+
         }
     }
 
@@ -136,7 +141,7 @@ public class LoansMenu : MonoBehaviour
         currentindex -= 1;
         if (currentindex < 0)
         {
-            currentindex = maxLoans - 1;
+            currentindex = db.currentPlayer.loans.Count - 1;
         }
 
         LoansDisplay();

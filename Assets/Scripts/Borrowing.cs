@@ -91,7 +91,6 @@ public class Borrowing : MonoBehaviour
         }
     }
 
-    // HIRE 13: Lower interest rates
     void SetCardInfo(GameObject card, Loan loan)
     {
         TextMeshProUGUI[] texts = card.GetComponentsInChildren<TextMeshProUGUI>();
