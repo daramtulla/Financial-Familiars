@@ -186,7 +186,7 @@ public class GameManager : MonoBehaviour
         db.currentPlayer.IncrDay();
 
         playerManager.UpdatePlayerStats(netProfitAmount);
-        db.SaveData();
+        //db.SaveData();
     }
     public void FormatText(Text textObject, float amount)
     {
