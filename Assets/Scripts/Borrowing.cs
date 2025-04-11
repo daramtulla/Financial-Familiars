@@ -21,6 +21,11 @@ public class Borrowing : MonoBehaviour
 
     public List<Loan> availableLoans = new List<Loan>();
 
+    //tutorial specific
+    [SerializeField] bool tutorialMode = false;
+    [SerializeField] GameObject tutorialBlockA;
+    [SerializeField] GameObject tutorialBlockB;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -78,6 +83,17 @@ public class Borrowing : MonoBehaviour
         }
         else
         {
+            //tutorial specific
+            if(tutorialMode)
+            {
+                if(GetCurrentLoanCount() > 0)
+                {
+                    tutorialBlockA.SetActive(false);
+                    tutorialBlockB.SetActive(true);
+
+                }
+            }
+
             loanCardContainer.parent.parent.gameObject.SetActive(true);
             if (loanLimitMessage != null) loanLimitMessage.SetActive(false);
         }

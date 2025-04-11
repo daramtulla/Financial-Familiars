@@ -16,6 +16,7 @@ public class CustomerManager : MonoBehaviour
     [SerializeField] Boolean debug;
 
     [SerializeField] RandomGenNum rnd;
+    [SerializeField] private GameManager gameManager;
 
     public int dayTimeTotal;
 
@@ -87,6 +88,9 @@ public class CustomerManager : MonoBehaviour
         //Debug.Log($"db.currentPlayer.cycleNum: {db.currentPlayer.cycleNum}");
         timerActive = false;
         soundManager.soundAudioSource.PlayOneShot(soundManager.storeClosing, 0.3f);
+
+        //sign animation
+        gameManager.ShowClosedSign();
 
     }
 
