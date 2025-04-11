@@ -24,6 +24,8 @@ public class InteractableMenu : MonoBehaviour, InteractMenu
     [SerializeField] JSONDatabaseOperations db;
     [SerializeField] InteractionManager im;
 
+    [SerializeField] GameObject startSellingButton;
+    [SerializeField] GameObject endDayButton;
 
     public void InteractMenu()
     {
@@ -80,7 +82,7 @@ public class InteractableMenu : MonoBehaviour, InteractMenu
             else if (menuToOpenOrClose.name == "EndDayScreen")
             {
                 Debug.Log("Close End Day Screen");
-                showMenu.ShowElement(true); //I'm assuming true for ShowElement means "yes" to unpause
+                CloseEndDayScreen();
             }
             else if (menuToOpenOrClose.name == "LoansMenu")
             {
@@ -130,14 +132,21 @@ public class InteractableMenu : MonoBehaviour, InteractMenu
             {
                 Debug.Log("Open End Day Screen");
 
+                menuToOpenOrClose.SetActive(true);
                 if (db.currentPlayer.cycleNum == 0)
                 {
-                    gameManager.StartSellingPhase();
-                    im.SwitchInteractState();
+                    endDayButton.SetActive(false);
+                    startSellingButton.SetActive(true);
                 }
                 else if (db.currentPlayer.cycleNum == 2)
                 {
-                    gameManager.RestartCycle();
+                    startSellingButton.SetActive(false);
+                    endDayButton.SetActive(true);
+                }
+                else
+                {
+                    endDayButton.SetActive(false);
+                    startSellingButton.SetActive(false);
                 }
             }
             else if (menuToOpenOrClose.name == "LoansMenu")
@@ -166,6 +175,15 @@ public class InteractableMenu : MonoBehaviour, InteractMenu
                 menuToOpenOrClose.SetActive(true);
             }
         }
+    }
+    public void CloseEndDayScreen()
+    {
+        showMenu.ShowElement(true); //I'm assuming true for ShowElement means "yes" to unpause
+    }
+    public void OpenEndDayScreen()
+    {
+        gameManager.StartSellingPhase();
+        im.SwitchInteractState();
     }
     void ShowTutorial()
     {
