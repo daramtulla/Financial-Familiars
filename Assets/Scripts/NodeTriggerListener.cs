@@ -477,6 +477,7 @@ public class TriggerListener : MonoBehaviour
     public void ReachNodeItem(Collider col)
     {
         GameObject obj = col.gameObject;
+        //obj.transform.GetChild(0).GetComponent<Animator>().SetTrigger("Interact_trig");
 
         if (this.name == triggerItemT3Shield.name ||
     this.name == triggerItemT2Shield.name ||

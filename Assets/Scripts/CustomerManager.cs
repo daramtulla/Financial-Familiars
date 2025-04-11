@@ -7,6 +7,7 @@ using UnityEngine.InputSystem.Controls;
 using System.Collections;
 using NUnit.Framework;
 using System.Linq;
+using UnityEngine.UI;
 
 public class CustomerManager : MonoBehaviour
 {
@@ -39,8 +40,10 @@ public class CustomerManager : MonoBehaviour
 
     [SerializeField] CustomerMovement cm;
 
+    public Text dayTimeNumberText;
+
     // HIRE 0, 15, 16, 18, 19: Affects demand/prices
-    // UPGRADE 1, 2, 3, 4, 5, 11, 12: Affects dmeand/prices
+    // UPGRADE 1, 2, 3, 4, 5, 11, 12: Affects demand/prices
     public void StartSelling()
     {
         dayTime = 0;
@@ -77,6 +80,8 @@ public class CustomerManager : MonoBehaviour
                 //Check to see what sales occured at this time
                 SaleTimeCheck(copy1);
                 CustomerTimeCheck(copy2);
+
+                dayTimeNumberText.text = ((int)(dayTimeTotal - dayTime)).ToString();
             }
 
             yield return null;
