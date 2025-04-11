@@ -51,6 +51,8 @@ public class GameManager : MonoBehaviour
     public GameObject smallOpenSign;
     public GameObject smallClosedSign;
 
+    public GameObject dayTimer;
+
     public void StartSellingPhase()
     {
         if (db.currentPlayer.cycleNum != 0)
@@ -73,6 +75,8 @@ public class GameManager : MonoBehaviour
 
         smallClosedSign.gameObject.SetActive(false);
         smallOpenSign.gameObject.SetActive(true);
+
+        dayTimer.SetActive(true);
     }
 
     //Close Phase starts automatically when selling phase timer ends
@@ -293,6 +297,8 @@ public class GameManager : MonoBehaviour
 
         smallOpenSign.gameObject.SetActive(false);
         smallClosedSign.gameObject.SetActive(true);
+
+        dayTimer.SetActive(false);
     }
 
     
