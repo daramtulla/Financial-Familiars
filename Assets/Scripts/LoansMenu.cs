@@ -11,6 +11,7 @@ using System.Data.Common;
 
 public class LoansMenu : MonoBehaviour
 {
+    public SoundManager soundManager;
 
     [SerializeField] Button close;
     [SerializeField] Button up;
@@ -93,6 +94,7 @@ public class LoansMenu : MonoBehaviour
             LoansDisplay();
 
         }
+        soundManager.ButtonClickSound();
     }
 
     public void CloseThis()
@@ -109,7 +111,7 @@ public class LoansMenu : MonoBehaviour
             Debug.Log("(LoansMenu): GetInteractState() is true");
             interactionManager.SwitchInteractState();
         }
-
+        soundManager.ButtonClickSound();
     }
     public void OpenThis()
     {
@@ -130,6 +132,7 @@ public class LoansMenu : MonoBehaviour
         }
 
         LoansDisplay();
+        soundManager.ButtonClickSound();
     }
     void Decreaser()
     {
@@ -145,18 +148,21 @@ public class LoansMenu : MonoBehaviour
         }
 
         LoansDisplay();
+        soundManager.ButtonClickSound();
     }
     void setset1()
     {
         currentindex = 0;
 
         LoansDisplay();
+        soundManager.ButtonClickSound();
     }
     void setset2()
     {
         currentindex = db.currentPlayer.loans.Count - 1;
 
         LoansDisplay();
+        soundManager.ButtonClickSound();
     }
 
     /*
