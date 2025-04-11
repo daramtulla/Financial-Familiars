@@ -248,7 +248,7 @@ public class CustomerManager : MonoBehaviour
     //Item must be displayed to be sold
     public void AttemptSale(int id)
     {
-        if (db.currentPlayer.active[id - 1] == 1)
+        if (db.currentPlayer.active[id - 1] == 1 && rnd.GetSaleChance() > 3)
         {
             SellItem(id);
             soundManager.soundAudioSource.PlayOneShot(soundManager.itemSold, 1.25f);
@@ -276,7 +276,7 @@ public class CustomerManager : MonoBehaviour
                 }
                 if (db.checkEmployee(16))
                 {
-                    if(db.checkEmployee(15))
+                    if (db.checkEmployee(15))
                     {
                         degrees *= 0.92f;
                     }
@@ -409,11 +409,11 @@ public class CustomerManager : MonoBehaviour
         db.currentPlayer.dailySales += sale;
         //chance to buy two items
         // If:
-            //1. This is an accessory
-            //2. We have the available item
-            //3. We have the employee
-            //4. 5% chance to buy it
-        if(db.currentPlayer.merch[id - 1].group == 2 &&
+        //1. This is an accessory
+        //2. We have the available item
+        //3. We have the employee
+        //4. 5% chance to buy it
+        if (db.currentPlayer.merch[id - 1].group == 2 &&
             db.currentPlayer.merch[id].quantity > 0 &&
             db.checkEmployee(13) &&
             new System.Random().Next(1, 100) >= 95)
@@ -457,7 +457,7 @@ public class CustomerManager : MonoBehaviour
                 Debug.Log("Unknown item group: " + db.currentPlayer.merch[id - 1].group);
                 break;
         }
-        if(db.checkUpgrade(upgradeNeeded))
+        if (db.checkUpgrade(upgradeNeeded))
         {
             //auto restocks if possible
             //we have already moved the purchased item, so see if there's another one
