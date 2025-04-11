@@ -31,16 +31,6 @@ public class TutorialPlaybyPlay : MonoBehaviour
     public GameObject stopShopping;
     public GameObject stopTutorial;
 
-    //blocks
-    public GameObject lecternBlock;
-    public GameObject loanBlock;
-    public GameObject cauldronBlock;
-    public GameObject endBlock;
-    public GameObject hireBlock;
-    public GameObject upgradeBlock;
-
-
-
 
 
     void Start()
@@ -81,14 +71,6 @@ public class TutorialPlaybyPlay : MonoBehaviour
     IEnumerator PlayTutorial()
     {
         Debug.Log("Start Tutorial!");
-        //set blocks
-        lecternBlock.SetActive(true);
-        loanBlock.SetActive(true);
-        cauldronBlock.SetActive(true);
-        endBlock.SetActive(true);
-        hireBlock.SetActive(true);
-        upgradeBlock.SetActive(true);
-
 
         // Step 1: Go to chest
         SpotChest.SetActive(true);
@@ -104,16 +86,12 @@ public class TutorialPlaybyPlay : MonoBehaviour
         chestUses = 0;
 
         //Step 2: Go to cauldron
-        cauldronBlock.SetActive(false);
-
         SpotChest.SetActive(false);
         SpotCauldron.SetActive(true);
         yield return new WaitUntil(() => cauldronUses >= 2);
         cauldronUses = 0;
 
         //Step 3: Go to Lectern
-        lecternBlock.SetActive(false);
-
         SpotCauldron.SetActive(false);
         SpotLectern.SetActive(true);
         yield return new WaitUntil(() => lecternUses >= 2);
@@ -141,8 +119,6 @@ public class TutorialPlaybyPlay : MonoBehaviour
         yield return new WaitForSeconds(20f);
 
         //Step 7: Start the day
-        endBlock.SetActive(false);
-
         tableLights.SetActive(false);
         stopStocking.SetActive(true);
         SpotEnd.SetActive(true);
@@ -151,19 +127,15 @@ public class TutorialPlaybyPlay : MonoBehaviour
 
         //Step 8: the day goes
         SpotEnd.SetActive(false);
-        yield return new WaitForSeconds(42f);
+        yield return new WaitForSeconds(45f);
         stopShopping.SetActive(true);
 
         //Step 9: look at the hires
-        hireBlock.SetActive(false);
-
         SpotHire.SetActive(true);
         yield return new WaitUntil(() => hireUses >= 2);
         hireUses = 0;
 
         //Step 10: look at the upgrades
-        upgradeBlock.SetActive(false);
-
         SpotHire.SetActive(false);
         SpotBoard.SetActive(true);
         yield return new WaitUntil(() => boardUses >= 2);
@@ -176,8 +148,6 @@ public class TutorialPlaybyPlay : MonoBehaviour
         endUses = 0;
 
         //Step 12: check on loans
-        loanBlock.SetActive(false);
-
         SpotEnd.SetActive(false);
         SpotLoan.SetActive(true);
         yield return new WaitUntil(() => loanUses >= 2);
@@ -187,6 +157,10 @@ public class TutorialPlaybyPlay : MonoBehaviour
         SpotLoan.SetActive(false);
         yield return new WaitForSeconds(15f);
         stopTutorial.SetActive(true);
+
+
+
+
 
         Debug.Log("Tutorial complete!");
         yield return null;
