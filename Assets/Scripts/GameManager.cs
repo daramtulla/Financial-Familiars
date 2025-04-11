@@ -48,6 +48,9 @@ public class GameManager : MonoBehaviour
     public GameObject RenewSign;
     [SerializeField] private Animator renewSignAnimator;
 
+    public GameObject smallOpenSign;
+    public GameObject smallClosedSign;
+
     public void StartSellingPhase()
     {
         if (db.currentPlayer.cycleNum != 0)
@@ -67,6 +70,9 @@ public class GameManager : MonoBehaviour
         ClosedSign.gameObject.SetActive(false);
         renewSignAnimator.gameObject.SetActive(false);
         RenewSign.gameObject.SetActive(false);
+
+        smallClosedSign.gameObject.SetActive(false);
+        smallOpenSign.gameObject.SetActive(true);
     }
 
     //Close Phase starts automatically when selling phase timer ends
@@ -75,7 +81,7 @@ public class GameManager : MonoBehaviour
     {
         if (db.currentPlayer.cycleNum != 2)
         {
-            Debug.Log("Incorrect cyle order");
+            Debug.Log("Incorrect cycle order");
         }
 
         //open signs
@@ -284,6 +290,9 @@ public class GameManager : MonoBehaviour
         ClosedSign.SetActive(true);
         closedSignAnimator.gameObject.SetActive(true);
         closedSignAnimator.Play("openGlow");
+
+        smallOpenSign.gameObject.SetActive(false);
+        smallClosedSign.gameObject.SetActive(true);
     }
 
     
