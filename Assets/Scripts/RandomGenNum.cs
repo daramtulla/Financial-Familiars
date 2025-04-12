@@ -29,6 +29,11 @@ public class RandomGenNum
         return random.Next(1, totalDayTime - 15);
     }
 
+    public int GetSaleChance()
+    {
+        return random.Next(1, 11);
+    }
+
     /*
     public int GetRandomCustomerEntrance(int totalDayTime)
     {
