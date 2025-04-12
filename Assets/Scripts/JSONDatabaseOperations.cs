@@ -143,6 +143,10 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.totalSales = 0;
         currentPlayer.purchases = 0;
         currentPlayer.cycleNum = 0;
+
+
+        currentPlayer.loans.Add(new Loan(6, 100000f, 0.01f, "Beginning Business Loan", true, JSONDatabaseOperations.InterestType.Flat));
+
         SaveData();
     }
 
