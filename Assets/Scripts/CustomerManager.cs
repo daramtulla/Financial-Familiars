@@ -248,7 +248,8 @@ public class CustomerManager : MonoBehaviour
     //Item must be displayed to be sold
     public void AttemptSale(int id)
     {
-        if (db.currentPlayer.active[id - 1] == 1 && rnd.GetSaleChance() > 3)
+        Debug.Log($"SEARCH AttemptSale: {cm.saleChanceCheck}");
+        if (db.currentPlayer.active[id - 1] == 1 && cm.saleChanceCheck)
         {
             SellItem(id);
             soundManager.soundAudioSource.PlayOneShot(soundManager.itemSold, 1.25f);
