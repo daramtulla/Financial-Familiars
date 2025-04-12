@@ -9,6 +9,8 @@ using UnityEngine.UI;
 using Unity.VisualScripting;
 public class InventoryMenu : MonoBehaviour
 {
+    public SoundManager soundManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public GameObject inventoryPanel;
     [SerializeField] InteractionManager interactionManager;
@@ -33,6 +35,7 @@ public class InventoryMenu : MonoBehaviour
     void MarkupChange(int index, int merchID)
     {
         db.currentPlayer.merch[merchID - 1].markupPercentage = dBoxOptions[index];
+        soundManager.ButtonClickSound();
     }
 
     // Update is called once per frame

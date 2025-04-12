@@ -78,7 +78,9 @@ public class CustomerMovement : MonoBehaviour
 
     public Boolean debug;
     
-     [SerializeField] CustomerManager cm;
+    [SerializeField] CustomerManager cm;
+
+    [SerializeField] JSONDatabaseOperations jsonDbOps;
 
      private void Start()
     {
@@ -128,6 +130,13 @@ public class CustomerMovement : MonoBehaviour
                 case 8:
                     //Has already reached item.
                     cm.customerReached[cust.Value.itemToBuy - 1] = 2;
+
+                    if ((cust.Value.alreadyPickedupItem == false) && (jsonDbOps.currentPlayer.active[cust.Value.itemToBuy - 1] == 1))
+                    {
+                        Debug.Log($"alreadyWaved: {cust.Value.alreadyPickedupItem}");
+                        cust.Key.transform.GetChild(0).GetComponent<Animator>().SetTrigger("Interact_trig");
+                        cust.Value.alreadyPickedupItem = true;
+                    }
 
                     GoToNode7(cust.Key);
                     break;
@@ -344,6 +353,7 @@ public class CustomerMovement : MonoBehaviour
         }
 
         cust.transform.LookAt(linkTable[cust].nextNode.transform.position);
+        //cust.transform.GetChild(0).GetComponent<Animator>().SetTrigger("Interact_trig");
     }
     public void GoToNode7(GameObject cust)
     {
@@ -413,6 +423,8 @@ public class CustomerMovement : MonoBehaviour
 
         public GameObject nextNode;
         public CustomerMovement cm;
+
+        public bool alreadyPickedupItem = false;
 
         public Customer(int merchId, CustomerMovement instance)
         {
