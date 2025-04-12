@@ -13,6 +13,7 @@ public class SkyboxManager : MonoBehaviour
     [SerializeField] Boolean debug;
 
     [SerializeField] JSONDatabaseOperations db;
+    
 
     void Awake()
     {
@@ -83,6 +84,7 @@ public class SkyboxManager : MonoBehaviour
 
         RenderSettings.skybox = skyboxes[currentSkyboxIndex];
         DynamicGI.UpdateEnvironment();
+
     }
 
     public void SetEvening()
