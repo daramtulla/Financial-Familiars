@@ -39,8 +39,7 @@ public class PlayerManager : MonoBehaviour
         dayCount.text = "Day " + day.ToString();
 
         //Money Logic
-        float money = moneyMade + db.currentPlayer.currentMoney;
-        db.currentPlayer.currentMoney = money;
+        float money = db.currentPlayer.currentMoney;
 
         moneyCount.text = "$" + money.ToString("N2");
         if (money > 0)
