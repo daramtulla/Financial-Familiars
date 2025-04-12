@@ -18,7 +18,7 @@ public class SceneController : MonoBehaviour
     public bool debug;
     public void OnSceneLoad(Scene scene, LoadSceneMode mode)
     {
-        db.currentPlayer.volume = volume;
+        db.currentPlayer.musicVolume = volume;
         db.currentPlayer.sfxVolume = volumeSfx;
 
         db.SaveData();
@@ -26,7 +26,7 @@ public class SceneController : MonoBehaviour
 
     public void OnSceneUnload(Scene scene, LoadSceneMode mode)
     {
-        volume = db.currentPlayer.volume;
+        volume = db.currentPlayer.musicVolume;
         volumeSfx = db.currentPlayer.sfxVolume;
     }
 

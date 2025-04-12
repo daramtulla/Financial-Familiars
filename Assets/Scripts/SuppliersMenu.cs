@@ -89,9 +89,9 @@ public class SuppliersMenu : MonoBehaviour
 
         // HIRE ID 8: Increases number of suppliers
         int numSuppliers = 7;
-        if (db.checkEmployee(9))
+        if (db.CheckEmployee(9))
         {
-            if(db.checkEmployee(15))
+            if (db.CheckEmployee(15))
             {
                 numSuppliers = 8;
             }
@@ -138,9 +138,9 @@ public class SuppliersMenu : MonoBehaviour
         {
             bCost *= .8f;
         }
-        if (db.checkEmployee(2))
+        if (db.CheckEmployee(2))
         {
-            if (db.checkEmployee(15))
+            if (db.CheckEmployee(15))
             {
                 bCost *= .92f;
             }
@@ -193,9 +193,9 @@ public class SuppliersMenu : MonoBehaviour
     {
         float total = cost * bought;
 
-        if (db.checkEmployee(2))
+        if (db.CheckEmployee(2))
         {
-            if (db.checkEmployee(15))
+            if (db.CheckEmployee(15))
             {
                 total *= .92f;
             }
@@ -208,7 +208,7 @@ public class SuppliersMenu : MonoBehaviour
         if (db.currentPlayer.currentMoney > total)
         {
             //HIRE ID 7: Possibility of losing items
-            if (db.checkEmployee(7) && new System.Random().Next(1, 100) >= 95)
+            if (db.CheckEmployee(7) && new System.Random().Next(1, 100) >= 95)
             {
                 // TODO: ADD FEEDBACK FOR THE ITEMS BEING LOST
                 db.currentPlayer.currentMoney -= total;

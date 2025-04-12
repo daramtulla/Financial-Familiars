@@ -53,7 +53,7 @@ public class EmployeeManager : MonoBehaviour
             Debug.LogWarning("Placeholder image not found: " + placeholderPath);
         }
 
-        foreach (Employee emp in db.currentPlayer.unemployedEmployees)
+        foreach (Employee emp in db.currentPlayer.unemployed)
         {
             GameObject newEmployee = Instantiate(employeeItemPrefab, employeeContent);
 
@@ -109,11 +109,11 @@ public class EmployeeManager : MonoBehaviour
     }
     private void hireEmployee(int id)
     {
-        Employee hiring = db.currentPlayer.unemployedEmployees.Find(employee => employee.id == id);
-        if (hiring!= null)
+        Employee hiring = db.currentPlayer.unemployed.Find(employee => employee.id == id);
+        if (hiring != null)
         {
             db.addEmployee(hiring);
-            db.currentPlayer.unemployedEmployees.Remove(hiring);
+            db.currentPlayer.unemployed.Remove(hiring);
             UpdateEmployeeUI();
         }
         else

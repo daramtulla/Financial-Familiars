@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
         //Debug.Log($"RestartCycle(): db.currentPlayer.dailySales: {db.currentPlayer.dailySales}");
         db.currentPlayer.cycleNum = 0;
         soundManager.soundAudioSource.PlayOneShot(soundManager.storeSetup, 1.0f);
-        
+
     }
 
     private void Update()
@@ -158,9 +158,9 @@ public class GameManager : MonoBehaviour
         {
             wagesPaidAmount -= employee.salary;
         }
-        if (db.checkEmployee(0))
+        if (db.CheckEmployee(0))
         {
-            if (db.checkEmployee(15))
+            if (db.CheckEmployee(15))
             {
                 wagesPaidAmount -= db.currentPlayer.employees.Count * 20;
             }
@@ -174,15 +174,15 @@ public class GameManager : MonoBehaviour
 
         float utilitiesCostAmount = -50.0f;
 
-        if (db.checkUpgrade(0))
+        if (db.CheckUpgrade(0))
         {
             utilitiesCostAmount *= 0.9f;
         }
 
         //TODO: Add rent? Or lump it all in utilities. for now, just lump it in with utilities
-        if (db.checkEmployee(4))
+        if (db.CheckEmployee(4))
         {
-            if (db.checkEmployee(15))
+            if (db.CheckEmployee(15))
             {
                 utilitiesCostAmount *= 0.95f;
             }
@@ -191,7 +191,7 @@ public class GameManager : MonoBehaviour
                 utilitiesCostAmount *= 0.9f;
             }
         }
-        if (db.checkUpgrade(6))
+        if (db.CheckUpgrade(6))
         {
             moneyMadeAmount += 25;
         }
@@ -265,9 +265,9 @@ public class GameManager : MonoBehaviour
         //500 and below profit made means there is no tax
 
         //Hire 6: reduces the amount of taxes
-        if (db.checkEmployee(6))
+        if (db.CheckEmployee(6))
         {
-            if (db.checkEmployee(15))
+            if (db.CheckEmployee(15))
             {
                 taxAmount *= 0.98f;
             }
@@ -301,5 +301,5 @@ public class GameManager : MonoBehaviour
         dayTimer.SetActive(false);
     }
 
-    
+
 }
