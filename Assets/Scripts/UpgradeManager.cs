@@ -60,10 +60,10 @@ public class UpgradeManager : MonoBehaviour
 
             TextMeshProUGUI[] texts = newItem.GetComponentsInChildren<TextMeshProUGUI>();
             //todo: Add texts
-            texts[0].text = upgrade.Name;
+            texts[0].text = upgrade.name;
             //TODO: make this more efficient?
 
-            float cost = upgrade.Cost;
+            float cost = upgrade.cost;
 
             //HIRE ID 1, 7: Affects prices of upgrades
             if (db.CheckEmployee(1))
@@ -90,13 +90,13 @@ public class UpgradeManager : MonoBehaviour
             }
             texts[1].text = "$" + cost;
 
-            texts[2].text = upgrade.Description;
+            texts[2].text = upgrade.description;
 
 
 
             //TODO: add button with correct name
             Button buyButton = newItem.transform.Find("BuyButton").GetComponent<Button>();
-            buyButton.onClick.AddListener(() => buyUpgrade(upgrade.Cost, upgrade.id));
+            buyButton.onClick.AddListener(() => buyUpgrade(upgrade.cost, upgrade.id));
         }
     }
 
