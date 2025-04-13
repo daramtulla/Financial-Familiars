@@ -32,7 +32,6 @@ public class JSONDatabaseOperations : MonoBehaviour
         if (!File.Exists(filePath) || RegenerateOnLoad)
         {
             generateDatabase();
-            SaveData();
         }
 
         LoadData();
@@ -112,6 +111,8 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.unpurchased.Add(new Upgrade(3, "Premium Accessories", 600, "Increases Demand for Accessories."));
         currentPlayer.unpurchased.Add(new Upgrade(4, "Premium Weapons", 600, "Increases Demand for Weapons."));
         currentPlayer.unpurchased.Add(new Upgrade(5, "Premium Special Items", 1000, "Increases demand for Special items."));
+        currentPlayer.unpurchased.Add(new Upgrade(15, "Premium Runes", 1200, "Increases demand for runes."));
+        currentPlayer.unpurchased.Add(new Upgrade(16, "Premium Shields", 1500, "Increases demand for shields."));
 
         //TODO: Add storage functionality
         currentPlayer.unpurchased.Add(new Upgrade(6, "Transmutation Scroll", 400, "Provides a small amount of money per day."));
@@ -150,6 +151,10 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.totalSales = 0;
         currentPlayer.purchases = 0;
         currentPlayer.cycleNum = 0;
+
+
+        currentPlayer.loans.Add(new Loan(6, 100000f, 0.01f, "Beginning Business Loan", true, JSONDatabaseOperations.InterestType.Flat));
+
         SaveData();
     }
 
@@ -159,6 +164,8 @@ public class JSONDatabaseOperations : MonoBehaviour
         string JSONString = JsonUtility.ToJson(currentPlayer, true);
         System.IO.File.WriteAllText(filePath, JSONString);
 
+        Debug.Log("Path to json database: " + filePath);
+        Debug.Log("JSONString: " + JSONString);
         if (debug)
         {
             Debug.Log("Data Saved");
@@ -168,14 +175,34 @@ public class JSONDatabaseOperations : MonoBehaviour
     public void LoadData()
     {
         filePath = Application.persistentDataPath + "/JSONDatabase.json";
-        string JSONString = System.IO.File.ReadAllText(filePath);
-        currentPlayer = JsonUtility.FromJson<Player>(JSONString);
 
-        if (currentPlayer.merch.Count != 18)
+        if (!File.Exists(filePath))
         {
+            Debug.LogWarning("JSON file missing, regenerating.");
             generateDatabase();
+            return;
         }
+        string JSONString = System.IO.File.ReadAllText(filePath);
+        var loadedPlayer = JsonUtility.FromJson<Player>(JSONString);
 
+        // Very basic validation check: did merch load correctly?
+        if (loadedPlayer == null || loadedPlayer.merch == null || loadedPlayer.merch.Count < 18)
+        {
+            Debug.LogWarning("Loaded data was invalid. Regenerating database.");
+            generateDatabase();
+            return;
+        }
+        currentPlayer = loadedPlayer;
+
+        if (currentPlayer.active == null || currentPlayer.active.Length != 18)
+        {
+            currentPlayer.active = new int[18];
+        }
+        for (int i = 0; i < 18; i++)
+        {
+            currentPlayer.active[i] = 0;
+        }
+        SaveData();
         if (debug)
         {
             Debug.Log("Data Loaded");

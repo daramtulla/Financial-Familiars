@@ -10,7 +10,7 @@ public class InteractableMenu : MonoBehaviour, InteractMenu
 
     [SerializeField] GameObject menuToOpenOrClose;
     [SerializeField] SuppliersMenu suppliersMenu;
-    [SerializeField] BudgetMenu budgetMenu;
+    //[SerializeField] BudgetMenu budgetMenu;
     [SerializeField] InventoryMenu inventoryMenu;
     [SerializeField] GameManager gameManager;
     [SerializeField] ShowMenu showMenu;
@@ -69,11 +69,11 @@ public class InteractableMenu : MonoBehaviour, InteractMenu
                 Debug.Log("Closed Suppliers Menu");
                 suppliersMenu.CloseMenu();
             }
-            else if (menuToOpenOrClose.name == "Budget Panel")
-            {
-                Debug.Log("Close Budget Menu");
-                budgetMenu.CloseMenu();
-            }
+            //else if (menuToOpenOrClose.name == "Budget Panel")
+            //{
+            //    Debug.Log("Close Budget Menu");
+            //    budgetMenu.CloseMenu();
+            //}
             else if (menuToOpenOrClose.name == "Inventory Panel")
             {
                 Debug.Log("Close Inventory Menu");
@@ -118,11 +118,11 @@ public class InteractableMenu : MonoBehaviour, InteractMenu
                 Debug.Log("Open Suppliers Menu");
                 suppliersMenu.ToggleMenu();
             }
-            else if (menuToOpenOrClose.name == "Budget Panel")
-            {
-                Debug.Log("Open Budget Menu");
-                budgetMenu.ToggleBudgetMenu();
-            }
+            //else if (menuToOpenOrClose.name == "Budget Panel")
+            //{
+            //    Debug.Log("Open Budget Menu");
+            //    budgetMenu.ToggleBudgetMenu();
+            //}
             else if (menuToOpenOrClose.name == "Inventory Panel")
             {
                 Debug.Log("Open Inventory Panel");
@@ -140,6 +140,7 @@ public class InteractableMenu : MonoBehaviour, InteractMenu
                 }
                 else if (db.currentPlayer.cycleNum == 2)
                 {
+                    gameManager.CalculateEndDayScreenResults(false);
                     startSellingButton.SetActive(false);
                     endDayButton.SetActive(true);
                 }

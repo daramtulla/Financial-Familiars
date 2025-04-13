@@ -121,11 +121,6 @@ public class Borrowing : MonoBehaviour
 
     int GetCurrentLoanCount()
     {
-        int count = 0;
-        foreach (var loan in db.currentPlayer.availableLoans)
-        {
-            if (loan.borrowed) count++;
-        }
-        return count;
+        return db.currentPlayer.loans.Count;
     }
 }

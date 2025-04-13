@@ -77,8 +77,12 @@ public class LoansMenu : MonoBehaviour
 
             if (loans[currentindex].amount == 0)
             {
-                loans.Remove(loans[currentindex]);
-                currentindex = 0;
+                loans.RemoveAt(currentindex);
+                if (currentindex >= loans.Count)
+                {
+                    currentindex = loans.Count - 1;
+                }
+                if (currentindex < 0) currentindex = 0;
             }
 
             LoansDisplay();
@@ -189,15 +193,7 @@ public class LoansMenu : MonoBehaviour
     {
         List<Loan> loans = db.currentPlayer.loans;
 
-
-        if (currentindex < 0)
-        {
-            currentindex = 0;
-        }
-        else if (currentindex > db.currentPlayer.loans.Count - 1)
-        {
-            currentindex = db.currentPlayer.loans.Count - 1;
-        }
+        currentindex = Mathf.Clamp(currentindex, 0, db.currentPlayer.loans.Count - 1);
 
         if (debug) { Debug.Log(currentindex); }
 

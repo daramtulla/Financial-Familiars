@@ -138,7 +138,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void EndDay()
+    public float CalculateEndDayScreenResults(bool endDayButtonPressed)
     {
         Time.timeScale = 0.0f;
 
@@ -218,9 +218,25 @@ public class GameManager : MonoBehaviour
         float netProfitAmount = netProfitBeforeTaxAmount - taxAmount;
         FormatText(netProfit, netProfitAmount);
 
+        if (endDayButtonPressed == true)
+        {
+            Debug.Log($"DBCURRENTMONEY {db.currentPlayer.currentMoney} - {wagesPaidAmount} - {utilitiesCostAmount} - {taxAmount}");
+            //The Debug.Log statement above shows the wagesPaidAmount and utilitiesCostAmount as negative numbers so we add them instead of subtract them.
+
+            //Subtract the wages, utilities cost, and tax from the current money
+            db.currentPlayer.currentMoney = db.currentPlayer.currentMoney + wagesPaidAmount + utilitiesCostAmount - taxAmount;
+        }
+        return netProfitAmount;
+    }
+
+    public void EndDay()
+    {
+        float netProfitAmount = CalculateEndDayScreenResults(true);
+
         db.currentPlayer.IncrDay();
 
         playerManager.UpdatePlayerStats(netProfitAmount);
+
         //db.SaveData();
     }
     public void FormatText(Text textObject, float amount)
