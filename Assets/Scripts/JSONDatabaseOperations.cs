@@ -104,14 +104,14 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.unemployed.Add(new Employee(19, "Grunkar Ironfist", "Blacksmith", 120, "Strong, no-nonsense, reclusive.", "Greatly increases demand for weapons.", "A seasoned blacksmith with a reputation for crafting legendary weapons.", "Employees/Grunkar.png"));
         currentPlayer.unemployed.Add(new Employee(20, "Selene Starwhisper", "Grand Enchanter", 150, "Mysterious, graceful, always floating.", "Greatly increases demand for special items.", "A powerful enchanter who once created an invisibility cloak.", "Employees/Selene.png"));
         //TODO: Add functionality
-        currentPlayer.unpurchasedUpgrades.Add(new Upgrade(0, "Efficient Lighting", 200, "Reduces utilities cost."));
-        currentPlayer.unpurchasedUpgrades.Add(new Upgrade(1, "Luxury Branding", 500, "Slightly Increases demand for all items."));
-        currentPlayer.unpurchasedUpgrades.Add(new Upgrade(2, "Premium Potions", 300, "Increases Demand for Potions."));
-        currentPlayer.unpurchasedUpgrades.Add(new Upgrade(3, "Premium Accessories", 600, "Increases Demand for Accessories."));
-        currentPlayer.unpurchasedUpgrades.Add(new Upgrade(4, "Premium Weapons", 600, "Increases Demand for Weapons."));
-        currentPlayer.unpurchasedUpgrades.Add(new Upgrade(5, "Premium Special Items", 1000, "Increases demand for Special items."));
-        currentPlayer.unpurchasedUpgrades.Add(new Upgrade(15, "Premium Runes", 1200, "Increases demand for runes."));
-        currentPlayer.unpurchasedUpgrades.Add(new Upgrade(16, "Premium Shields", 1500, "Increases demand for shields."));
+        currentPlayer.unpurchased.Add(new Upgrade(0, "Efficient Lighting", 200, "Reduces utilities cost."));
+        currentPlayer.unpurchased.Add(new Upgrade(1, "Luxury Branding", 500, "Slightly Increases demand for all items."));
+        currentPlayer.unpurchased.Add(new Upgrade(2, "Premium Potions", 300, "Increases Demand for Potions."));
+        currentPlayer.unpurchased.Add(new Upgrade(3, "Premium Accessories", 600, "Increases Demand for Accessories."));
+        currentPlayer.unpurchased.Add(new Upgrade(4, "Premium Weapons", 600, "Increases Demand for Weapons."));
+        currentPlayer.unpurchased.Add(new Upgrade(5, "Premium Special Items", 1000, "Increases demand for Special items."));
+        currentPlayer.unpurchased.Add(new Upgrade(15, "Premium Runes", 1200, "Increases demand for runes."));
+        currentPlayer.unpurchased.Add(new Upgrade(16, "Premium Shields", 1500, "Increases demand for shields."));
 
         //TODO: Add storage functionality
         currentPlayer.unpurchased.Add(new Upgrade(6, "Transmutation Scroll", 400, "Provides a small amount of money per day."));
@@ -251,7 +251,7 @@ public class JSONDatabaseOperations : MonoBehaviour
     }
     public void removeEmployee(Employee employee)
     {
-        currentPlayer.unemployedEmployees.Add(employee);
+        currentPlayer.unemployed.Add(employee);
     }
 
     public bool CheckUpgrade(int id)
@@ -267,6 +267,7 @@ public class JSONDatabaseOperations : MonoBehaviour
         }
         return result;
     }
+
     public bool CheckEmployee(int id)
     {
         if (id < 0)

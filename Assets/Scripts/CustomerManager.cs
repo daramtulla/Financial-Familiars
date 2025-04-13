@@ -348,13 +348,13 @@ public class CustomerManager : MonoBehaviour
                 }
                 break;
             case 5:
-                if (db.checkUpgrade(15))
+                if (db.CheckUpgrade(15))
                 {
                     degrees *= 0.9f;
                 }
                 break;
             case 6:
-                if (db.checkUpgrade(16))
+                if (db.CheckUpgrade(16))
                 {
                     degrees *= 0.9f;
                 }
