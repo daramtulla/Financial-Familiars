@@ -133,6 +133,8 @@ public class CustomerManager : MonoBehaviour
 
     public void SaleTimeCheck(List<KeyValuePair<int, int>> copy)
     {
+        List<KeyValuePair<int, int>> toRemoveList = new();
+
         foreach (KeyValuePair<int, int> pair in timeline)
         {
             if (pair.Value <= dayTime)
@@ -142,12 +144,17 @@ public class CustomerManager : MonoBehaviour
                     customerReached[pair.Key - 1] = 0;
                     AttemptSale(pair.Key);
                     if (debug) { Debug.Log("Attempting to sell merch " + pair.Value); }
-                    KeyValuePair<int, int> toRemove = new(pair.Key, pair.Value);
-                    Debug.Log("Remove Successful? " + copy.Remove(toRemove));
+                    toRemoveList.Add(pair);
                 }
             }
         }
+
+        foreach (var removePair in toRemoveList)
+        {
+            timeline.Remove(removePair); // actually remove from the real timeline now
+        }
     }
+
 
     //Generates a number of sales based on the markup of the item and when those sales occur
     public void GetItemSaleTimeLine()
@@ -258,6 +265,7 @@ public class CustomerManager : MonoBehaviour
 
     //HIRES AND UPGRADES
     //TODO: CHECK THIS SELLING EQUATION
+    //TODO: What the hell is going on with this and all of the id - 1 stuff
     //UPGRADE 11: possibly sell two accessories at once
     public void SellItem(int id)
     {
@@ -340,10 +348,16 @@ public class CustomerManager : MonoBehaviour
                 }
                 break;
             case 5:
-                //todo
+                if (db.checkUpgrade(15))
+                {
+                    degrees *= 0.9f;
+                }
                 break;
             case 6:
-                //todo
+                if (db.checkUpgrade(16))
+                {
+                    degrees *= 0.9f;
+                }
                 break;
             default:
                 Debug.Log("Item does not belong to a group");

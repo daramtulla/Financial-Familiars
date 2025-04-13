@@ -49,6 +49,13 @@ public class SceneController : MonoBehaviour
         db.SaveData();
         SceneManager.LoadScene("TitleScreen");
     }
+    public void OnClickSceneChangeCredits()
+    {
+        Time.timeScale = 1.0f;
+        db.SaveData();
+        SceneManager.LoadScene("Credits");
+    }
+
 
     void Update()
     {

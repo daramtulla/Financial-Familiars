@@ -87,8 +87,12 @@ public class LoansMenu : MonoBehaviour
 
             if (loans[currentindex].amount == 0)
             {
-                loans.Remove(loans[currentindex]);
-                currentindex = 0;
+                loans.RemoveAt(currentindex);
+                if (currentindex >= loans.Count)
+                {
+                    currentindex = loans.Count - 1;
+                }
+                if (currentindex < 0) currentindex = 0;
             }
 
             LoansDisplay();
@@ -126,7 +130,7 @@ public class LoansMenu : MonoBehaviour
         }
 
         currentindex += 1;
-        if (currentindex >= maxLoans)
+        if (currentindex >= db.currentPlayer.loans.Count)
         {
             currentindex = 0;
         }
@@ -213,21 +217,7 @@ public class LoansMenu : MonoBehaviour
     {
         List<Loan> loans = db.currentPlayer.loans;
 
-
-        if (currentindex < 0)
-        {
-            currentindex = 0;
-        }
-
-        while (currentindex >= 3)
-        {
-            currentindex--;
-            if (currentindex < 0)
-            {
-                currentindex = 0;
-                break;
-            }
-        }
+        currentindex = Mathf.Clamp(currentindex, 0, db.currentPlayer.loans.Count - 1);
 
         totalloans.GetComponent<TMP_Text>().text = db.currentPlayer.GetTotalLoansOwed(loans).ToString();
         totalinterest.GetComponent<TMP_Text>().text = db.currentPlayer.GetDailyInterest(loans).ToString();
