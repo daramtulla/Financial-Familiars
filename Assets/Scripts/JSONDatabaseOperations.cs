@@ -135,7 +135,6 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.active = new int[18];
         currentPlayer.dailyLoanAmount = 0;
 
-        currentPlayer.availableLoans.Clear();
         currentPlayer.availableLoans.Add(new Loan(0, 25000f, .2f, "Candlelight Credit", false, JSONDatabaseOperations.InterestType.Flat));
         currentPlayer.availableLoans.Add(new Loan(1, 10000f, .5f, "Dragon Investments", false, JSONDatabaseOperations.InterestType.Flat));
         currentPlayer.availableLoans.Add(new Loan(2, 50000f, .05f, "Bank of Enchancia", false, JSONDatabaseOperations.InterestType.Flat));
