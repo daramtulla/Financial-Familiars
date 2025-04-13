@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEditor;
+using UnityEditor.Overlays;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
@@ -133,6 +134,14 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.newPlayer = new IntegerField(1);
         currentPlayer.active = new int[18];
         currentPlayer.dailyLoanAmount = 0;
+
+        currentPlayer.availableLoans.Clear();
+        currentPlayer.availableLoans.Add(new Loan(0, 25000f, .2f, "Candlelight Credit", false, JSONDatabaseOperations.InterestType.Flat));
+        currentPlayer.availableLoans.Add(new Loan(1, 10000f, .5f, "Dragon Investments", false, JSONDatabaseOperations.InterestType.Flat));
+        currentPlayer.availableLoans.Add(new Loan(2, 50000f, .05f, "Bank of Enchancia", false, JSONDatabaseOperations.InterestType.Flat));
+        currentPlayer.availableLoans.Add(new Loan(3, 35000f, .15f, "Turtle Tank inc.", false, JSONDatabaseOperations.InterestType.Flat));
+        currentPlayer.availableLoans.Add(new Loan(4, 15000f, .03f, "Fae Court Credit Union", false, JSONDatabaseOperations.InterestType.Compound));
+
 
         for (int i = 0; i < 18; i++)
         {
@@ -286,6 +295,8 @@ public class Player
     public List<Upgrade> upgrades = new List<Upgrade>();
     public List<string> completedTutorials = new List<string>();
 
+    public List<Loan> availableLoans = new List<Loan>();
+
     //Merchandise Method Helpers
     public void ChangeQuantity(int id, int change)
     {
@@ -424,7 +435,7 @@ public class Player
     public void AddLoan(Loan loan)
     {
         //Handled in borrowing.cs now
-        if (loans.Count > 3)
+        if (loans.Count > 2)
         {
             Debug.Log("Already have 3 Loans");
             return;
@@ -432,6 +443,7 @@ public class Player
 
         dailyLoanAmount += loan.amount;
         loans.Add(loan);
+        loan.borrowed = true;
     }
 }
 
