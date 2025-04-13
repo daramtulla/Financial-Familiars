@@ -136,7 +136,7 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.active = new int[18];
         currentPlayer.dailyLoanAmount = 0;
 
-        currentPlayer.availableLoans.Clear();
+        //currentPlayer.availableLoans.Clear();
         currentPlayer.availableLoans.Add(new Loan(0, 25000f, .2f, "Candlelight Credit", false, JSONDatabaseOperations.InterestType.Flat));
         currentPlayer.availableLoans.Add(new Loan(1, 10000f, .5f, "Dragon Investments", false, JSONDatabaseOperations.InterestType.Flat));
         currentPlayer.availableLoans.Add(new Loan(2, 50000f, .05f, "Bank of Enchancia", false, JSONDatabaseOperations.InterestType.Flat));
@@ -154,7 +154,7 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.cycleNum = 0;
 
 
-        currentPlayer.loans.Add(new Loan(6, 100000f, 0.01f, "Beginning Business Loan", true, JSONDatabaseOperations.InterestType.Flat));
+        currentPlayer.loans.Add(new Loan(5, 100000f, 0.01f, "Beginning Business Loan", true, JSONDatabaseOperations.InterestType.Flat));
 
         SaveData();
     }
