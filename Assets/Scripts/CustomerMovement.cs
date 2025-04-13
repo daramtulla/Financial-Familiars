@@ -78,9 +78,18 @@ public class CustomerMovement : MonoBehaviour
 
     public Boolean debug;
     
-     [SerializeField] CustomerManager cm;
+    [SerializeField] CustomerManager cm;
 
-     private void Start()
+    [SerializeField] JSONDatabaseOperations jsonDbOps;
+
+    private RandomGenNum rnd;
+    public bool saleChanceCheck;
+
+    public void Awake()
+    {
+        rnd = new();
+    }
+    private void Start()
     {
         customerSet = new GameObject[] { customerPrefab, customerPrefab1, customerPrefab2 };
     }
@@ -128,6 +137,20 @@ public class CustomerMovement : MonoBehaviour
                 case 8:
                     //Has already reached item.
                     cm.customerReached[cust.Value.itemToBuy - 1] = 2;
+
+                    if (cust.Value.alreadyGeneratedSaleChance == false)
+                    {
+                        saleChanceCheck = rnd.GetSaleChance() > 3;
+                        cust.Value.alreadyGeneratedSaleChance = true;
+                    }
+
+                    Debug.Log($"SEARCH CMcheck: {saleChanceCheck}");
+                    if ((cust.Value.alreadyPickedupItem == false) && (jsonDbOps.currentPlayer.active[cust.Value.itemToBuy - 1] == 1) && saleChanceCheck)
+                    {
+                        Debug.Log($"alreadyWaved: {cust.Value.alreadyPickedupItem}");
+                        cust.Key.transform.GetChild(0).GetComponent<Animator>().SetTrigger("Interact_trig");
+                        cust.Value.alreadyPickedupItem = true;
+                    }
 
                     GoToNode7(cust.Key);
                     break;
@@ -344,6 +367,7 @@ public class CustomerMovement : MonoBehaviour
         }
 
         cust.transform.LookAt(linkTable[cust].nextNode.transform.position);
+        //cust.transform.GetChild(0).GetComponent<Animator>().SetTrigger("Interact_trig");
     }
     public void GoToNode7(GameObject cust)
     {
@@ -413,6 +437,9 @@ public class CustomerMovement : MonoBehaviour
 
         public GameObject nextNode;
         public CustomerMovement cm;
+
+        public bool alreadyPickedupItem = false;
+        public bool alreadyGeneratedSaleChance = false;
 
         public Customer(int merchId, CustomerMovement instance)
         {

@@ -7,6 +7,7 @@ using UnityEngine.InputSystem.Controls;
 using System.Collections;
 using NUnit.Framework;
 using System.Linq;
+using UnityEngine.UI;
 
 public class CustomerManager : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class CustomerManager : MonoBehaviour
     [SerializeField] Boolean debug;
 
     [SerializeField] RandomGenNum rnd;
+    [SerializeField] private GameManager gameManager;
 
     public int dayTimeTotal;
 
@@ -38,8 +40,10 @@ public class CustomerManager : MonoBehaviour
 
     [SerializeField] CustomerMovement cm;
 
+    public Text dayTimeNumberText;
+
     // HIRE 0, 15, 16, 18, 19: Affects demand/prices
-    // UPGRADE 1, 2, 3, 4, 5, 11, 12: Affects dmeand/prices
+    // UPGRADE 1, 2, 3, 4, 5, 11, 12: Affects demand/prices
     public void StartSelling()
     {
         dayTime = 0;
@@ -76,6 +80,8 @@ public class CustomerManager : MonoBehaviour
                 //Check to see what sales occured at this time
                 SaleTimeCheck(copy1);
                 CustomerTimeCheck(copy2);
+
+                dayTimeNumberText.text = ((int)(dayTimeTotal - dayTime)).ToString();
             }
 
             yield return null;
@@ -87,6 +93,9 @@ public class CustomerManager : MonoBehaviour
         //Debug.Log($"db.currentPlayer.cycleNum: {db.currentPlayer.cycleNum}");
         timerActive = false;
         soundManager.soundAudioSource.PlayOneShot(soundManager.storeClosing, 0.3f);
+
+        //sign animation
+        gameManager.ShowClosedSign();
 
     }
 
@@ -124,6 +133,8 @@ public class CustomerManager : MonoBehaviour
 
     public void SaleTimeCheck(List<KeyValuePair<int, int>> copy)
     {
+        List<KeyValuePair<int, int>> toRemoveList = new();
+
         foreach (KeyValuePair<int, int> pair in timeline)
         {
             if (pair.Value <= dayTime)
@@ -133,12 +144,17 @@ public class CustomerManager : MonoBehaviour
                     customerReached[pair.Key - 1] = 0;
                     AttemptSale(pair.Key);
                     if (debug) { Debug.Log("Attempting to sell merch " + pair.Value); }
-                    KeyValuePair<int, int> toRemove = new(pair.Key, pair.Value);
-                    Debug.Log("Remove Successful? " + copy.Remove(toRemove));
+                    toRemoveList.Add(pair);
                 }
             }
         }
+
+        foreach (var removePair in toRemoveList)
+        {
+            timeline.Remove(removePair); // actually remove from the real timeline now
+        }
     }
+
 
     //Generates a number of sales based on the markup of the item and when those sales occur
     public void GetItemSaleTimeLine()
@@ -239,7 +255,8 @@ public class CustomerManager : MonoBehaviour
     //Item must be displayed to be sold
     public void AttemptSale(int id)
     {
-        if (db.currentPlayer.active[id - 1] == 1)
+        Debug.Log($"SEARCH AttemptSale: {cm.saleChanceCheck}");
+        if (db.currentPlayer.active[id - 1] == 1 && cm.saleChanceCheck)
         {
             SellItem(id);
             soundManager.soundAudioSource.PlayOneShot(soundManager.itemSold, 1.25f);
@@ -248,6 +265,7 @@ public class CustomerManager : MonoBehaviour
 
     //HIRES AND UPGRADES
     //TODO: CHECK THIS SELLING EQUATION
+    //TODO: What the hell is going on with this and all of the id - 1 stuff
     //UPGRADE 11: possibly sell two accessories at once
     public void SellItem(int id)
     {
@@ -267,7 +285,7 @@ public class CustomerManager : MonoBehaviour
                 }
                 if (db.checkEmployee(16))
                 {
-                    if(db.checkEmployee(15))
+                    if (db.checkEmployee(15))
                     {
                         degrees *= 0.92f;
                     }
@@ -330,10 +348,16 @@ public class CustomerManager : MonoBehaviour
                 }
                 break;
             case 5:
-                //todo
+                if (db.checkUpgrade(15))
+                {
+                    degrees *= 0.9f;
+                }
                 break;
             case 6:
-                //todo
+                if (db.checkUpgrade(16))
+                {
+                    degrees *= 0.9f;
+                }
                 break;
             default:
                 Debug.Log("Item does not belong to a group");
@@ -400,11 +424,11 @@ public class CustomerManager : MonoBehaviour
         db.currentPlayer.dailySales += sale;
         //chance to buy two items
         // If:
-            //1. This is an accessory
-            //2. We have the available item
-            //3. We have the employee
-            //4. 5% chance to buy it
-        if(db.currentPlayer.merch[id - 1].group == 2 &&
+        //1. This is an accessory
+        //2. We have the available item
+        //3. We have the employee
+        //4. 5% chance to buy it
+        if (db.currentPlayer.merch[id - 1].group == 2 &&
             db.currentPlayer.merch[id].quantity > 0 &&
             db.checkEmployee(13) &&
             new System.Random().Next(1, 100) >= 95)
@@ -448,7 +472,7 @@ public class CustomerManager : MonoBehaviour
                 Debug.Log("Unknown item group: " + db.currentPlayer.merch[id - 1].group);
                 break;
         }
-        if(db.checkUpgrade(upgradeNeeded))
+        if (db.checkUpgrade(upgradeNeeded))
         {
             //auto restocks if possible
             //we have already moved the purchased item, so see if there's another one

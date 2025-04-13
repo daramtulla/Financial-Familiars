@@ -6,6 +6,8 @@ using System.Data.Common;
 
 public class Borrowing : MonoBehaviour
 {
+    public SoundManager soundManager;
+
     public GameObject BorrowingCardPrefab;
     public Transform loanCardContainer;
     public GameObject loanLimitMessage;
@@ -18,6 +20,11 @@ public class Borrowing : MonoBehaviour
     public int maxLoans = 3;
 
     public List<Loan> availableLoans = new List<Loan>();
+
+    //tutorial specific
+    [SerializeField] bool tutorialMode = false;
+    [SerializeField] GameObject tutorialBlockA;
+    [SerializeField] GameObject tutorialBlockB;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -58,6 +65,7 @@ public class Borrowing : MonoBehaviour
         availableLoans.Add(new Loan(2, 50000f, .05f, "Bank of Enchancia", false, JSONDatabaseOperations.InterestType.Flat));
         availableLoans.Add(new Loan(3, 35000f, .15f, "Turtle Tank inc.", false, JSONDatabaseOperations.InterestType.Flat));
         availableLoans.Add(new Loan(4, 15000f, .03f, "Fae Court Credit Union", false, JSONDatabaseOperations.InterestType.Compound));
+
     }
 
     void PopulateLoanCards()
@@ -76,6 +84,17 @@ public class Borrowing : MonoBehaviour
         }
         else
         {
+            //tutorial specific
+            if(tutorialMode)
+            {
+                if(GetCurrentLoanCount() > 0)
+                {
+                    tutorialBlockA.SetActive(false);
+                    tutorialBlockB.SetActive(true);
+
+                }
+            }
+
             loanCardContainer.parent.parent.gameObject.SetActive(true);
             if (loanLimitMessage != null) loanLimitMessage.SetActive(false);
         }
@@ -111,16 +130,12 @@ public class Borrowing : MonoBehaviour
             db.currentPlayer.currentMoney += loan.amount;
             db.currentPlayer.dailySales += loan.amount;
             PopulateLoanCards();
+            soundManager.ButtonClickSound();
         });
     }
 
     int GetCurrentLoanCount()
     {
-        int count = 0;
-        foreach (var loan in availableLoans)
-        {
-            if (loan.borrowed) count++;
-        }
-        return count;
+        return db.currentPlayer.loans.Count;
     }
 }

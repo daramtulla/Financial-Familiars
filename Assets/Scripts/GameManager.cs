@@ -40,6 +40,19 @@ public class GameManager : MonoBehaviour
     [SerializeField] CustomerManager cm;
     [SerializeField] Boolean debug;
 
+    //signs
+    public GameObject OpenSign;
+    [SerializeField] private Animator openSignAnimator;
+    public GameObject ClosedSign;
+    [SerializeField] private Animator closedSignAnimator;
+    public GameObject RenewSign;
+    [SerializeField] private Animator renewSignAnimator;
+
+    public GameObject smallOpenSign;
+    public GameObject smallClosedSign;
+
+    public GameObject dayTimer;
+
     public void StartSellingPhase()
     {
         if (db.currentPlayer.cycleNum != 0)
@@ -50,6 +63,20 @@ public class GameManager : MonoBehaviour
         db.currentPlayer.cycleNum = 1;
         soundManager.soundAudioSource.PlayOneShot(soundManager.storeSelling, 0.3f);
         cm.StartSelling();
+
+        //open signs
+        OpenSign.gameObject.SetActive(true);
+        openSignAnimator.gameObject.SetActive(true);
+        openSignAnimator.Play("openGlow");
+        closedSignAnimator.gameObject.SetActive(false);
+        ClosedSign.gameObject.SetActive(false);
+        renewSignAnimator.gameObject.SetActive(false);
+        RenewSign.gameObject.SetActive(false);
+
+        smallClosedSign.gameObject.SetActive(false);
+        smallOpenSign.gameObject.SetActive(true);
+
+        dayTimer.SetActive(true);
     }
 
     //Close Phase starts automatically when selling phase timer ends
@@ -58,8 +85,15 @@ public class GameManager : MonoBehaviour
     {
         if (db.currentPlayer.cycleNum != 2)
         {
-            Debug.Log("Incorrect cyle order");
+            Debug.Log("Incorrect cycle order");
         }
+
+        //open signs
+        openSignAnimator.gameObject.SetActive(false);
+        OpenSign.gameObject.SetActive(false);
+        RenewSign.gameObject.SetActive(true);
+        renewSignAnimator.gameObject.SetActive(true);
+        renewSignAnimator.Play("openGlow");
 
 
         EndDay();
@@ -68,6 +102,7 @@ public class GameManager : MonoBehaviour
         //Debug.Log($"RestartCycle(): db.currentPlayer.dailySales: {db.currentPlayer.dailySales}");
         db.currentPlayer.cycleNum = 0;
         soundManager.soundAudioSource.PlayOneShot(soundManager.storeSetup, 1.0f);
+        
     }
 
     private void Update()
@@ -103,7 +138,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void EndDay()
+    public float CalculateEndDayScreenResults(bool endDayButtonPressed)
     {
         Time.timeScale = 0.0f;
 
@@ -183,10 +218,26 @@ public class GameManager : MonoBehaviour
         float netProfitAmount = netProfitBeforeTaxAmount - taxAmount;
         FormatText(netProfit, netProfitAmount);
 
+        if (endDayButtonPressed == true)
+        {
+            Debug.Log($"DBCURRENTMONEY {db.currentPlayer.currentMoney} - {wagesPaidAmount} - {utilitiesCostAmount} - {taxAmount}");
+            //The Debug.Log statement above shows the wagesPaidAmount and utilitiesCostAmount as negative numbers so we add them instead of subtract them.
+
+            //Subtract the wages, utilities cost, and tax from the current money
+            db.currentPlayer.currentMoney = db.currentPlayer.currentMoney + wagesPaidAmount + utilitiesCostAmount - taxAmount;
+        }
+        return netProfitAmount;
+    }
+
+    public void EndDay()
+    {
+        float netProfitAmount = CalculateEndDayScreenResults(true);
+
         db.currentPlayer.IncrDay();
 
         playerManager.UpdatePlayerStats(netProfitAmount);
-        db.SaveData();
+
+        //db.SaveData();
     }
     public void FormatText(Text textObject, float amount)
     {
@@ -253,4 +304,18 @@ public class GameManager : MonoBehaviour
         db.currentPlayer.currentMoney += 100;
         moneyCount.text = db.currentPlayer.currentMoney.ToString("N2");
     }
+
+    public void ShowClosedSign()
+    {
+        ClosedSign.SetActive(true);
+        closedSignAnimator.gameObject.SetActive(true);
+        closedSignAnimator.Play("openGlow");
+
+        smallOpenSign.gameObject.SetActive(false);
+        smallClosedSign.gameObject.SetActive(true);
+
+        dayTimer.SetActive(false);
+    }
+
+    
 }
