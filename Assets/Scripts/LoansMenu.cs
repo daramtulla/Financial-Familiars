@@ -120,7 +120,7 @@ public class LoansMenu : MonoBehaviour
         }
 
         currentindex += 1;
-        if (currentindex > db.currentPlayer.loans.Count - 1)
+        if (currentindex >= db.currentPlayer.loans.Count)
         {
             currentindex = 0;
         }

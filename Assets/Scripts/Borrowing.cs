@@ -71,7 +71,7 @@ public class Borrowing : MonoBehaviour
             //tutorial specific
             if (tutorialMode)
             {
-                if (GetCurrentLoanCount() > 0)
+                if(GetCurrentLoanCount() > 1)
                 {
                     tutorialBlockA.SetActive(false);
                     tutorialBlockB.SetActive(true);

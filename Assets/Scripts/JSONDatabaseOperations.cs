@@ -113,6 +113,8 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.unpurchased.Add(new Upgrade(5, "Premium Special Items", 1000, "Increases demand for Special items."));
         currentPlayer.unpurchased.Add(new Upgrade(15, "Premium Runes", 1200, "Increases demand for runes."));
         currentPlayer.unpurchased.Add(new Upgrade(16, "Premium Shields", 1500, "Increases demand for shields."));
+        currentPlayer.unpurchased.Add(new Upgrade(15, "Premium Runes", 1200, "Increases demand for runes."));
+        currentPlayer.unpurchased.Add(new Upgrade(16, "Premium Shields", 1500, "Increases demand for shields."));
 
         //TODO: Add storage functionality
         currentPlayer.unpurchased.Add(new Upgrade(6, "Transmutation Scroll", 400, "Provides a small amount of money per day."));
@@ -153,7 +155,7 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.cycleNum = 0;
 
 
-        currentPlayer.loans.Add(new Loan(6, 100000f, 0.01f, "Beginning Business Loan", true, JSONDatabaseOperations.InterestType.Flat));
+        currentPlayer.loans.Add(new Loan(5, 100000f, 0.01f, "Beginning Business Loan", true, JSONDatabaseOperations.InterestType.Flat));
 
         SaveData();
     }
@@ -257,6 +259,10 @@ public class JSONDatabaseOperations : MonoBehaviour
     {
         currentPlayer.employees.Add(employee);
     }
+    public void removeEmployee(Employee employee)
+    {
+        currentPlayer.unemployed.Add(employee);
+    }
 
     public bool CheckUpgrade(int id)
     {
@@ -271,6 +277,7 @@ public class JSONDatabaseOperations : MonoBehaviour
         }
         return result;
     }
+
     public bool CheckEmployee(int id)
     {
         if (id < 0)
