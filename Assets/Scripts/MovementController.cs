@@ -66,6 +66,13 @@ public class MovementController : MonoBehaviour
         playerAnimator.SetTrigger("Interact_trig");
     }
 
+    //unstuck button
+    public void unstick()
+    {
+        playerModel.transform.position = startingPosition.transform.position;
+        playerModel.transform.rotation = startingPosition.transform.rotation;
+    }
+
     void moveDirection()
     {
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
