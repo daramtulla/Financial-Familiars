@@ -19,8 +19,6 @@ public class Borrowing : MonoBehaviour
 
     public int maxLoans = 3;
 
-    public List<Loan> availableLoans = new List<Loan>();
-
     //tutorial specific
     [SerializeField] bool tutorialMode = false;
     [SerializeField] GameObject tutorialBlockA;
@@ -30,8 +28,6 @@ public class Borrowing : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        LoadTestLoans();
-
         PopulateLoanCards();
         loanLimitMessage.SetActive(false);
     }
@@ -56,18 +52,6 @@ public class Borrowing : MonoBehaviour
         }
     }
 
-
-    void LoadTestLoans()
-    {
-        availableLoans.Clear();
-        availableLoans.Add(new Loan(0, 25000f, .2f, "Candlelight Credit", false, JSONDatabaseOperations.InterestType.Flat));
-        availableLoans.Add(new Loan(1, 10000f, .5f, "Dragon Investments", false, JSONDatabaseOperations.InterestType.Flat));
-        availableLoans.Add(new Loan(2, 50000f, .05f, "Bank of Enchancia", false, JSONDatabaseOperations.InterestType.Flat));
-        availableLoans.Add(new Loan(3, 35000f, .15f, "Turtle Tank inc.", false, JSONDatabaseOperations.InterestType.Flat));
-        availableLoans.Add(new Loan(4, 15000f, .03f, "Fae Court Credit Union", false, JSONDatabaseOperations.InterestType.Compound));
-
-    }
-
     void PopulateLoanCards()
     {
         Debug.Log("Current loan count: " + GetCurrentLoanCount());
@@ -85,7 +69,7 @@ public class Borrowing : MonoBehaviour
         else
         {
             //tutorial specific
-            if(tutorialMode)
+            if (tutorialMode)
             {
                 if(GetCurrentLoanCount() > 1)
                 {
@@ -99,7 +83,7 @@ public class Borrowing : MonoBehaviour
             if (loanLimitMessage != null) loanLimitMessage.SetActive(false);
         }
 
-        foreach (Loan loan in availableLoans)
+        foreach (Loan loan in db.currentPlayer.availableLoans)
         {
             if (!loan.borrowed)
             {
@@ -131,6 +115,7 @@ public class Borrowing : MonoBehaviour
             db.currentPlayer.dailySales += loan.amount;
             PopulateLoanCards();
             soundManager.ButtonClickSound();
+            db.SaveData();
         });
     }
 
