@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Data.Common;
 
 public class TutorialPlaybyPlay : MonoBehaviour
 {
@@ -42,12 +43,28 @@ public class TutorialPlaybyPlay : MonoBehaviour
     //button bools
     bool shoppingPhase = false;
 
+    [SerializeField] bool debug;
+
 
 
 
     void Start()
     {
         StartCoroutine(PlayTutorial());
+    }
+
+    void Update()
+    {
+        if (debug && Input.GetKeyDown(KeyCode.Q))
+        {
+            lecternBlock.SetActive(false);
+            loanBlock.SetActive(false);
+            cauldronBlock.SetActive(false);
+            endBlock.SetActive(false);
+            hireBlock.SetActive(false);
+            upgradeBlock.SetActive(false);
+            NotifyTutorialObjectUsed("UpgradeTutorial");
+        }
     }
 
     public void NotifyTutorialObjectUsed(string id)
@@ -199,7 +216,8 @@ public class TutorialPlaybyPlay : MonoBehaviour
         yield return null;
     }
 
-    public void toggleShop(){
+    public void toggleShop()
+    {
         shoppingPhase = !shoppingPhase;
     }
 }
