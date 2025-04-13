@@ -16,7 +16,7 @@ public class AudioManager : MonoBehaviour
 
     public void LoadVolume()
     {
-        float value = db.currentPlayer.volume;
+        float value = db.currentPlayer.musicVolume;
 
         ApplyVolume(value);
     }
@@ -35,7 +35,7 @@ public class AudioManager : MonoBehaviour
 
     public void SaveVolume(float value)
     {
-        db.currentPlayer.volume = value;
+        db.currentPlayer.musicVolume = value;
         ApplyVolume(value);
     }
 }

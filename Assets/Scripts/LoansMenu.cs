@@ -26,14 +26,11 @@ public class LoansMenu : MonoBehaviour
     [SerializeField] GameObject currentamount;
     [SerializeField] GameObject currentinterest;
     [SerializeField] GameObject payInput;
-
     [SerializeField] int maxLoans;
-
     [SerializeField] InteractionManager interactionManager;
     [SerializeField] JSONDatabaseOperations db;
 
-    [SerializeField] RandomGenNum rnd = new RandomGenNum();
-
+    //[SerializeField] RandomGenNum rnd = new RandomGenNum();
 
     //[SerializeField] int highOffer = 10001;
 
@@ -43,14 +40,13 @@ public class LoansMenu : MonoBehaviour
 
     private int currentindex = 0;
 
-    Color ogcolor = new Color(53, 41, 42, 255);
-    Color target = new Color(118, 89, 60, 255);
-    Color current = new Color(53, 41, 42, 255);
+    [SerializeField] bool debug;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        rnd = new RandomGenNum();
+        //For randomly generated loans
+        //rnd = new RandomGenNum();
     }
 
     void Start()
@@ -59,15 +55,9 @@ public class LoansMenu : MonoBehaviour
         close.onClick.AddListener(CloseThis);
         up.onClick.AddListener(Increaser);
         down.onClick.AddListener(Decreaser);
-        newest.onClick.AddListener(setset2);
-        oldest.onClick.AddListener(setset1);
+        newest.onClick.AddListener(SetYoungest);
+        oldest.onClick.AddListener(SetOldest);
         paynow.onClick.AddListener(PayLoan);
-        //highlighttext();
-
-        ogcolor = new Color(53, 41, 42, 255);
-        target = new Color(195, 141, 87, 255);
-        current = new Color(53, 41, 42, 255);
-
     }
 
     void PayLoan()
@@ -154,14 +144,14 @@ public class LoansMenu : MonoBehaviour
         LoansDisplay();
         soundManager.ButtonClickSound();
     }
-    void setset1()
+    void SetOldest()
     {
         currentindex = 0;
 
         LoansDisplay();
         soundManager.ButtonClickSound();
     }
-    void setset2()
+    void SetYoungest()
     {
         currentindex = db.currentPlayer.loans.Count - 1;
 
@@ -170,21 +160,7 @@ public class LoansMenu : MonoBehaviour
     }
 
     /*
-    float cycler = 0;
-    void highlighttext(GameObject tom, GameObject jerry)
-    {
-        cycler = Mathf.Sin((Time.time * 1.25f) * Mathf.PI);
-        float r = ogcolor.r + (target.r - ogcolor.r) * cycler;
-        float g = ogcolor.g + (target.g - ogcolor.g) * cycler;
-        float b = ogcolor.b + (target.b - ogcolor.b) * cycler;
-        current = new Color(r, g, b);
-
-        tom.GetComponent<TMP_Text>().color = new Color(current.r / 255, current.g / 255, current.b / 255);
-        //currentinterest.GetComponent<TMP_Text>().color = new Color(0,0,0,0);
-        jerry.GetComponent<TMP_Text>().color = new Color(ogcolor.r / 255, ogcolor.g / 255, ogcolor.b / 255);
-    }
-
-    
+    //Code for randomly generating loan offers. Currently using preset loan amounts and interest
     void GenerateOffers()
     {
         //Offering five loans
@@ -218,6 +194,8 @@ public class LoansMenu : MonoBehaviour
         List<Loan> loans = db.currentPlayer.loans;
 
         currentindex = Mathf.Clamp(currentindex, 0, db.currentPlayer.loans.Count - 1);
+
+        if (debug) { Debug.Log(currentindex); }
 
         totalloans.GetComponent<TMP_Text>().text = db.currentPlayer.GetTotalLoansOwed(loans).ToString();
         totalinterest.GetComponent<TMP_Text>().text = db.currentPlayer.GetDailyInterest(loans).ToString();

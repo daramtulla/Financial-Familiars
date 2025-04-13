@@ -25,7 +25,7 @@ public class AudioSlider : MonoBehaviour
 
     private void UpdateSlider()
     {
-        float value = db.currentPlayer.volume;
+        float value = db.currentPlayer.musicVolume;
         volumeSlider.value = value;
         UpdateVolumeText(value);
     }
@@ -33,7 +33,7 @@ public class AudioSlider : MonoBehaviour
     public void OnChangeSlider(float value)
     {
         UpdateVolumeText(value);
-        db.currentPlayer.volume = value;
+        db.currentPlayer.musicVolume = value;
         am.SaveVolume(value); // Save and apply volume globally
     }
 
