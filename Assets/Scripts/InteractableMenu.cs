@@ -140,6 +140,7 @@ public class InteractableMenu : MonoBehaviour, InteractMenu
                 }
                 else if (db.currentPlayer.cycleNum == 2)
                 {
+                    gameManager.CalculateEndDayScreenResults(false);
                     startSellingButton.SetActive(false);
                     endDayButton.SetActive(true);
                 }
