@@ -39,6 +39,8 @@ public class TutorialPlaybyPlay : MonoBehaviour
     public GameObject hireBlock;
     public GameObject upgradeBlock;
 
+    //button bools
+    bool shoppingPhase = false;
 
 
 
@@ -146,10 +148,15 @@ public class TutorialPlaybyPlay : MonoBehaviour
         tableLights.SetActive(false);
         stopStocking.SetActive(true);
         SpotEnd.SetActive(true);
-        yield return new WaitUntil(() => endUses >= 2);
+
+        Debug.Log("waiting for shopping start");
+        yield return new WaitUntil(() => endUses >= 2 && shoppingPhase);
         endUses = 0;
+        Debug.Log("shopping started");
+
 
         //Step 8: the day goes
+        toggleShop();
         SpotEnd.SetActive(false);
         yield return new WaitForSeconds(42f);
         stopShopping.SetActive(true);
@@ -190,5 +197,9 @@ public class TutorialPlaybyPlay : MonoBehaviour
 
         Debug.Log("Tutorial complete!");
         yield return null;
+    }
+
+    public void toggleShop(){
+        shoppingPhase = !shoppingPhase;
     }
 }
