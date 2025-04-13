@@ -54,21 +54,21 @@ public class UpgradeManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        foreach (Upgrade upgrade in db.currentPlayer.unpurchasedUpgrades)
+        foreach (Upgrade upgrade in db.currentPlayer.unpurchased)
         {
             GameObject newItem = Instantiate(upgradePrefab, upgradeContent);
 
             TextMeshProUGUI[] texts = newItem.GetComponentsInChildren<TextMeshProUGUI>();
             //todo: Add texts
-            texts[0].text = upgrade.Name;
+            texts[0].text = upgrade.name;
             //TODO: make this more efficient?
 
-            float cost = upgrade.Cost;
+            float cost = upgrade.cost;
 
             //HIRE ID 1, 7: Affects prices of upgrades
-            if (db.checkEmployee(1))
+            if (db.CheckEmployee(1))
             {
-                if (db.checkEmployee(15))
+                if (db.CheckEmployee(15))
                 {
                     cost *= .98f;
                 }
@@ -77,9 +77,9 @@ public class UpgradeManager : MonoBehaviour
                     cost *= .95f;
                 }
             }
-            if (db.checkEmployee(8))
+            if (db.CheckEmployee(8))
             {
-                if (db.checkEmployee(15))
+                if (db.CheckEmployee(15))
                 {
                     cost *= 1.05f;
                 }
@@ -89,22 +89,22 @@ public class UpgradeManager : MonoBehaviour
                 }
             }
             texts[1].text = "$" + cost;
-  
-            texts[2].text = upgrade.Description;
+
+            texts[2].text = upgrade.description;
 
 
 
             //TODO: add button with correct name
             Button buyButton = newItem.transform.Find("BuyButton").GetComponent<Button>();
-            buyButton.onClick.AddListener(() => buyUpgrade(upgrade.Cost, upgrade.id));
+            buyButton.onClick.AddListener(() => buyUpgrade(upgrade.cost, upgrade.id));
         }
     }
 
     private void buyUpgrade(float cost, int id)
     {
-        if (db.checkEmployee(1))
+        if (db.CheckEmployee(1))
         {
-            if (db.checkEmployee(15))
+            if (db.CheckEmployee(15))
             {
                 cost *= .98f;
             }
@@ -116,7 +116,7 @@ public class UpgradeManager : MonoBehaviour
         if (db.currentPlayer.currentMoney >= cost)
         {
             // HIRE ID 13: Chance to not buy an upgrade
-            if (db.checkEmployee(13) && new System.Random().Next(1, 100) >= 95)
+            if (db.CheckEmployee(13) && new System.Random().Next(1, 100) >= 95)
             {
                 // TODO: ADD FEEDBACK FOR THE ITEMS BEING LOST
                 db.currentPlayer.currentMoney -= cost;
@@ -124,11 +124,11 @@ public class UpgradeManager : MonoBehaviour
             else
             {
                 db.currentPlayer.currentMoney -= cost;
-                Upgrade upgradeToBuy = db.currentPlayer.unpurchasedUpgrades.Find(upgrade => upgrade.id == id);
+                Upgrade upgradeToBuy = db.currentPlayer.unpurchased.Find(upgrade => upgrade.id == id);
                 if (upgradeToBuy != null)
                 {
                     db.AddUpgrade(upgradeToBuy);
-                    db.currentPlayer.unpurchasedUpgrades.Remove(upgradeToBuy);
+                    db.currentPlayer.unpurchased.Remove(upgradeToBuy);
                     UpdateUpgradeUI();
                 }
                 else

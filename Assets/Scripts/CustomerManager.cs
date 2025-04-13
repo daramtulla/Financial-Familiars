@@ -279,13 +279,13 @@ public class CustomerManager : MonoBehaviour
         {
             //Potions
             case 1:
-                if (db.checkUpgrade(2))
+                if (db.CheckUpgrade(2))
                 {
                     degrees *= 0.9f;
                 }
-                if (db.checkEmployee(16))
+                if (db.CheckEmployee(16))
                 {
-                    if (db.checkEmployee(15))
+                    if (db.CheckEmployee(15))
                     {
                         degrees *= 0.92f;
                     }
@@ -297,13 +297,13 @@ public class CustomerManager : MonoBehaviour
                 break;
             //accessories
             case 2:
-                if (db.checkUpgrade(3))
+                if (db.CheckUpgrade(3))
                 {
                     degrees *= 0.9f;
                 }
-                if (db.checkEmployee(17))
+                if (db.CheckEmployee(17))
                 {
-                    if (db.checkEmployee(15))
+                    if (db.CheckEmployee(15))
                     {
                         degrees *= 0.92f;
                     }
@@ -314,13 +314,13 @@ public class CustomerManager : MonoBehaviour
                 }
                 break;
             case 3:
-                if (db.checkUpgrade(4))
+                if (db.CheckUpgrade(4))
                 {
                     degrees *= 0.9f;
                 }
-                if (db.checkEmployee(19))
+                if (db.CheckEmployee(19))
                 {
-                    if (db.checkEmployee(15))
+                    if (db.CheckEmployee(15))
                     {
                         degrees *= 0.92f;
                     }
@@ -331,13 +331,13 @@ public class CustomerManager : MonoBehaviour
                 }
                 break;
             case 4:
-                if (db.checkUpgrade(5))
+                if (db.CheckUpgrade(5))
                 {
                     degrees *= 0.9f;
                 }
-                if (db.checkEmployee(20))
+                if (db.CheckEmployee(20))
                 {
-                    if (db.checkEmployee(15))
+                    if (db.CheckEmployee(15))
                     {
                         degrees *= 0.92f;
                     }
@@ -348,13 +348,13 @@ public class CustomerManager : MonoBehaviour
                 }
                 break;
             case 5:
-                if (db.checkUpgrade(15))
+                if (db.CheckUpgrade(15))
                 {
                     degrees *= 0.9f;
                 }
                 break;
             case 6:
-                if (db.checkUpgrade(16))
+                if (db.CheckUpgrade(16))
                 {
                     degrees *= 0.9f;
                 }
@@ -364,13 +364,13 @@ public class CustomerManager : MonoBehaviour
                 break;
         }
         //general upgrades
-        if (db.checkUpgrade(0))
+        if (db.CheckUpgrade(0))
         {
             degrees *= 0.97f;
         }
-        if (db.checkEmployee(0))
+        if (db.CheckEmployee(0))
         {
-            if (db.checkEmployee(15))
+            if (db.CheckEmployee(15))
             {
                 degrees *= 0.98f;
             }
@@ -379,9 +379,9 @@ public class CustomerManager : MonoBehaviour
                 degrees *= 0.95f;
             }
         }
-        if (db.checkEmployee(11))
+        if (db.CheckEmployee(11))
         {
-            if (db.checkEmployee(15))
+            if (db.CheckEmployee(15))
             {
                 degrees *= 1.04f;
             }
@@ -391,9 +391,9 @@ public class CustomerManager : MonoBehaviour
             }
         }
 
-        if (db.checkEmployee(14) && db.currentPlayer.merch[id - 1].baseCost >= 450)
+        if (db.CheckEmployee(14) && db.currentPlayer.merch[id - 1].baseCost >= 450)
         {
-            if (db.checkEmployee(15))
+            if (db.CheckEmployee(15))
             {
                 degrees *= 0.95f;
             }
@@ -405,9 +405,9 @@ public class CustomerManager : MonoBehaviour
 
         //Todo Test for correctness
         float sale = baseCost * (1 + markup);
-        if (db.checkEmployee(12))
+        if (db.CheckEmployee(12))
         {
-            if (db.checkEmployee(15))
+            if (db.CheckEmployee(15))
             {
                 degrees *= 1.01f;
             }
@@ -430,7 +430,7 @@ public class CustomerManager : MonoBehaviour
         //4. 5% chance to buy it
         if (db.currentPlayer.merch[id - 1].group == 2 &&
             db.currentPlayer.merch[id].quantity > 0 &&
-            db.checkEmployee(13) &&
+            db.CheckEmployee(13) &&
             new System.Random().Next(1, 100) >= 95)
         {
             db.currentPlayer.ChangeQuantity(id, -1);
@@ -472,7 +472,7 @@ public class CustomerManager : MonoBehaviour
                 Debug.Log("Unknown item group: " + db.currentPlayer.merch[id - 1].group);
                 break;
         }
-        if (db.checkUpgrade(upgradeNeeded))
+        if (db.CheckUpgrade(upgradeNeeded))
         {
             //auto restocks if possible
             //we have already moved the purchased item, so see if there's another one
