@@ -82,7 +82,6 @@ public class JSONDatabaseOperations : MonoBehaviour
         //Loans (initial loans)
         //currentPlayer.loans.Add(DECIDE ON VALUE);
 
-        //TODO: Tweak daily wages
         currentPlayer.unemployed.Add(new Employee(0, "Fizzwick Flash", "Marketer", 80, "Fast-talking, dramatic, obsessed with catchy slogans.", "Increases demand for all items.", "Self-Employed for 10 years, made a steady living for themselves, in the Merchant's Guild.", "Employees/Fizzwick.png"));
         currentPlayer.unemployed.Add(new Employee(1, "Briza Coppercrank", "Technician", 90, "Meticulous, resourceful, loves tinkering with everything.", "Reduces the cost of all upgrades.", "Former airship mechanic, certified in arcane engineering, once rebuilt a golem using only scrap parts.", "Employees/Briza.png"));
         currentPlayer.unemployed.Add(new Employee(2, "Grumlek Stonesnout", "Supplier", 85, "Gruff, well-connected, always knows a guy who knows a guy.", "Reduces the cost of buying items by negotiating better deals.", "Former caravan trader, has contacts in every market.", "Employees/Grumlek.png"));
@@ -104,7 +103,7 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.unemployed.Add(new Employee(18, "Borin Brightchant", "Motivational Speaker", 50, "Loud, overly enthusiastic, uses a lot of buzzwords", "Tries to boost morale in mandatory meetings, causing employees to miss some work", "Claims to have inspired famous heroes, but nobody has commented on this.", "Employees/Borin.png"));
         currentPlayer.unemployed.Add(new Employee(19, "Grunkar Ironfist", "Blacksmith", 120, "Strong, no-nonsense, reclusive.", "Greatly increases demand for weapons.", "A seasoned blacksmith with a reputation for crafting legendary weapons.", "Employees/Grunkar.png"));
         currentPlayer.unemployed.Add(new Employee(20, "Selene Starwhisper", "Grand Enchanter", 150, "Mysterious, graceful, always floating.", "Greatly increases demand for special items.", "A powerful enchanter who once created an invisibility cloak.", "Employees/Selene.png"));
-        //TODO: Add functionality
+
         currentPlayer.unpurchased.Add(new Upgrade(0, "Efficient Lighting", 200, "Reduces utilities cost."));
         currentPlayer.unpurchased.Add(new Upgrade(1, "Luxury Branding", 500, "Slightly Increases demand for all items."));
         currentPlayer.unpurchased.Add(new Upgrade(2, "Premium Potions", 300, "Increases Demand for Potions."));
@@ -114,7 +113,6 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.unpurchased.Add(new Upgrade(15, "Premium Runes", 1200, "Increases demand for runes."));
         currentPlayer.unpurchased.Add(new Upgrade(16, "Premium Shields", 1500, "Increases demand for shields."));
 
-        //TODO: Add storage functionality
         currentPlayer.unpurchased.Add(new Upgrade(6, "Transmutation Scroll", 400, "Provides a small amount of money per day."));
         currentPlayer.unpurchased.Add(new Upgrade(7, "Magic Hand I", 750, "Automatically restocks potions."));
         currentPlayer.unpurchased.Add(new Upgrade(8, "Magic Hand II", 1200, "Automatically restocks accessories."));
