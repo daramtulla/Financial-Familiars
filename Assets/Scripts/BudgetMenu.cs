@@ -120,17 +120,6 @@ public class BudgetMenu : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //press B to open budget
-        if (Input.GetKeyDown(KeyCode.B) && !textInputField.isFocused)
-        {
-            ToggleBudgetMenu();
-        }
-
-    }
-
     public void ToggleBudgetMenu()
     {
         UpdateBudgetUI();
