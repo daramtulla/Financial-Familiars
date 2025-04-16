@@ -59,9 +59,8 @@ public class UpgradeManager : MonoBehaviour
             GameObject newItem = Instantiate(upgradePrefab, upgradeContent);
 
             TextMeshProUGUI[] texts = newItem.GetComponentsInChildren<TextMeshProUGUI>();
-            //todo: Add texts
+
             texts[0].text = upgrade.name;
-            //TODO: make this more efficient?
 
             float cost = upgrade.cost;
 
@@ -92,9 +91,6 @@ public class UpgradeManager : MonoBehaviour
 
             texts[2].text = upgrade.description;
 
-
-
-            //TODO: add button with correct name
             Button buyButton = newItem.transform.Find("BuyButton").GetComponent<Button>();
             buyButton.onClick.AddListener(() => buyUpgrade(upgrade.cost, upgrade.id));
         }
