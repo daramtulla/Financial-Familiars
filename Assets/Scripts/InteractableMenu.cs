@@ -53,7 +53,9 @@ public class InteractableMenu : MonoBehaviour, InteractMenu
 
         if (!string.IsNullOrEmpty(tutorialKey))
         {
+#pragma warning disable CS0618 // Type or member is obsolete
             FindObjectOfType<TutorialPlaybyPlay>()?.NotifyTutorialObjectUsed(tutorialKey);
+#pragma warning restore CS0618 // Type or member is obsolete
         }
 
     }

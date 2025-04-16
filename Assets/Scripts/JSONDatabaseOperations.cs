@@ -112,6 +112,8 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.unpurchased.Add(new Upgrade(5, "Premium Special Items", 1000, "Increases demand for Special items."));
         currentPlayer.unpurchased.Add(new Upgrade(15, "Premium Runes", 1200, "Increases demand for runes."));
         currentPlayer.unpurchased.Add(new Upgrade(16, "Premium Shields", 1500, "Increases demand for shields."));
+        currentPlayer.unpurchased.Add(new Upgrade(15, "Premium Runes", 1200, "Increases demand for runes."));
+        currentPlayer.unpurchased.Add(new Upgrade(16, "Premium Shields", 1500, "Increases demand for shields."));
 
         currentPlayer.unpurchased.Add(new Upgrade(6, "Transmutation Scroll", 400, "Provides a small amount of money per day."));
         currentPlayer.unpurchased.Add(new Upgrade(7, "Magic Hand I", 750, "Automatically restocks potions."));
@@ -134,7 +136,6 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.active = new int[18];
         currentPlayer.dailyLoanAmount = 0;
 
-        //currentPlayer.availableLoans.Clear();
         currentPlayer.availableLoans.Add(new Loan(0, 25000f, .2f, "Candlelight Credit", false, JSONDatabaseOperations.InterestType.Flat));
         currentPlayer.availableLoans.Add(new Loan(1, 10000f, .5f, "Dragon Investments", false, JSONDatabaseOperations.InterestType.Flat));
         currentPlayer.availableLoans.Add(new Loan(2, 50000f, .05f, "Bank of Enchancia", false, JSONDatabaseOperations.InterestType.Flat));
