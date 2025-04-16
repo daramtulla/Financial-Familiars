@@ -120,12 +120,6 @@ public class BudgetMenu : MonoBehaviour
 
     }
 
-    public void ToggleBudgetMenu()
-    {
-        UpdateBudgetUI();
-        budgetPanel.SetActive(!budgetPanel.activeSelf);
-    }
-
     public void CloseMenu()
     {
         Debug.Log("Test Budget Menu Close");
