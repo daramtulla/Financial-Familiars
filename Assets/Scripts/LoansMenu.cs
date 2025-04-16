@@ -26,6 +26,7 @@ public class LoansMenu : MonoBehaviour
     [SerializeField] GameObject currentamount;
     [SerializeField] GameObject currentinterest;
     [SerializeField] GameObject payInput;
+    [SerializeField] GameObject storyLoanPaidPanel;
     [SerializeField] int maxLoans;
     [SerializeField] InteractionManager interactionManager;
     [SerializeField] JSONDatabaseOperations db;
@@ -77,6 +78,12 @@ public class LoansMenu : MonoBehaviour
 
             if (loans[currentindex].amount == 0)
             {
+                // Panel for paying off the main loan
+                if(loans[currentindex].id == 5)
+                {
+                    storyLoanPaidPanel.gameObject.SetActive(true);
+                }
+
                 loans.RemoveAt(currentindex);
                 if (currentindex >= loans.Count)
                 {
