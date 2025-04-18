@@ -218,7 +218,7 @@ public class CustomerManager : MonoBehaviour
     }
 
 
-    public void Update()
+    public void LateUpdate()
     {
         //For testing
         if (debug && Input.GetKeyDown(KeyCode.J))
@@ -263,6 +263,9 @@ public class CustomerManager : MonoBehaviour
         }
     }
 
+    //HIRES AND UPGRADES
+    //TODO: CHECK THIS SELLING EQUATION
+    //TODO: What the hell is going on with this and all of the id - 1 stuff
     //UPGRADE 11: possibly sell two accessories at once
     public void SellItem(int id)
     {

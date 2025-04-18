@@ -11183,7 +11183,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 1
+  m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -41472,7 +41472,7 @@ MonoBehaviour:
   currentPlayer:
     moveSpeedModifier: 0
     currentMoney: 0
-    musicVolume: 1
+    volume: 1
     sfxVolume: 1
     cycleNum: 0
     currentLoanAmount: 0
@@ -41486,12 +41486,11 @@ MonoBehaviour:
     loans: []
     merch: []
     suppliers: []
-    unemployed: []
+    unemployedEmployees: []
     employees: []
-    unpurchased: []
+    unpurchasedUpgrades: []
     upgrades: []
     completedTutorials: []
-    availableLoans: []
   RegenerateOnLoad: 0
 --- !u!4 &1481270404
 Transform:

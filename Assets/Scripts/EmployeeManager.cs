@@ -11,6 +11,7 @@ public class EmployeeManager : MonoBehaviour
 
     public GameObject choicePanel;
 
+    //todo
     public GameObject hirePanel;
     public GameObject firePanel;
 
