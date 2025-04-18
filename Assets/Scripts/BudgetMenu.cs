@@ -70,47 +70,11 @@ public class BudgetMenu : MonoBehaviour
     void Awake()
     {
         sales = db.currentPlayer.totalSales;
-        //subscriptions = 0;
-        //float adRevenue = 0;
-        //float serviceFees = 0;
 
-        //fixed costs
-        //rent = 0;
-        //insurance = 0;
-        //utilities = 0;
-        //ftaxes = 0;
-
-        //variable costs 
-        //This will record how much money has been spent purchasing supplies
         inventory = db.currentPlayer.purchases;
 
-        //wages = 0;
-
-        //marketing = 0;
-
-        //repairsMaint = 0;
-
-        //otherVC = 0;
-
-        //Loan Payments
-        //startupLoan = 0;
-
-        //loanA = 0;
-
-        //loanB = 0;
-
-        //loanC = 0;
-
-        //totals (calculated below TODO)
-        //incomeTtl = 0;
-
-        //expenseTtl = 0;
 
         netProfit = sales - inventory;
-
-        //savings = 0;
-
-        //cashOnHand = 0;
     }
 
     void Start()

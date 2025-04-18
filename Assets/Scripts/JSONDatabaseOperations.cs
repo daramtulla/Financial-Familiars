@@ -78,7 +78,7 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.suppliers.Add(new Supplier(8, "Dwarven Magics", 0, 0, 0, 0));
         currentPlayer.suppliers.Add(new Supplier(9, "Witch's Circle", 0, 0, 0, 0));
 
-        //TODO: Tweak daily wages
+        //Employees (unhired to begin)
         currentPlayer.unemployed.Add(new Employee(0, "Fizzwick Flash", "Marketer", 80, "Fast-talking, dramatic, obsessed with catchy slogans.", "Increases demand for all items.", "Self-Employed for 10 years, made a steady living for themselves, in the Merchant's Guild.", "Employees/Fizzwick.png"));
         currentPlayer.unemployed.Add(new Employee(1, "Briza Coppercrank", "Technician", 90, "Meticulous, resourceful, loves tinkering with everything.", "Reduces the cost of all upgrades.", "Former airship mechanic, certified in arcane engineering, once rebuilt a golem using only scrap parts.", "Employees/Briza.png"));
         currentPlayer.unemployed.Add(new Employee(2, "Grumlek Stonesnout", "Supplier", 85, "Gruff, well-connected, always knows a guy who knows a guy.", "Reduces the cost of buying items by negotiating better deals.", "Former caravan trader, has contacts in every market.", "Employees/Grumlek.png"));
@@ -101,7 +101,7 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.unemployed.Add(new Employee(19, "Grunkar Ironfist", "Blacksmith", 120, "Strong, no-nonsense, reclusive.", "Greatly increases demand for weapons.", "A seasoned blacksmith with a reputation for crafting legendary weapons.", "Employees/Grunkar.png"));
         currentPlayer.unemployed.Add(new Employee(20, "Selene Starwhisper", "Grand Enchanter", 150, "Mysterious, graceful, always floating.", "Greatly increases demand for special items.", "A powerful enchanter who once created an invisibility cloak.", "Employees/Selene.png"));
 
-        //TODO: Add functionality
+        //Upgrades (unpurchased to begin)
         currentPlayer.unpurchased.Add(new Upgrade(0, "Efficient Lighting", 200, "Reduces utilities cost."));
         currentPlayer.unpurchased.Add(new Upgrade(1, "Luxury Branding", 500, "Slightly Increases demand for all items."));
         currentPlayer.unpurchased.Add(new Upgrade(2, "Premium Potions", 300, "Increases Demand for Potions."));
@@ -135,17 +135,24 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.active = new int[18];
         currentPlayer.dailyLoanAmount = 0;
 
+        //Loans
         currentPlayer.availableLoans.Add(new Loan(0, 25000f, .2f, "Candlelight Credit", false, JSONDatabaseOperations.InterestType.Flat));
         currentPlayer.availableLoans.Add(new Loan(1, 10000f, .5f, "Dragon Investments", false, JSONDatabaseOperations.InterestType.Flat));
         currentPlayer.availableLoans.Add(new Loan(2, 50000f, .05f, "Bank of Enchancia", false, JSONDatabaseOperations.InterestType.Flat));
         currentPlayer.availableLoans.Add(new Loan(3, 35000f, .15f, "Turtle Tank inc.", false, JSONDatabaseOperations.InterestType.Flat));
         currentPlayer.availableLoans.Add(new Loan(4, 15000f, .03f, "Fae Court Credit Union", false, JSONDatabaseOperations.InterestType.Compound));
 
+        //Tables
+        for (int i = 0; i < 18; i++)
+        {
+            currentPlayer.active[i] = 0;
+        }
+
         currentPlayer.totalSales = 0;
         currentPlayer.purchases = 0;
         currentPlayer.cycleNum = 0;
 
-
+        //Story loan
         currentPlayer.loans.Add(new Loan(5, 100000f, 0.01f, "Beginning Business Loan", true, JSONDatabaseOperations.InterestType.Flat));
 
         SaveData();
@@ -216,20 +223,6 @@ public class JSONDatabaseOperations : MonoBehaviour
         {
             LoadData();
         }
-
-        //For testing. Gives Player full inventory and money
-        /*
-        if (debug && Input.GetKey(KeyCode.V))
-        {
-            currentPlayer.currentMoney = 50000;
-
-            for (int i = 0; i < 18; i++)
-            {
-                currentPlayer.merch[i].quantity = 10;
-                currentPlayer.active[i] = 1;
-            }
-        }
-        */
 
         //For testing. Gives Player full inventory and money
         if (debug && Input.GetKey(KeyCode.V))
