@@ -93,7 +93,6 @@ public class MovementController : MonoBehaviour
 
     void isClimbable()
     {
-        //May need to adjust raycast distance depending on player model dimensions TODO
 
         //Figure out which direction the player is moving and trigger the raycast in that direction
         if (Physics.Raycast(lowerStep.transform.position, transform.TransformDirection(Vector3.forward), .6f) && Input.GetKey(KeyCode.W))

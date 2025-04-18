@@ -400,7 +400,6 @@ public class CustomerManager : MonoBehaviour
             }
         }
 
-        //Todo Test for correctness
         float sale = baseCost * (1 + markup);
         if (db.CheckEmployee(12))
         {

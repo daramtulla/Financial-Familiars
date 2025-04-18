@@ -156,7 +156,7 @@ public class GameManager : MonoBehaviour
         {
             wagesPaidAmount -= employee.salary;
         }
-        if (db.CheckEmployee(0))
+        if (db.CheckEmployee(10))
         {
             if (db.CheckEmployee(15))
             {

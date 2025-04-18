@@ -445,7 +445,6 @@ public class CustomerMovement : MonoBehaviour
         {
             this.itemToBuy = merchId;
 
-            //TODO dynamically set
             this.speed = 1;
 
             this.nodeNum = 1;
