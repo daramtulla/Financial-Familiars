@@ -113,6 +113,7 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.unpurchased.Add(new Upgrade(15, "Premium Runes", 1200, "Increases demand for runes."));
         currentPlayer.unpurchased.Add(new Upgrade(16, "Premium Shields", 1500, "Increases demand for shields."));
 
+        //TODO: Add storage functionality
         currentPlayer.unpurchased.Add(new Upgrade(6, "Transmutation Scroll", 400, "Provides a small amount of money per day."));
         currentPlayer.unpurchased.Add(new Upgrade(7, "Magic Hand I", 750, "Automatically restocks potions."));
         currentPlayer.unpurchased.Add(new Upgrade(8, "Magic Hand II", 1200, "Automatically restocks accessories."));
@@ -197,10 +198,12 @@ public class JSONDatabaseOperations : MonoBehaviour
         {
             currentPlayer.active = new int[18];
         }
+        /*
         for (int i = 0; i < 18; i++)
         {
             currentPlayer.active[i] = 0;
         }
+        */
         SaveData();
         if (debug)
         {
