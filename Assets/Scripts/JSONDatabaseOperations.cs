@@ -141,12 +141,6 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.availableLoans.Add(new Loan(3, 35000f, .15f, "Turtle Tank inc.", false, JSONDatabaseOperations.InterestType.Flat));
         currentPlayer.availableLoans.Add(new Loan(4, 15000f, .03f, "Fae Court Credit Union", false, JSONDatabaseOperations.InterestType.Compound));
 
-
-        for (int i = 0; i < 18; i++)
-        {
-            currentPlayer.active[i] = 0;
-        }
-
         currentPlayer.totalSales = 0;
         currentPlayer.purchases = 0;
         currentPlayer.cycleNum = 0;
@@ -197,10 +191,12 @@ public class JSONDatabaseOperations : MonoBehaviour
         {
             currentPlayer.active = new int[18];
         }
+        /*
         for (int i = 0; i < 18; i++)
         {
             currentPlayer.active[i] = 0;
         }
+        */
         SaveData();
         if (debug)
         {

@@ -218,7 +218,7 @@ public class CustomerManager : MonoBehaviour
     }
 
 
-    public void Update()
+    public void LateUpdate()
     {
         //For testing
         if (debug && Input.GetKeyDown(KeyCode.J))
