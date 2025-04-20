@@ -6,6 +6,8 @@ public class MoneyCount : MonoBehaviour
     float money;
     public Text text;
     public JSONDatabaseOperations db;
+    public GameObject storeLight;
+    public GameObject lowMoneySpotlight;
 
     void Start()
     {
@@ -16,6 +18,16 @@ public class MoneyCount : MonoBehaviour
     void Update()
     {
         money = db.currentPlayer.currentMoney;
+        if(money >= 0)
+        {
+            storeLight.SetActive(true);
+            lowMoneySpotlight.SetActive(false);
+        }
+        else
+        {
+            storeLight.SetActive(false);
+            lowMoneySpotlight.SetActive(true);
+        }
         text.text = money.ToString("N2");
     }
     public void endDay()
