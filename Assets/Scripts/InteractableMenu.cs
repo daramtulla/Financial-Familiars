@@ -98,10 +98,12 @@ public class InteractableMenu : MonoBehaviour, InteractMenu
             }
             else if (menuToOpenOrClose.name == "HiringUI")
             {
+                //todo
                 employeeManager.ToggleMenu();
             }
             else if (menuToOpenOrClose.name == "UpgradeUI")
             {
+                //todo
                 menuToOpenOrClose.SetActive(true);
             }
             else
@@ -162,10 +164,12 @@ public class InteractableMenu : MonoBehaviour, InteractMenu
             }
             else if (menuToOpenOrClose.name == "HiringUI")
             {
+                //todo
                 employeeManager.ToggleMenu();
             }
             else if (menuToOpenOrClose.name == "UpgradeUI")
             {
+                //todo
                 menuToOpenOrClose.SetActive(true);
             }
             else

@@ -33,6 +33,7 @@ public class MoneyCount : MonoBehaviour
     public void endDay()
     {
         //Range is set up like this due to it being minInclusive and maxExclusive, and we need to test that it's possible to see a trend upwards
+        //TODO Update
         int itemsSold = 10;
         int price = 0;
         int upkeepCost = 0;

@@ -53,11 +53,12 @@ public class MovementController : MonoBehaviour
             playerModel.linearVelocity = new Vector3(input.x * movementSpeed, playerModel.linearVelocity.y, input.z * movementSpeed);
             playerAnimator.SetFloat("Speed_f", Math.Abs((input.x * movementSpeed)) + Math.Abs((input.z * movementSpeed)));
 
-            isClimbable();
+            //Not using stairs in scene
+            //isClimbable();
 
-            moveDirection();
+            MoveDirection();
 
-            stopRotation();
+            StopRotation();
         }
     }
 
@@ -67,31 +68,35 @@ public class MovementController : MonoBehaviour
     }
 
     //unstuck button
-    public void unstick()
+    public void Unstick()
     {
         playerModel.transform.position = startingPosition.transform.position;
         playerModel.transform.rotation = startingPosition.transform.rotation;
     }
 
-    void moveDirection()
+    void MoveDirection()
     {
+        playerModel.freezeRotation = false;
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
             playerModel.transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(input, Vector3.up), rotationSpeed);
         }
     }
 
-    void stopRotation()
+    void StopRotation()
     {
         if (!Input.GetKey(KeyCode.W) || !Input.GetKey(KeyCode.A) || !Input.GetKey(KeyCode.S) || !Input.GetKey(KeyCode.D))
         {
             playerModel.angularVelocity = Vector3.zero;
+            playerModel.freezeRotation = true;
 
-            isClimbable();
+            //Not using stairs in scene
+            //isClimbable();
         }
     }
 
-    void isClimbable()
+    //Works but is not being used
+    void IsClimbable()
     {
 
         //Figure out which direction the player is moving and trigger the raycast in that direction
