@@ -42,8 +42,16 @@ public class CustomerManager : MonoBehaviour
 
     public Text dayTimeNumberText;
 
+    [SerializeField] CustomerInteractHandler[] customerInteractHandlers;
+
     // HIRE 0, 15, 16, 18, 19: Affects demand/prices
     // UPGRADE 1, 2, 3, 4, 5, 11, 12: Affects demand/prices
+
+    private void Start()
+    {
+        customerInteractHandlers = FindObjectsByType<CustomerInteractHandler>(FindObjectsSortMode.None);
+    }
+
     public void StartSelling()
     {
         dayTime = 0;
@@ -256,8 +264,17 @@ public class CustomerManager : MonoBehaviour
     public void AttemptSale(int id)
     {
         Debug.Log($"SEARCH AttemptSale: {cm.saleChanceCheck}");
-        if (db.currentPlayer.active[id - 1] == 1 && cm.saleChanceCheck)
+        if (db.currentPlayer.active[id - 1] == 1 && rnd.GetSaleChance() > 3)
         {
+            //Loop through all the CustomerInteractHandler scripts and check which one has matching item IDs
+            foreach (CustomerInteractHandler customerInteractHandler in customerInteractHandlers)
+            {
+                if (customerInteractHandler.tableMerchID == id)
+                {
+                    customerInteractHandler.activateCustomerInteractAnimation = true;
+                }
+            }
+
             SellItem(id);
             soundManager.soundAudioSource.PlayOneShot(soundManager.itemSold, 1.25f);
         }

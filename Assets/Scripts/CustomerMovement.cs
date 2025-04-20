@@ -138,20 +138,6 @@ public class CustomerMovement : MonoBehaviour
                     //Has already reached item.
                     cm.customerReached[cust.Value.itemToBuy - 1] = 2;
 
-                    if (cust.Value.alreadyGeneratedSaleChance == false)
-                    {
-                        saleChanceCheck = rnd.GetSaleChance() > 3;
-                        cust.Value.alreadyGeneratedSaleChance = true;
-                    }
-
-                    Debug.Log($"SEARCH CMcheck: {saleChanceCheck}");
-                    if ((cust.Value.alreadyPickedupItem == false) && (jsonDbOps.currentPlayer.active[cust.Value.itemToBuy - 1] == 1) && saleChanceCheck)
-                    {
-                        Debug.Log($"alreadyWaved: {cust.Value.alreadyPickedupItem}");
-                        cust.Key.transform.GetChild(0).GetComponent<Animator>().SetTrigger("Interact_trig");
-                        cust.Value.alreadyPickedupItem = true;
-                    }
-
                     GoToNode7(cust.Key);
                     break;
                 case 9:
