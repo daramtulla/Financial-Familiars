@@ -36,14 +36,14 @@ public class EmployeeManager : MonoBehaviour
 
     public void ToggleMenu()
     {
-            choicePanel.SetActive(!choicePanel.activeSelf);
-            
-            UpdateEmployeeUI();
-            UpdateEmployeeManagerUI();
+        choicePanel.SetActive(!choicePanel.activeSelf);
+
+        UpdateEmployeeUI();
+        UpdateEmployeeManagerUI();
     }
 
     public void UpdateEmployeeManagerUI()
-    { 
+    {
         // Clear existing
         foreach (Transform child in employeeManagerContent)
         {
@@ -213,7 +213,7 @@ public class EmployeeManager : MonoBehaviour
         Employee firing = db.currentPlayer.employees.Find(employee => employee.id == id);
         if (firing != null)
         {
-            db.removeEmployee(firing);
+            db.RemoveEmployee(firing);
             db.currentPlayer.employees.Remove(firing);
             UpdateEmployeeUI();
             UpdateEmployeeManagerUI();

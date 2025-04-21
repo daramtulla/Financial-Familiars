@@ -245,7 +245,7 @@ public class JSONDatabaseOperations : MonoBehaviour
     {
         currentPlayer.employees.Add(employee);
     }
-    public void removeEmployee(Employee employee)
+    public void RemoveEmployee(Employee employee)
     {
         currentPlayer.unemployed.Add(employee);
     }
@@ -288,7 +288,6 @@ public class Player
     public float sfxVolume;
     //0 = setup, 1 = selling, 2 = close
     public int cycleNum;
-    public int currentLoanAmount;
     //Day is private as increasing day needs to generate new supplier stock and reset daily sales
     public int dayCount;
     public float dailySales;
