@@ -8,7 +8,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: LCustDoorClose
-  m_Speed: 3
+  m_Speed: 6
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 7600324570639922447}
@@ -35,7 +35,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: LCustDoorOpen
-  m_Speed: 3
+  m_Speed: 6
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -1419200861316993233}
@@ -140,7 +140,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Wait
-  m_Speed: 6
+  m_Speed: 12
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -5062763292056826652}
@@ -176,7 +176,7 @@ AnimatorStateMachine:
     m_Position: {x: 580, y: 90, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6244150154727306788}
-    m_Position: {x: 254.9174, y: 186.59787, z: 0}
+    m_Position: {x: 260, y: 190, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
