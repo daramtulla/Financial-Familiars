@@ -44,6 +44,8 @@ public class CustomerManager : MonoBehaviour
 
     [SerializeField] CustomerInteractHandler[] customerInteractHandlers;
 
+    [SerializeField] InteractableDisplay interact;
+
     // HIRE 0, 15, 16, 18, 19: Affects demand/prices
     // UPGRADE 1, 2, 3, 4, 5, 11, 12: Affects demand/prices
 
@@ -276,6 +278,7 @@ public class CustomerManager : MonoBehaviour
             }
 
             SellItem(id);
+            db.currentPlayer.playedSfx[id - 1] = 0;
             soundManager.soundAudioSource.PlayOneShot(soundManager.itemSold, 1.25f);
         }
     }

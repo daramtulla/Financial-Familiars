@@ -302,6 +302,7 @@ public class Player
 
     //For determing if the character was just created
     public System.Object newPlayer;
+    public int[] playedSfx = new int[18];
 
     //Sub objects of player
     public List<Loan> loans = new List<Loan>();
