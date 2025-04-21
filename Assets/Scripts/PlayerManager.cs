@@ -57,7 +57,6 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    /*
     public void ResetData()
     {
         //Intiale starting money is 1000 so player can purchase goods
@@ -83,5 +82,4 @@ public class PlayerManager : MonoBehaviour
             db.currentPlayer.active[i] = 0;
         }
     }
-    */
 }
