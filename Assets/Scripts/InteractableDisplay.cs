@@ -413,7 +413,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
         }
     }
 
-    void pastepoof(GameObject point)
+    void Pastepoof(GameObject point)
     {
         Instantiate(poof, point.transform.position + Vector3.up * 0.85f, poof.transform.rotation);
         if (!isPlayingSound)
@@ -432,7 +432,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
     }
 
 
-    void mapper()
+    void MerchObjMapper()
     {
         solutions.Add(potionT1Pedestal.gameObject.name, potionT1);
         solutions.Add(potionT2Pedestal.gameObject.name, potionT2);
@@ -465,15 +465,15 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
 
         if (solutions.Count == 0)
         {
-            mapper();
+            MerchObjMapper();
             Active = false;
         }
-        //down true always when not place so it spams effects FIXXCJKHJLOIKUDFJ
+
         if (!Active && frames != 0 && db.currentPlayer.playedSfx[index - 1] == -1)
         {
             Active = true;
             //Debug.Log(solutions[displayToModify.name].name);
-            pastepoof(displayToModify);
+            Pastepoof(displayToModify);
             db.currentPlayer.playedSfx[index - 1] = 1;
         }
         else if (!solutions[displayToModify.name].activeInHierarchy)
@@ -611,7 +611,5 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
         {
             frames++;
         }
-
-
     }
 }

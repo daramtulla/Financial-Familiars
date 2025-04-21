@@ -52,8 +52,6 @@ public class InventoryMenu : MonoBehaviour
         {
             ToggleMenu();
         }
-
-        //Needs to check for lastDboxValue changes
     }
 
     public void ToggleMenu()
@@ -133,6 +131,8 @@ public class InventoryMenu : MonoBehaviour
         }
     }
 
+    //Not being used currently. May be needed in future
+    /*
     public void ReloadInventory()
     {
         Debug.Log("Reloading Inventory...");
@@ -145,4 +145,5 @@ public class InventoryMenu : MonoBehaviour
 
         Debug.Log("Inventory Reloaded and UI Updated.");
     }
+    */
 }

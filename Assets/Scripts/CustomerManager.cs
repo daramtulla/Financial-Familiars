@@ -99,7 +99,7 @@ public class CustomerManager : MonoBehaviour
 
         //After timer is up
         db.currentPlayer.cycleNum = 2;
-        //db.SaveData();
+
         //Debug.Log($"db.currentPlayer.cycleNum: {db.currentPlayer.cycleNum}");
         timerActive = false;
         soundManager.soundAudioSource.PlayOneShot(soundManager.storeClosing, 0.3f);
@@ -124,7 +124,6 @@ public class CustomerManager : MonoBehaviour
                     {
                         contains = true;
                     }
-
                 }
 
                 if (contains)
@@ -133,8 +132,6 @@ public class CustomerManager : MonoBehaviour
                     if (debug) { Debug.Log("Attempting to sell merch " + pair.Value); }
                     KeyValuePair<int, int> toRemove = new(pair.Key, pair.Value);
                     Debug.Log("Remove Successful? " + copy.Remove(toRemove));
-
-
                     customerReached[pair.Key - 1] = 1;
                 }
             }
@@ -161,10 +158,9 @@ public class CustomerManager : MonoBehaviour
 
         foreach (var removePair in toRemoveList)
         {
-            timeline.Remove(removePair); // actually remove from the real timeline now
+            timeline.Remove(removePair);
         }
     }
-
 
     //Generates a number of sales based on the markup of the item and when those sales occur
     public void GetItemSaleTimeLine()
@@ -209,8 +205,6 @@ public class CustomerManager : MonoBehaviour
                     timeline.Add(saleTime);
                 }
             }
-
-
         }
     }
 
@@ -458,8 +452,7 @@ public class CustomerManager : MonoBehaviour
         }
 
         //Upgrade ID 7 - 12: Auto restock items
-
-        int upgradeNeeded = -1;
+        int upgradeNeeded;
         switch (db.currentPlayer.merch[id - 1].group)
         {
             //potions

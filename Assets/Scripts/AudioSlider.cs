@@ -40,6 +40,5 @@ public class AudioSlider : MonoBehaviour
     private void UpdateVolumeText(float value)
     {
         valueText.text = $"{(value).ToString("P0")}";
-        //db.SaveData();
     }
 }

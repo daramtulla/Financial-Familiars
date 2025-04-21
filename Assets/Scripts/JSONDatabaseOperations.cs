@@ -111,7 +111,6 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.unpurchased.Add(new Upgrade(15, "Premium Runes", 12000, "Increases demand for runes."));
         currentPlayer.unpurchased.Add(new Upgrade(16, "Premium Shields", 10000, "Increases demand for shields."));
 
-        //TODO: Add storage functionality
         currentPlayer.unpurchased.Add(new Upgrade(6, "Transmutation Scroll", 2000, "Provides a small amount of money per day."));
         currentPlayer.unpurchased.Add(new Upgrade(7, "Magic Hand I", 3000, "Automatically restocks potions."));
         currentPlayer.unpurchased.Add(new Upgrade(8, "Magic Hand II", 4000, "Automatically restocks accessories."));
@@ -196,12 +195,7 @@ public class JSONDatabaseOperations : MonoBehaviour
         {
             currentPlayer.active = new int[18];
         }
-        /*
-        for (int i = 0; i < 18; i++)
-        {
-            currentPlayer.active[i] = 0;
-        }
-        */
+
         SaveData();
         if (debug)
         {
@@ -239,7 +233,7 @@ public class JSONDatabaseOperations : MonoBehaviour
     {
         currentPlayer.upgrades.Add(upgrade);
     }
-    public void addEmployee(Employee employee)
+    public void AddEmployee(Employee employee)
     {
         currentPlayer.employees.Add(employee);
     }
@@ -476,7 +470,6 @@ public class Merchandise
     public int group;
     public int tier;
 
-
     public Merchandise(int id, string name, int quantity, float baseCost, float markupPercentage, float customerMod, int group, int tier)
     {
         this.id = id;
@@ -497,7 +490,6 @@ public class Supplier
     public string name;
     public int stock1;
     public float cost1;
-
     public int stock2;
     public float cost2;
 
