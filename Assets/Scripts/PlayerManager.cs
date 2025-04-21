@@ -75,7 +75,7 @@ public class PlayerManager : MonoBehaviour
         //Clear inventory
         db.currentPlayer.ResetInventory();
         //Recreate Database
-        db.generateDatabase();
+        db.GenerateDatabase();
 
         //Clear items on tables
         for (int i = 0; i < db.currentPlayer.active.Length; i++)

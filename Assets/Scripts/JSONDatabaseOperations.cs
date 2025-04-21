@@ -10,6 +10,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 using static JSONDatabaseOperations;
+using UnityEngine.SceneManagement;
 
 public class JSONDatabaseOperations : MonoBehaviour
 {
@@ -24,23 +25,41 @@ public class JSONDatabaseOperations : MonoBehaviour
     void Awake()
     {
         currentPlayer = new Player();
-        filePath = Application.persistentDataPath + "/JSONDatabase.json";
+        if (SceneManager.GetActiveScene().ToString() == "Tutorial")
+        {
+            filePath = Application.persistentDataPath + "/JSONTutorialDatabase.json";
+        }
+        else
+        {
+            filePath = Application.persistentDataPath + "/JSONDatabase.json";
+        }
+
         Debug.Log(filePath);
 
         //Check to see if JSON db is created
         if (!File.Exists(filePath) || RegenerateOnLoad)
         {
-            generateDatabase();
+            GenerateDatabase();
         }
 
         LoadData();
     }
 
-    public void generateDatabase()
+    public void GenerateDatabase()
     {
-        if (File.Exists(Application.persistentDataPath + "/JSONDatabase.json"))
+        if (SceneManager.GetActiveScene().ToString() == "Tutorial")
         {
-            File.Delete(Application.persistentDataPath + "/JSONDatabase.json");
+            if (File.Exists(Application.persistentDataPath + "/JSONTutorialDatabase.json"))
+            {
+                File.Delete(Application.persistentDataPath + "//JSONTutorialDatabase.json");
+            }
+        }
+        else
+        {
+            if (File.Exists(Application.persistentDataPath + "/JSONDatabase.json"))
+            {
+                File.Delete(Application.persistentDataPath + "/JSONDatabase.json");
+            }
         }
         //Clear all values if needed
         currentPlayer = new Player();
@@ -164,7 +183,14 @@ public class JSONDatabaseOperations : MonoBehaviour
 
     public void SaveData()
     {
-        filePath = Application.persistentDataPath + "/JSONDatabase.json";
+        if (SceneManager.GetActiveScene().ToString() == "Tutorial")
+        {
+            filePath = Application.persistentDataPath + "/JSONTutorialDatabase.json";
+        }
+        else
+        {
+            filePath = Application.persistentDataPath + "/JSONDatabase.json";
+        }
         string JSONString = JsonUtility.ToJson(currentPlayer, true);
         System.IO.File.WriteAllText(filePath, JSONString);
 
@@ -178,12 +204,19 @@ public class JSONDatabaseOperations : MonoBehaviour
 
     public void LoadData()
     {
-        filePath = Application.persistentDataPath + "/JSONDatabase.json";
+        if (SceneManager.GetActiveScene().ToString() == "Tutorial")
+        {
+            filePath = Application.persistentDataPath + "/JSONTutorialDatabase.json";
+        }
+        else
+        {
+            filePath = Application.persistentDataPath + "/JSONDatabase.json";
+        }
 
         if (!File.Exists(filePath))
         {
             Debug.LogWarning("JSON file missing, regenerating.");
-            generateDatabase();
+            GenerateDatabase();
             return;
         }
         string JSONString = System.IO.File.ReadAllText(filePath);
@@ -193,7 +226,7 @@ public class JSONDatabaseOperations : MonoBehaviour
         if (loadedPlayer == null || loadedPlayer.merch == null || loadedPlayer.merch.Count < 18)
         {
             Debug.LogWarning("Loaded data was invalid. Regenerating database.");
-            generateDatabase();
+            GenerateDatabase();
             return;
         }
         currentPlayer = loadedPlayer;
