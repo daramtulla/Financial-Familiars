@@ -42,7 +42,7 @@ public class PlayerManager : MonoBehaviour
         float money = db.currentPlayer.currentMoney;
 
         moneyCount.text = "$" + money.ToString("N2");
-        if (money > 0)
+        if (money >= 0)
         {
             moneyCount.color = new Color(1.0f, 0.5f, 0);
         }
