@@ -209,7 +209,7 @@ public class TutorialPlaybyPlay : MonoBehaviour
 
         //Step 13: DIY mode kid
         SpotLoan.SetActive(false);
-        yield return new WaitForSeconds(15f);
+        yield return new WaitForSeconds(5f);
         stopTutorial.SetActive(true);
 
         Debug.Log("Tutorial complete!");
