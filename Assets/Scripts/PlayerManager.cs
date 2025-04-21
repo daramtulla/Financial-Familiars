@@ -57,11 +57,9 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    /*
     public void ResetData()
     {
-        //Everything should be out of PlayerPrefs
-        //PlayerPrefs.DeleteAll();
-        
         //Intiale starting money is 1000 so player can purchase goods
         db.currentPlayer.currentMoney = 1000;
         float money = db.currentPlayer.currentMoney;
@@ -85,4 +83,5 @@ public class PlayerManager : MonoBehaviour
             db.currentPlayer.active[i] = 0;
         }
     }
+    */
 }

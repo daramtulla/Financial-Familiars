@@ -12,7 +12,6 @@ public class SuppliersMenu : MonoBehaviour
 {
     public SoundManager soundManager;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public GameObject suppliersPanel;
     public Transform suppliersContent;
     public GameObject supplierItemPrefab;
@@ -41,7 +40,6 @@ public class SuppliersMenu : MonoBehaviour
     void Update()
     {
         //press P to open purchasing of goods
-
         if (Input.GetKeyDown(KeyCode.P) && !textInputField.isFocused)
         {
             ToggleMenu();
@@ -210,7 +208,6 @@ public class SuppliersMenu : MonoBehaviour
             //HIRE ID 7: Possibility of losing items
             if (db.CheckEmployee(7) && new System.Random().Next(1, 100) >= 95)
             {
-                // TODO: ADD FEEDBACK FOR THE ITEMS BEING LOST
                 db.currentPlayer.currentMoney -= total;
             }
             else

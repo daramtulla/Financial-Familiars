@@ -56,7 +56,6 @@ public class SceneController : MonoBehaviour
         SceneManager.LoadScene("Credits");
     }
 
-
     void Update()
     {
         if (debug && Input.GetKeyDown(KeyCode.Tilde))

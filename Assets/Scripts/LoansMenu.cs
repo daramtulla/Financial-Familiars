@@ -7,8 +7,6 @@ using Unity.Mathematics;
 using Unity.VisualScripting;
 using System.Data.Common;
 
-//Moved Loans class to db for saving and loading
-
 public class LoansMenu : MonoBehaviour
 {
     public SoundManager soundManager;
@@ -42,7 +40,6 @@ public class LoansMenu : MonoBehaviour
 
     [SerializeField] bool debug;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         //For randomly generated loans
