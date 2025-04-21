@@ -113,12 +113,12 @@ public class JSONDatabaseOperations : MonoBehaviour
 
         //TODO: Add storage functionality
         currentPlayer.unpurchased.Add(new Upgrade(6, "Transmutation Scroll", 2000, "Provides a small amount of money per day."));
-        currentPlayer.unpurchased.Add(new Upgrade(7, "Magic Hand I", 3750, "Automatically restocks potions."));
-        currentPlayer.unpurchased.Add(new Upgrade(8, "Magic Hand II", 6000, "Automatically restocks accessories."));
-        currentPlayer.unpurchased.Add(new Upgrade(9, "Magic Hand III", 7500, "Automatically restocks weapons."));
-        currentPlayer.unpurchased.Add(new Upgrade(10, "Large Magic Hand I", 14000, "Automatically restocks Special items."));
-        currentPlayer.unpurchased.Add(new Upgrade(11, "Large Magic Hand II", 12000, "Automatically restocks runes."));
-        currentPlayer.unpurchased.Add(new Upgrade(12, "Large Magic Hand III", 10000, "Automatically restocks shields."));
+        currentPlayer.unpurchased.Add(new Upgrade(7, "Magic Hand I", 3000, "Automatically restocks potions."));
+        currentPlayer.unpurchased.Add(new Upgrade(8, "Magic Hand II", 4000, "Automatically restocks accessories."));
+        currentPlayer.unpurchased.Add(new Upgrade(9, "Magic Hand III", 5000, "Automatically restocks weapons."));
+        currentPlayer.unpurchased.Add(new Upgrade(10, "Large Magic Hand I", 8000, "Automatically restocks Special items."));
+        currentPlayer.unpurchased.Add(new Upgrade(11, "Large Magic Hand II", 7000, "Automatically restocks runes."));
+        currentPlayer.unpurchased.Add(new Upgrade(12, "Large Magic Hand III", 6000, "Automatically restocks shields."));
         currentPlayer.unpurchased.Add(new Upgrade(13, "Matching Bling", 4500, "Customers may buy two accessories."));
         currentPlayer.unpurchased.Add(new Upgrade(14, "Wealthy Patrons", 10000, "Increases Demand for expensive items."));
 
