@@ -363,7 +363,6 @@ public class Player
             {
                 merch[id - 1].quantity += change;
             }
-            // UPGRADE ID 6, ADD MORE STORAGE (maybe 10 to 20 each)
             else
             {
                 Debug.Log("Not enough stock");
