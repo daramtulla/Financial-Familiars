@@ -3,6 +3,8 @@ using UnityEngine.InputSystem.XR;
 
 public class CustomerInteractHandler : MonoBehaviour
 {
+    //This script is attached to the gameobject that is a child gameobject of the pedestal that holds an item
+    //The pedestal's item should have the same item ID as the tableMerchID
     public int tableMerchID;
 
     //If the customer arm animation when purchasing items should be played
