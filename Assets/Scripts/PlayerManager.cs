@@ -78,5 +78,11 @@ public class PlayerManager : MonoBehaviour
 
         //Clear inventory
         db.currentPlayer.ResetInventory();
+
+        //Clear items on tables
+        for (int i = 0; i < db.currentPlayer.active.Length; i++)
+        {
+            db.currentPlayer.active[i] = 0;
+        }
     }
 }
