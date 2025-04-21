@@ -66,12 +66,41 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
     public Text interactableNameText;
     public string interactableNameTextString;
 
+    [SerializeField] Dictionary<string, int> placed = new Dictionary<string, int>();
+
     [SerializeField] JSONDatabaseOperations db;
 
     private bool Active = false;
     int frames = 0;
 
     Dictionary<string, GameObject> solutions = new Dictionary<string, GameObject>();
+
+    void Awake()
+    {
+        placed.Add(potionT1Pedestal.gameObject.name, 1);
+        placed.Add(potionT2Pedestal.gameObject.name, 2);
+        placed.Add(potionT3Pedestal.gameObject.name, 3);
+
+        placed.Add(accesoryT1Pedestal.gameObject.name, 4);
+        placed.Add(accesoryT2Pedestal.gameObject.name, 5);
+        placed.Add(accesoryT3Pedestal.gameObject.name, 6);
+
+        placed.Add(weaponT1Pedestal.gameObject.name, 7);
+        placed.Add(weaponT2Pedestal.gameObject.name, 8);
+        placed.Add(weaponT3Pedestal.gameObject.name, 9);
+
+        placed.Add(specialT1Pedestal.gameObject.name, 10);
+        placed.Add(specialT2Pedestal.gameObject.name, 11);
+        placed.Add(specialT3Pedestal.gameObject.name, 12);
+
+        placed.Add(runeT1Pedestal.gameObject.name, 13);
+        placed.Add(runeT2Pedestal.gameObject.name, 14);
+        placed.Add(runeT3Pedestal.gameObject.name, 15);
+
+        placed.Add(shieldT1Pedestal.gameObject.name, 16);
+        placed.Add(shieldT2Pedestal.gameObject.name, 17);
+        placed.Add(shieldT3Pedestal.gameObject.name, 18);
+    }
 
     /* Make sure to add display item pedestal to layer 6 and match the name of the gameobject to the name in the script. Set script onto table as non active item scripts do not run */
     public void InteractDisplay()
@@ -225,7 +254,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
             {
                 Debug.Log("Placed Potion T1");
                 potionT1.SetActive(true);
-
+                db.currentPlayer.playedSfx[0] = -1;
                 db.currentPlayer.active[0] = 1;
             }
         }
@@ -234,6 +263,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
             if (db.currentPlayer.merch[1].quantity > 0)
             {
                 potionT2.SetActive(true);
+                db.currentPlayer.playedSfx[1] = -1;
                 db.currentPlayer.active[1] = 1;
             }
         }
@@ -242,6 +272,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
             if (db.currentPlayer.merch[2].quantity > 0)
             {
                 potionT3.SetActive(true);
+                db.currentPlayer.playedSfx[2] = -1;
                 db.currentPlayer.active[2] = 1;
             }
         }
@@ -250,6 +281,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
             if (db.currentPlayer.merch[3].quantity > 0)
             {
                 accesoryT1.SetActive(true);
+                db.currentPlayer.playedSfx[3] = -1;
                 db.currentPlayer.active[3] = 1;
             }
         }
@@ -258,6 +290,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
             if (db.currentPlayer.merch[4].quantity > 0)
             {
                 accesoryT2.SetActive(true);
+                db.currentPlayer.playedSfx[4] = -1;
                 db.currentPlayer.active[4] = 1;
             }
         }
@@ -266,6 +299,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
             if (db.currentPlayer.merch[5].quantity > 0)
             {
                 accesoryT3.SetActive(true);
+                db.currentPlayer.playedSfx[5] = -1;
                 db.currentPlayer.active[5] = 1;
             }
         }
@@ -274,6 +308,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
             if (db.currentPlayer.merch[6].quantity > 0)
             {
                 weaponT1.SetActive(true);
+                db.currentPlayer.playedSfx[6] = -1;
                 db.currentPlayer.active[6] = 1;
             }
         }
@@ -282,6 +317,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
             if (db.currentPlayer.merch[7].quantity > 0)
             {
                 weaponT2.SetActive(true);
+                db.currentPlayer.playedSfx[7] = -1;
                 db.currentPlayer.active[7] = 1;
             }
         }
@@ -290,6 +326,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
             if (db.currentPlayer.merch[8].quantity > 0)
             {
                 weaponT3.SetActive(true);
+                db.currentPlayer.playedSfx[8] = -1;
                 db.currentPlayer.active[8] = 1;
             }
         }
@@ -298,6 +335,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
             if (db.currentPlayer.merch[9].quantity > 0)
             {
                 specialT1.SetActive(true);
+                db.currentPlayer.playedSfx[9] = -1;
                 db.currentPlayer.active[9] = 1;
             }
         }
@@ -306,6 +344,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
             if (db.currentPlayer.merch[10].quantity > 0)
             {
                 specialT2.SetActive(true);
+                db.currentPlayer.playedSfx[10] = -1;
                 db.currentPlayer.active[10] = 1;
             }
         }
@@ -314,6 +353,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
             if (db.currentPlayer.merch[11].quantity > 0)
             {
                 specialT3.SetActive(true);
+                db.currentPlayer.playedSfx[11] = -1;
                 db.currentPlayer.active[11] = 1;
             }
         }
@@ -322,6 +362,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
             if (db.currentPlayer.merch[15].quantity > 0)
             {
                 shieldT1.SetActive(true);
+                db.currentPlayer.playedSfx[15] = -1;
                 db.currentPlayer.active[15] = 1;
             }
         }
@@ -330,6 +371,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
             if (db.currentPlayer.merch[16].quantity > 0)
             {
                 shieldT2.SetActive(true);
+                db.currentPlayer.playedSfx[16] = -1;
                 db.currentPlayer.active[16] = 1;
             }
         }
@@ -338,6 +380,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
             if (db.currentPlayer.merch[17].quantity > 0)
             {
                 shieldT3.SetActive(true);
+                db.currentPlayer.playedSfx[17] = -1;
                 db.currentPlayer.active[17] = 1;
             }
         }
@@ -346,6 +389,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
             if (db.currentPlayer.merch[12].quantity > 0)
             {
                 runeT1.SetActive(true);
+                db.currentPlayer.playedSfx[12] = -1;
                 db.currentPlayer.active[12] = 1;
             }
         }
@@ -354,6 +398,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
             if (db.currentPlayer.merch[13].quantity > 0)
             {
                 runeT2.SetActive(true);
+                db.currentPlayer.playedSfx[13] = -1;
                 db.currentPlayer.active[13] = 1;
             }
         }
@@ -362,12 +407,13 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
             if (db.currentPlayer.merch[14].quantity > 0)
             {
                 runeT3.SetActive(true);
+                db.currentPlayer.playedSfx[14] = -1;
                 db.currentPlayer.active[14] = 1;
             }
         }
     }
 
-    void pastepoof(GameObject point)
+    void Pastepoof(GameObject point)
     {
         Instantiate(poof, point.transform.position + Vector3.up * 0.85f, poof.transform.rotation);
         if (!isPlayingSound)
@@ -386,7 +432,7 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
     }
 
 
-    void mapper()
+    void MerchObjMapper()
     {
         solutions.Add(potionT1Pedestal.gameObject.name, potionT1);
         solutions.Add(potionT2Pedestal.gameObject.name, potionT2);
@@ -415,22 +461,25 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
 
     public void Update()
     {
+        int index = placed[displayToModify.name];
+
         if (solutions.Count == 0)
         {
-            mapper();
+            MerchObjMapper();
             Active = false;
         }
-        if (solutions[displayToModify.name].activeInHierarchy && !Active && frames != 0)
+
+        if (!Active && frames != 0 && db.currentPlayer.playedSfx[index - 1] == -1)
         {
             Active = true;
             //Debug.Log(solutions[displayToModify.name].name);
-            pastepoof(displayToModify);
+            Pastepoof(displayToModify);
+            db.currentPlayer.playedSfx[index - 1] = 1;
         }
         else if (!solutions[displayToModify.name].activeInHierarchy)
         {
             Active = false;
         }
-
 
         //Check to see if display needs to be set inactive when item is sold
         for (int i = 0; i < 18; i++)
@@ -562,7 +611,5 @@ public class InteractableDisplay : MonoBehaviour, InteractDisplay
         {
             frames++;
         }
-
-
     }
 }

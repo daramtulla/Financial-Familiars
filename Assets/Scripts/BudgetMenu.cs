@@ -70,10 +70,7 @@ public class BudgetMenu : MonoBehaviour
     void Awake()
     {
         sales = db.currentPlayer.totalSales;
-
         inventory = db.currentPlayer.purchases;
-
-
         netProfit = sales - inventory;
     }
 
@@ -81,7 +78,6 @@ public class BudgetMenu : MonoBehaviour
     {
         budgetPanel.SetActive(false);
         UpdateBudgetUI();
-
     }
 
     // Update is called once per frame
@@ -92,7 +88,6 @@ public class BudgetMenu : MonoBehaviour
         {
             ToggleBudgetMenu();
         }
-
     }
 
     public void ToggleBudgetMenu()

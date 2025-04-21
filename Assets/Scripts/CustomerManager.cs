@@ -42,8 +42,18 @@ public class CustomerManager : MonoBehaviour
 
     public Text dayTimeNumberText;
 
+    [SerializeField] CustomerInteractHandler[] customerInteractHandlers;
+
+    [SerializeField] InteractableDisplay interact;
+
     // HIRE 0, 15, 16, 18, 19: Affects demand/prices
     // UPGRADE 1, 2, 3, 4, 5, 11, 12: Affects demand/prices
+
+    private void Start()
+    {
+        customerInteractHandlers = FindObjectsByType<CustomerInteractHandler>(FindObjectsSortMode.None);
+    }
+
     public void StartSelling()
     {
         dayTime = 0;
@@ -89,7 +99,7 @@ public class CustomerManager : MonoBehaviour
 
         //After timer is up
         db.currentPlayer.cycleNum = 2;
-        //db.SaveData();
+
         //Debug.Log($"db.currentPlayer.cycleNum: {db.currentPlayer.cycleNum}");
         timerActive = false;
         soundManager.soundAudioSource.PlayOneShot(soundManager.storeClosing, 0.3f);
@@ -114,7 +124,6 @@ public class CustomerManager : MonoBehaviour
                     {
                         contains = true;
                     }
-
                 }
 
                 if (contains)
@@ -123,8 +132,6 @@ public class CustomerManager : MonoBehaviour
                     if (debug) { Debug.Log("Attempting to sell merch " + pair.Value); }
                     KeyValuePair<int, int> toRemove = new(pair.Key, pair.Value);
                     Debug.Log("Remove Successful? " + copy.Remove(toRemove));
-
-
                     customerReached[pair.Key - 1] = 1;
                 }
             }
@@ -151,10 +158,9 @@ public class CustomerManager : MonoBehaviour
 
         foreach (var removePair in toRemoveList)
         {
-            timeline.Remove(removePair); // actually remove from the real timeline now
+            timeline.Remove(removePair);
         }
     }
-
 
     //Generates a number of sales based on the markup of the item and when those sales occur
     public void GetItemSaleTimeLine()
@@ -199,8 +205,6 @@ public class CustomerManager : MonoBehaviour
                     timeline.Add(saleTime);
                 }
             }
-
-
         }
     }
 
@@ -256,16 +260,24 @@ public class CustomerManager : MonoBehaviour
     public void AttemptSale(int id)
     {
         Debug.Log($"SEARCH AttemptSale: {cm.saleChanceCheck}");
-        if (db.currentPlayer.active[id - 1] == 1 && cm.saleChanceCheck)
+        if (db.currentPlayer.active[id - 1] == 1 && rnd.GetSaleChance() > 3)
         {
+            //Loop through all the CustomerInteractHandler scripts and check which one has matching item IDs
+            foreach (CustomerInteractHandler customerInteractHandler in customerInteractHandlers)
+            {
+                if (customerInteractHandler.tableMerchID == id)
+                {
+                    customerInteractHandler.activateCustomerInteractAnimation = true;
+                }
+            }
+
             SellItem(id);
+            db.currentPlayer.playedSfx[id - 1] = 0;
             soundManager.soundAudioSource.PlayOneShot(soundManager.itemSold, 1.25f);
         }
     }
 
     //HIRES AND UPGRADES
-    //TODO: CHECK THIS SELLING EQUATION
-    //TODO: What the hell is going on with this and all of the id - 1 stuff
     //UPGRADE 11: possibly sell two accessories at once
     public void SellItem(int id)
     {
@@ -438,8 +450,7 @@ public class CustomerManager : MonoBehaviour
         }
 
         //Upgrade ID 7 - 12: Auto restock items
-
-        int upgradeNeeded = -1;
+        int upgradeNeeded;
         switch (db.currentPlayer.merch[id - 1].group)
         {
             //potions

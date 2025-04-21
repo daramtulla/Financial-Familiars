@@ -23,7 +23,6 @@ public class EmployeeManager : MonoBehaviour
 
 
     public JSONDatabaseOperations db;
-    private List<Employee> employees;
     void Start()
     {
         choicePanel.SetActive(false);
@@ -33,17 +32,16 @@ public class EmployeeManager : MonoBehaviour
         UpdateEmployeeManagerUI();
     }
 
-
     public void ToggleMenu()
     {
-            choicePanel.SetActive(!choicePanel.activeSelf);
-            
-            UpdateEmployeeUI();
-            UpdateEmployeeManagerUI();
+        choicePanel.SetActive(!choicePanel.activeSelf);
+
+        UpdateEmployeeUI();
+        UpdateEmployeeManagerUI();
     }
 
     public void UpdateEmployeeManagerUI()
-    { 
+    {
         // Clear existing
         foreach (Transform child in employeeManagerContent)
         {
@@ -111,7 +109,7 @@ public class EmployeeManager : MonoBehaviour
             }
 
             Button hireButton = newEmployee.transform.Find("HireButton").GetComponent<Button>();
-            hireButton.onClick.AddListener(() => fireEmployee(emp.id));
+            hireButton.onClick.AddListener(() => FireEmployee(emp.id));
             hireButton.onClick.AddListener(soundManager.ButtonClickSound);
 
             Debug.Log("REMOVING EMPLOYEE: " + emp.name + ", " + emp.position + ", " + emp.salary + ", " + emp.personality + ", " + emp.benefits + ", " + emp.qualifications);
@@ -186,18 +184,18 @@ public class EmployeeManager : MonoBehaviour
             }
 
             Button hireButton = newEmployee.transform.Find("HireButton").GetComponent<Button>();
-            hireButton.onClick.AddListener(() => hireEmployee(emp.id));
+            hireButton.onClick.AddListener(() => HireEmployee(emp.id));
             hireButton.onClick.AddListener(soundManager.ButtonClickSound);
 
             Debug.Log("ADDING EMPLOYEE: " + emp.name + ", " + emp.position + ", " + emp.salary + ", " + emp.personality + ", " + emp.benefits + ", " + emp.qualifications);
         }
     }
-    private void hireEmployee(int id)
+    private void HireEmployee(int id)
     {
         Employee hiring = db.currentPlayer.unemployed.Find(employee => employee.id == id);
         if (hiring != null)
         {
-            db.addEmployee(hiring);
+            db.AddEmployee(hiring);
             db.currentPlayer.unemployed.Remove(hiring);
             UpdateEmployeeUI();
             UpdateEmployeeManagerUI();
@@ -206,14 +204,13 @@ public class EmployeeManager : MonoBehaviour
         {
             Debug.Log("Employee not found");
         }
-
     }
-    private void fireEmployee(int id)
+    private void FireEmployee(int id)
     {
         Employee firing = db.currentPlayer.employees.Find(employee => employee.id == id);
         if (firing != null)
         {
-            db.removeEmployee(firing);
+            db.RemoveEmployee(firing);
             db.currentPlayer.employees.Remove(firing);
             UpdateEmployeeUI();
             UpdateEmployeeManagerUI();
@@ -222,7 +219,5 @@ public class EmployeeManager : MonoBehaviour
         {
             Debug.Log("Employee not found");
         }
-
     }
-
 }

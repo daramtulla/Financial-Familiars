@@ -148,8 +148,6 @@ public class GameManager : MonoBehaviour
         endScreen.SetActive(true);
         endDayTitle.text = "Day " + db.currentPlayer.GetDay() + " Results";
 
-        //TODO: Add loan logic
-        //For now: say it takes $50 to pay off every day
         float mandatoryLoansAmount = -db.currentPlayer.totalLoansPaid;
 
 
@@ -179,7 +177,6 @@ public class GameManager : MonoBehaviour
             utilitiesCostAmount *= 0.9f;
         }
 
-        //TODO: Add rent? Or lump it all in utilities. for now, just lump it in with utilities
         if (db.CheckEmployee(4))
         {
             if (db.CheckEmployee(15))
@@ -193,7 +190,7 @@ public class GameManager : MonoBehaviour
         }
         if (db.CheckUpgrade(6))
         {
-            moneyMadeAmount += 25;
+            moneyMadeAmount += 400;
         }
 
         //Removed loan payments from profit calc
@@ -236,8 +233,6 @@ public class GameManager : MonoBehaviour
         db.currentPlayer.IncrDay();
 
         playerManager.UpdatePlayerStats(netProfitAmount);
-
-        //db.SaveData();
     }
     public void FormatText(Text textObject, float amount)
     {
@@ -316,6 +311,4 @@ public class GameManager : MonoBehaviour
 
         dayTimer.SetActive(false);
     }
-
-
 }

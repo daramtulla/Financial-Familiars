@@ -28,7 +28,6 @@ public class CameraManager : MonoBehaviour
         followMode = false;
     }
 
-
     // Update is called once per frame
     void Update()
     {
@@ -50,6 +49,5 @@ public class CameraManager : MonoBehaviour
                 followMode = !followMode;
             }
         }
-
     }
 }

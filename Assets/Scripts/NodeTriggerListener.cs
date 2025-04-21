@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Data.Common;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Polybrush;
 using UnityEngine.SceneManagement;
@@ -56,9 +59,9 @@ public class TriggerListener : MonoBehaviour
     public Collider trigger8;
     public Collider trigger9;
     public Collider triggerEnd;
-
-    //
     public CustomerMovement cm;
+
+    public CustomerManager custMan;
 
     public RandomGenNum rnd = new RandomGenNum();
 
@@ -129,7 +132,6 @@ public class TriggerListener : MonoBehaviour
             cm.linkTable[obj].nodeNum++;
             cm.linkTable[obj].nextNode = cm.node2;
         }
-
     }
     public void ReachNode2(Collider col)
     {
@@ -161,14 +163,9 @@ public class TriggerListener : MonoBehaviour
                 cm.linkTable[obj].nodeNum++;
             }
         }
-
-
-
     }
     public void ReachNode4(Collider col)
     {
-
-
         GameObject obj = col.gameObject;
 
         if (this.name == "Node 4a" || this.name == "Node 4b")
@@ -386,7 +383,6 @@ public class TriggerListener : MonoBehaviour
 
         if (this.name == "Node 6a" || this.name == "Node 6b" || this.name == "Node 6c" || this.name == "Node 6d" || this.name == "Node 6e" || this.name == "Node 6f")
         {
-
             if (cm.linkTable[obj].nextNode == cm.node6a && this.name == "Node 6a")
             {
                 cm.linkTable[obj].nodeNum++;
@@ -586,7 +582,26 @@ public class TriggerListener : MonoBehaviour
         if (this.name == "End Node")
         {
             GameObject obj = col.gameObject;
+            int merchID = cm.linkTable[obj].itemToBuy;
             cm.linkTable.Remove(obj);
+            bool additionalCust = false;
+
+            foreach (var pair in cm.linkTable)
+            {
+                if (merchID == pair.Value.itemToBuy)
+                {
+                    additionalCust = true;
+                }
+            }
+
+            if (additionalCust)
+            {
+                custMan.customerReached[merchID - 1] = 1;
+            }
+            else
+            {
+                custMan.customerReached[merchID - 1] = 0;
+            }
             Destroy(obj);
         }
     }

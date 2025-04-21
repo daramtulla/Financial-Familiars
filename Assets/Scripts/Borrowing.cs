@@ -19,13 +19,11 @@ public class Borrowing : MonoBehaviour
 
     public int maxLoans = 3;
 
-    //tutorial specific
+    //Tutorial specific
     [SerializeField] bool tutorialMode = false;
     [SerializeField] GameObject tutorialBlockA;
     [SerializeField] GameObject tutorialBlockB;
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         PopulateLoanCards();
@@ -71,7 +69,7 @@ public class Borrowing : MonoBehaviour
             //tutorial specific
             if (tutorialMode)
             {
-                if(GetCurrentLoanCount() > 1)
+                if (GetCurrentLoanCount() > 1)
                 {
                     tutorialBlockA.SetActive(false);
                     tutorialBlockB.SetActive(true);
