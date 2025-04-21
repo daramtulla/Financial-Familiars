@@ -21,7 +21,6 @@ public class SceneTutorial : MonoBehaviour
         tutorialPopup.SetActive(true);
         closeButton.onClick.RemoveAllListeners();
         closeButton.onClick.AddListener(CloseTutorial);
-
     }
     void CloseTutorial()
     {

@@ -100,6 +100,23 @@ public class InventoryMenu : MonoBehaviour
                 Debug.Log("Could not find dropdown");
             }
 
+            //Needed up here also to prevent button click sound from replaying on menu open
+            if (item.markupPercentage == 10f)
+            {
+                dBox.value = 0;
+                lastDBoxValue[item.id - 1] = 0;
+            }
+            else if (item.markupPercentage == 25f)
+            {
+                dBox.value = 1;
+                lastDBoxValue[item.id - 1] = 1;
+            }
+            else if (item.markupPercentage == 50f)
+            {
+                dBox.value = 2;
+                lastDBoxValue[item.id - 1] = 2;
+            }
+
             dBox.onValueChanged.AddListener((int index) => MarkupChange(index, item.id));
 
             float sellingPrice = item.baseCost * item.markupPercentage;
@@ -132,7 +149,6 @@ public class InventoryMenu : MonoBehaviour
     }
 
     //Not being used currently. May be needed in future
-    /*
     public void ReloadInventory()
     {
         Debug.Log("Reloading Inventory...");
@@ -145,5 +161,4 @@ public class InventoryMenu : MonoBehaviour
 
         Debug.Log("Inventory Reloaded and UI Updated.");
     }
-    */
 }

@@ -58,7 +58,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    
+
     public void ResetData()
     {
         moneyCount.color = new Color(1.0f, 0.5f, 0);
@@ -85,5 +85,4 @@ public class PlayerManager : MonoBehaviour
         db.SaveData();
         sceneController.OnClickSceneChangeTitle();
     }
-    
 }
