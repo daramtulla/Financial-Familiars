@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
 using System.Data.Common;
+using System;
 
 public class Borrowing : MonoBehaviour
 {
@@ -99,7 +100,8 @@ public class Borrowing : MonoBehaviour
         foreach (TextMeshProUGUI t in texts)
         {
             if (t.name == "Amount") t.text = $"${loan.amount}";
-            else if (t.name == "Interest") t.text = $"{loan.interest}%";
+            else if (t.name == "Interest") t.text = $"{loan.interest * 100}%";
+            //
             else if (t.name == "Lender") t.text = $"{loan.lender}";
             else if (t.name == "InterestType") t.text = $"{loan.type.ToString()}";
         }
