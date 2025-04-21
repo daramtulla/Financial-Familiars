@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Data.Common;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Polybrush;
 using UnityEngine.SceneManagement;
@@ -59,6 +62,8 @@ public class TriggerListener : MonoBehaviour
 
     //
     public CustomerMovement cm;
+
+    public CustomerManager custMan;
 
     public RandomGenNum rnd = new RandomGenNum();
 
@@ -586,8 +591,29 @@ public class TriggerListener : MonoBehaviour
         if (this.name == "End Node")
         {
             GameObject obj = col.gameObject;
+            int merchID = cm.linkTable[obj].itemToBuy;
             cm.linkTable.Remove(obj);
+            bool additionalCust = false;
+
+            foreach (var pair in cm.linkTable)
+            {
+                if (merchID == pair.Value.itemToBuy)
+                {
+                    additionalCust = true;
+                }
+            }
+
+            if (additionalCust)
+            {
+                custMan.customerReached[merchID - 1] = 1;
+            }
+            else
+            {
+                custMan.customerReached[merchID - 1] = 0;
+            }
             Destroy(obj);
+
+
         }
     }
 }

@@ -102,31 +102,29 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.unemployed.Add(new Employee(20, "Selene Starwhisper", "Grand Enchanter", 150, "Mysterious, graceful, always floating.", "Greatly increases demand for special items.", "A powerful enchanter who once created an invisibility cloak.", "Employees/Selene.png"));
 
         //Upgrades (unpurchased to begin)
-        currentPlayer.unpurchased.Add(new Upgrade(0, "Efficient Lighting", 200, "Reduces utilities cost."));
-        currentPlayer.unpurchased.Add(new Upgrade(1, "Luxury Branding", 500, "Slightly Increases demand for all items."));
-        currentPlayer.unpurchased.Add(new Upgrade(2, "Premium Potions", 300, "Increases Demand for Potions."));
-        currentPlayer.unpurchased.Add(new Upgrade(3, "Premium Accessories", 600, "Increases Demand for Accessories."));
-        currentPlayer.unpurchased.Add(new Upgrade(4, "Premium Weapons", 600, "Increases Demand for Weapons."));
-        currentPlayer.unpurchased.Add(new Upgrade(5, "Premium Special Items", 1000, "Increases demand for Special items."));
-        currentPlayer.unpurchased.Add(new Upgrade(15, "Premium Runes", 1200, "Increases demand for runes."));
-        currentPlayer.unpurchased.Add(new Upgrade(16, "Premium Shields", 1500, "Increases demand for shields."));
-        currentPlayer.unpurchased.Add(new Upgrade(15, "Premium Runes", 1200, "Increases demand for runes."));
-        currentPlayer.unpurchased.Add(new Upgrade(16, "Premium Shields", 1500, "Increases demand for shields."));
+        currentPlayer.unpurchased.Add(new Upgrade(0, "Efficient Lighting", 2000, "Reduces utilities cost."));
+        currentPlayer.unpurchased.Add(new Upgrade(1, "Luxury Branding", 5000, "Slightly Increases demand for all items."));
+        currentPlayer.unpurchased.Add(new Upgrade(2, "Premium Potions", 3000, "Increases Demand for Potions."));
+        currentPlayer.unpurchased.Add(new Upgrade(3, "Premium Accessories", 6000, "Increases Demand for Accessories."));
+        currentPlayer.unpurchased.Add(new Upgrade(4, "Premium Weapons", 6000, "Increases Demand for Weapons."));
+        currentPlayer.unpurchased.Add(new Upgrade(5, "Premium Special Items", 15000, "Increases demand for Special items."));
+        currentPlayer.unpurchased.Add(new Upgrade(15, "Premium Runes", 12000, "Increases demand for runes."));
+        currentPlayer.unpurchased.Add(new Upgrade(16, "Premium Shields", 10000, "Increases demand for shields."));
 
         //TODO: Add storage functionality
-        currentPlayer.unpurchased.Add(new Upgrade(6, "Transmutation Scroll", 400, "Provides a small amount of money per day."));
-        currentPlayer.unpurchased.Add(new Upgrade(7, "Magic Hand I", 750, "Automatically restocks potions."));
-        currentPlayer.unpurchased.Add(new Upgrade(8, "Magic Hand II", 1200, "Automatically restocks accessories."));
-        currentPlayer.unpurchased.Add(new Upgrade(9, "Magic Hand III", 1500, "Automatically restocks weapons."));
-        currentPlayer.unpurchased.Add(new Upgrade(10, "Large Magic Hand I", 2000, "Automatically restocks Special items."));
-        currentPlayer.unpurchased.Add(new Upgrade(11, "Large Magic Hand II", 2400, "Automatically restocks runes."));
-        currentPlayer.unpurchased.Add(new Upgrade(12, "Large Magic Hand III", 2800, "Automatically restocks shields."));
-        currentPlayer.unpurchased.Add(new Upgrade(13, "Matching Bling", 450, "Customers may buy two accessories."));
-        currentPlayer.unpurchased.Add(new Upgrade(14, "Wealthy Patrons", 2000, "Increases Demand for expensive items."));
+        currentPlayer.unpurchased.Add(new Upgrade(6, "Transmutation Scroll", 2000, "Provides a small amount of money per day."));
+        currentPlayer.unpurchased.Add(new Upgrade(7, "Magic Hand I", 3750, "Automatically restocks potions."));
+        currentPlayer.unpurchased.Add(new Upgrade(8, "Magic Hand II", 6000, "Automatically restocks accessories."));
+        currentPlayer.unpurchased.Add(new Upgrade(9, "Magic Hand III", 7500, "Automatically restocks weapons."));
+        currentPlayer.unpurchased.Add(new Upgrade(10, "Large Magic Hand I", 14000, "Automatically restocks Special items."));
+        currentPlayer.unpurchased.Add(new Upgrade(11, "Large Magic Hand II", 12000, "Automatically restocks runes."));
+        currentPlayer.unpurchased.Add(new Upgrade(12, "Large Magic Hand III", 10000, "Automatically restocks shields."));
+        currentPlayer.unpurchased.Add(new Upgrade(13, "Matching Bling", 4500, "Customers may buy two accessories."));
+        currentPlayer.unpurchased.Add(new Upgrade(14, "Wealthy Patrons", 10000, "Increases Demand for expensive items."));
 
         //Player Stats
         currentPlayer.moveSpeedModifier = 1;
-        currentPlayer.currentMoney = 1000f;
+        currentPlayer.currentMoney = 10000f;
         currentPlayer.musicVolume = .5f;
         currentPlayer.sfxVolume = .5f;
         currentPlayer.ResetDay();
@@ -136,11 +134,11 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.dailyLoanAmount = 0;
 
         //Loans
-        currentPlayer.availableLoans.Add(new Loan(0, 25000f, .2f, "Candlelight Credit", false, JSONDatabaseOperations.InterestType.Flat));
-        currentPlayer.availableLoans.Add(new Loan(1, 10000f, .5f, "Dragon Investments", false, JSONDatabaseOperations.InterestType.Flat));
-        currentPlayer.availableLoans.Add(new Loan(2, 50000f, .05f, "Bank of Enchancia", false, JSONDatabaseOperations.InterestType.Flat));
-        currentPlayer.availableLoans.Add(new Loan(3, 35000f, .15f, "Turtle Tank inc.", false, JSONDatabaseOperations.InterestType.Flat));
-        currentPlayer.availableLoans.Add(new Loan(4, 15000f, .03f, "Fae Court Credit Union", false, JSONDatabaseOperations.InterestType.Compound));
+        currentPlayer.availableLoans.Add(new Loan(0, 25000f, .20f, "Candlelight Credit", false, JSONDatabaseOperations.InterestType.Flat));
+        currentPlayer.availableLoans.Add(new Loan(1, 10000f, .05f, "Dragon Investments", false, JSONDatabaseOperations.InterestType.Compound));
+        currentPlayer.availableLoans.Add(new Loan(2, 10000f, .10f, "Bank of Enchancia", false, JSONDatabaseOperations.InterestType.Flat));
+        currentPlayer.availableLoans.Add(new Loan(3, 15000f, .15f, "Turtle Tank inc.", false, JSONDatabaseOperations.InterestType.Flat));
+        currentPlayer.availableLoans.Add(new Loan(4, 25000f, .10f, "Fae Court Credit Union", false, JSONDatabaseOperations.InterestType.Compound));
 
         //Tables
         for (int i = 0; i < 18; i++)
@@ -153,7 +151,7 @@ public class JSONDatabaseOperations : MonoBehaviour
         currentPlayer.cycleNum = 0;
 
         //Story loan
-        currentPlayer.loans.Add(new Loan(5, 100000f, 0.01f, "Beginning Business Loan", true, JSONDatabaseOperations.InterestType.Flat));
+        currentPlayer.loans.Add(new Loan(5, 100000f, 0.05f, "Beginning Business Loan", true, JSONDatabaseOperations.InterestType.Flat));
 
         SaveData();
     }

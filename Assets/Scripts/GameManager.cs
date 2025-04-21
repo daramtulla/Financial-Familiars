@@ -193,7 +193,7 @@ public class GameManager : MonoBehaviour
         }
         if (db.CheckUpgrade(6))
         {
-            moneyMadeAmount += 25;
+            moneyMadeAmount += 400;
         }
 
         //Removed loan payments from profit calc
