@@ -25,17 +25,23 @@ public class InventoryMenu : MonoBehaviour
 
     float[] dBoxOptions = { 10f, 25f, 50f };
 
+    [SerializeField] int[] lastDBoxValue = new int[18];
+
     void Start()
     {
         inventoryPanel.SetActive(false);
         //AddTestItems();
         UpdateInventoryUI();
+
     }
 
     void MarkupChange(int index, int merchID)
     {
-        db.currentPlayer.merch[merchID - 1].markupPercentage = dBoxOptions[index];
-        soundManager.ButtonClickSound();
+        if (lastDBoxValue[merchID - 1] != index)
+        {
+            db.currentPlayer.merch[merchID - 1].markupPercentage = dBoxOptions[index];
+            soundManager.ButtonClickSound();
+        }
     }
 
     // Update is called once per frame
@@ -46,6 +52,8 @@ public class InventoryMenu : MonoBehaviour
         {
             ToggleMenu();
         }
+
+        //Needs to check for lastDboxValue changes
     }
 
     public void ToggleMenu()
@@ -110,14 +118,17 @@ public class InventoryMenu : MonoBehaviour
             if (item.markupPercentage == 10f)
             {
                 dBox.value = 0;
+                lastDBoxValue[item.id - 1] = 0;
             }
             else if (item.markupPercentage == 25f)
             {
                 dBox.value = 1;
+                lastDBoxValue[item.id - 1] = 1;
             }
             else if (item.markupPercentage == 50f)
             {
                 dBox.value = 2;
+                lastDBoxValue[item.id - 1] = 2;
             }
         }
     }
