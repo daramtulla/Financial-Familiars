@@ -204,6 +204,7 @@ public class EmployeeManager : MonoBehaviour
         {
             Debug.Log("Employee not found");
         }
+        db.SaveData();
     }
     private void FireEmployee(int id)
     {
@@ -219,5 +220,6 @@ public class EmployeeManager : MonoBehaviour
         {
             Debug.Log("Employee not found");
         }
+        db.SaveData();
     }
 }

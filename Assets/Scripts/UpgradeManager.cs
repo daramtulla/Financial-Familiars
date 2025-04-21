@@ -127,6 +127,7 @@ public class UpgradeManager : MonoBehaviour
                 }
             }
             soundManager.ButtonClickSound();
+            db.SaveData();
         }
         else
         {
