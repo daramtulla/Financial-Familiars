@@ -25,10 +25,6 @@ public class SceneTutorial : MonoBehaviour
     }
     void CloseTutorial()
     {
-        /* 
-         * PlayerPrefs.SetInt(tutorialKey, 1);
-         * PlayerPrefs.Save();
-         */
         db.currentPlayer.completedTutorials.Add(tutorialKey);
         db.SaveData();
         tutorialPopup.SetActive(false);

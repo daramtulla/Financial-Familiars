@@ -22,10 +22,6 @@ public class UpgradeManager : MonoBehaviour
         upgradeUI.SetActive(false);
         UpdateUpgradeUI();
     }
-    void Update()
-    {
-
-    }
 
     public void ToggleMenu()
     {
@@ -59,9 +55,7 @@ public class UpgradeManager : MonoBehaviour
             GameObject newItem = Instantiate(upgradePrefab, upgradeContent);
 
             TextMeshProUGUI[] texts = newItem.GetComponentsInChildren<TextMeshProUGUI>();
-            //todo: Add texts
             texts[0].text = upgrade.name;
-            //TODO: make this more efficient?
 
             float cost = upgrade.cost;
 
@@ -92,9 +86,6 @@ public class UpgradeManager : MonoBehaviour
 
             texts[2].text = upgrade.description;
 
-
-
-            //TODO: add button with correct name
             Button buyButton = newItem.transform.Find("BuyButton").GetComponent<Button>();
             buyButton.onClick.AddListener(() => buyUpgrade(upgrade.cost, upgrade.id));
         }
@@ -118,7 +109,6 @@ public class UpgradeManager : MonoBehaviour
             // HIRE ID 13: Chance to not buy an upgrade
             if (db.CheckEmployee(13) && new System.Random().Next(1, 100) >= 95)
             {
-                // TODO: ADD FEEDBACK FOR THE ITEMS BEING LOST
                 db.currentPlayer.currentMoney -= cost;
             }
             else

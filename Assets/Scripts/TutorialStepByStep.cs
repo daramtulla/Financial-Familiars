@@ -45,9 +45,6 @@ public class TutorialPlaybyPlay : MonoBehaviour
 
     [SerializeField] bool debug;
 
-
-
-
     void Start()
     {
         StartCoroutine(PlayTutorial());

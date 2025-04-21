@@ -43,7 +43,7 @@ public class Glossary : MonoBehaviour
             }
             else
             {
-                if(Time.timeScale > 0.1f) //Used 0.1 to account for floating point errors
+                if (Time.timeScale > 0.1f) //Used 0.1 to account for floating point errors
                 {
                     Time.timeScale = 0.0f;
                 }
@@ -113,5 +113,4 @@ public class Glossary : MonoBehaviour
         }
         glossaryScreen.SetActive(false);
     }
-
 }

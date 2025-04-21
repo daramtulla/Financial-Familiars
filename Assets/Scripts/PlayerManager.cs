@@ -42,7 +42,7 @@ public class PlayerManager : MonoBehaviour
         float money = db.currentPlayer.currentMoney;
 
         moneyCount.text = "$" + money.ToString("N2");
-        if (money > 0)
+        if (money >= 0)
         {
             moneyCount.color = new Color(1.0f, 0.5f, 0);
         }
@@ -57,11 +57,9 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    /*
     public void ResetData()
     {
-        //Everything should be out of PlayerPrefs
-        //PlayerPrefs.DeleteAll();
-        
         //Intiale starting money is 1000 so player can purchase goods
         db.currentPlayer.currentMoney = 1000;
         float money = db.currentPlayer.currentMoney;
@@ -85,4 +83,5 @@ public class PlayerManager : MonoBehaviour
             db.currentPlayer.active[i] = 0;
         }
     }
+    */
 }
