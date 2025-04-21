@@ -41472,7 +41472,7 @@ MonoBehaviour:
   currentPlayer:
     moveSpeedModifier: 0
     currentMoney: 0
-    volume: 1
+    musicVolume: 1
     sfxVolume: 1
     cycleNum: 0
     currentLoanAmount: 0
@@ -41486,11 +41486,12 @@ MonoBehaviour:
     loans: []
     merch: []
     suppliers: []
-    unemployedEmployees: []
+    unemployed: []
     employees: []
-    unpurchasedUpgrades: []
+    unpurchased: []
     upgrades: []
     completedTutorials: []
+    availableLoans: []
   RegenerateOnLoad: 0
 --- !u!4 &1481270404
 Transform:
