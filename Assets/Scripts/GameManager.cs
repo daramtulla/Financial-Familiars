@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
         db.currentPlayer.dailyLoanAmount = 0;
         //Debug.Log($"RestartCycle(): db.currentPlayer.dailySales: {db.currentPlayer.dailySales}");
         db.currentPlayer.cycleNum = 0;
-        soundManager.soundAudioSource.PlayOneShot(soundManager.storeSetup, 1.0f);
+        soundManager.soundAudioSource.PlayOneShot(soundManager.storeSetup, 0.5f);
 
     }
 
