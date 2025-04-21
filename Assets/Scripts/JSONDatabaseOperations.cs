@@ -42,6 +42,13 @@ public class JSONDatabaseOperations : MonoBehaviour
         {
             File.Delete(Application.persistentDataPath + "/JSONDatabase.json");
         }
+        //Clear all values if needed
+        currentPlayer = new Player();
+        currentPlayer.employees.Clear();
+        currentPlayer.unemployed.Clear();
+        currentPlayer.upgrades.Clear();
+        currentPlayer.unpurchased.Clear();
+
         //Merchandise
         currentPlayer.merch.Add(new Merchandise(1, "Crimson Restoration Potion", 0, 10, 10, .2f, 1, 1));
         currentPlayer.merch.Add(new Merchandise(2, "Bubbling Polymorph Flask", 0, 25, 10, .2f, 1, 2));

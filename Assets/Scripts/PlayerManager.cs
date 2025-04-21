@@ -11,6 +11,7 @@ public class PlayerManager : MonoBehaviour
 
     private int day;
     public Text dayCount;
+    public SceneController sceneController;
     void Start()
     {
         float money = db.currentPlayer.currentMoney;
@@ -57,31 +58,32 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    /*
+    
     public void ResetData()
     {
-        //Intiale starting money is 1000 so player can purchase goods
-        db.currentPlayer.currentMoney = 1000;
-        float money = db.currentPlayer.currentMoney;
-        moneyCount.text = Math.Round(money, 2).ToString();
-
         moneyCount.color = new Color(1.0f, 0.5f, 0);
         db.currentPlayer.ResetDay();
         dayCount.text = "Day 1";
-        money = 1000;
         day = 1;
-        db.currentPlayer.currentMoney = money;
+
+        //Intialize starting money is 10000 to match starting money
+        db.currentPlayer.currentMoney = 10000;
+        moneyCount.text = Math.Round(db.currentPlayer.currentMoney, 2).ToString();
         //db.currentPlayer.dayCount = day;
         moneyCount.text = db.currentPlayer.currentMoney.ToString("N2");
 
         //Clear inventory
         db.currentPlayer.ResetInventory();
+        //Recreate Database
+        db.generateDatabase();
 
         //Clear items on tables
         for (int i = 0; i < db.currentPlayer.active.Length; i++)
         {
             db.currentPlayer.active[i] = 0;
         }
+        db.SaveData();
+        sceneController.OnClickSceneChangeTitle();
     }
-    */
+    
 }
