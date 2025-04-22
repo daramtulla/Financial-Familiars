@@ -21,7 +21,7 @@ public class EmployeeManager : MonoBehaviour
     public Transform employeeManagerContent;
     public GameObject employeeManagerPrefab;
 
-
+    public InteractionManager im;
     public JSONDatabaseOperations db;
     void Start()
     {
@@ -39,6 +39,24 @@ public class EmployeeManager : MonoBehaviour
         UpdateEmployeeUI();
         UpdateEmployeeManagerUI();
     }
+
+    public void CloseMenu()
+    {
+        Debug.Log("Test Inventory Menu Close");
+        //The if statement prevents you from being frozen when you press I to open the inventory menu
+        //and then press the close button.
+        //Also prevents "switchInteractState()" from being called twice when F is pressed
+        //(once in the Update() function of InteractionManager.cs and the other time here).
+        if (InteractionManager.GetInteractState() == true)
+        {
+            Debug.Log("(InventoryMenu): GetInteractState() is true");
+            im.SwitchInteractState();
+        }
+        firePanel.SetActive(false);
+        hirePanel.SetActive(false);
+    }
+
+
 
     public void UpdateEmployeeManagerUI()
     {
