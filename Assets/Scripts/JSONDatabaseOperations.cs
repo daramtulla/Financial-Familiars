@@ -25,7 +25,7 @@ public class JSONDatabaseOperations : MonoBehaviour
     void Awake()
     {
         currentPlayer = new Player();
-        if (SceneManager.GetActiveScene().ToString() == "Tutorial")
+        if (SceneManager.GetActiveScene().name == "Tutorial")
         {
             filePath = Application.persistentDataPath + "/JSONTutorialDatabase.json";
         }
@@ -47,7 +47,7 @@ public class JSONDatabaseOperations : MonoBehaviour
 
     public void GenerateDatabase()
     {
-        if (SceneManager.GetActiveScene().ToString() == "Tutorial")
+        if (SceneManager.GetActiveScene().name == "Tutorial")
         {
             if (File.Exists(Application.persistentDataPath + "/JSONTutorialDatabase.json"))
             {
@@ -181,9 +181,18 @@ public class JSONDatabaseOperations : MonoBehaviour
         SaveData();
     }
 
+    public void ResetTutorial()
+    {
+        filePath = Application.persistentDataPath + "/JSONTutorialDatabase.json";
+
+        GenerateDatabase();
+
+        filePath = Application.persistentDataPath + "/JSONDatabase.json";
+    }
+
     public void SaveData()
     {
-        if (SceneManager.GetActiveScene().ToString() == "Tutorial")
+        if (SceneManager.GetActiveScene().name == "Tutorial")
         {
             filePath = Application.persistentDataPath + "/JSONTutorialDatabase.json";
         }
@@ -204,7 +213,7 @@ public class JSONDatabaseOperations : MonoBehaviour
 
     public void LoadData()
     {
-        if (SceneManager.GetActiveScene().ToString() == "Tutorial")
+        if (SceneManager.GetActiveScene().name == "Tutorial")
         {
             filePath = Application.persistentDataPath + "/JSONTutorialDatabase.json";
         }
