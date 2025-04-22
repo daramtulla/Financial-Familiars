@@ -74,6 +74,8 @@ public class BudgetMenu : MonoBehaviour
         netProfit = sales - inventory;
     }
 
+    [SerializeField] bool debug;
+
     void Start()
     {
         budgetPanel.SetActive(false);
@@ -84,7 +86,7 @@ public class BudgetMenu : MonoBehaviour
     void Update()
     {
         //press B to open budget
-        if (Input.GetKeyDown(KeyCode.B) && !textInputField.isFocused)
+        if (debug && Input.GetKeyDown(KeyCode.B) && !textInputField.isFocused)
         {
             ToggleBudgetMenu();
         }
