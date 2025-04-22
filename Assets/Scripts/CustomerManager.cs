@@ -440,7 +440,7 @@ public class CustomerManager : MonoBehaviour
         //3. We have the employee
         //4. 5% chance to buy it
         if (db.currentPlayer.merch[id - 1].group == 2 &&
-            db.currentPlayer.merch[id].quantity > 0 &&
+            db.currentPlayer.merch[id - 1].quantity > 0 &&
             db.CheckEmployee(13) &&
             new System.Random().Next(1, 100) >= 95)
         {
@@ -486,7 +486,7 @@ public class CustomerManager : MonoBehaviour
         {
             //auto restocks if possible
             //we have already moved the purchased item, so see if there's another one
-            if (db.currentPlayer.merch[id].quantity > 0)
+            if (db.currentPlayer.merch[id - 1].quantity > 0)
             {
                 //Auto restock, yay!
             }
