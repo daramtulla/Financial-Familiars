@@ -49509,7 +49509,7 @@ MonoBehaviour:
   moneyCount: {fileID: 867656033}
   db: {fileID: 1481270403}
   dayCount: {fileID: 867656033}
-  sceneController: {fileID: 0}
+  sceneController: {fileID: 1985641231}
 --- !u!4 &1776071411
 Transform:
   m_ObjectHideFlags: 0
