@@ -181,6 +181,15 @@ public class JSONDatabaseOperations : MonoBehaviour
         SaveData();
     }
 
+    public void ResetTutorial()
+    {
+        filePath = Application.persistentDataPath + "/JSONTutorialDatabase.json";
+
+        GenerateDatabase();
+
+        filePath = Application.persistentDataPath + "/JSONDatabase.json";
+    }
+
     public void SaveData()
     {
         if (SceneManager.GetActiveScene().name == "Tutorial")
