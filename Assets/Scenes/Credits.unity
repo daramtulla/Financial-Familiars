@@ -2330,8 +2330,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Terrain
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: deca438873f744942853ae5e14062882, type: 2}
+  m_sharedMaterial: {fileID: -7918572510918680225, guid: deca438873f744942853ae5e14062882, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10815,7 +10815,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -12725,8 +12725,8 @@ MonoBehaviour:
     Zach
     Jasko'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: deca438873f744942853ae5e14062882, type: 2}
+  m_sharedMaterial: {fileID: -7918572510918680225, guid: deca438873f744942853ae5e14062882, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -14266,8 +14266,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Icons
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: deca438873f744942853ae5e14062882, type: 2}
+  m_sharedMaterial: {fileID: -7918572510918680225, guid: deca438873f744942853ae5e14062882, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -17618,8 +17618,8 @@ MonoBehaviour:
 
     David Wilson (2minutetabletop.com)'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: deca438873f744942853ae5e14062882, type: 2}
+  m_sharedMaterial: {fileID: -7918572510918680225, guid: deca438873f744942853ae5e14062882, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -19868,12 +19868,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -20216,8 +20216,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 3D Models
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: deca438873f744942853ae5e14062882, type: 2}
+  m_sharedMaterial: {fileID: -7918572510918680225, guid: deca438873f744942853ae5e14062882, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -22501,8 +22501,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Developed By
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: deca438873f744942853ae5e14062882, type: 2}
+  m_sharedMaterial: {fileID: -7918572510918680225, guid: deca438873f744942853ae5e14062882, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -29725,8 +29725,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Sounds
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: deca438873f744942853ae5e14062882, type: 2}
+  m_sharedMaterial: {fileID: -7918572510918680225, guid: deca438873f744942853ae5e14062882, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -33690,8 +33690,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Wojciech Kalinowski (Dafont.com)
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: deca438873f744942853ae5e14062882, type: 2}
+  m_sharedMaterial: {fileID: -7918572510918680225, guid: deca438873f744942853ae5e14062882, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -39625,8 +39625,8 @@ MonoBehaviour:
 
     Black Hammer (Unity Asset store)'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: deca438873f744942853ae5e14062882, type: 2}
+  m_sharedMaterial: {fileID: -7918572510918680225, guid: deca438873f744942853ae5e14062882, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -40243,6 +40243,7 @@ MonoBehaviour:
     totalLoansPaid: 0
     dailyLoanAmount: 0
     active: 
+    playedSfx: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     loans: []
     merch: []
     suppliers: []
@@ -40521,8 +40522,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Font
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: deca438873f744942853ae5e14062882, type: 2}
+  m_sharedMaterial: {fileID: -7918572510918680225, guid: deca438873f744942853ae5e14062882, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -41827,8 +41828,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: deca438873f744942853ae5e14062882, type: 2}
+  m_sharedMaterial: {fileID: -7918572510918680225, guid: deca438873f744942853ae5e14062882, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -43517,8 +43518,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Kevin Iglesias (Unity Asset Store)
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: deca438873f744942853ae5e14062882, type: 2}
+  m_sharedMaterial: {fileID: -7918572510918680225, guid: deca438873f744942853ae5e14062882, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -45657,8 +45658,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Character Icons
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: deca438873f744942853ae5e14062882, type: 2}
+  m_sharedMaterial: {fileID: -7918572510918680225, guid: deca438873f744942853ae5e14062882, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -50645,8 +50646,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Kevin Macleod (Incompetech.com)
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: deca438873f744942853ae5e14062882, type: 2}
+  m_sharedMaterial: {fileID: -7918572510918680225, guid: deca438873f744942853ae5e14062882, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -51210,7 +51211,7 @@ RectTransform:
   m_GameObject: {fileID: 1897805592}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2034288308}
@@ -51220,7 +51221,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -780}
+  m_AnchoredPosition: {x: 0, y: -1397.1262}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1897805594
@@ -51569,8 +51570,8 @@ MonoBehaviour:
 
     Key Mouse (Unity Asset Store)'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: deca438873f744942853ae5e14062882, type: 2}
+  m_sharedMaterial: {fileID: -7918572510918680225, guid: deca438873f744942853ae5e14062882, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -55379,8 +55380,8 @@ MonoBehaviour:
 
     AHMET ALP (Unity Asset Store)'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: deca438873f744942853ae5e14062882, type: 2}
+  m_sharedMaterial: {fileID: -7918572510918680225, guid: deca438873f744942853ae5e14062882, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -57985,8 +57986,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Kevin Iglesias (Unity Asset Store)
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: deca438873f744942853ae5e14062882, type: 2}
+  m_sharedMaterial: {fileID: -7918572510918680225, guid: deca438873f744942853ae5e14062882, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
